@@ -1,0 +1,110 @@
+{
+  "study_type": "Simulated human walkthrough, not human participant research",
+  "persona": "Competent generalist with basic Python and HTTP",
+  "environment": "Native Windows Python used only as a portability proxy; Kali, WSL, browser and event availability were not tested.",
+  "tasks": [
+    {
+      "id": "web",
+      "status": "completed",
+      "candidate": "CTF{new_request_verified}",
+      "evidence": [
+        "Unchanged jwt_claim.py saved edited-token.txt.",
+        "Baseline token: HTTP 403, {\"error\": \"admin required\"}.",
+        "Edited token: HTTP 200, {\"flag\": \"CTF{new_request_verified}\"}.",
+        "Responses preserved in web-crypto/token.txt.response.txt and edited-token.txt.response.txt."
+      ]
+    },
+    {
+      "id": "rsa",
+      "status": "completed",
+      "candidate": "R2_RSA",
+      "evidence": [
+        "Unchanged rsa.py default bounded Fermat route found factors 32416187567 and 32416190071.",
+        "Printed re-encryption: OK and plaintext bytes b'R2_RSA'.",
+        "Saved rsa-plain.bin. No padding removal or invented factorization code."
+      ]
+    },
+    {
+      "id": "layers",
+      "status": "completed",
+      "candidate": "CTF{new_layer}",
+      "evidence": [
+        "Unchanged layers.py produced layer1.bin (22 bytes, header 789c730e71abce4b).",
+        "layer2.bin was 14 bytes with preview b'CTF{new_layer}'.",
+        "Complete compressed stream; zero trailing bytes."
+      ]
+    }
+  ],
+  "dimensions": {
+    "findability": 5,
+    "command_readiness": 4,
+    "interpretation": 5,
+    "cognitive_load": 5,
+    "tool_environment": 4
+  },
+  "overall_10": 9.3,
+  "study_10": 9.0,
+  "score_basis": "Weights: .25/.25/.15/.25/.10; high cognitive_load means low burden. Study score is a separate qualitative rating of usefulness for learning.",
+  "lookup_count": 7,
+  "lookup_definition": "One source read/excerpt or narrow text-search operation; directory inventory and execution are excluded.",
+  "chronological_lookups": [
+    "1 README.md lines 1-80",
+    "2 assigned START.md lines 1-80",
+    "3 narrow rg search in QUICKSTART.md and TOOL-CHOOSER.md for task terms",
+    "4 QUICKSTART.md lines 19-60: web/JWT/hash route",
+    "5 QUICKSTART.md lines 128-151: RSA/layers route",
+    "6 TOOL-CHOOSER.md lines 1-40: Web/Passwords, after solving",
+    "7 TOOL-CHOOSER.md selected lines 104-117 and 159-172: Cryptography/Miscellaneous, after solving"
+  ],
+  "code_edits": {
+    "recipe_edits": 0,
+    "guide_edits": 0,
+    "invented_algorithms": 0,
+    "repairs": 0,
+    "glue": "One inline 12-line Python urllib/pathlib loop sent baseline and edited Authorization headers, caught HTTPError to retain the 403 response, and saved response status/body."
+  },
+  "adaptations": [
+    "python3 became python for native Windows.",
+    "Recipe paths became ../../../recipes/ because execution remained inside the assigned fixture directory.",
+    "Bash curl substitutions were replaced by basic Python HTTP glue, not executed literally in PowerShell."
+  ],
+  "failure_friction": [
+    "No recipe failed.",
+    "A generalist still needs to translate the Bash request commands if testing from native PowerShell; the guide correctly labels the intended Kali/WSL environment.",
+    "Working-directory and cross-machine token placement need attention; the guide explicitly explains the latter."
+  ],
+  "tool_selection": {
+    "hidden_web_paths": {
+      "choice": "ffuf, or Gobuster for straightforward directory discovery",
+      "why": "ffuf varies HTTP inputs and filters responses; use a fake-path baseline and verify candidates. Wildcards/auto-filtering can mislead."
+    },
+    "offline_password_hash": {
+      "choice": "John for an identified supported format; hashcat if mode and compute backend are known",
+      "why": "Tests candidate passwords locally against a hash; format identification and candidate quality matter. GPU performance is not guaranteed."
+    },
+    "live_ssh_login": {
+      "choice": "Hydra if the challenge authorizes online guessing",
+      "why": "Sends guesses to a live SSH service and is affected by latency, lockouts and service behavior. It is not an offline hash cracker."
+    },
+    "network_guessing_performed": false
+  },
+  "table_review": {
+    "confirmed_technical_errors": [],
+    "assessment": "The reviewed rows distinguish discovery, offline cracking, online authentication, encoding and mathematical attacks accurately at this level. No version-specific tool flags or event installation claims were independently verified.",
+    "clarity_improvements": [
+      {
+        "location": "human-guide/TOOL-CHOOSER.md:34",
+        "issue": "hashid hashes.txt is a format-suggestion step; a tiny example of ambiguous candidates would reinforce why length alone is insufficient."
+      },
+      {
+        "location": "human-guide/TOOL-CHOOSER.md:112",
+        "issue": "RsaCtfTool first action intentionally stops at help/conditional availability; connect the close-prime clue directly to Fermat and the bounded Python fallback for a less experienced reader."
+      },
+      {
+        "location": "human-guide/TOOL-CHOOSER.md:165",
+        "issue": "Python row is broader than the supplied layers command; label that first action explicitly as the Base64 plus zlib/gzip case or link its use-when paragraph."
+      }
+    ]
+  },
+  "limits": "Three synthetic positive-path tasks only; no hidden answers, preparation scripts, server source, original skills, other reviews or internet read. No reading-time claim or actual human participant measurement."
+}

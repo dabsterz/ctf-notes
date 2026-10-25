@@ -1,0 +1,924 @@
+{
+  "source_root": "C:\\Users\\verno\\OneDrive\\Documents\\ObsidianVault\\CPTS",
+  "notes": [
+    {
+      "path": "Enumeration/AD Enumeration/Advanced Domain Enumeration.md",
+      "file": "cpts/original/Enumeration/AD Enumeration/Advanced Domain Enumeration.md",
+      "id": "cpts-enumeration-ad-enumeration-advanced-domain-enumeration-ea04e6f6",
+      "sha256": "3ce0c20eb39ad0a9be3fc6962ad7a2e5f945e09a8e9ae398e707c9f9f9ec5003",
+      "bytes": 606
+    },
+    {
+      "path": "Enumeration/AD Enumeration/Basic Enumeration.md",
+      "file": "cpts/original/Enumeration/AD Enumeration/Basic Enumeration.md",
+      "id": "cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e",
+      "sha256": "59594b12b49b38fdf83a1676b1cdb5c46d9c30ca4e64a071531532240fde99aa",
+      "bytes": 1684
+    },
+    {
+      "path": "Enumeration/AD Enumeration/Methodology.md",
+      "file": "cpts/original/Enumeration/AD Enumeration/Methodology.md",
+      "id": "cpts-enumeration-ad-enumeration-methodology-4ece01a2",
+      "sha256": "3c8667610baffa776397ff13c23b3b9cb3d9dfc601f30b8172ceb4354ea6049d",
+      "bytes": 2386
+    },
+    {
+      "path": "Enumeration/AD Enumeration/Password Policy Discovery.md",
+      "file": "cpts/original/Enumeration/AD Enumeration/Password Policy Discovery.md",
+      "id": "cpts-enumeration-ad-enumeration-password-policy-discovery-75263604",
+      "sha256": "b88373abb6f5c238861e772cfe7a90f542551f99d1e2e436559a23eda46171c2",
+      "bytes": 549
+    },
+    {
+      "path": "Enumeration/AD Enumeration/User Enumeration.md",
+      "file": "cpts/original/Enumeration/AD Enumeration/User Enumeration.md",
+      "id": "cpts-enumeration-ad-enumeration-user-enumeration-247f74c0",
+      "sha256": "154f1a4dcfd0301c1d0fb380e16d12066a334e431cb0ae4b80e99a43dae6285f",
+      "bytes": 786
+    },
+    {
+      "path": "Enumeration/Basic Enumeration/netcat.md",
+      "file": "cpts/original/Enumeration/Basic Enumeration/netcat.md",
+      "id": "cpts-enumeration-basic-enumeration-netcat-3782f2cb",
+      "sha256": "1f4ec1ebd7d3dfb7e93c9e912b0248dc49dd95ab82329163978eb5642bbe9016",
+      "bytes": 55
+    },
+    {
+      "path": "Enumeration/Basic Enumeration/nmap.md",
+      "file": "cpts/original/Enumeration/Basic Enumeration/nmap.md",
+      "id": "cpts-enumeration-basic-enumeration-nmap-71f192fc",
+      "sha256": "fef91e26bec15cdcdbd3645b5f683d727499bdaaf24315541ef6dd5e79cdf058",
+      "bytes": 1645
+    },
+    {
+      "path": "Enumeration/Basic Enumeration/whatweb.md",
+      "file": "cpts/original/Enumeration/Basic Enumeration/whatweb.md",
+      "id": "cpts-enumeration-basic-enumeration-whatweb-968b4bb4",
+      "sha256": "e544b46adee097a4301c077cd83cc916abbe4b7b0f8eb0149d45bb2b91195303",
+      "bytes": 167
+    },
+    {
+      "path": "Enumeration/Basic Enumeration/wpscan.md",
+      "file": "cpts/original/Enumeration/Basic Enumeration/wpscan.md",
+      "id": "cpts-enumeration-basic-enumeration-wpscan-f89cb6da",
+      "sha256": "f7414b9a427dd18caae250e5af620875a85e02a8740707ef72bfafe02019c256",
+      "bytes": 99
+    },
+    {
+      "path": "Enumeration/Service Enumeration/111,2049 nfs.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/111,2049 nfs.md",
+      "id": "cpts-enumeration-service-enumeration-111-2049-nfs-e3cbe8f1",
+      "sha256": "50972d6ced93934e01b5914c53dc814c2a48f4f2829217b9d7093ffbcaeb7acb",
+      "bytes": 1384
+    },
+    {
+      "path": "Enumeration/Service Enumeration/135 WMI.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/135 WMI.md",
+      "id": "cpts-enumeration-service-enumeration-135-wmi-e1af59a1",
+      "sha256": "c914692783a6e07a2385e83de90c2849394fa9b4212a069e48507ce8ab80c5c6",
+      "bytes": 200
+    },
+    {
+      "path": "Enumeration/Service Enumeration/139,445 smb.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/139,445 smb.md",
+      "id": "cpts-enumeration-service-enumeration-139-445-smb-fb8e6af0",
+      "sha256": "0b39a8d265d0d4ef6d7f426166e2eed6f5d625db9f7c5dbcbf6d5bbfc5557c0e",
+      "bytes": 1591
+    },
+    {
+      "path": "Enumeration/Service Enumeration/143,993 imap-pop3.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/143,993 imap-pop3.md",
+      "id": "cpts-enumeration-service-enumeration-143-993-imap-pop3-52cb67bb",
+      "sha256": "f4754c44ad701475f01e26250ead938a9e9e5d4e0e2cea6575e873d9a5c87f18",
+      "bytes": 702
+    },
+    {
+      "path": "Enumeration/Service Enumeration/1433 mssql.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/1433 mssql.md",
+      "id": "cpts-enumeration-service-enumeration-1433-mssql-0715e518",
+      "sha256": "52b4e35841c0b760bbca995db47dbd9e8f39055cd8cae7e74ec65732ca1143db",
+      "bytes": 993
+    },
+    {
+      "path": "Enumeration/Service Enumeration/1521 oracle-tns.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/1521 oracle-tns.md",
+      "id": "cpts-enumeration-service-enumeration-1521-oracle-tns-40e2c3f8",
+      "sha256": "be6ea9606bba3509d591b666ef8769f6edc67d4c8c06327b7a166797a6cba3b0",
+      "bytes": 1730
+    },
+    {
+      "path": "Enumeration/Service Enumeration/161,162 snmp.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/161,162 snmp.md",
+      "id": "cpts-enumeration-service-enumeration-161-162-snmp-122c9bd9",
+      "sha256": "a78e1ec78c649802c7a5b6c324931c84d9d829d916adc1e586da509a44c51297",
+      "bytes": 330
+    },
+    {
+      "path": "Enumeration/Service Enumeration/21 ftp.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/21 ftp.md",
+      "id": "cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6",
+      "sha256": "ba31ff04edb2a9880e5f559bb75129cf26a9de9c2f12ea2ddf0c131584abd615",
+      "bytes": 1857
+    },
+    {
+      "path": "Enumeration/Service Enumeration/22 ssh.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/22 ssh.md",
+      "id": "cpts-enumeration-service-enumeration-22-ssh-cb7e3280",
+      "sha256": "0710cafdb77522bd8100310bbceda8e7ea2c17b7c6ecadf25890f2b03075a934",
+      "bytes": 263
+    },
+    {
+      "path": "Enumeration/Service Enumeration/25,587 smtp.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/25,587 smtp.md",
+      "id": "cpts-enumeration-service-enumeration-25-587-smtp-a77466e5",
+      "sha256": "d61869b593dc82fe96aed58191f234797d7f9c193a8ffdfeb02036c0886bc6ad",
+      "bytes": 458
+    },
+    {
+      "path": "Enumeration/Service Enumeration/3306 mysql.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/3306 mysql.md",
+      "id": "cpts-enumeration-service-enumeration-3306-mysql-3d7e83f5",
+      "sha256": "6aa2aff87f2684493764338549f269ba980fb26f952d68b1abf8d39ff1b2bff7",
+      "bytes": 460
+    },
+    {
+      "path": "Enumeration/Service Enumeration/3389 rdp.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/3389 rdp.md",
+      "id": "cpts-enumeration-service-enumeration-3389-rdp-2169bdb7",
+      "sha256": "cb37818e16bebe4461a237938963e7c430a138ff16536061f471348d2e9a5e19",
+      "bytes": 344
+    },
+    {
+      "path": "Enumeration/Service Enumeration/512-514 r-services.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/512-514 r-services.md",
+      "id": "cpts-enumeration-service-enumeration-512-514-r-services-39d8144a",
+      "sha256": "62d1cc4f5902a9320563c2dfbd5ef247673f6336f4d388519ba3dc5b512ed691",
+      "bytes": 443
+    },
+    {
+      "path": "Enumeration/Service Enumeration/53 dns.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/53 dns.md",
+      "id": "cpts-enumeration-service-enumeration-53-dns-982aa88f",
+      "sha256": "7a80637919ffd7d021bfdc8216c8d178596e4d2c5995c2d6298e2f83c34e0d03",
+      "bytes": 1203
+    },
+    {
+      "path": "Enumeration/Service Enumeration/5985,5986 WinRM.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/5985,5986 WinRM.md",
+      "id": "cpts-enumeration-service-enumeration-5985-5986-winrm-4ff73d47",
+      "sha256": "e259734c783b82c7609c11cbfd1d8ec7f402add88d8e358b93908518d92e3a40",
+      "bytes": 170
+    },
+    {
+      "path": "Enumeration/Service Enumeration/623 IPMI.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/623 IPMI.md",
+      "id": "cpts-enumeration-service-enumeration-623-ipmi-fd1b107c",
+      "sha256": "872d95fd9206b7d6b75b8708947fd23d245fd8d01a0ef0689c17884a636a9901",
+      "bytes": 435
+    },
+    {
+      "path": "Enumeration/Service Enumeration/80,443 http.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/80,443 http.md",
+      "id": "cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8",
+      "sha256": "e0a20dd0d10cfe7821609dee72cab35d6c776cc367a52efe6a7cd34cf5234c2f",
+      "bytes": 2332
+    },
+    {
+      "path": "Enumeration/Service Enumeration/873 rsync.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/873 rsync.md",
+      "id": "cpts-enumeration-service-enumeration-873-rsync-1ea34b15",
+      "sha256": "7da1031e8c9c5cc1a4eeef193eb519472d5c18845b6ed9f4bf111d1603e7689c",
+      "bytes": 282
+    },
+    {
+      "path": "Enumeration/Service Enumeration/Public Exploits.md",
+      "file": "cpts/original/Enumeration/Service Enumeration/Public Exploits.md",
+      "id": "cpts-enumeration-service-enumeration-public-exploits-06f789b1",
+      "sha256": "51ea0e32d4c0a33cc75090351eae3961f2de179836ee59a4493970200d58694d",
+      "bytes": 416
+    },
+    {
+      "path": "Exploits/AD-Exploits/AS-REP Roasting.md",
+      "file": "cpts/original/Exploits/AD-Exploits/AS-REP Roasting.md",
+      "id": "cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b",
+      "sha256": "1675b73eb784d00c1cddc92dd08163c511ded738768a99b467cc79cd6c8491da",
+      "bytes": 604
+    },
+    {
+      "path": "Exploits/AD-Exploits/DCSync Attack.md",
+      "file": "cpts/original/Exploits/AD-Exploits/DCSync Attack.md",
+      "id": "cpts-exploits-ad-exploits-dcsync-attack-6c94bd8d",
+      "sha256": "cdc0235716c7a674409e6e651ba9cc0fdae4d782b12638a415d804122d177bb3",
+      "bytes": 471
+    },
+    {
+      "path": "Exploits/AD-Exploits/Kerberoasting.md",
+      "file": "cpts/original/Exploits/AD-Exploits/Kerberoasting.md",
+      "id": "cpts-exploits-ad-exploits-kerberoasting-8eb4e711",
+      "sha256": "9f4e2ba1d268feaa2fd7686c3e5cf1224d6299900e883b085897fe32a718f3a7",
+      "bytes": 730
+    },
+    {
+      "path": "Exploits/AD-Exploits/LLMNR-NBTNS Poisoning.md",
+      "file": "cpts/original/Exploits/AD-Exploits/LLMNR-NBTNS Poisoning.md",
+      "id": "cpts-exploits-ad-exploits-llmnr-nbtns-poisoning-d7c6a994",
+      "sha256": "d59a45a60aceafe5a9b5c63d0a68bdab9ba76b65be470dc33f842aa60c82d966",
+      "bytes": 446
+    },
+    {
+      "path": "Exploits/AD-Exploits/Silver Ticket Attack.md",
+      "file": "cpts/original/Exploits/AD-Exploits/Silver Ticket Attack.md",
+      "id": "cpts-exploits-ad-exploits-silver-ticket-attack-996b78a5",
+      "sha256": "8ea56a2403caa7eb1b43541ba52f811d39d1f07c732abb37ca09104c595dd807",
+      "bytes": 751
+    },
+    {
+      "path": "Exploits/Bind Shell.md",
+      "file": "cpts/original/Exploits/Bind Shell.md",
+      "id": "cpts-exploits-bind-shell-47d00c53",
+      "sha256": "e16d199d8b4470f97138d98093323e1cb0a279342512bd3eb011f75355e8e660",
+      "bytes": 238
+    },
+    {
+      "path": "Exploits/Password Cracking.md",
+      "file": "cpts/original/Exploits/Password Cracking.md",
+      "id": "cpts-exploits-password-cracking-c9c27216",
+      "sha256": "2f80391fb1c600d8009c7dfbc890728fd752e0382210abfc4ff4f2f43384af3b",
+      "bytes": 1734
+    },
+    {
+      "path": "Exploits/Password Spraying (Brute forcing).md",
+      "file": "cpts/original/Exploits/Password Spraying (Brute forcing).md",
+      "id": "cpts-exploits-password-spraying-brute-forcing-002cc339",
+      "sha256": "00d915546ccd14f99f7603727fc7255bfeaf86d9ea1b9dc742a98d3b347c31fd",
+      "bytes": 922
+    },
+    {
+      "path": "Exploits/Reverse Shell.md",
+      "file": "cpts/original/Exploits/Reverse Shell.md",
+      "id": "cpts-exploits-reverse-shell-a7dfcd09",
+      "sha256": "86689602f1fae49d2084343896670abc1f356f0efe83ddd7a7ed613975d9a251",
+      "bytes": 460
+    },
+    {
+      "path": "Exploits/Service-Exploits/DNS.md",
+      "file": "cpts/original/Exploits/Service-Exploits/DNS.md",
+      "id": "cpts-exploits-service-exploits-dns-1358e590",
+      "sha256": "93ed8f8115791f79f8331df6cb8ef281a59bece4ab17fd1423baa81ff62e9f8a",
+      "bytes": 432
+    },
+    {
+      "path": "Exploits/Service-Exploits/FTP.md",
+      "file": "cpts/original/Exploits/Service-Exploits/FTP.md",
+      "id": "cpts-exploits-service-exploits-ftp-73147af4",
+      "sha256": "db3ec6d5ed02248d2c5cf862ae660a60a08e8959d7deace421de1449eca07823",
+      "bytes": 819
+    },
+    {
+      "path": "Exploits/Service-Exploits/RDP.md",
+      "file": "cpts/original/Exploits/Service-Exploits/RDP.md",
+      "id": "cpts-exploits-service-exploits-rdp-76d94045",
+      "sha256": "c4951033063dfc903d1161d4d93ba3ba3f7d3d6159be1f07c3fc7cb97e0c6401",
+      "bytes": 968
+    },
+    {
+      "path": "Exploits/Service-Exploits/SMB.md",
+      "file": "cpts/original/Exploits/Service-Exploits/SMB.md",
+      "id": "cpts-exploits-service-exploits-smb-0ab037f4",
+      "sha256": "3fbc2bca40c9a9cb1e39d3355035dd459bfd0ca5389d957b53491a053e3d38d2",
+      "bytes": 868
+    },
+    {
+      "path": "Exploits/Service-Exploits/SMTP-IMAP-POP3.md",
+      "file": "cpts/original/Exploits/Service-Exploits/SMTP-IMAP-POP3.md",
+      "id": "cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e",
+      "sha256": "e281d0f93223b40df031a8c2203d8010b73ba9dd5d6c6ff52c45f88429e61a5b",
+      "bytes": 1632
+    },
+    {
+      "path": "Exploits/Service-Exploits/SQL.md",
+      "file": "cpts/original/Exploits/Service-Exploits/SQL.md",
+      "id": "cpts-exploits-service-exploits-sql-fcb4d003",
+      "sha256": "8ca724740bb7a6597328fba2f004b1ec6ad195a5e4564dc3e7c635da7723f6b7",
+      "bytes": 3361
+    },
+    {
+      "path": "External Resources.md",
+      "file": "cpts/original/External Resources.md",
+      "id": "cpts-external-resources-8d4c7c1a",
+      "sha256": "3fd09d36d1f931e4e26faa485d9bb1aee78981ab4a4d4147077c4a29d3ae25d2",
+      "bytes": 50
+    },
+    {
+      "path": "Misc/Convert ccache or kirbi file to and fro.md",
+      "file": "cpts/original/Misc/Convert ccache or kirbi file to and fro.md",
+      "id": "cpts-misc-convert-ccache-or-kirbi-file-to-and-fro-9b4c4171",
+      "sha256": "f4f18ff5ddfb7a82f9247d5510c317dff1bb10e6e3e1075bd67c63940db061bc",
+      "bytes": 74
+    },
+    {
+      "path": "Misc/Double Pivot.md",
+      "file": "cpts/original/Misc/Double Pivot.md",
+      "id": "cpts-misc-double-pivot-ac26bf28",
+      "sha256": "10b6194aa770078313d5b067f7f9a35c232c479c6cc574456c35100628cb4c89",
+      "bytes": 1356
+    },
+    {
+      "path": "Misc/Gaining Shell Access.md",
+      "file": "cpts/original/Misc/Gaining Shell Access.md",
+      "id": "cpts-misc-gaining-shell-access-b83293f9",
+      "sha256": "be7f232d131f9e46a73702f06bb8884dbafd3d2ea760ad486d1876a42a83fc0e",
+      "bytes": 70
+    },
+    {
+      "path": "Misc/make new admin user in windows.md",
+      "file": "cpts/original/Misc/make new admin user in windows.md",
+      "id": "cpts-misc-make-new-admin-user-in-windows-e17c21fa",
+      "sha256": "ad1fb2240b9f0087853b2c842dd0cdd830831ac9b5eac07fcf296ffb187bcdbd",
+      "bytes": 83
+    },
+    {
+      "path": "Misc/MS Office Macro.md",
+      "file": "cpts/original/Misc/MS Office Macro.md",
+      "id": "cpts-misc-ms-office-macro-8ec8c7ff",
+      "sha256": "2bf3a6290244966557e0e92cf35b5581656a92f5dff08d4610022f4f51898d5a",
+      "bytes": 146
+    },
+    {
+      "path": "Misc/non-tty shell to tty shell.md",
+      "file": "cpts/original/Misc/non-tty shell to tty shell.md",
+      "id": "cpts-misc-non-tty-shell-to-tty-shell-7f6f46ec",
+      "sha256": "f128cb66979414d06c2599b3a883ec31a623ea2dc5a0997f7c17471d7917a536",
+      "bytes": 766
+    },
+    {
+      "path": "Misc/Pivot with Ligolo.md",
+      "file": "cpts/original/Misc/Pivot with Ligolo.md",
+      "id": "cpts-misc-pivot-with-ligolo-111fca60",
+      "sha256": "e4fe906960c000b918dc3ecb41894d05cf4f0e5e4272a533a9ff8bd2bea9f74f",
+      "bytes": 1077
+    },
+    {
+      "path": "Misc/Runas another user.md",
+      "file": "cpts/original/Misc/Runas another user.md",
+      "id": "cpts-misc-runas-another-user-4be36188",
+      "sha256": "750f68f858143fdda23dfb9c66231ea69d7f7832ee53d52a1ec4b2b08b8466d2",
+      "bytes": 122
+    },
+    {
+      "path": "Misc/Search for flag on compromised system.md",
+      "file": "cpts/original/Misc/Search for flag on compromised system.md",
+      "id": "cpts-misc-search-for-flag-on-compromised-system-225a86d6",
+      "sha256": "3060fda9b03bab6d0344613f0300b0a43bb3e923ff27ac222b4f5f45e8d9f4e1",
+      "bytes": 445
+    },
+    {
+      "path": "Misc/Transferring Files (Linux).md",
+      "file": "cpts/original/Misc/Transferring Files (Linux).md",
+      "id": "cpts-misc-transferring-files-linux-5d70baa3",
+      "sha256": "487e1d3f412ef065b0053905b58247801c522e96f1104052f227f7ccad187636",
+      "bytes": 1230
+    },
+    {
+      "path": "Misc/Transferring Files (Windows).md",
+      "file": "cpts/original/Misc/Transferring Files (Windows).md",
+      "id": "cpts-misc-transferring-files-windows-089b5bd9",
+      "sha256": "0f3b59ca418bb81461f8730750e6f1a66603b90fb10ed861f29dde660e96dce7",
+      "bytes": 2709
+    },
+    {
+      "path": "Misc/Transferring Files.md",
+      "file": "cpts/original/Misc/Transferring Files.md",
+      "id": "cpts-misc-transferring-files-9a1f8b61",
+      "sha256": "f91b251549172261f9fab47ed7b74922cb5c3e48365335ae9ead1b5ee8dbf6d3",
+      "bytes": 4005
+    },
+    {
+      "path": "Post Exploits/Linux/Cracking Login Credentials.md",
+      "file": "cpts/original/Post Exploits/Linux/Cracking Login Credentials.md",
+      "id": "cpts-post-exploits-linux-cracking-login-credentials-3cabf121",
+      "sha256": "21145771705ad4c0e96282e3b093ab76ecbc211ded064f1f5984cd50860f54ff",
+      "bytes": 1097
+    },
+    {
+      "path": "Post Exploits/Linux/Credential Hunting.md",
+      "file": "cpts/original/Post Exploits/Linux/Credential Hunting.md",
+      "id": "cpts-post-exploits-linux-credential-hunting-a70f40cf",
+      "sha256": "0cfd2f6d9ff6b9fcc971fe87d3d9cf13af354c58a58017e3492250165880adfb",
+      "bytes": 2091
+    },
+    {
+      "path": "Post Exploits/Linux/Pass the Ticket (PtT).md",
+      "file": "cpts/original/Post Exploits/Linux/Pass the Ticket (PtT).md",
+      "id": "cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa",
+      "sha256": "afb835d40d63863d4c9b004c1a9cb4615c02a6451895c21cf45b2777125176fe",
+      "bytes": 1845
+    },
+    {
+      "path": "Post Exploits/Port Forwarding.md",
+      "file": "cpts/original/Post Exploits/Port Forwarding.md",
+      "id": "cpts-post-exploits-port-forwarding-d33c6cbd",
+      "sha256": "1f9c921715171ecae70e9600b54cea543a38dea1352a06781eece909e703e499",
+      "bytes": 562
+    },
+    {
+      "path": "Post Exploits/Windows/DCOM.md",
+      "file": "cpts/original/Post Exploits/Windows/DCOM.md",
+      "id": "cpts-post-exploits-windows-dcom-f7ad3a18",
+      "sha256": "f6506661c1dafd306d3c457c769d37edc122d41c935c308a6863b955b1f60537",
+      "bytes": 532
+    },
+    {
+      "path": "Post Exploits/Windows/Dumping out CredMan.md",
+      "file": "cpts/original/Post Exploits/Windows/Dumping out CredMan.md",
+      "id": "cpts-post-exploits-windows-dumping-out-credman-2c400c4d",
+      "sha256": "e2e0152b9935886ce4ce4e70f25c2d5cbd6cb444dd0fb9f581d5d50478272edd",
+      "bytes": 321
+    },
+    {
+      "path": "Post Exploits/Windows/Dumping out LSASS.md",
+      "file": "cpts/original/Post Exploits/Windows/Dumping out LSASS.md",
+      "id": "cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd",
+      "sha256": "9ada474628e0c8cbab4d82110e876504ccf26d2b47eab2f81d9c65bcb194f055",
+      "bytes": 1515
+    },
+    {
+      "path": "Post Exploits/Windows/Dumping out NTDS.dit.md",
+      "file": "cpts/original/Post Exploits/Windows/Dumping out NTDS.dit.md",
+      "id": "cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253",
+      "sha256": "99f801906fc41329cbaa7e166f09d39d847458f6bd30a8d966205c6f103f24d7",
+      "bytes": 968
+    },
+    {
+      "path": "Post Exploits/Windows/Dumping out SAM.md",
+      "file": "cpts/original/Post Exploits/Windows/Dumping out SAM.md",
+      "id": "cpts-post-exploits-windows-dumping-out-sam-8475da60",
+      "sha256": "d086a8bfd9f93173bae56bbfc5cb2682dbc31c229a3577fa4319c8083da576f8",
+      "bytes": 1444
+    },
+    {
+      "path": "Post Exploits/Windows/Invoke-RunasCs.md",
+      "file": "cpts/original/Post Exploits/Windows/Invoke-RunasCs.md",
+      "id": "cpts-post-exploits-windows-invoke-runascs-82bcc924",
+      "sha256": "b64bdbe6f8ab6f755ae4121a5b80a78c50663a05b260827d8a0e0a6abc8d2009",
+      "bytes": 168
+    },
+    {
+      "path": "Post Exploits/Windows/NTLMv2 Relay.md",
+      "file": "cpts/original/Post Exploits/Windows/NTLMv2 Relay.md",
+      "id": "cpts-post-exploits-windows-ntlmv2-relay-1a9fa4cb",
+      "sha256": "a076d62eacab4d91e0928281447bf577fffb4efad82537c31914b672c99dcf16",
+      "bytes": 583
+    },
+    {
+      "path": "Post Exploits/Windows/Overpass the Hash.md",
+      "file": "cpts/original/Post Exploits/Windows/Overpass the Hash.md",
+      "id": "cpts-post-exploits-windows-overpass-the-hash-9f40f285",
+      "sha256": "c1095827844b517ffd688a6110fe06dcf092c226ea6b764464876e57ec7e46b6",
+      "bytes": 474
+    },
+    {
+      "path": "Post Exploits/Windows/Pass the Hash.md",
+      "file": "cpts/original/Post Exploits/Windows/Pass the Hash.md",
+      "id": "cpts-post-exploits-windows-pass-the-hash-b577bda5",
+      "sha256": "43a06cc0d4a9330f6e495397015e924b604ddf7992c62c915a12f04bda9beec7",
+      "bytes": 2494
+    },
+    {
+      "path": "Post Exploits/Windows/Pass the Ticket (PtT).md",
+      "file": "cpts/original/Post Exploits/Windows/Pass the Ticket (PtT).md",
+      "id": "cpts-post-exploits-windows-pass-the-ticket-ptt-22d39f78",
+      "sha256": "ad6c9498dab6c2134e327ab7decd568d6653192e38e0612c947b99da23fb70f8",
+      "bytes": 2840
+    },
+    {
+      "path": "Post Exploits/Windows/Psexec.md",
+      "file": "cpts/original/Post Exploits/Windows/Psexec.md",
+      "id": "cpts-post-exploits-windows-psexec-54de10de",
+      "sha256": "82654954503c07ba20ae827f3d35610543b96676e7725c90bae0d21ba74a5d62",
+      "bytes": 531
+    },
+    {
+      "path": "Post Exploits/Windows/Searching for traces.md",
+      "file": "cpts/original/Post Exploits/Windows/Searching for traces.md",
+      "id": "cpts-post-exploits-windows-searching-for-traces-30841cff",
+      "sha256": "64d0fb4042097e803376f0715866cb8fe3eea1eba0c154f67c337e753ed98c4d",
+      "bytes": 401
+    },
+    {
+      "path": "Post Exploits/Windows/WMI & WinRM.md",
+      "file": "cpts/original/Post Exploits/Windows/WMI & WinRM.md",
+      "id": "cpts-post-exploits-windows-wmi-winrm-6f7840cf",
+      "sha256": "98cb4bfbcb7bb22249b6b0be57c9c6b594742e3dd56ffee93d9fbe8e6add0fe5",
+      "bytes": 1580
+    },
+    {
+      "path": "PrivEsc/$PATH.md",
+      "file": "cpts/original/PrivEsc/$PATH.md",
+      "id": "cpts-privesc-path-83561099",
+      "sha256": "4e4e07358d49c00c10b629dc38627e4db38c12dddd1aabe9987dd37c496c2ff2",
+      "bytes": 64
+    },
+    {
+      "path": "PrivEsc/Linux/Crontabs (Scheduled Tasks).md",
+      "file": "cpts/original/PrivEsc/Linux/Crontabs (Scheduled Tasks).md",
+      "id": "cpts-privesc-linux-crontabs-scheduled-tasks-ae8a4f87",
+      "sha256": "65cf39cb50d358c5d0b2b179c7ba7015668a21ceb002519577437833412bdd2d",
+      "bytes": 919
+    },
+    {
+      "path": "PrivEsc/Linux/Exposed Confidential Info.md",
+      "file": "cpts/original/PrivEsc/Linux/Exposed Confidential Info.md",
+      "id": "cpts-privesc-linux-exposed-confidential-info-9d2298c6",
+      "sha256": "05ed39336f6549ce4e303aeeec20c7c7f1f26dec0a5ee9c7f3c57a8b02125be0",
+      "bytes": 748
+    },
+    {
+      "path": "PrivEsc/Linux/Methodology Checklist.md",
+      "file": "cpts/original/PrivEsc/Linux/Methodology Checklist.md",
+      "id": "cpts-privesc-linux-methodology-checklist-c0fa3016",
+      "sha256": "288f5a87edd441c587ddde39545e62bb7a40c995757cf64a8a3d10e57766be50",
+      "bytes": 1919
+    },
+    {
+      "path": "PrivEsc/Linux/OS and Kernel Exploits.md",
+      "file": "cpts/original/PrivEsc/Linux/OS and Kernel Exploits.md",
+      "id": "cpts-privesc-linux-os-and-kernel-exploits-0610e3eb",
+      "sha256": "0c236a632c9916ad2e7e2c9863633ba68c6fbeb2f2b8aec93851e0a9c0a6abd4",
+      "bytes": 189
+    },
+    {
+      "path": "PrivEsc/Linux/Path Abuse.md",
+      "file": "cpts/original/PrivEsc/Linux/Path Abuse.md",
+      "id": "cpts-privesc-linux-path-abuse-b5a507cc",
+      "sha256": "043f0e0f13ba43e3ca201b696163b09e80de5ae82720d1afdd4786efa93d1996",
+      "bytes": 360
+    },
+    {
+      "path": "PrivEsc/Linux/SUID Sticky Bit.md",
+      "file": "cpts/original/PrivEsc/Linux/SUID Sticky Bit.md",
+      "id": "cpts-privesc-linux-suid-sticky-bit-a4af3b7a",
+      "sha256": "7f100d08366008575db61806099d2758a55d7c927f3e4a8773ce3a014acfff3a",
+      "bytes": 638
+    },
+    {
+      "path": "PrivEsc/Linux/Write perms to etc passwd.md",
+      "file": "cpts/original/PrivEsc/Linux/Write perms to etc passwd.md",
+      "id": "cpts-privesc-linux-write-perms-to-etc-passwd-8d41f403",
+      "sha256": "76c0edb1597eba55e13a36a28a98ff0cf0ec1ce8946edc61a82d1d0d6e39d889",
+      "bytes": 221
+    },
+    {
+      "path": "PrivEsc/Scripts.md",
+      "file": "cpts/original/PrivEsc/Scripts.md",
+      "id": "cpts-privesc-scripts-c4d7f139",
+      "sha256": "aa339f525e4c79c6e8d80b09ff152770334c02d685e619c7f2c5c97de9ce2da0",
+      "bytes": 143
+    },
+    {
+      "path": "PrivEsc/Service Binary Hijacking-MacBook Pro.md",
+      "file": "cpts/original/PrivEsc/Service Binary Hijacking-MacBook Pro.md",
+      "id": "cpts-privesc-service-binary-hijacking-macbook-pro-4551c4c6",
+      "sha256": "49042600ec6593bc2d9d3ffb4cf59a975d3a29e1e1d06b4f28c4cac4f882517d",
+      "bytes": 993
+    },
+    {
+      "path": "PrivEsc/SSH Keys.md",
+      "file": "cpts/original/PrivEsc/SSH Keys.md",
+      "id": "cpts-privesc-ssh-keys-9d5895fc",
+      "sha256": "81679e318d34a28d577d6ed50e796ab3953f611314249530767d495dffefdfcf",
+      "bytes": 571
+    },
+    {
+      "path": "PrivEsc/User Privileges.md",
+      "file": "cpts/original/PrivEsc/User Privileges.md",
+      "id": "cpts-privesc-user-privileges-db86feff",
+      "sha256": "9225e891ad7de2bed434bc6d8ce80cb85583ca1b43fe473e0ed7ae1b75aa8481",
+      "bytes": 658
+    },
+    {
+      "path": "PrivEsc/Vulnerable Software.md",
+      "file": "cpts/original/PrivEsc/Vulnerable Software.md",
+      "id": "cpts-privesc-vulnerable-software-0b603bf7",
+      "sha256": "6d4e7909b389098735bc0706f68083c1dfc7164b82ab8d7ce9c28e77d4e2b5ce",
+      "bytes": 163
+    },
+    {
+      "path": "PrivEsc/Windows/Admin user with no admin privileges.md",
+      "file": "cpts/original/PrivEsc/Windows/Admin user with no admin privileges.md",
+      "id": "cpts-privesc-windows-admin-user-with-no-admin-privileges-19acc37f",
+      "sha256": "bdb1499c977a9a960c88c380700bd65c9b7d15861dd164a86a92f5cf0f1d1ee5",
+      "bytes": 14
+    },
+    {
+      "path": "PrivEsc/Windows/DLL Hijacking.md",
+      "file": "cpts/original/PrivEsc/Windows/DLL Hijacking.md",
+      "id": "cpts-privesc-windows-dll-hijacking-3a400c32",
+      "sha256": "c2f30426d87799a668c3a47df82d63af25ce93eb7746fa4965652a8357a35386",
+      "bytes": 621
+    },
+    {
+      "path": "PrivEsc/Windows/Exposed Credentials.md",
+      "file": "cpts/original/PrivEsc/Windows/Exposed Credentials.md",
+      "id": "cpts-privesc-windows-exposed-credentials-09889ee3",
+      "sha256": "526c944a21c7561fad58d9e09b20492ef0e3dfdff6580f504e28145936184bad",
+      "bytes": 523
+    },
+    {
+      "path": "PrivEsc/Windows/Methodology Checklist.md",
+      "file": "cpts/original/PrivEsc/Windows/Methodology Checklist.md",
+      "id": "cpts-privesc-windows-methodology-checklist-32314143",
+      "sha256": "2fbdb4c3c537fef40540ab1363d22f69c9af7e48358d104f3046d1b677378e3c",
+      "bytes": 760
+    },
+    {
+      "path": "PrivEsc/Windows/Scheduled Tasks.md",
+      "file": "cpts/original/PrivEsc/Windows/Scheduled Tasks.md",
+      "id": "cpts-privesc-windows-scheduled-tasks-2dc078d8",
+      "sha256": "8ca630253d649410e0ae548a7cb6087a1372f8054a495ba3b329254e58669d0d",
+      "bytes": 413
+    },
+    {
+      "path": "PrivEsc/Windows/Service Binary Hijacking.md",
+      "file": "cpts/original/PrivEsc/Windows/Service Binary Hijacking.md",
+      "id": "cpts-privesc-windows-service-binary-hijacking-ada39c1a",
+      "sha256": "b765a7a9147d165add8404a3445f626ba6fb0c01a013745b0b93215865fd7678",
+      "bytes": 1397
+    },
+    {
+      "path": "PrivEsc/Windows/Services Automatically Started on Boot.md",
+      "file": "cpts/original/PrivEsc/Windows/Services Automatically Started on Boot.md",
+      "id": "cpts-privesc-windows-services-automatically-started-on-boot-769440ef",
+      "sha256": "295bdca3f4a20cc731947eefa69e56b20daf2ba091248e6c5845abe2c981e2a4",
+      "bytes": 149
+    },
+    {
+      "path": "PrivEsc/Windows/Unquoted Service Paths.md",
+      "file": "cpts/original/PrivEsc/Windows/Unquoted Service Paths.md",
+      "id": "cpts-privesc-windows-unquoted-service-paths-53b627a0",
+      "sha256": "2d98eaf4c45a4ac7186565e50e8e7230a21229bcc882894cb1b69b152df64199",
+      "bytes": 851
+    },
+    {
+      "path": "Reconnaissance/AD Reconnaissance.md",
+      "file": "cpts/original/Reconnaissance/AD Reconnaissance.md",
+      "id": "cpts-reconnaissance-ad-reconnaissance-cbb23af1",
+      "sha256": "a0e1f220e85cdc09355ed8bf483b163193a65843f8611bf7a87b623fe47cd0c5",
+      "bytes": 365
+    },
+    {
+      "path": "Reconnaissance/Cloud Resources.md",
+      "file": "cpts/original/Reconnaissance/Cloud Resources.md",
+      "id": "cpts-reconnaissance-cloud-resources-836ba495",
+      "sha256": "91292225ec4f60c1f9a11164a87e116789b9dbadc2e3ffde45fb47b498c8fa15",
+      "bytes": 299
+    },
+    {
+      "path": "Reconnaissance/Domain Discovery.md",
+      "file": "cpts/original/Reconnaissance/Domain Discovery.md",
+      "id": "cpts-reconnaissance-domain-discovery-d1213c29",
+      "sha256": "be3459d912ad2c1d521b8711d3c776be7167c21882ff5965713a63a4204fb213",
+      "bytes": 787
+    },
+    {
+      "path": "Reconnaissance/Host Discovery.md",
+      "file": "cpts/original/Reconnaissance/Host Discovery.md",
+      "id": "cpts-reconnaissance-host-discovery-a202aa9e",
+      "sha256": "60949cdc1d82f399d83cf45bf1cec3959ad6c19a2c192b7b8e9528d239f3276d",
+      "bytes": 82
+    },
+    {
+      "path": "Reconnaissance/Password Hunting.md",
+      "file": "cpts/original/Reconnaissance/Password Hunting.md",
+      "id": "cpts-reconnaissance-password-hunting-d3163f7e",
+      "sha256": "c8ead959ba04ea7f231ca378def264ace88a65c99205b6f43be0bd83a777f723",
+      "bytes": 544
+    },
+    {
+      "path": "Reconnaissance/Username Discovery.md",
+      "file": "cpts/original/Reconnaissance/Username Discovery.md",
+      "id": "cpts-reconnaissance-username-discovery-3e712759",
+      "sha256": "387febeee960cf9e66bfde9078045f051bfdc1c3540f6d634562f2db258ebe57",
+      "bytes": 328
+    },
+    {
+      "path": "Reconnaissance/Web Reconnaissance.md",
+      "file": "cpts/original/Reconnaissance/Web Reconnaissance.md",
+      "id": "cpts-reconnaissance-web-reconnaissance-2c284fa9",
+      "sha256": "a5703ab95299904c5e945829108e7211f1e3684462803f5ea8e8b6750a9d9782",
+      "bytes": 7668
+    },
+    {
+      "path": "Things to run on base Kali.md",
+      "file": "cpts/original/Things to run on base Kali.md",
+      "id": "cpts-things-to-run-on-base-kali-16524e15",
+      "sha256": "a4f19c4ba613d21251aaf799befedaac61c2e3524105c1e17de5c39414aea088",
+      "bytes": 168
+    }
+  ],
+  "assets": [
+    {
+      "name": "Pasted image 20250325024416.png",
+      "file": "cpts/assets/Pasted image 20250325024416.png",
+      "sha256": "d669cbf296fef2cbc93eaba44248eb506216a60a1c0e6ee4cc97107085870088",
+      "bytes": 10770
+    },
+    {
+      "name": "Pasted image 20250325025014.png",
+      "file": "cpts/assets/Pasted image 20250325025014.png",
+      "sha256": "8e2c2c0adedbad60fbee8d7685200652bceeacafef04fc24dea7f3163a5b7872",
+      "bytes": 10857
+    },
+    {
+      "name": "Pasted image 20250325025103.png",
+      "file": "cpts/assets/Pasted image 20250325025103.png",
+      "sha256": "760a96dccb930b09a67654d83de91976e2542b657e6afd354a1e35a6499a4ef3",
+      "bytes": 7292
+    },
+    {
+      "name": "Pasted image 20250325092955.png",
+      "file": "cpts/assets/Pasted image 20250325092955.png",
+      "sha256": "1f13f5745cec31aa445a8ff3661320e27f3bba73678f2d5d8c93743fdecf8bb2",
+      "bytes": 11331
+    },
+    {
+      "name": "Pasted image 20250326172013.png",
+      "file": "cpts/assets/Pasted image 20250326172013.png",
+      "sha256": "de51bab862e0067aaef353f699958c9c0482e3c6b2b32b2942bab621cff34ee3",
+      "bytes": 330310
+    },
+    {
+      "name": "Pasted image 20250326173144.png",
+      "file": "cpts/assets/Pasted image 20250326173144.png",
+      "sha256": "4b1d4be60479d971533eb862a407a5b1dd497fd716170d405975d94a76d43707",
+      "bytes": 122011
+    },
+    {
+      "name": "Pasted image 20250328224040.png",
+      "file": "cpts/assets/Pasted image 20250328224040.png",
+      "sha256": "2959e4d4aee7abb093ad94270c2fdf22bfbfb95a0d3c9cdac4372ffe9390ca0d",
+      "bytes": 68053
+    },
+    {
+      "name": "Pasted image 20250328224556.png",
+      "file": "cpts/assets/Pasted image 20250328224556.png",
+      "sha256": "aca840a68ff17828b2e292935b756c3de57e7c24b32d658930e262857d464203",
+      "bytes": 6017
+    },
+    {
+      "name": "Pasted image 20250401014737.png",
+      "file": "cpts/assets/Pasted image 20250401014737.png",
+      "sha256": "bc53495c6023d567b94e4b022822d1daa661fa293c2cdb0c559de76d28d2ae05",
+      "bytes": 35542
+    },
+    {
+      "name": "Pasted image 20250401015814.png",
+      "file": "cpts/assets/Pasted image 20250401015814.png",
+      "sha256": "b59af852d4fa54fc4782a61d23a3ee0dd5ef8b98a38cc705743dd85b481276df",
+      "bytes": 29748
+    },
+    {
+      "name": "Pasted image 20250401192631.png",
+      "file": "cpts/assets/Pasted image 20250401192631.png",
+      "sha256": "103738b6aa86951cb38d5b41b038d25aa95d78735ef0c2f4afdb95f9424d8185",
+      "bytes": 51500
+    },
+    {
+      "name": "Pasted image 20250401220050.png",
+      "file": "cpts/assets/Pasted image 20250401220050.png",
+      "sha256": "ac741079b1d8ed55d4633745dcf3ad9dff7b7c7a3261978ff7779248840a775c",
+      "bytes": 31378
+    },
+    {
+      "name": "Pasted image 20250401220100.png",
+      "file": "cpts/assets/Pasted image 20250401220100.png",
+      "sha256": "f74951416f7fa7436a67a347875a88fb9033605ea288c86bc44b092ebf2a2b69",
+      "bytes": 24071
+    },
+    {
+      "name": "Pasted image 20250401225300.png",
+      "file": "cpts/assets/Pasted image 20250401225300.png",
+      "sha256": "0da69fbf6b66efd3ee46577b4215a668cb94ab1fb66bca6c0dc50b74b35ca6e6",
+      "bytes": 144680
+    },
+    {
+      "name": "Pasted image 20250402015201.png",
+      "file": "cpts/assets/Pasted image 20250402015201.png",
+      "sha256": "58c087edf56085bbbc1c96d7611d031e82bee257623770fd63d45469f2b48e99",
+      "bytes": 50882
+    },
+    {
+      "name": "Pasted image 20250402015214.png",
+      "file": "cpts/assets/Pasted image 20250402015214.png",
+      "sha256": "410a59b89bf7849850b0a9113cb7b72251546c5dbfd9bafd98bd62e0235de915",
+      "bytes": 39103
+    },
+    {
+      "name": "Pasted image 20250403004448.png",
+      "file": "cpts/assets/Pasted image 20250403004448.png",
+      "sha256": "33f30eb9cc5c003f854df58486bf8152c43b14661caeeb88033b027c0fbe6c16",
+      "bytes": 44606
+    },
+    {
+      "name": "Pasted image 20250403224738.png",
+      "file": "cpts/assets/Pasted image 20250403224738.png",
+      "sha256": "935fe0ec3250e164ad9f131d7be2f3f120a623cdd1f7d3d9a7b4a3370b618234",
+      "bytes": 16157
+    },
+    {
+      "name": "Pasted image 20250403224858.png",
+      "file": "cpts/assets/Pasted image 20250403224858.png",
+      "sha256": "19d13b7e560127e369c427e4862bfdea5e4a98e77040bbde505e8daef47e78f6",
+      "bytes": 20417
+    },
+    {
+      "name": "Pasted image 20250403225049.png",
+      "file": "cpts/assets/Pasted image 20250403225049.png",
+      "sha256": "4085a35fd8aa35c6c4a4331431161e39d53307445a6cb7578d81cbe491fd3de3",
+      "bytes": 46003
+    },
+    {
+      "name": "Pasted image 20250419165210.png",
+      "file": "cpts/assets/Pasted image 20250419165210.png",
+      "sha256": "65a5eea9e6ea0f1cade970db689421decae2b2cb817c425f4cb9e34221e7b81f",
+      "bytes": 160742
+    },
+    {
+      "name": "Pasted image 20250429093148.png",
+      "file": "cpts/assets/Pasted image 20250429093148.png",
+      "sha256": "4edb41f1c14e8ec2e9922db24445ad5b744d530faf493458946ef2efb18e1b98",
+      "bytes": 182054
+    },
+    {
+      "name": "Pasted image 20250429140747.png",
+      "file": "cpts/assets/Pasted image 20250429140747.png",
+      "sha256": "450d0917d8a902036ccab92882bc28f59a2fe91bbb3a972628a61c166cc32ffc",
+      "bytes": 23590
+    },
+    {
+      "name": "Pasted image 20250429150028.png",
+      "file": "cpts/assets/Pasted image 20250429150028.png",
+      "sha256": "9c3c9a75e683273c80cf277f919c29df57cc0ca1c6d9c7ad7141ac5620dbf934",
+      "bytes": 12957
+    },
+    {
+      "name": "Pasted image 20250429162547.png",
+      "file": "cpts/assets/Pasted image 20250429162547.png",
+      "sha256": "c4dab38be33445a8821bb403f74f031eb46fe53e04217a42771357dc7f65f268",
+      "bytes": 18400
+    },
+    {
+      "name": "Pasted image 20250529150333.png",
+      "file": "cpts/assets/Pasted image 20250529150333.png",
+      "sha256": "86c56be5888d8eacfdfdac98ed18c2436c8744c8825eea8e1bbe4c6256237f59",
+      "bytes": 18649
+    },
+    {
+      "name": "Pasted image 20250530110928.png",
+      "file": "cpts/assets/Pasted image 20250530110928.png",
+      "sha256": "1a38afb08b0944f3ee79c6f9a16f1991973f10df8d91e137872a11bb8c3c9ce2",
+      "bytes": 14490
+    },
+    {
+      "name": "Pasted image 20250605180018.png",
+      "file": "cpts/assets/Pasted image 20250605180018.png",
+      "sha256": "53ea8a97c011f595b2f7b30e607b9c84dbdb0ef7c655a7500058c684180a0c73",
+      "bytes": 24134
+    },
+    {
+      "name": "Pasted image 20250606202144.png",
+      "file": "cpts/assets/Pasted image 20250606202144.png",
+      "sha256": "a3cd65d16d6b06e1b95ec077cc95b46d768ad8db6a7aa10b725bfa7a66202641",
+      "bytes": 30264
+    },
+    {
+      "name": "Pasted image 20250618150605.png",
+      "file": "cpts/assets/Pasted image 20250618150605.png",
+      "sha256": "d0998249f9f13bf8f578c64b9feb0d84b47574c2bf83bd25c823660700f0b7a9",
+      "bytes": 39069
+    },
+    {
+      "name": "Pasted image 20250813102140.png",
+      "file": "cpts/assets/Pasted image 20250813102140.png",
+      "sha256": "988bd44bd654fea94239b713b6f67171276fc55edfb97993f6535f8e95e76246",
+      "bytes": 13614
+    },
+    {
+      "name": "Pasted image 20250831200044.png",
+      "file": "cpts/assets/Pasted image 20250831200044.png",
+      "sha256": "38e2ca982633b550391afa6b536b6f2fd0b807b476ba6ac166f620965b6dea5b",
+      "bytes": 83199
+    },
+    {
+      "name": "Pasted image 20250913220745.png",
+      "file": "cpts/assets/Pasted image 20250913220745.png",
+      "sha256": "c62cbcbb0d5de74d8d487f8a035df38861c9f3ad0c300e917d359b6512412abd",
+      "bytes": 103533
+    }
+  ],
+  "excluded": [
+    "Exploits/Web Exploits.md",
+    "Exploits/Web Shells-DESKTOP-0GERI6L.md"
+  ],
+  "exclusion_reason": "User requested omission of the two OneDrive sync-error notes."
+}

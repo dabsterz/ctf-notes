@@ -45,6 +45,21 @@ class BuilderContract(unittest.TestCase):
         self.assertEqual("C123", r2["cell"])
         self.assertEqual("Kali", r2["platform"])
 
+    def test_merged_markdown_retains_recipe_level_destinations(self):
+        module = self.builder()
+        source = '# Topic\n\n## Recipe\n\n[other](other.md#step) [same](#recipe)\n\n```text\n## Not a heading\n```\n'
+        result = module.merge_markdown(source, 'topic')
+        self.assertIn('<a id="topic--recipe"></a>', result)
+        self.assertIn('[other](#other--step)', result)
+        self.assertIn('[same](#topic--recipe)', result)
+        self.assertNotIn('id="topic--not-a-heading"', result)
+
+    def test_table_markdown_escape_does_not_change_shell_command(self):
+        module = self.builder()
+        result = module.render_markdown("| Command |\n| --- |\n| `tool --only 'pop\\|ret'` |\n", 'tools')
+        self.assertIn("tool --only 'pop|ret'", result)
+        self.assertNotIn('pop\\|ret', result)
+
 
 if __name__ == "__main__":
     unittest.main()

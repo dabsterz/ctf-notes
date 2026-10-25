@@ -1,0 +1,373 @@
+--- PAGE 1 ---
+1
+Practice Period: 19–23 October 2026
+Competition: 26–27 October 2026
+Cyber SEA Game 2026 CTF
+Practice Environment Guide
+
+--- PAGE 2 ---
+2
+What is Cyber SEA Game CTF?
+Competition Format
+•
+All challenges follow a Jeopardy-style 
+CTF format
+•
+Earn points by solving challenges in 
+multiple categories
+•
+Submit flags through CTFd
+•
+Different challenge sets on Day 1 and 
+Day 2
+Challenge categories
+Digital Forensics
+Malware Analysis
+Web Security
+Reverse Engineering
+OSINT
+Cryptography
+Miscellaneous
+
+--- PAGE 3 ---
+3
+Competition Environment
+Competition Laptop (provided by the organizer)
+•
+OS: Windows 11 Pro
+•
+CPU: Intel® Core
+ Ultra 5 235H (2.40 GHz)
+•
+Memory: 32 GB RAM
+•
+Storage: 1 TB SSD
+•
+Display: FHD+ (1920×1200)
+•
+Architecture: 64-bit
+Internet Access
+•
+Internet access via hotel Wi-Fi
+•
+CTF infrastructure is IP-restricted
+•
+CTFd and related services can only 
+be accessed from approved networks
+
+--- PAGE 4 ---
+4
+Kali Linux Environment
+Kali Linux (via Platform Experience)
+•
+Instance type: t3.large
+•
+vCPU: 2
+•
+Memory: 8 GiB
+•
+Disk: 40 GB
+•
+GUI available
+•
+SSH / RDP access (VPN required)
+Windows laptop or Kali VM
+Use either one, depending on the challenge 
+requirements
+About Windows Defender
+Tools that Defender may detect (Hayabusa/Sigma 
+rules, Metasploit, mimikatz, etc.) are installed on 
+Kali, so they are not affected by Defender
+
+--- PAGE 5 ---
+5
+Software and Tools
+Installed by the organizer
+•
+Approved Tool List 
+software
+•
+Approved Tool Request 
+submissions
+•
+Latest version at the time 
+installation starts (mid-
+October)
+You may install
+•
+Libraries
+•
+Dependencies
+•
+Plugins
+•
+Packages
+as long as the software is not 
+related to Generative AI
+Not allowed
+•
+Standalone applications 
+not on the approved list 
+require organizer approval
+•
+Software that requires a 
+commercial license (e.g., 
+IDA) cannot be used with 
+a personal license
+All teams use the same 
+environment
+
+--- PAGE 6 ---
+6
+Allowed Resources
+You may use the following during the competition
+Google Search
+Technical 
+Documentation
+CVE Databases
+Vendor Documentation
+Programming 
+References
+HackTricks
+PayloadsAllTheThings
+Microsoft 
+Documentation
+Linux Manual Pages
+Google Translate
+Online services
+Uploading challenge files to online services is not allowed (see FAQ at the end of this guide)
+
+--- PAGE 7 ---
+7
+Notes and Reference Materials
+Both physical and electronic reference materials are allowed
+Personal Notes
+Cheat Sheets
+Books
+Printed References
+Digital References
+Personal Notion Pages
+Personal GitHub Repositories
+Scripts created before the 
+competition
+
+--- PAGE 8 ---
+8
+AI Policy
+Generative AI is prohibited
+You may NOT use
+•
+ChatGPT / Gemini / Claude
+•
+Claude Code / GitHub Copilot Chat
+•
+Other AI assistants
+You may NOT use AI to
+•
+Generate solutions, code or scripts
+•
+Analyze challenge content
+NOTE: To ensure compliance with this AI policy, participant screens will be monitored by designated staff 
+during the competition.
+Exception: AI summaries automatically shown in search results (e.g., Google AI Overview) may be viewed
+
+--- PAGE 9 ---
+9
+Competition Conduct
+You must NOT
+•
+Share challenge content externally
+•
+Upload challenge content to AI services
+•
+Request assistance from external parties
+•
+Communicate through unofficial channels 
+outside your team
+You MAY
+•
+Take notes
+•
+Keep your notes after the competition
+•
+Collaborate freely within your own team
+Official communication channels will be distributed on the day of the competition
+
+--- PAGE 10 ---
+10
+Mobile Phone Policy
+Deposit your phone
+Mobile phones must be deposited at the designated collection area
+During the competition
+•
+No phones at competition tables
+•
+No external communication devices
+Monitoring
+Organizers monitor participant activity 
+throughout the competition
+
+--- PAGE 11 ---
+11
+Competition Schedule
+Day 1 – 26 October
+Day 2 – 27 October
+Time
+Items
+07:30–08:00
+Registration
+08:00–09:00
+Demo & Technical Preparation
+09:00–09:30
+Opening Ceremony
+09:30–09:50
+Rules & Environment Briefing
+10:00–17:00
+Question Set 1 (incl. lunch & break)
+Time
+Items
+08:30–09:00
+Registration
+09:00–13:00
+Question Set 2 (incl. lunch & break)
+13:00–15:30
+Write-up & Team Presentations
+15:30–15:50
+Satisfaction Survey
+15:50–16:00
+Break
+16:00–17:00
+Award Sessions & Closing Ceremony
+17:00
+Communication Party
+
+--- PAGE 12 ---
+12
+12 | ©2026 Trend Micro Inc.
+Explanation for Practice Environment
+From here: how to use the Practice Session (19–23 October)
+
+--- PAGE 13 ---
+13
+Practice Environment
+Practice Period: 19–23 October 2026
+CTFd
+Challenge portal for solving challenges and 
+submitting flags
+Platform Experience
+Cloud-based practice environment (Kali Linux)
+•
+Practice challenges are primarily based on previous competition questions
+•
+Please use your own computer during the practice period
+
+--- PAGE 14 ---
+14
+Access Information
+CTFd URL
+https://2026ctf.ajccbc-cyber-sea-game.net
+Accounts
+•
+Each country/team receives four accounts
+•
+One account per participant
+•
+Decide within your team who uses which 
+account
+
+--- PAGE 15 ---
+15
+Gmail Access
+CTFd ID = Gmail ID
+Same username and password
+Email domain: @trend.training
+•
+Not a Gmail address, but uses Google's 
+Gmail platform
+•
+Log in from the normal Gmail login page
+•
+The invitation is valid for 14 days
+
+--- PAGE 16 ---
+16
+Platform Experience
+After accessing Gmail
+1. Find the Platform Experience 
+invitation
+2. Click “Access Platform 
+Experience”
+3. Complete onboarding
+4. Reach the PX portal (Cyber SEA 
+Game 2026)
+
+--- PAGE 17 ---
+17
+Starting the Lab Environment
+Steps
+1. Click Start
+2. Wait about 20 minutes
+3. Do not touch the environment while it is deploying
+4. Access the environment after deployment completes
+Limit
+Up to 3 launches per 
+account
+Warning
+Terminate consumes the 
+current session
+
+--- PAGE 18 ---
+18
+Connecting to the Virtual Machines
+Once deployment completes
+1. Wait for “Provisioning succeeded”
+2. Open the status panel (cloud icon) and check the 
+Kali Linux IP, username, password and OpenVPN IP
+3. Connect via VPN
+4. Connect via SSH or RDP and start the exercises
+Follow the guide shown in Platform Experience
+
+--- PAGE 19 ---
+19
+Your First Challenge
+Welcome challenge
+1. Log in to CTFd
+2. Scroll to the bottom of the challenge list 
+and open Misc > Welcome
+3. Follow the instructions and access 
+Platform Experience
+4. Connect to Kali Linux from Platform 
+Experience and find flag.txt in your user 
+profile
+
+--- PAGE 20 ---
+20
+Flag Format
+CSG_FLAG{example_flag}
+Flags typically follow this format
+Submit the entire flag, including CSG_FLAG{ }, through CTFd
+
+--- PAGE 21 ---
+21
+FAQ ① Tools and Online Services
+Q. Can I use online services such as VirusTotal, CrackStation, hashes.com, dCode, 
+FotoForensics, Aperi'Solve, StegZero, online compilers or tool.lu?
+A. Online services that require uploading challenge files are not allowed.
+Q. Can I use my personal license for software that requires a commercial license, such as IDA?
+A. Because the competition provides the same environment for every team, such tools cannot be 
+used this time. Thank you for your understanding.
+
+--- PAGE 22 ---
+22
+FAQ ② Environment
+Q. Windows Defender may detect tools such as Hayabusa/Sigma rules, Metasploit payloads or 
+mimikatz. Can they be excluded?
+A. Tools that Defender may detect are installed on Kali Linux, so Defender will not detect them.
+Q. When are the tool versions decided?
+A. Installation starts in mid-October, and the latest version at that time is installed.
+
+--- PAGE 23 ---
+23
+Have Fun!
+Practice first. Learn the environment.
+Verify your access before competition day. Good luck and enjoy Cyber SEA Game 2026!

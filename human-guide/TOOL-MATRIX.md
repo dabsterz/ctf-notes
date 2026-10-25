@@ -2,7 +2,7 @@
 
 Source: `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`. Recorded versions are copied as supplied, not independently verified. Blank installation notes do not establish availability. The unapproved reasons are retained verbatim. The workbook contains some replacement characters; these are preserved rather than guessed.
 
-Windows/WSL and Kali are separate environments. See the location column before choosing a command. No row authorizes every plugin, dependency, or hosted service associated with a product.
+Windows/WSL and Kali are separate environments. See the location column before choosing a command. For non-AI additions, named exclusions and hosted-service restrictions, use [Competition setup](COMPETITION.md#what-is-allowed).
 
 ## Windows / WSL · 39 entries
 

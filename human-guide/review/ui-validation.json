@@ -1,0 +1,44 @@
+{
+  "browser": "Chrome 155.0.8059.85",
+  "html_sha256": "8b488a98006fe241defaf21a0d9019fc09854685f64266fb945a28f03f0aad33",
+  "passed": 12,
+  "checks": [
+    "27 baseline guide/helper files unchanged; combined HANDBOOK extended with CPTS notes",
+    "desktop dark rendering, readable body and direct task navigation",
+    "focus hides panels and text-size setting changes rendered type",
+    "long script expands and collapses in Chrome",
+    "both themes pass 4.5:1 for eight primary text/background combinations",
+    "all 125 pages reflow at 1440, 768 and 320px; all code text preserved",
+    "CPTS folder ancestors reveal active note; screenshot loads offline and full-size view stays within reader",
+    "mobile drawer opens, navigates and closes with Escape",
+    "search from an open mobile drawer exposes clickable results",
+    "20px text and WCAG spacing override reflow on three key pages at 320px",
+    "print reveals setup notes and uses dark text on light paper",
+    "no page exceptions or HTTP requests while offline"
+  ],
+  "contrast": {
+    "dark": {
+      "ink/bg": 14.99,
+      "ink/paper": 13.98,
+      "muted/bg": 8.73,
+      "muted/sidebar": 8.97,
+      "muted/paper": 8.15,
+      "accent/bg": 10.79,
+      "accent/accent-soft": 7.93,
+      "code-ink/code": 15.89
+    },
+    "light": {
+      "ink/bg": 13.92,
+      "ink/paper": 14.94,
+      "muted/bg": 5.79,
+      "muted/sidebar": 5.48,
+      "muted/paper": 6.22,
+      "accent/bg": 6.47,
+      "accent/accent-soft": 5.76,
+      "code-ink/code": 12.84
+    }
+  },
+  "errors": [],
+  "external_requests": [],
+  "scope": "Automated local-file Chrome rendering/interaction. Screenshots inspected separately. Contrast checks cover primary pairs, not a full accessibility certification. No event infrastructure or challenge commands executed."
+}

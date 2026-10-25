@@ -28,7 +28,7 @@ rg -n -i 'padding oracle|nonce reuse' /opt/tools/hacktricks
 rg -n -i 'sudo|wildcard' /opt/tools/GTFOBins.github.io
 ```
 
-Search for the general technique locally, read the matching explanation, and compare prerequisites to the supplied challenge. If the path is absent, use the handbook and supplied source; do not assume an unlisted reference checkout can be installed.
+Search for the general technique locally and compare its prerequisites to your challenge. If the checkout is absent, the handbook or manual reading of HackTricks/PayloadsAllTheThings is available: these reference sites are explicitly allowed by PDF p.6. Do not upload challenge files or seek outside assistance.
 
 ## Tools and services that are not substitutes
 
@@ -44,7 +44,7 @@ Search for the general technique locally, read the matching explanation, and com
 | Large asynchronous fuzzing script | Manual baseline/control experiment and a small bounded candidate set |
 | Online sequence lookup/OEIS automation | Derive a recurrence from supplied terms and validate it locally |
 
-The workbook's permission to add non-AI Python libraries appears in the Windows sheet. It is not a loophole for explicitly unapproved tools, and it is not a claim that every library is already installed or that the same installation policy was stated for Kali.
+PDF p.5 permits non-AI libraries, dependencies, plugins and packages in both environments. The workbook's stricter AI/ML ban and named exclusions remain in this guide's routes; unlisted standalone applications require approval. [Reconciliation and source](../COMPETITION.md#what-is-allowed).
 
 ## Advanced does not mean excluded
 

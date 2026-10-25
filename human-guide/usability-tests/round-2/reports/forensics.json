@@ -1,0 +1,72 @@
+﻿{
+    "tasks":  [
+                  {
+                      "status":  "completed",
+                      "evidence":  "Unchanged png_tail.py: IHDR/IDAT/IEND CRC OK; 17 trailing bytes saved and read back from forensics/png-trailer.bin.",
+                      "candidate":  "CTF{new_png_tail}",
+                      "id":  "png"
+                  },
+                  {
+                      "status":  "completed",
+                      "evidence":  "Unchanged tar_keep.py preserved note.txt twice: 000000.bin (20 bytes), 000001.bin (34 bytes); manifest records both indexes and names; first member read back.",
+                      "candidate":  "CTF{older_tar_entry}",
+                      "id":  "tar"
+                  },
+                  {
+                      "status":  "completed",
+                      "evidence":  "Security-Auditing EventID 4688 and supplied TimeCreated/NewProcessName/CommandLine. Establishes process start with recorded command; does not establish completion, malicious intent, payload effects or file creation.",
+                      "candidate":  "2026-10-25T03:04:05Z | C:\\Temp\\runner.exe --mode audit",
+                      "id":  "event"
+                  }
+              ],
+    "dimensions":  {
+                       "command_readiness":  4,
+                       "cognitive_load":  5,
+                       "tool_environment":  4,
+                       "interpretation":  5,
+                       "findability":  5
+                   },
+    "overall_10":  9.3,
+    "study_10":  9,
+    "lookup_count":  6,
+    "tool_selection":  {
+                           "memory":  {
+                                          "strength":  "Memory process and command-line structures",
+                                          "environment":  "WSL",
+                                          "tool":  "Volatility 3",
+                                          "weakness":  "Matching symbols and layers required"
+                                      },
+                           "disk":  {
+                                        "strength":  "GUI disk artifact correlation",
+                                        "environment":  "Windows",
+                                        "tool":  "Autopsy",
+                                        "alternative":  "Sleuth Kit in WSL requires correct partition offset",
+                                        "weakness":  "Ingest/indexing can be slow"
+                                    },
+                           "pcap":  {
+                                        "strength":  "Interactive conversations and streams",
+                                        "environment":  "Windows",
+                                        "tool":  "Wireshark",
+                                        "alternative":  "TShark on Windows for repeatable summaries",
+                                        "weakness":  "TLS content encrypted without suitable secrets"
+                                    }
+                       },
+    "execution_environment":  "Native Windows Python portability proxy; no WSL/Kali/browser execution",
+    "code_edits":  0,
+    "invented_algorithms":  0,
+    "adaptations":  [
+                        "python for python3",
+                        "relative recipe paths",
+                        "python -m json.tool for jq",
+                        "Get-Content for readable recovered files"
+                    ],
+    "processing_errors":  [
+
+                          ],
+    "limitations":  [
+                        "Simulated human, not participant study",
+                        "No human timing claims",
+                        "No internet or detailed chapters used",
+                        "Tool table availability/version claims not executed"
+                    ]
+}

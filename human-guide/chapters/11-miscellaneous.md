@@ -1,6 +1,8 @@
 # Miscellaneous: turn unfamiliar artifacts into a small model
 
-“Misc” is a repository label, not one of the event's six official categories. Its material often belongs to cryptography, forensics, network analysis, steganography, reverse engineering, or a web challenge. Use the artifact and intended operation to choose the next step.
+**Quick route:** [Short commands](../QUICKSTART.md#decode-layers) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#miscellaneous). Use this chapter for deeper explanations.
+
+Miscellaneous is one of the PDF's seven competition categories. Its techniques also overlap cryptography, forensics, network analysis, steganography, reversing and web security. Use the artifact and intended operation to choose the next step.
 
 This chapter covers layered encodings, symbolic puzzles, jails, games, audio/RF data, and challenge navigation. Work only on supplied files and assigned challenge services. A challenge container escape is not authorization to modify the organizer's Kali host, workstation, or scoring platform.
 
@@ -13,10 +15,10 @@ This chapter covers layered encodings, symbolic puzzles, jails, games, audio/RF 
 | Inspect bytes | Windows HxD or WSL xxd | Listed file, local editor, Python |
 | Audio/spectrogram | Standard-library WAV inspection below | Listed Audacity, Sonic Visualiser, FFmpeg, SoX |
 | Source search | Editor or Python file reads | Listed ripgrep |
-| Constraints | Small Python enumeration; permitted non-AI library if added under Windows-sheet policy | Use a provisioned library; installation permission is not inferred |
+| Constraints | Small Python enumeration; non-AI library under PDF p.5 | Check the interpreter; non-AI libraries may be added under PDF p.5 |
 | Interactive protocol | Python socket to the assigned host | Python socket or listed Ncat |
 
-There is no all-tools installation command. Check the exact dependency for the next step. The Windows sheet permits non-AI Python libraries; it does not make rejected tools or AI/ML libraries acceptable. Do not use online decoders, compilers, or analysis services for challenge material.
+Check only the dependency needed for the next step. PDF p.5 permits non-AI libraries/dependencies/plugins/packages in both environments; [package setup](00-tool-rules.md#non-ai-python-package-checks) preserves named exclusions and the AI/ML ban. Use local decoders and compilers for challenge material.
 
 ## 2. Preserve the original and inspect the representation
 

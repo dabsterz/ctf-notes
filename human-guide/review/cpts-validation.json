@@ -1,0 +1,14 @@
+{
+  "notes": 102,
+  "images": 33,
+  "excluded": [
+    "Exploits/Web Exploits.md",
+    "Exploits/Web Shells-DESKTOP-0GERI6L.md"
+  ],
+  "checks": [
+    "All imported files match snapshot SHA-256 hashes",
+    "All note IDs present and unique",
+    "All referenced PNGs embedded offline",
+    "Separate Markdown download matches CPTS-NOTES.md"
+  ]
+}

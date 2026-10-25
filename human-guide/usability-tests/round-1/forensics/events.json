@@ -1,0 +1,6 @@
+{
+  "EventID": 4688,
+  "TimeCreated": "2026-10-25T01:02:03Z",
+  "NewProcessName": "C:\\Temp\\odd.exe",
+  "ProcessCommandLine": "C:\\Temp\\odd.exe --config C:\\Temp\\settings.ini"
+}

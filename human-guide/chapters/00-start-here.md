@@ -1,18 +1,19 @@
 # Start here: the human solver's field guide
 
+**Quick route:** [Short commands](../QUICKSTART.md#web-paths) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#web). Use this chapter for deeper explanations.
+
 This is a practical companion to the CTF skills repository: find the symptom you have, run a small test, interpret the result, and choose the next step. You do not need to know the vulnerability name before opening a chapter.
 
 **Built for both Windows/WSL and Kali.** Commands tagged `bash` belong in a Linux terminal, including WSL. Commands tagged `powershell` belong in Windows PowerShell. A `python` block is a script: save it under the filename given, then run it using the Python interpreter in that environment. Never paste a multiline Bash command straight into PowerShell.
 
 ## What to read tonight
 
-1. Read **Tools and competition rules** and check the tools you expect to use.
-2. Work through **First ten minutes** with one small local file.
-3. Choose two of the six main subjects: web, forensics, network, steganography, reverse engineering, and cryptography. Read their opening workflows, then try a concrete recipe.
-4. Keep the **tool matrix** handy when a familiar program is missing. Approved does not mean installed correctly.
-5. Use the supplementary pwn, malware, OSINT, miscellaneous, and advanced sections when the evidence calls for them.
+1. Open the [quick reference](../QUICKSTART.md) for the task in front of you.
+2. Read [Competition setup](../COMPETITION.md) once for VPN access, machine limits and rules.
+3. If a task needs more depth, open its category chapter. The seven listed categories are Digital Forensics, Malware Analysis, Web Security, Reverse Engineering, OSINT, Cryptography and Miscellaneous.
+4. Use the [tool chooser](../TOOL-CHOOSER.md) when a program is missing. Network, steganography, pwn and advanced chapters are supporting references.
 
-The official 2026 event page identifies AJCCBC and Trend Micro, lists the six main categories, and gives 26–27 October in Bangkok. This guide prioritizes those subjects; the vendor's identity does not reveal tomorrow's challenges. [Official event page, checked 25 October 2026](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
+The supplied TrendAI environment PDF is the operational source for this edition's category order and 26–27 October schedule. AJCCBC and the vendor's identity do not reveal the challenges. [Categories and event times](../COMPETITION.md#categories-flags-and-time).
 
 ## Find your starting point
 
@@ -46,7 +47,7 @@ Commands are recipes, not a script to run top to bottom against every challenge.
 - **Print:** the website's print button prints the current chapter. Search results can also be printed. Code blocks wrap in print but preserve their original text when copied.
 - **Tool matrix:** look up the exact program name and its environment. The workbook is the authority for the supplied list, not a package's popularity.
 
-The guide is prepared study material. The supplied list does not establish whether bringing this handbook, prepared scripts, or removable media is permitted. Check that specific point with the organizers before using it during the event. No AI service is needed to read it.
+The PDF permits this handbook and scripts prepared before the competition. Use the [rules summary](../COMPETITION.md#what-is-allowed) for reference access, team collaboration and excluded services.
 
 ## Useful vocabulary
 

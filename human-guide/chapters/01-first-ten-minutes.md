@@ -4,9 +4,9 @@ Your aim is to turn an unfamiliar challenge into one precise question. “Someth
 
 ## 1. Record the question and protect your starting point
 
-Write down the exact task, flag format, target address/port, supplied files, and any attempt limit. Keep one untouched copy and work on another. You do not need to install a case-management application.
+Write down the exact task, flag format, target address/port, supplied files and any attempt limit. Flags typically use `CSG_FLAG{...}`; submit the complete value through CTFd, following any challenge-specific format. Retain short command/evidence notes for the Day 2 write-up/presentations slot. [Schedule and format](../COMPETITION.md#categories-flags-and-time). Keep one untouched copy and work on another. You do not need to install a case-management application.
 
-In **Kali or WSL**, from the directory containing the attachment:
+For a small attachment, in **Kali or WSL**, from its directory (use the streaming hash below for large images; remote Kali has 8 GiB RAM and 40 GB disk):
 
 ```bash
 mkdir -p case/original case/work case/notes

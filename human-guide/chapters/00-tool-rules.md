@@ -1,6 +1,6 @@
 # Tools and competition rules
 
-The supplied workbook is `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`. All three sheets were inspected, including their introductory notes and installation remarks. There are **39 Windows/WSL entries, 161 Kali entries, and 82 unapproved entries**. These are row counts, not counts of unique executable names.
+Use the [competition setup page](../COMPETITION.md) for the PDF's rules, VPN access and machine limits. This page covers the supplied workbook, `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`: **39 Windows/WSL entries, 161 Kali entries, and 82 unapproved entries**, including all installation remarks. Counts refer to rows, not unique executable names.
 
 ## Read approval and availability separately
 
@@ -10,18 +10,18 @@ The supplied workbook is `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`. All t
 | Approved · WSL | Listed on the Windows sheet, but installed in WSL. | Enter the existing WSL environment first. |
 | Approved · Kali | Listed on the Kali sheet for the supplied AWS environment. | Use that environment and check the recorded location. |
 | Approved · availability uncertain | Listed, but version/path is missing or startup failed. | Check availability early; keep the documented alternative ready. |
-| Unapproved | Appears on the unapproved sheet, even when the reason is installation trouble. | Use the approved alternative. Do not reinstall it by another route. |
-| Not listed | No explicit entry was found. | Do not assume approval just because it is common in CTFs. |
+| Unapproved | Appears on the unapproved sheet; reasons include installation failure and explicit prohibition. | Use the listed alternative. The PDF does not expressly clear these named entries; resolve a needed exception through official support. |
+| Not listed | No explicit entry was found. | Unlisted standalone apps need organizer approval. Non-AI libraries/dependencies/plugins/packages follow PDF p.5. |
 
-The sheet titled “Unapproved List” says its entries could not be installed; individual reasons distinguish unsupported, unnecessary, licensing, and explicitly prohibited tools. Preserve that distinction. An installation failure is not the same explanation as a rule prohibition, but neither gives you approval to use the tool.
+The guide conservatively keeps named unapproved entries out of its practical routes. An installation failure and a rule prohibition are different reasons; the matrix preserves the original wording.
 
-Routine shell syntax and basic filesystem commands are used as operating-system facilities. They are not individually certified by this guide. Approval of a host application does not establish approval for every extension or online service it can access.
+Routine shell syntax and basic filesystem commands are operating-system facilities. For additions, follow [PDF p.5 and the workbook reconciliation](../COMPETITION.md#what-is-allowed); a permitted plugin is not necessarily installed, and a local tool listing does not authorize an online service.
 
 ## The important restrictions
 
-The official rules prohibit AI tools and unapproved software, limit activity to the permitted challenge targets, and prohibit publishing challenge content or uploading it to public analysis services. They also prohibit obtaining outside help during the competition. [Official rules, sections 7 and 9](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
+Prepared notes and scripts are allowed. During competition, stay within assigned targets, collaborate within your team, and use permitted reference sites. Do not use generative-AI assistants, obtain outside help, share challenge content externally or upload challenge files to online services. Automatically displayed AI search summaries are the PDF's stated exception. [Complete rules and sources](../COMPETITION.md#what-is-allowed).
 
-The workbook's Windows `B5`, Kali `B4`, and Windows `H14:H15` specifically prohibit AI/ML libraries and tools. The Python and uv notes permit non-AI libraries, but this does **not** certify that any particular library is already installed, allow an explicitly rejected tool, or authorize a remote service. Keep permission, installation, and service access as three separate checks.
+The workbook's Windows `B5`, Kali `B4`, and Windows `H14:H15` prohibit AI/ML libraries and tools. Keep this stricter exclusion alongside the PDF's non-generative-AI package allowance. Check installation separately from permission.
 
 There are no agent/MCP instructions in the working recipes. Do not use the original repository's agent installer, AI model routing, promptfoo evaluations, Tavily search, or AI/ML attack tooling during the competition. Read the exclusions chapter for their dispositions.
 
@@ -85,7 +85,7 @@ python3 -c "import importlib.util; print({m: importlib.util.find_spec(m) is not 
 
 `True` means the active interpreter can find a module, not that its version is compatible or that every capability is permitted. `Crypto` is the import name typically provided by PyCryptodome; `PIL` comes from Pillow; `pwn` from pwntools; `z3` from z3-solver. These names are not interchangeable with package installation names. No blanket installation commands are included.
 
-If a recipe specifically needs PyCryptodome and it is missing, the Windows sheet's non-AI-library permission provides a targeted **WSL-only** route using the listed uv installation. First confirm `command -v python3` prints an existing interpreter. From your working directory, create a separate environment rather than changing the organizer's system packages:
+PDF p.5 permits non-AI libraries/dependencies/plugins/packages in either environment, subject to the named exclusions above. If a recipe needs PyCryptodome, first check `python3 --version`. Choose a fresh `.ctf-venv` directory in your challenge folder. **WSL, using its listed uv:**
 
 ```bash
 uv venv --python "$(command -v python3)" .ctf-venv
@@ -93,10 +93,18 @@ uv pip install --python .ctf-venv/bin/python pycryptodome
 .ctf-venv/bin/python -c 'from Crypto.Cipher import AES; print(AES.block_size)'
 ```
 
-Expected output from the last command: `16`. Run the relevant saved script with `.ctf-venv/bin/python your_script.py`, replacing the filename. Creating a new environment does not copy every package from system Python. This setup needs access to an allowed package source; if unavailable, use the standard-library route or existing approved tool. It does not establish a separate Kali installation permission. Syntax reference: [uv environments](https://docs.astral.sh/uv/pip/environments/) and [package management](https://docs.astral.sh/uv/pip/packages/).
+**Kali, if its existing Python supports venv/pip:**
+
+```bash
+python3 -m venv .ctf-venv
+.ctf-venv/bin/python -m pip install pycryptodome
+.ctf-venv/bin/python -c 'from Crypto.Cipher import AES; print(AES.block_size)'
+```
+
+The check should print `16`. Run your saved script with `.ctf-venv/bin/python your_script.py`. A new environment does not inherit all system packages. If venv, pip or package access is unavailable, use WSL's uv route or a standard-library alternative. These commands add a library; they do not approve an unlisted standalone app or its external tools. [Python venv](https://docs.python.org/3/library/venv.html), [uv environments](https://docs.astral.sh/uv/pip/environments/).
 
 ## Do not lose time to the repository installer
 
 The source's `scripts/install_ctf_tools.sh all` is designed for an unrestricted agent workstation. It is not a competition setup step. It installs a broad collection that does not match this event's whitelist. Likewise, the original generated catalog loads external analytics and links to agent skills; this offline website does neither.
 
-Use the tool matrix to resolve a concrete need. Use the organizer's existing environment. Preserve the organizer's recorded versions even if a tool's public website now advertises a different one.
+Use the tool matrix to resolve a concrete need. The PDF says installation used the latest versions available when it began in mid-October; workbook versions are a record, not a guarantee of the runtime version. Check the supplied tool's `--version` and `--help` before using version-sensitive options.

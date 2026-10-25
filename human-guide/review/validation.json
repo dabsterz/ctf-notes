@@ -1,10 +1,10 @@
 {
-  "chapters": 18,
+  "chapters": 125,
   "tool_rows": 282,
   "original_files": 286,
-  "code_blocks": 253,
-  "python_blocks_compiled": 98,
+  "code_blocks": 287,
+  "python_blocks_compiled": 106,
   "errors": [],
   "warnings": [],
-  "browser_check": "Unavailable: no browsers exposed by computer-use tool; live interaction and visual layout not verified."
+  "browser_check": "Automated local-file Chrome rendering and interaction passed; see ui-validation.json and ui-research.md for scope and screenshot review."
 }

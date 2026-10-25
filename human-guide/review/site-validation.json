@@ -1,0 +1,18 @@
+{
+  "passed": 12,
+  "checks": [
+    "default route is short guide",
+    "dark workspace, task routes, focus, text size and hidden-group deep link",
+    "long script expansion and print restores collapsed setup content",
+    "seven PDF categories and competition setup route with offline source link",
+    "all category tables and literal pipe command render",
+    "search result, section route and clipboard text",
+    "offline recipe download contains exact source",
+    "Markdown download contains full current handbook",
+    "CPTS Markdown download, offline image, nested navigation and path-aware search",
+    "tool lookup filters and workbook reference",
+    "menu state, Escape and print action",
+    "no external resource requests or DOM runtime errors"
+  ],
+  "scope": "jsdom DOM integration; separate Chrome layout checks in ui-validation.json. Organizer tools are not tested here."
+}

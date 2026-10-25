@@ -1,0 +1,13 @@
+{
+  "reason": "Parent-generated RSA plaintext was >= modulus; raw RSA recovers residue only. Fixture corrected before scoring. Do not count against guide.",
+  "original": {
+    "n": 1050809297549059047257,
+    "e": 65537,
+    "c": 963498630267870079644
+  },
+  "corrected": {
+    "n": 1050809297549059047257,
+    "e": 65537,
+    "c": 79365901383305607380
+  }
+}

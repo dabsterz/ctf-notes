@@ -1,0 +1,25 @@
+{
+  "pdf": {
+    "original": "Practice Environment Setup Guide.pdf",
+    "copy": "sources/practice-environment.pdf",
+    "sha256": "41e085a678156514f20919134e68cc975e3e4c3cf92086caeda06872cb60165a",
+    "bytes": 886959,
+    "pages": 23,
+    "copy_identical": true
+  },
+  "categories_in_pdf_order": [
+    "Digital Forensics",
+    "Malware Analysis",
+    "Web Security",
+    "Reverse Engineering",
+    "OSINT",
+    "Cryptography",
+    "Miscellaneous"
+  ],
+  "source_page_links": 21,
+  "reader_pages_checked_for_obsolete_policy": 21,
+  "generated_setup_matches_source": true,
+  "handbook_matches_download": true,
+  "scope": "Provenance and integration checks; semantic page-by-page audit in environment-audit.md. No event infrastructure used.",
+  "errors": []
+}

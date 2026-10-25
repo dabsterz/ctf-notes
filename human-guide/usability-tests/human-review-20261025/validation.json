@@ -1,0 +1,46 @@
+{
+  "reviewers": 3,
+  "scores": {
+    "Forensics": [
+      7,
+      8,
+      7,
+      6,
+      8
+    ],
+    "Reversing": [
+      8,
+      8,
+      6,
+      5,
+      5
+    ],
+    "Web and crypto": [
+      8,
+      8,
+      7,
+      6,
+      5
+    ]
+  },
+  "means": {
+    "Forensics": 7.2,
+    "Reversing": 6.4,
+    "Web and crypto": 6.8
+  },
+  "overall_mean": 6.8,
+  "frozen_files": 30,
+  "changed_guide_files": [],
+  "output_checks": {
+    "png_output": true,
+    "old_tar_version": true,
+    "new_tar_preserved": true,
+    "tar_recovery": true,
+    "transform_output": true,
+    "crash_offset": true,
+    "vm_answer_uniquely_72": true,
+    "decoded_layer": true,
+    "rsa_corrected_output": true
+  },
+  "scope": "Synthetic agent walkthroughs with actual WSL and Windows commands; no real human study or browser interaction."
+}

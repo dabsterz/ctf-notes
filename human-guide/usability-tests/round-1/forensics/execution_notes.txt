@@ -1,0 +1,7 @@
+﻿Observed navigation error (tester-created PowerShell/ripgrep path choice):
+rg -n ''^#{1,2} '' human-guide/chapters/*forensic*
+rg: human-guide/chapters/*forensic*: IO error for operation on human-guide/chapters/*forensic*: The filename, directory name, or volume label syntax is incorrect. (os error 123)
+Fixed by explicit path human-guide/chapters/03-forensics.md. Not a guide command failure.
+All three scripts produced complete stdout with no observed errors; stdout is recorded separately. Shell calls exited 0; individual Python exit codes were not separately logged.
+Host python --version: Python 3.14.4
+

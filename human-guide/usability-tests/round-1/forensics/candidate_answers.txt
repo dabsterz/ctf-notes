@@ -1,0 +1,5 @@
+﻿Task 1 candidate: CTF{after_the_real_iend}
+Task 2 candidate: CTF{keep_duplicate_members}; occurrence 0 report.txt, saved as out/tar-members/000000.bin. Occurrence 1 also retained as 000001.bin.
+Task 3 candidate: 2026-10-25T01:02:03Z; C:\Temp\odd.exe --config C:\Temp\settings.ini
+Task 3 interpretation: Given the brief labels this a process-creation event, it records creation of the named process with the shown command line at the supplied UTC time. This is not an executable file creation time. Successful completion, payload effects, or malicious intent are not established by these four fields. This cautious interpretation is inference from the supplied task and record, not an interpretation recipe supplied by the guide; guide-only interpretation is partial.
+Tool lookup: radare2 is in Approved Tool List for Kali!C123; version 6.0.5. Local static alternative: Ghidra in Windows WSL, Approved Tool List for Windows!C29; version 12.1.4. No installed-tool runtime claim.

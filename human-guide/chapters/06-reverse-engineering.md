@@ -1,8 +1,10 @@
 # Reverse engineering: turn a program into a checkable explanation
 
+**Quick route:** [Short commands](../QUICKSTART.md#static-reversing) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#reverse-engineering). Use this chapter for deeper explanations.
+
 Your first deliverable is a sentence such as “the program XORs each input byte with a repeating key, rotates it, and compares the result with this table.” Once that sentence is accurate, writing a solver is usually straightforward. A decompiler's output is a hypothesis; the bytes and a repeatable run are the evidence.
 
-This chapter is for human, local analysis of supplied challenge files. The event prohibits AI assistance and public online analysis, decompilation, and compilation services. Use the handbook as preparation or as an offline reference only where the event permits it. Do not upload binaries to a comparison site. Work only on the challenge targets assigned to your team.
+This chapter is for human, local analysis of supplied challenge files. The event prohibits AI assistance and public online analysis, decompilation, and compilation services. Prepared notes and scripts are expressly allowed by PDF p.7. Do not upload binaries to a comparison site. Work only on the challenge targets assigned to your team.
 
 ## 1. Choose the correct machine before choosing a command
 
@@ -40,7 +42,7 @@ r2 -v
 python3 --version
 ```
 
-If a command is missing, use a listed alternative or the other supplied environment. Do not run the source repository's blanket installation commands. Windows row 14 permits additional non-AI Python libraries; that is permission to add a library, not evidence it is already installed, and does not approve unrelated standalone software. This chapter's core route needs no additional Python package.
+If a command is missing, use a listed alternative or the other supplied environment. PDF p.5 permits non-AI libraries/plugins/dependencies in both environments, subject to [named exclusions](../COMPETITION.md#what-is-allowed). This chapter's core route needs no extra Python package.
 
 IDA Free and Binary Ninja Free are in the unapproved sheet. MCP servers and AI plugins are out of scope. WinDbg, Scylla/x64dbg plugins, de4dot, online decompilers, and online analysis services are also excluded by the workbook. The approved x64dbg application does not imply approval of every extension.
 
@@ -214,7 +216,7 @@ Rename `local_28` to a factual name such as `input_buffer` only after you have i
 | Huge single function | Flattened dispatcher, bad boundaries, exception flow, or VM interpreter |
 | No ordinary calls | Tail jumps, return chains, callbacks, destructors, signal handlers |
 
-Ghidra in the Windows sheet is installed **in WSL**. Its presence there does not establish a Kali installation. Kali's approved radare2 provides the static fallback. `pdg` requires an r2ghidra plugin; radare2 approval alone is not proof that plugin exists. Use `pdf` if it is absent instead of installing it during the event.
+Ghidra in the Windows sheet is installed **in WSL**. Its presence there does not establish a Kali installation. Kali's approved radare2 provides the static fallback. `pdg` requires an r2ghidra plugin; radare2 approval alone is not proof that plugin exists. Use `pdf` immediately if it is absent. PDF p.5 allows non-AI plugins subject to named exclusions, but installation and compatibility may cost more time than this fallback.
 
 ## 6. Stop immediately before the comparison
 

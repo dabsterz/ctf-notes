@@ -1,5 +1,7 @@
 # Steganography, documents, and media
 
+**Quick route:** [Short commands](../QUICKSTART.md#png-trailer) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#steganography-and-audio). Use this chapter for deeper explanations.
+
 Treat each file as a container before treating it as pixels or sound. Read metadata, inspect structural boundaries, enumerate frames/tracks, then test a specific hiding hypothesis. Keep every recovered layer and its extraction settings.
 
 ## Tools and execution environment
@@ -10,7 +12,7 @@ Treat each file as a container before treating it as pixels or sound. Read metad
 | Windows WSL | Python 3, strings, zsteg, binwalk, ExifTool, pdftotext, ZBar, qpdf, xxd | Windows 14, 18–22, 26, 33, 35 |
 | Kali | Audacity, FFmpeg, ImageMagick, pngcheck, SoX, Sonic Visualiser, steghide, stegseek, stegsnow, StegSolve | Kali 17, 47, 74, 115, 136, 135, 141–144 |
 
-Python examples run in **WSL**; Pillow, NumPy, SciPy, and other non-AI libraries fall under Windows row 14. Check availability before choosing a recipe; do not install a toolkit wholesale. Python permission does not override the explicit unapproved list. In particular, do not use ML classifiers, unapproved DCT-Image-Steganography, sigBits, or magiceye-solver (Unapproved rows 17, 75, 42).
+Python examples run in **WSL**. Non-AI libraries such as Pillow, NumPy and SciPy may be added under PDF p.5; use [targeted package setup](00-tool-rules.md#non-ai-python-package-checks). Keep named exclusions: ML classifiers, DCT-Image-Steganography, sigBits and magiceye-solver are outside this guide's practical routes (Unapproved rows 17, 75, 42).
 
 Keep decoding local. Online image/barcode readers and public analysis uploads are not a substitute for missing tools under the [event rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
 
@@ -79,6 +81,8 @@ while pos + 12 <= len(d):
 else:
     raise ValueError('no complete IEND')
 ```
+
+Inspect the saved trailer in WSL with `xxd -l 128 png-parts/trailer.bin` and `strings -a png-parts/trailer.bin`. Or use the [short PNG card](../QUICKSTART.md#png-trailer), whose helper prints a preview automatically.
 
 Check `tEXt`, `iTXt`, `zTXt`, unknown chunks, unused palette data, and bytes after IEND. If an archive signature is overwritten, repair only a copy after verifying the rest of its header. For chunk-case corruption, change the **chunk type field**, then recompute its CRC over type+data. Global byte replacement can corrupt an IDAT stream.
 

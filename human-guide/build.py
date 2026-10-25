@@ -39,14 +39,23 @@ def load_tools() -> list[dict]:
     return entries
 
 
-def render_markdown(source: str, chapter_id: str) -> str:
+def render_markdown(source: str, chapter_id: str, images: dict | None = None) -> str:
     result = markdown.markdown(source, extensions=['fenced_code', 'tables', 'toc', 'sane_lists'])
     soup = BeautifulSoup(result, 'html.parser')
     for bad in soup.find_all(['script', 'style', 'iframe', 'object', 'embed', 'form', 'input', 'button', 'img', 'link', 'meta']):
+        if bad.name == 'img' and images and bad.get('src') in images:
+            bad['src'] = images[bad['src']]
+            bad['loading'] = 'lazy'
+            bad['decoding'] = 'async'
+            bad['class'] = 'cpts-image'
+            continue
         bad.decompose()
     for tag in soup.find_all(True):
         for attribute in list(tag.attrs):
-            if attribute not in {'id', 'class', 'href', 'title', 'colspan', 'rowspan'}:
+            allowed = {'id', 'class', 'href', 'title', 'colspan', 'rowspan'}
+            if tag.name == 'img':
+                allowed |= {'src', 'alt', 'loading', 'decoding'}
+            if attribute not in allowed:
                 del tag[attribute]
         if tag.has_attr('href'):
             href = tag['href']
@@ -67,6 +76,10 @@ def render_markdown(source: str, chapter_id: str) -> str:
                 target_id = Path(target).stem.lower()
                 link['href'] = '#' + target_id + ('--' + fragment if fragment else '')
     for table in soup.find_all('table'):
+        # Table pipes need a Markdown escape, but it must not reach copied shell text.
+        for code in table.find_all('code'):
+            if code.string is not None:
+                code.string = code.string.replace('\\|', '|')
         wrapper = soup.new_tag('div', attrs={'class': 'table-scroll', 'tabindex': '0'})
         table.wrap(wrapper)
     return str(soup)
@@ -76,10 +89,51 @@ def table_cell(value: str) -> str:
     return value.replace('|', '\\|').replace('\r', '').replace('\n', '<br>') or '—'
 
 
+def merge_markdown(source: str, chapter_id: str) -> str:
+    """Preserve section-level jumps when separate Markdown files become one book."""
+    soup = BeautifulSoup(render_markdown(source, chapter_id), 'html.parser')
+    headings = iter(h['id'] for h in soup.find_all(re.compile('^h[1-6]$')))
+    lines, fence = [], None
+    def rewrite(match):
+        target = match.group(2)
+        path, _, fragment = target.partition('#')
+        if target.startswith('#'):
+            target = '#' + chapter_id + '--' + fragment
+        elif not urlsplit(target).scheme and path.endswith('.md'):
+            target = '#' + Path(path).stem.lower() + ('--' + fragment if fragment else '')
+        return '[' + match.group(1) + '](' + target + ')'
+    for line in source.splitlines():
+        marker = re.match(r'^(`{3,}|~{3,})', line)
+        if marker:
+            if fence is None:
+                fence = marker.group(1)
+            elif marker.group(1)[0] == fence[0] and len(marker.group(1)) >= len(fence):
+                fence = None
+            lines.append(line)
+            continue
+        if fence is None:
+            if re.match(r'^#{1,6} ', line):
+                lines.extend([f'<a id="{next(headings)}"></a>', ''])
+            line = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', rewrite, line)
+        lines.append(line)
+    return '\n'.join(lines) + '\n'
+
+
+def recipe_sources():
+    recipes = {p.name: p.read_text(encoding='utf-8') for p in sorted((ROOT / 'recipes').glob('*.py'))}
+    lines = ['# Recipe downloads and source', '',
+             'The short guide uses these complete scripts. In the website, each download is embedded and works offline. Save it inside a folder named `recipes` beside your challenge files; run from the parent folder. The ZIP already contains this layout. In Markdown, each link points to the included file.', '',
+             'Use WSL Python 3 from the supplied list. These helpers use the standard library only. Each script accepts `--help`. They implement the specific assumptions stated in the [quick reference](QUICKSTART.md); they do not choose an attack for you.', '']
+    for name, source in recipes.items():
+        lines += [f'## {name}', '', f'[Download {name}](recipes/{name})', '', '```python', source.rstrip(), '```', '']
+    (ROOT / 'RECIPES.md').write_text('\n'.join(lines), encoding='utf-8')
+    return recipes
+
+
 def tool_matrix(tools):
     lines = ['# Tool matrix: the complete supplied list', '',
              'Source: `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`. Recorded versions are copied as supplied, not independently verified. Blank installation notes do not establish availability. The unapproved reasons are retained verbatim. The workbook contains some replacement characters; these are preserved rather than guessed.', '',
-             'Windows/WSL and Kali are separate environments. See the location column before choosing a command. No row authorizes every plugin, dependency, or hosted service associated with a product.', '']
+             'Windows/WSL and Kali are separate environments. See the location column before choosing a command. For non-AI additions, named exclusions and hosted-service restrictions, use [Competition setup](COMPETITION.md#what-is-allowed).', '']
     for platform in ['Windows / WSL', 'Kali', 'Not approved']:
         subset = [t for t in tools if t['platform'] == platform]
         lines += [f'## {platform} · {len(subset)} entries', '',
@@ -159,6 +213,7 @@ def build_coverage(inventory):
     lines = ['# Source coverage and editorial decisions', '',
              f'The original snapshot contains **{len(inventory)} files**, including **{sum(r["source"].endswith(".md") for r in inventory)} Markdown files**. Every file is listed below. Category guides were reviewed for human adaptation; infrastructure received inventory/structural review. This is not a claim that every historical exploit was executed or every source sentence was reproduced.', '',
              '**Adapted/merged** means useful content was rewritten or consolidated. **Reference-only** retains specialist/history or development context without presenting it as a ready event recipe. **Excluded** explains material incompatible with the event or human workflow. The chapter is the destination or nearest explanation. Review details and original SHA-256 hashes are in `review/combined-coverage.json`.', '',
+             'Additional competition source: the subsequently supplied 23-page [environment PDF](sources/practice-environment.pdf) is reconciled in [Competition setup](COMPETITION.md). Its source/copy hash and page-by-page disposition are recorded separately in `review/environment-validation.json` and `review/environment-audit.md`; it is not silently added to the original 286-file baseline.', '',
              '| Original source | Disposition | Human destination | Review note |',
              '| --- | --- | --- | --- |']
     for item in combined:
@@ -174,26 +229,40 @@ def main():
     coverage, records = build_coverage(inventory)
     (ROOT / 'SOURCE-COVERAGE.md').write_text(coverage, encoding='utf-8')
     (ROOT / 'LICENSE').write_bytes((REPO / 'LICENSE').read_bytes())
-    paths = sorted((ROOT / 'chapters').glob('*.md')) + [ROOT / 'TOOL-MATRIX.md', ROOT / 'SOURCE-COVERAGE.md']
+    recipes = recipe_sources()
+    groups = [
+        ('CONTEST SHORTCUTS', ['QUICKSTART.md', 'COMPETITION.md', 'TOOL-CHOOSER.md']),
+        ('GET ORIENTED', ['chapters/00-start-here.md', 'chapters/00-tool-rules.md', 'chapters/01-first-ten-minutes.md']),
+        ('COMPETITION CATEGORIES', ['chapters/' + name + '.md' for name in
+          ['03-forensics', '09-malware', '02-web-exploitation', '06-reverse-engineering', '10-osint', '07-cryptography', '11-miscellaneous']]),
+        ('SUPPORTING REFERENCE', ['chapters/' + name + '.md' for name in
+          ['04-network', '05-steganography', '08-binary-exploitation', '13-pwn-practice-atlas', '14-advanced-crypto']]),
+        ('REFERENCE', ['chapters/12-excluded-and-advanced.md', 'RECIPES.md', 'TOOL-MATRIX.md', 'SOURCE-COVERAGE.md']),
+    ]
+    paths = [(ROOT / path, group) for group, names in groups for path in names]
+    assert {p for p, _ in paths if p.parent.name == 'chapters'} == set((ROOT / 'chapters').glob('*.md'))
     chapters = []
-    for path in paths:
+    for path, group in paths:
         source = path.read_text(encoding='utf-8')
         title = re.search(r'^# (.+)$', source, re.M).group(1)
-        chapters.append({'id': path.stem.lower(), 'title': title, 'path': path.relative_to(ROOT).as_posix(), 'markdown': source,
+        chapters.append({'id': path.stem.lower(), 'title': title, 'group': group, 'path': path.relative_to(ROOT).as_posix(), 'markdown': source,
                          'html': render_markdown(source, path.stem.lower())})
-    combined = '# Cyber SEA Game 2026 · Human CTF Handbook\n\nPrepared for Windows/WSL and Kali from the supplied repository and tool workbook.\n\n'
+    from cpts_support import build_cpts
+    cpts_chapters = build_cpts(ROOT, render_markdown, merge_markdown)
+    insert_at = next(i for i, c in enumerate(chapters) if c['group'] == 'REFERENCE')
+    chapters[insert_at:insert_at] = cpts_chapters
+    combined = '# Cyber SEA Game 2026 · Human CTF Handbook\n\nPrepared for Windows/WSL and Kali from the supplied repository, tool workbook and environment PDF. Start with the quick reference; competition setup holds the access and rules details.\n\n'
     combined += '\n'.join(f'- [{c["title"]}](#{c["id"]})' for c in chapters) + '\n\n'
     for c in chapters:
-        def merged_link(match):
-            target = match.group(2)
-            if not urlsplit(target).scheme and target.split('#')[0].endswith('.md'):
-                return '[' + match.group(1) + '](#' + Path(target.split('#')[0]).stem.lower() + ')'
-            return match.group(0)
-        merged_source = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', merged_link, c['markdown'])
+        merged_source = merge_markdown(c['markdown'].replace('../assets/', 'cpts/assets/') if c.get('note_path') else c['markdown'], c['id'])
         combined += f'\n\n---\n\n<a id="{c["id"]}"></a>\n\n' + merged_source
-    combined += '\n\n---\n\n## Attribution and license\n\nAdapted from the supplied ctf-skills repository. Original copyright (c) 2026 Lukasz Jagiello.\n\n```text\n' + (ROOT / 'LICENSE').read_text(encoding='utf-8') + '\n```\n'
+    combined += '\n\n---\n\n## Attribution and license\n\nAdapted from the supplied ctf-skills repository. Original copyright (c) 2026 Lukasz Jagiello. Personal CPTS notes supplied by Vernon are separate from this attribution.\n\n```text\n' + (ROOT / 'LICENSE').read_text(encoding='utf-8') + '\n```\n'
     (ROOT / 'HANDBOOK.md').write_text(combined, encoding='utf-8')
-    payload = {'chapters': chapters, 'tools': tools, 'markdown': combined,
+    if cpts_chapters:
+        combined = combined.replace('[CPTS notes as one Markdown file](#cpts-notes)', '[CPTS notes as one Markdown file](CPTS-NOTES.md)')
+        (ROOT / 'HANDBOOK.md').write_text(combined, encoding='utf-8')
+    payload = {'chapters': chapters, 'tools': tools, 'markdown': combined, 'recipes': recipes,
+               'cptsMarkdown': (ROOT / 'CPTS-NOTES.md').read_text(encoding='utf-8') if cpts_chapters else '',
                'stats': {'sources': len(inventory), 'chapters': len(chapters), 'commands': sum(len(re.findall(r'^```\w', c['markdown'], re.M)) for c in chapters)}}
     encoded = json.dumps(payload, ensure_ascii=False).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     template = (ROOT / 'assets/template.html').read_text(encoding='utf-8')

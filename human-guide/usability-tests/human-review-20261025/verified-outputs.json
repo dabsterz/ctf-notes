@@ -1,0 +1,11 @@
+{
+  "png_output": true,
+  "old_tar_version": true,
+  "new_tar_preserved": true,
+  "tar_recovery": true,
+  "transform_output": true,
+  "crash_offset": true,
+  "vm_answer_uniquely_72": true,
+  "decoded_layer": true,
+  "rsa_corrected_output": true
+}

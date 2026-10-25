@@ -1,0 +1,36 @@
+﻿{
+  "tasks": [
+    {
+      "id": "png",
+      "status": "completed",
+      "candidate": "CTF{after_the_real_iend}",
+      "evidence": ["forensics/png_stdout.txt", "forensics/png_answer.txt", "forensics/png-parts/trailer.bin"]
+    },
+    {
+      "id": "tar",
+      "status": "completed",
+      "candidate": "CTF{keep_duplicate_members}",
+      "evidence": ["forensics/tar_stdout.txt", "forensics/tar_answers.txt", "forensics/out/tar-members/000000.bin", "forensics/out/tar-members/000001.bin"]
+    },
+    {
+      "id": "event",
+      "status": "partial",
+      "candidate": "2026-10-25T01:02:03Z | C:\\Temp\\odd.exe --config C:\\Temp\\settings.ini",
+      "evidence": ["forensics/event_stdout.txt", "forensics/read_event.py", "forensics/candidate_answers.txt", "Field recovery completed; guide-only interpretation partial because event 4688 is listed but not explained."]
+    }
+  ],
+  "common_lookup": {
+    "radare2_environment": "Kali",
+    "alternative": "Ghidra (Windows WSL, Windows row 29)"
+  },
+  "dimensions": {
+    "findability": 4,
+    "command_readiness": 4,
+    "interpretation": 3,
+    "cognitive_load": 4,
+    "tool_environment": 5
+  },
+  "overall_10": 7.9,
+  "study_10": 8.5,
+  "lookup_count": 14
+}

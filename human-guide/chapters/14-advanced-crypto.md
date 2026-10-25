@@ -1,5 +1,7 @@
 # Advanced cryptography: choose a model you can verify
 
+**Quick route:** [Short commands](../QUICKSTART.md#rsa) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#cryptography). Use this chapter for deeper explanations.
+
 Use this chapter after [Cryptography](07-cryptography.md). These techniques are retained because the original repository covers considerably more than introductory RSA and XOR. They are not a suggestion to run every attack against every number.
 
 All Python demonstrations run locally with Python 3 in Windows WSL or Kali. Save the named files and run them with `python3`. Where a script imports `math_helpers`, use the helper file from chapter 07 in the same directory. Sage is optional on Kali: the approved sheet records it but gives no installation information. The approved crypto-attacks checkout is also Kali-specific. No online mathematical service is needed here.

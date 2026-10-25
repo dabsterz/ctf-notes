@@ -1,0 +1,16 @@
+# 161,162 snmp
+
+
+This service is a UDP port, remember to scan for udp services if all else fails
+
+ Scan commands
+```bash
+sudo nmap -sU -sC -sV -p 161,162 10.129.42.253
+
+snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0
+snmpwalk -v 2c -c private  10.129.42.253
+onesixtyone -c dict.txt 10.129.42.254
+braa public@10.129.14.128:.1.3.6.*
+```
+
+

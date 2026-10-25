@@ -1,0 +1,1 @@
+{"program": [["LOAD_INPUT"], ["XOR", 43], ["ADD", 17], ["CMP", 116], ["HALT"]]}

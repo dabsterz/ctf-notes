@@ -4,6 +4,8 @@ The original snapshot contains **286 files**, including **197 Markdown files**. 
 
 **Adapted/merged** means useful content was rewritten or consolidated. **Reference-only** retains specialist/history or development context without presenting it as a ready event recipe. **Excluded** explains material incompatible with the event or human workflow. The chapter is the destination or nearest explanation. Review details and original SHA-256 hashes are in `review/combined-coverage.json`.
 
+Additional competition source: the subsequently supplied 23-page [environment PDF](sources/practice-environment.pdf) is reconciled in [Competition setup](COMPETITION.md). Its source/copy hash and page-by-page disposition are recorded separately in `review/environment-validation.json` and `review/environment-audit.md`; it is not silently added to the original 286-file baseline.
+
 | Original source | Disposition | Human destination | Review note |
 | --- | --- | --- | --- |
 | .github/codeql/codeql-config.yml | reference-only | chapters/01-first-ten-minutes.md | Repository development/evaluation infrastructure or synthetic fixture, not event solving instructions. Inventory/structural review; not reproduced as a competition workflow. |

@@ -1,8 +1,10 @@
 # OSINT from supplied evidence
 
+**Quick route:** [Short commands](../QUICKSTART.md#osint) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#osint). Use this chapter for deeper explanations.
+
 Build an evidence trail from a clue to an answer. Preserve exact identifiers, original text, dates, and uncertainty. A matching username, reused photograph, or hosting IP is a lead; it does not independently establish identity or location.
 
-This chapter emphasizes local files and organizer-provided material. Use the handbook's competition rules before consulting external sites. Do not upload challenge images to reverse-image services, use face recognition, contact people or bots, or treat a recovered token as permission to access an account.
+Manual Google searches, technical references and Google Translate are explicitly allowed by PDF p.6. Work from supplied clues and corroborate public evidence. Do not upload challenge images to reverse-image services, use face recognition or ask outsiders/bots for assistance. [Reference and communication rules](../COMPETITION.md#what-is-allowed).
 
 ## Environment and local inventory
 
@@ -145,7 +147,7 @@ For newspaper or product clues, use supplied catalogs/archives: record publicati
 
 Latitude/longitude order and hemisphere signs are frequent errors. Decimal degrees are not degrees-minutes-seconds. An MGRS string includes zone, latitude band, grid square, and equally precise easting/northing digits; do not treat it as a decimal coordinate. A short Plus Code needs a reference locality; a full Open Location Code does not. What3Words is a distinct system and cannot be converted using a guessed word grid.
 
-When non-AI Python libraries are needed in **WSL**, Windows row 14 permits them except explicit exclusions; use a documented coordinate conversion library only after checking its input/output convention. Do not assume public conversion websites are an approved analysis route. If the required proprietary lookup is unavailable, preserve the verified coordinates and state the conversion dependency.
+For non-AI Python libraries, PDF p.5 permits additions in either environment subject to named exclusions; use a documented coordinate conversion library only after checking its input/output convention. Do not assume public conversion websites are an approved analysis route. If the required proprietary lookup is unavailable, preserve the verified coordinates and state the conversion dependency.
 
 For a supplied `places.csv` with `name,lat,lon`, this **WSL** script ranks locations near a clue coordinate using a spherical distance:
 

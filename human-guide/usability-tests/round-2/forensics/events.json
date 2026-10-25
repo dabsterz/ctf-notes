@@ -1,0 +1,7 @@
+{
+  "Provider": "Microsoft-Windows-Security-Auditing",
+  "EventID": 4688,
+  "TimeCreated": "2026-10-25T03:04:05Z",
+  "NewProcessName": "C:\\Temp\\runner.exe",
+  "CommandLine": "C:\\Temp\\runner.exe --mode audit"
+}

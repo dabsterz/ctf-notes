@@ -1,0 +1,156 @@
+{
+  "definition": "Whitespace-separated tokens outside fenced code, including tables/headings/links. Counts measure document size, not reading difficulty or human time.",
+  "chapters": [
+    {
+      "chapter": "00-start-here.md",
+      "total_lines": 68,
+      "prose_whitespace_words": 1051,
+      "code_lines": 0,
+      "code_blocks": 0,
+      "longest_code_block_lines": 0,
+      "headings": 7
+    },
+    {
+      "chapter": "00-tool-rules.md",
+      "total_lines": 102,
+      "prose_whitespace_words": 1253,
+      "code_lines": 12,
+      "code_blocks": 5,
+      "longest_code_block_lines": 3,
+      "headings": 7
+    },
+    {
+      "chapter": "01-first-ten-minutes.md",
+      "total_lines": 206,
+      "prose_whitespace_words": 1183,
+      "code_lines": 55,
+      "code_blocks": 15,
+      "longest_code_block_lines": 10,
+      "headings": 10
+    },
+    {
+      "chapter": "02-web-exploitation.md",
+      "total_lines": 573,
+      "prose_whitespace_words": 5254,
+      "code_lines": 148,
+      "code_blocks": 25,
+      "longest_code_block_lines": 24,
+      "headings": 37
+    },
+    {
+      "chapter": "03-forensics.md",
+      "total_lines": 434,
+      "prose_whitespace_words": 2792,
+      "code_lines": 167,
+      "code_blocks": 28,
+      "longest_code_block_lines": 25,
+      "headings": 14
+    },
+    {
+      "chapter": "04-network.md",
+      "total_lines": 416,
+      "prose_whitespace_words": 2442,
+      "code_lines": 185,
+      "code_blocks": 23,
+      "longest_code_block_lines": 32,
+      "headings": 15
+    },
+    {
+      "chapter": "05-steganography.md",
+      "total_lines": 496,
+      "prose_whitespace_words": 3086,
+      "code_lines": 237,
+      "code_blocks": 24,
+      "longest_code_block_lines": 27,
+      "headings": 14
+    },
+    {
+      "chapter": "06-reverse-engineering.md",
+      "total_lines": 550,
+      "prose_whitespace_words": 4315,
+      "code_lines": 193,
+      "code_blocks": 28,
+      "longest_code_block_lines": 28,
+      "headings": 17
+    },
+    {
+      "chapter": "07-cryptography.md",
+      "total_lines": 591,
+      "prose_whitespace_words": 2430,
+      "code_lines": 332,
+      "code_blocks": 19,
+      "longest_code_block_lines": 48,
+      "headings": 27
+    },
+    {
+      "chapter": "08-binary-exploitation.md",
+      "total_lines": 574,
+      "prose_whitespace_words": 4808,
+      "code_lines": 192,
+      "code_blocks": 26,
+      "longest_code_block_lines": 35,
+      "headings": 18
+    },
+    {
+      "chapter": "09-malware.md",
+      "total_lines": 256,
+      "prose_whitespace_words": 1399,
+      "code_lines": 104,
+      "code_blocks": 17,
+      "longest_code_block_lines": 20,
+      "headings": 9
+    },
+    {
+      "chapter": "10-osint.md",
+      "total_lines": 198,
+      "prose_whitespace_words": 1494,
+      "code_lines": 73,
+      "code_blocks": 10,
+      "longest_code_block_lines": 23,
+      "headings": 10
+    },
+    {
+      "chapter": "11-miscellaneous.md",
+      "total_lines": 521,
+      "prose_whitespace_words": 3253,
+      "code_lines": 218,
+      "code_blocks": 21,
+      "longest_code_block_lines": 28,
+      "headings": 25
+    },
+    {
+      "chapter": "12-excluded-and-advanced.md",
+      "total_lines": 66,
+      "prose_whitespace_words": 924,
+      "code_lines": 2,
+      "code_blocks": 1,
+      "longest_code_block_lines": 2,
+      "headings": 6
+    },
+    {
+      "chapter": "13-pwn-practice-atlas.md",
+      "total_lines": 383,
+      "prose_whitespace_words": 4608,
+      "code_lines": 5,
+      "code_blocks": 1,
+      "longest_code_block_lines": 5,
+      "headings": 51
+    },
+    {
+      "chapter": "14-advanced-crypto.md",
+      "total_lines": 455,
+      "prose_whitespace_words": 3161,
+      "code_lines": 202,
+      "code_blocks": 10,
+      "longest_code_block_lines": 36,
+      "headings": 21
+    }
+  ],
+  "totals": {
+    "total_lines": 5889,
+    "prose_whitespace_words": 43453,
+    "code_lines": 2125,
+    "code_blocks": 253,
+    "headings": 288
+  }
+}

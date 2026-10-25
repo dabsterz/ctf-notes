@@ -1,0 +1,815 @@
+{
+  "workbook_entries_verified": 282,
+  "category_tables": 11,
+  "comparison_rows": 72,
+  "distinct_approved_rows_referenced": 66,
+  "rows": [
+    {
+      "category": "Web",
+      "label": "[Burp Community](https://portswigger.net/burp/documentation/desktop/tools/repeater) \u00b7 WSL \u00b7 W27",
+      "policy": [
+        {
+          "ref": "W27",
+          "name": "Burp Suite Community Edition",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Web",
+      "label": "[curl](https://curl.se/docs/manpage.html) \u00b7 Kali \u00b7 K30",
+      "policy": [
+        {
+          "ref": "K30",
+          "name": "curl",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Web",
+      "label": "[ffuf](https://github.com/ffuf/ffuf) \u00b7 Kali \u00b7 K48",
+      "policy": [
+        {
+          "ref": "K48",
+          "name": "ffuf",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Web",
+      "label": "[Gobuster](https://github.com/OJ/gobuster) \u00b7 Kali \u00b7 K61",
+      "policy": [
+        {
+          "ref": "K61",
+          "name": "Gobuster",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Web",
+      "label": "[Feroxbuster](https://www.kali.org/tools/feroxbuster/) \u00b7 Kali \u00b7 K46",
+      "policy": [
+        {
+          "ref": "K46",
+          "name": "Feroxbuster",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Web",
+      "label": "[sqlmap](https://www.kali.org/tools/sqlmap/) \u00b7 Kali \u00b7 K139",
+      "policy": [
+        {
+          "ref": "K139",
+          "name": "sqlmap",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Web",
+      "label": "Google Chrome \u00b7 Windows \u00b7 W12",
+      "policy": [
+        {
+          "ref": "W12",
+          "name": "Google Chrome",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Passwords and hashes",
+      "label": "[John the Ripper jumbo](https://www.openwall.com/john/doc/EXAMPLES.shtml) \u00b7 Kali \u00b7 K80",
+      "policy": [
+        {
+          "ref": "K80",
+          "name": "John the Ripper (jumbo)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Passwords and hashes",
+      "label": "[hashcat](https://hashcat.net/wiki/doku.php?id=example_hashes) \u00b7 Kali \u00b7 K66",
+      "policy": [
+        {
+          "ref": "K66",
+          "name": "hashcat",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Passwords and hashes",
+      "label": "[Hydra](https://github.com/vanhauser-thc/thc-hydra) \u00b7 Kali \u00b7 K72",
+      "policy": [
+        {
+          "ref": "K72",
+          "name": "Hydra",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Passwords and hashes",
+      "label": "[hashid](https://www.kali.org/tools/hashid/) \u00b7 Kali \u00b7 K67",
+      "policy": [
+        {
+          "ref": "K67",
+          "name": "hashid",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Passwords and hashes",
+      "label": "John jumbo archive extractors \u00b7 Kali \u00b7 K80",
+      "policy": [
+        {
+          "ref": "K80",
+          "name": "John the Ripper (jumbo)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Passwords and hashes",
+      "label": "[bkcrack](https://github.com/kimci86/bkcrack) \u00b7 Kali \u00b7 K20",
+      "policy": [
+        {
+          "ref": "K20",
+          "name": "bkcrack",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Passwords and hashes",
+      "label": "rockyou.txt / SecLists \u00b7 Kali \u00b7 K127, K133",
+      "policy": [
+        {
+          "ref": "K127",
+          "name": "rockyou.txt (Kali 'wordlists' package)",
+          "location": "/usr/share/wordlists/rockyou.txt"
+        },
+        {
+          "ref": "K133",
+          "name": "SecLists",
+          "location": "/usr/bin/seclists"
+        }
+      ]
+    },
+    {
+      "category": "Forensics",
+      "label": "[The Sleuth Kit](https://www.sleuthkit.org/sleuthkit/man/fls.html) \u00b7 WSL \u00b7 W30",
+      "policy": [
+        {
+          "ref": "W30",
+          "name": "The Sleuth Kit",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Forensics",
+      "label": "[Autopsy](https://sleuthkit.org/autopsy/docs/user-docs/4.22.0/) \u00b7 Windows \u00b7 W41",
+      "policy": [
+        {
+          "ref": "W41",
+          "name": "Autopsy",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Forensics",
+      "label": "[Volatility 3](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html) \u00b7 WSL \u00b7 W38",
+      "policy": [
+        {
+          "ref": "W38",
+          "name": "volatility3",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Forensics",
+      "label": "[Eric Zimmerman's Tools](https://github.com/EricZimmerman/evtx) \u00b7 Windows \u00b7 W46",
+      "policy": [
+        {
+          "ref": "W46",
+          "name": "Eric Zimmerman's Tools",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Forensics",
+      "label": "[7-Zip](https://www.kali.org/tools/7zip/) \u00b7 Kali \u00b7 K9",
+      "policy": [
+        {
+          "ref": "K9",
+          "name": "7-Zip (7z)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Forensics",
+      "label": "[sqlite3](https://sqlite.org/cli.html) \u00b7 Kali \u00b7 K138",
+      "policy": [
+        {
+          "ref": "K138",
+          "name": "sqlite3",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Forensics",
+      "label": "[ExifTool](https://www.kali.org/tools/libimage-exiftool-perl/) \u00b7 WSL \u00b7 W21",
+      "policy": [
+        {
+          "ref": "W21",
+          "name": "ExifTool",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Network",
+      "label": "[Wireshark](https://www.wireshark.org/docs/wsug_html_chunked/ChAdvFollowStreamSection.html) \u00b7 Windows \u00b7 W9",
+      "policy": [
+        {
+          "ref": "W9",
+          "name": "Wireshark",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Network",
+      "label": "[TShark](https://www.wireshark.org/docs/man-pages/tshark.html) \u00b7 Windows \u00b7 W43",
+      "policy": [
+        {
+          "ref": "W43",
+          "name": "tshark",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Network",
+      "label": "[Zeek](https://docs.zeek.org/en/current/quickstart.html) \u00b7 WSL \u00b7 W25",
+      "policy": [
+        {
+          "ref": "W25",
+          "name": "zeek",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Network",
+      "label": "[tcpdump](https://www.tcpdump.org/manpages/tcpdump.1.html) \u00b7 Kali \u00b7 K149",
+      "policy": [
+        {
+          "ref": "K149",
+          "name": "tcpdump",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Network",
+      "label": "[Nmap](https://nmap.org/book/man.html) \u00b7 Kali \u00b7 K101",
+      "policy": [
+        {
+          "ref": "K101",
+          "name": "Nmap (with Ncat / Nping)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Network",
+      "label": "can-utils \u00b7 WSL \u00b7 W23",
+      "policy": [
+        {
+          "ref": "W23",
+          "name": "can-utils",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "[zsteg](https://github.com/zed-0xff/zsteg) \u00b7 WSL \u00b7 W19",
+      "policy": [
+        {
+          "ref": "W19",
+          "name": "zsteg",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "[binwalk](https://www.kali.org/tools/binwalk/) \u00b7 WSL \u00b7 W20",
+      "policy": [
+        {
+          "ref": "W20",
+          "name": "binwalk",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "[pngcheck](https://www.kali.org/tools/pngcheck/) \u00b7 Kali \u00b7 K115",
+      "policy": [
+        {
+          "ref": "K115",
+          "name": "pngcheck",
+          "location": "apt (pngcheck)"
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "[steghide](https://www.kali.org/tools/steghide/) \u00b7 Kali \u00b7 K141",
+      "policy": [
+        {
+          "ref": "K141",
+          "name": "steghide",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "[stegseek](https://github.com/RickdeJager/stegseek) \u00b7 Kali \u00b7 K142",
+      "policy": [
+        {
+          "ref": "K142",
+          "name": "stegseek",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "[Audacity](https://manual.audacityteam.org/man/spectrogram_view.html) \u00b7 Kali \u00b7 K17",
+      "policy": [
+        {
+          "ref": "K17",
+          "name": "Audacity",
+          "location": "/usr/bin/audacity"
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "[FFmpeg](https://ffmpeg.org/ffmpeg.html) \u00b7 Kali \u00b7 K47",
+      "policy": [
+        {
+          "ref": "K47",
+          "name": "FFmpeg",
+          "location": "apt (ffmpeg)"
+        }
+      ]
+    },
+    {
+      "category": "Steganography and audio",
+      "label": "ZBar \u00b7 WSL \u00b7 W26",
+      "policy": [
+        {
+          "ref": "W26",
+          "name": "ZBar",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "[Ghidra](https://ghidra.re/ghidra_docs/GhidraClass/Beginner/Introduction_to_Ghidra_Student_Guide.html) \u00b7 WSL \u00b7 W29",
+      "policy": [
+        {
+          "ref": "W29",
+          "name": "Ghidra",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "[radare2](https://book.rada.re/refcard/intro.html) \u00b7 Kali \u00b7 K123",
+      "policy": [
+        {
+          "ref": "K123",
+          "name": "radare2",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "objdump \u00b7 WSL \u00b7 W17",
+      "policy": [
+        {
+          "ref": "W17",
+          "name": "objdump",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "strings \u00b7 WSL \u00b7 W18",
+      "policy": [
+        {
+          "ref": "W18",
+          "name": "strings",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "[GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/) \u00b7 WSL \u00b7 W16",
+      "policy": [
+        {
+          "ref": "W16",
+          "name": "gdb",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "x64dbg \u00b7 Windows \u00b7 W40",
+      "policy": [
+        {
+          "ref": "W40",
+          "name": "x64dbg",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "[dnSpyEx](https://github.com/dnSpyEx/dnSpy) \u00b7 Windows \u00b7 W45",
+      "policy": [
+        {
+          "ref": "W45",
+          "name": "dnSpyEx (dnSpy)",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Reverse engineering",
+      "label": "[jadx](https://www.kali.org/tools/jadx/) \u00b7 Kali \u00b7 K79",
+      "policy": [
+        {
+          "ref": "K79",
+          "name": "jadx (jadx-gui)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Cryptography",
+      "label": "Python 3 standard library \u00b7 WSL \u00b7 W14",
+      "policy": [
+        {
+          "ref": "W14",
+          "name": "Python 3",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Cryptography",
+      "label": "[OpenSSL](https://docs.openssl.org/3.0/man1/openssl-pkey/) \u00b7 WSL \u00b7 W31",
+      "policy": [
+        {
+          "ref": "W31",
+          "name": "OpenSSL",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Cryptography",
+      "label": "[RsaCtfTool](https://github.com/RsaCtfTool/RsaCtfTool) \u00b7 WSL \u00b7 W37",
+      "policy": [
+        {
+          "ref": "W37",
+          "name": "RsaCtfTool",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Cryptography",
+      "label": "[SageMath](https://doc.sagemath.org/html/en/tutorial/) \u00b7 Kali \u00b7 K132",
+      "policy": [
+        {
+          "ref": "K132",
+          "name": "SageMath",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Cryptography",
+      "label": "[PARI/GP](https://pari.math.u-bordeaux.fr/gp.html) \u00b7 Kali \u00b7 K109",
+      "policy": [
+        {
+          "ref": "K109",
+          "name": "PARI/GP",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Cryptography",
+      "label": "CyberChef \u00b7 Windows browser bookmark \u00b7 W8",
+      "policy": [
+        {
+          "ref": "W8",
+          "name": "CyberChef",
+          "location": "Bookmark"
+        }
+      ]
+    },
+    {
+      "category": "Binary exploitation",
+      "label": "[checksec](https://github.com/slimm609/checksec) \u00b7 Kali \u00b7 K28",
+      "policy": [
+        {
+          "ref": "K28",
+          "name": "checksec",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Binary exploitation",
+      "label": "GDB \u00b7 WSL \u00b7 W16",
+      "policy": [
+        {
+          "ref": "W16",
+          "name": "gdb",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Binary exploitation",
+      "label": "pwndbg / GEF \u00b7 Kali \u00b7 K116, K55",
+      "policy": [
+        {
+          "ref": "K116",
+          "name": "pwndbg",
+          "location": "/opt/tools/pwndbg"
+        },
+        {
+          "ref": "K55",
+          "name": "GEF (GDB Enhanced Features)",
+          "location": "/opt/tools/gef.py"
+        }
+      ]
+    },
+    {
+      "category": "Binary exploitation",
+      "label": "[ROPgadget](https://github.com/JonathanSalwan/ROPgadget) \u00b7 Kali \u00b7 K128",
+      "policy": [
+        {
+          "ref": "K128",
+          "name": "ROPgadget",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Binary exploitation",
+      "label": "Ncat (Nmap suite) \u00b7 Kali \u00b7 K101",
+      "policy": [
+        {
+          "ref": "K101",
+          "name": "Nmap (with Ncat / Nping)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Binary exploitation",
+      "label": "[strace](https://strace.io/) \u00b7 Kali \u00b7 K145",
+      "policy": [
+        {
+          "ref": "K145",
+          "name": "strace",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Malware",
+      "label": "[FLOSS](https://github.com/mandiant/flare-floss) \u00b7 Kali \u00b7 K50",
+      "policy": [
+        {
+          "ref": "K50",
+          "name": "FLOSS (FLARE Obfuscated String Solver)",
+          "location": "pipx (flare-floss)"
+        }
+      ]
+    },
+    {
+      "category": "Malware",
+      "label": "[capa](https://github.com/mandiant/capa) \u00b7 Kali \u00b7 K26",
+      "policy": [
+        {
+          "ref": "K26",
+          "name": "capa",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Malware",
+      "label": "[oletools](https://www.kali.org/tools/oletools/) \u00b7 Kali \u00b7 K105",
+      "policy": [
+        {
+          "ref": "K105",
+          "name": "oletools (full suite: olevba, oleid, oleobj, rtfobj, mraptor, msodde, olemeta, oletimes, pyxswf)",
+          "location": "pipx (oletools)"
+        }
+      ]
+    },
+    {
+      "category": "Malware",
+      "label": "[YARA](https://www.kali.org/tools/yara/) \u00b7 Kali \u00b7 K164",
+      "policy": [
+        {
+          "ref": "K164",
+          "name": "YARA",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Malware",
+      "label": "[UPX](https://upx.github.io/) \u00b7 Kali \u00b7 K156",
+      "policy": [
+        {
+          "ref": "K156",
+          "name": "UPX",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Malware",
+      "label": "Ghidra / x64dbg \u00b7 WSL W29 / Windows W40",
+      "policy": [
+        {
+          "ref": "W29",
+          "name": "Ghidra",
+          "location": "installed in WSL"
+        },
+        {
+          "ref": "W40",
+          "name": "x64dbg",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "OSINT",
+      "label": "ExifTool \u00b7 WSL \u00b7 W21",
+      "policy": [
+        {
+          "ref": "W21",
+          "name": "ExifTool",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "OSINT",
+      "label": "Google Chrome \u00b7 Windows \u00b7 W12",
+      "policy": [
+        {
+          "ref": "W12",
+          "name": "Google Chrome",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "OSINT",
+      "label": "[ripgrep](https://github.com/BurntSushi/ripgrep) \u00b7 Kali \u00b7 K126",
+      "policy": [
+        {
+          "ref": "K126",
+          "name": "ripgrep (rg)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "OSINT",
+      "label": "pdftotext \u00b7 WSL \u00b7 W22",
+      "policy": [
+        {
+          "ref": "W22",
+          "name": "pdftotext (Poppler utils)",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "OSINT",
+      "label": "[Git](https://git-scm.com/docs/git-log) \u00b7 Kali \u00b7 K56",
+      "policy": [
+        {
+          "ref": "K56",
+          "name": "Git",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Miscellaneous",
+      "label": "Python 3 \u00b7 WSL \u00b7 W14",
+      "policy": [
+        {
+          "ref": "W14",
+          "name": "Python 3",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Miscellaneous",
+      "label": "[jq](https://jqlang.org/manual/) \u00b7 WSL \u00b7 W28",
+      "policy": [
+        {
+          "ref": "W28",
+          "name": "jq",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Miscellaneous",
+      "label": "xxd \u00b7 WSL \u00b7 W35",
+      "policy": [
+        {
+          "ref": "W35",
+          "name": "xxd",
+          "location": "installed in WSL"
+        }
+      ]
+    },
+    {
+      "category": "Miscellaneous",
+      "label": "HxD \u00b7 Windows \u00b7 W42",
+      "policy": [
+        {
+          "ref": "W42",
+          "name": "HxD",
+          "location": "installed in Windows"
+        }
+      ]
+    },
+    {
+      "category": "Miscellaneous",
+      "label": "[file](https://www.darwinsys.com/file/) \u00b7 Kali \u00b7 K49",
+      "policy": [
+        {
+          "ref": "K49",
+          "name": "file (libmagic)",
+          "location": ""
+        }
+      ]
+    },
+    {
+      "category": "Miscellaneous",
+      "label": "[7-Zip](https://www.kali.org/tools/7zip/) \u00b7 Kali \u00b7 K9",
+      "policy": [
+        {
+          "ref": "K9",
+          "name": "7-Zip (7z)",
+          "location": ""
+        }
+      ]
+    }
+  ]
+}

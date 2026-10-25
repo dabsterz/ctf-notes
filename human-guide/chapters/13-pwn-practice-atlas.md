@@ -1,5 +1,7 @@
 # Pwn practice atlas: 43 cases, each with a specific lesson
 
+**Quick route:** [Short commands](../QUICKSTART.md#crash-offset) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#binary-exploitation). Use this chapter for deeper explanations.
+
 Use this atlas after the binary-exploitation chapter. It preserves the individual exercises from `ctf-pwn/pwnable-tw/` without presenting historical offsets as universal exploits. The cases are preparation material, not an instruction to connect to public practice servers during the competition. Use locally supplied practice artifacts or an explicitly assigned challenge service.
 
 The case descriptions below come from the repository's individual writeups. Their original binaries, exact runtimes, and exploit success claims were not reproduced for this handbook. Several directory-index summaries disagree with their detailed writeups; the disputed claims are identified below. Treat the individual mechanisms as hypotheses to verify against your copy of the binary.
@@ -20,7 +22,7 @@ r2 chall
 
 In radare2, use `aaa`, `afl`, `pdf @ main`, and `axt @ IMPORT`, replacing `IMPORT` with the exact flag shown by `ii`. Follow the vulnerable caller, identify the input operation and the state it changes, then inspect the next consumer of that state. The GDB commands in the pwn chapter are the **Windows WSL** debugging route; Kali debugging requires the supplied GDB environment to work. **Windows native** x64dbg is for Windows PE targets, not these Linux ELF cases.
 
-For stdlib packing use Windows WSL Python, or Kali Python after checking its availability. Pwntools is not individually listed as preinstalled. The Windows non-AI-library permission does not establish its availability in either environment. Keep original template scripts as study references; the pwn chapter describes their defects and standard-library alternatives.
+For stdlib packing use Windows WSL Python, or Kali Python after checking its availability. Pwntools is not individually listed as preinstalled. PDF p.5 permits non-AI libraries in either environment; permission does not establish availability or satisfy native-tool dependencies. Keep original template scripts as study references; the pwn chapter describes their defects and standard-library alternatives.
 
 ## First control-flow and parsing exercises
 

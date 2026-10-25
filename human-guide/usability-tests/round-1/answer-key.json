@@ -1,0 +1,38 @@
+{
+  "rsa": {
+    "expected": "CTF{rsa}",
+    "sha256": "f42de5657ad0ee3b4cf0963b9b2bb92bc9eccbcb37c1e565fd1c0ba2dc708fa0"
+  },
+  "layers": {
+    "expected": "CTF{layers_are_bytes}",
+    "sha256": "4dd0a6972717dcee08e734585beeb02554248767b89455e660f037ea650c755a"
+  },
+  "web": {
+    "expected": "CTF{verify_the_signature}",
+    "sha256": "1a759b86de22a4265c4920c6f24a9165798adcb84c8d49fc401256c21f2d8dc3"
+  },
+  "png": {
+    "expected": "CTF{after_the_real_iend}",
+    "sha256": "6b86e32142a05bbf4b9623bc7af1c93d9e278c8e2ea1d8aad48e2fd7fed1a075"
+  },
+  "tar": {
+    "expected": "CTF{keep_duplicate_members}",
+    "sha256": "3854976854de416b65098780df989164efc384d4193d8b620856bbf3ac281474"
+  },
+  "event": {
+    "expected": "2026-10-25T01:02:03Z | C:\\Temp\\odd.exe --config C:\\Temp\\settings.ini",
+    "sha256": "8611d9f2a2da2800adf997b2a63ec4ed3f54407d00142107aa39a711f4f25370"
+  },
+  "checker": {
+    "expected": "CTF{invert_in_order}",
+    "sha256": "19ff325b84e3ea6ecc0ef57e4977b1396cbea47fa624f68f713636dfddd3cc05"
+  },
+  "offset": {
+    "expected": "173",
+    "sha256": "4a8596a7790b5ca9e067da401c018b3206befbcf95c38121854d1a0158e7678a"
+  },
+  "vm": {
+    "expected": "K",
+    "sha256": "86be9a55762d316a3026c2836d044f5fc76e34da10e1b45feee5f18be7edb177"
+  }
+}

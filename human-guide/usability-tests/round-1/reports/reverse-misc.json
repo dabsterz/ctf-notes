@@ -1,0 +1,12 @@
+﻿{
+  "tasks": [
+    {"id": "checker", "status": "completed", "candidate": "CTF{invert_in_order}", "evidence": "Executed solve_checker.py using copied guide rol8/ror8 and adapted inverse loop; all 20 forward-transformed bytes equal checker.json expected."},
+    {"id": "offset", "status": "completed", "candidate": "173", "evidence": "Copied guide pattern.py unchanged; --find 61616763 returned 173. Generated 512-byte pattern and verified slice [173:177] equals crash.bin."},
+    {"id": "vm", "status": "completed", "candidate": "75", "evidence": "Executed adapted guide VM; candidate 75 / 0x4b / K; accumulator trace 4b -> 68 -> 6f; comparison 111 == 111 True."}
+  ],
+  "common_lookup": {"radare2_environment": "Kali", "alternative": "Ghidra in Windows WSL (Windows workbook row 29)"},
+  "dimensions": {"findability": 4, "command_readiness": 3, "interpretation": 4, "cognitive_load": 3, "tool_environment": 5},
+  "overall_10": 7.2,
+  "study_10": 8.5,
+  "lookup_count": 8
+}

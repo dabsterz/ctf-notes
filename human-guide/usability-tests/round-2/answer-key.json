@@ -1,0 +1,11 @@
+{
+  "web": "CTF{new_request_verified}",
+  "rsa": "R2_RSA",
+  "layers": "CTF{new_layer}",
+  "png": "CTF{new_png_tail}",
+  "tar": "CTF{older_tar_entry}",
+  "event": "2026-10-25T03:04:05Z | C:\\Temp\\runner.exe --mode audit",
+  "checker": "CTF{new_transform}",
+  "offset": "281",
+  "vm": "Z"
+}

@@ -1,0 +1,83 @@
+{
+  "reviewers": [
+    {
+      "reviewer": "web-crypto",
+      "overall_10": 6.7,
+      "study_10": 8.5,
+      "tasks": [
+        {
+          "id": "web",
+          "candidate_matches": true,
+          "status": "completed"
+        },
+        {
+          "id": "rsa",
+          "candidate_matches": true,
+          "status": "completed"
+        },
+        {
+          "id": "layers",
+          "candidate_matches": true,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "reviewer": "forensics",
+      "overall_10": 7.9,
+      "study_10": 8.5,
+      "tasks": [
+        {
+          "id": "png",
+          "candidate_matches": true,
+          "status": "completed"
+        },
+        {
+          "id": "tar",
+          "candidate_matches": true,
+          "status": "completed"
+        },
+        {
+          "id": "event",
+          "candidate_matches": true,
+          "status": "partial"
+        }
+      ]
+    },
+    {
+      "reviewer": "reverse-misc",
+      "overall_10": 7.2,
+      "study_10": 8.5,
+      "tasks": [
+        {
+          "id": "checker",
+          "candidate_matches": true,
+          "status": "completed"
+        },
+        {
+          "id": "offset",
+          "candidate_matches": true,
+          "status": "completed"
+        },
+        {
+          "id": "vm",
+          "candidate_matches": true,
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "exact_candidates": 9,
+  "complete": 8,
+  "partial": 1,
+  "common_lookups_correct": 3,
+  "mean_contest_score": 7.27,
+  "binary_artifact_checks": [
+    "rsa",
+    "layers",
+    "png",
+    "tar"
+  ],
+  "pattern_slice_verified": true,
+  "note": "VM decimal 75 normalized to ASCII K. Partial event interpretation remains partial."
+}

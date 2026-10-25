@@ -1,5 +1,7 @@
 # Network captures and hardware signals
 
+**Quick route:** [Short commands](../QUICKSTART.md#network-conversation) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#network). Use this chapter for deeper explanations.
+
 Start by identifying the conversation, direction, and transport framing. Then recover application bytes. Most failed network solves come from decoding packet fragments as if they were already a complete file.
 
 ## Machine and scope

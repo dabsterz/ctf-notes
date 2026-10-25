@@ -1,3 +1,5 @@
+> Historical review of an earlier revision. For the supplied environment PDF and current policy reconciliation, see [environment-audit.md](environment-audit.md).
+
 # Editorial validation record
 
 The category authors checked their rewritten material using synthetic local inputs where practical. These checks validate the stated small examples, not every historical exploit or the organizer's installed tools.

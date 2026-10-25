@@ -1,0 +1,7 @@
+# Host Discovery
+
+nmap
+```bash
+sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
+```
+

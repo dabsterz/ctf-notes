@@ -1,0 +1,37 @@
+{
+  "review_type": "simulated human; not a real participant study",
+  "environment": "native Windows Python portability proxy; no WSL, Kali, or browser execution",
+  "scores_frozen_before_code_review": true,
+  "tasks": [
+    {"id": "checker", "status": "completed", "candidate": "CTF{new_transform}", "evidence": "Unchanged transform.py reported forward check: OK and saved checker-plain.bin."},
+    {"id": "offset", "status": "completed", "candidate": 281, "evidence": "pattern.py searched memory-order hex 63626162 in a 512-byte pattern. Separate byte-slice check matched crash.bin at 281, with a unique occurrence and full four-byte span inside the sent length. Initial reviewer typo 211 failed and was corrected."},
+    {"id": "vm", "status": "completed", "candidate": "Z", "evidence": "Unchanged vm_byte.py returned decimal 90 / 0x5a / b'Z', one candidate, all comparisons OK; XOR 18 gives 72, ADD 9 gives CMP value 81."}
+  ],
+  "dimensions": {"findability": 5, "command_readiness": 4, "interpretation": 5, "cognitive_load": 5, "tool_environment": 4},
+  "overall_10": 9.3,
+  "study_10": 9.0,
+  "lookup_count": 6,
+  "lookup_count_definition": "Per-source technical accesses: README; QUICKSTART search; TOOL-CHOOSER search; QUICKSTART excerpt; TOOL-CHOOSER excerpt; pattern --help. Excludes task inputs and post-freeze code/table review.",
+  "tool_selection": {
+    "approved_static_windows_wsl_alternative": "Ghidra, WSL, W29",
+    "native": "Ghidra for decompilation/xrefs; WSL objdump for quick disassembly; Windows x64dbg for runtime debugging",
+    "dotnet": "dnSpyEx, native Windows, W45",
+    "android": "jadx, Kali, K79; native .so code needs native reversing",
+    "radare2_environment": "Kali K123",
+    "material_table_errors_found": []
+  },
+  "code_edits_during_solve": 0,
+  "invented_glue": ["Format-Hex crash.bin", "pathlib byte-slice, uniqueness, and length verification one-liner"],
+  "errors": [{"origin": "reviewer transcription", "description": "First offset verification used 211 instead of returned 281 and reported False; corrected and passed."}],
+  "post_freeze_review": {
+    "material_code_defects_found": [],
+    "builder_tests_passed": 5,
+    "javascript_syntax_check": "passed",
+    "embedded_recipe_count": 8,
+    "embedded_recipe_mismatches": 0,
+    "broken_embedded_section_links": 0,
+    "broken_merged_section_links": 0,
+    "browser_verified": false,
+    "minor_clarity_observations": ["TOOL-CHOOSER.md:127 gives only GEF startup in a combined pwndbg/GEF row.", "QUICKSTART.md:203 could provide a byte-slice verification command."]
+  }
+}

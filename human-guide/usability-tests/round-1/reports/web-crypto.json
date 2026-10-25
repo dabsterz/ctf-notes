@@ -1,0 +1,12 @@
+﻿{
+  "tasks": [
+    {"id":"web","status":"completed","candidate":"CTF{verify_the_signature}","evidence":"Original role=user token: HTTP 403 admin required. Same header/signature with guide-mutated role=admin: HTTP 200 and matching flag JSON. Actual scripts and stdout retained in web-crypto/."},
+    {"id":"rsa","status":"completed","candidate":"CTF{rsa}","evidence":"Guide Fermat returned 32416187567 and 32416190071; product assertion passed. Recovered integer 4851580194599952765. Re-encryption equals ciphertext 851485018878019216495. Minimal-length bytes b'CTF{rsa}' saved."},
+    {"id":"layers","status":"completed","candidate":"CTF{layers_are_bytes}","evidence":"Strict Base64 decoded 29 bytes with 789c header, zlib EOF assertion passed, 21 output bytes, 0 unused trailing bytes. Original plus layer1.bin and layer2.bin preserved."}
+  ],
+  "common_lookup":{"radare2_environment":"Kali","alternative":"Ghidra (Windows worksheet; installed in WSL)"},
+  "dimensions":{"findability":3,"command_readiness":3,"interpretation":4,"cognitive_load":3,"tool_environment":5},
+  "overall_10":6.7,
+  "study_10":8.5,
+  "lookup_count":18
+}

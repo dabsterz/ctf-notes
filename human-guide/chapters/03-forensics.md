@@ -1,5 +1,7 @@
 # Disk, memory, and host forensics
 
+**Quick route:** [Short commands](../QUICKSTART.md#duplicate-tar-files) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#forensics). Use this chapter for deeper explanations.
+
 Recover the smallest artifact that answers the question, then explain where it came from. A file name, a timestamp, and a matching hash are more useful than a directory full of unexplained carvings.
 
 ## Choose the right machine
@@ -12,7 +14,7 @@ Workbook references below use **Windows** for `Approved Tool List for Windows`, 
 | Windows WSL | Python 3, strings, Sleuth Kit, xz, Volatility 3 | Windows rows 14, 18, 30, 32, 38 |
 | Kali | EWF tools, qemu-img, TestDisk/PhotoRec, foremost, SQLite, Git, Volatility 2 | Kali rows 41, 122, 150, 51, 138, 56, 158 |
 
-Commands marked **WSL** run in its Linux shell, not PowerShell. Windows approval does not imply that the same tool is installed or approved on the separate Kali machine. Python snippets here use the WSL Python approval; non-AI libraries are allowed by Windows row 14, subject to named exclusions. There is no blanket install step.
+Commands marked **WSL** run in its Linux shell, not PowerShell. A Windows listing does not establish a Kali installation. Python snippets use WSL Python; the PDF permits non-AI libraries in both environments, subject to [named exclusions and package setup](00-tool-rules.md#non-ai-python-package-checks).
 
 The event prohibits AI tools and public analysis uploads. Keep evidence local and act only on challenge endpoints. See the [competition rules](https://ajccbc.ncsa.or.th/cyber-sea-game-2026/).
 
@@ -145,7 +147,11 @@ tar -tvf archive.tar.xz
 unzip -l document.docx
 ```
 
-OOXML documents are ZIPs: inspect `word/media/`, `xl/worksheets/`, embedded objects, and relationships. Do not enable macros. For repeated tar names, standard extraction overwrites earlier versions. This **WSL** script preserves each regular-file occurrence under a generated name, so archive paths cannot overwrite your workspace:
+OOXML documents are ZIPs: inspect `word/media/`, `xl/worksheets/`, embedded objects, and relationships. Do not enable macros.
+
+### Keep duplicate tar members
+
+For repeated tar names, standard extraction overwrites earlier versions. The [ready-to-run extractor](../QUICKSTART.md#duplicate-tar-files) accepts your archive filename, preserves every occurrence and prints previews. The following teaching example shows how it works in **WSL Python**; save it as `tar_versions.py`, replace `archive.tar.xz` with your filename and run `python3 tar_versions.py`:
 
 ```python
 import tarfile
@@ -306,6 +312,8 @@ Get-WinEvent -Path .\Security.evtx -Oldest |
 ```
 
 Missing message resources can produce blank descriptions. Export `ToXml()` to retain named event fields and UTC `SystemTime`. Event IDs are provider-specific: Security 1102 is audit clearing; 4720 account creation; 4781 account rename. RDP authentication event 1149 belongs to RemoteConnectionManager; LocalSessionManager 21/24/25 describe logon/disconnect/reconnect. Authentication success alone does not prove an interactive desktop was used.
+
+**Security event 4688 records process creation.** `NewProcessName` identifies the executable; `CommandLine` contains arguments when command-line auditing captured them. Some JSON exports rename that field `ProcessCommandLine`. XML `SystemTime` ending in `Z` is UTC. A blank command line does not prove there were no arguments, and this event alone does not establish successful execution, malicious intent or payload effects. Use the [process-event quick card](../QUICKSTART.md#process-event) for a named-field extraction command. [Microsoft field definitions](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4688).
 
 Zimmerman tools are approved on **Windows row 46**. From their installed directory:
 

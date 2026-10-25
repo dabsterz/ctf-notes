@@ -1,0 +1,54 @@
+{
+  "reviewers": [
+    {
+      "reviewer": "web-crypto",
+      "overall_10": 9.3,
+      "study_10": 9.0,
+      "lookup_count": 7,
+      "completed": 3
+    },
+    {
+      "reviewer": "forensics",
+      "overall_10": 9.3,
+      "study_10": 9,
+      "lookup_count": 6,
+      "completed": 3
+    },
+    {
+      "reviewer": "reverse-misc",
+      "overall_10": 9.3,
+      "study_10": 9.0,
+      "lookup_count": 6,
+      "completed": 3
+    }
+  ],
+  "candidates_verified": 9,
+  "fully_completed": 9,
+  "mean_contest_score": 9.3,
+  "extracted_files_checked": [
+    "rsa",
+    "layers",
+    "png",
+    "tar",
+    "checker"
+  ],
+  "independent_checks": [
+    "checker forward arithmetic",
+    "RSA re-encryption",
+    "VM byte arithmetic",
+    "crash slice",
+    "event fields",
+    "duplicate preservation"
+  ],
+  "loopback_http": [
+    {
+      "token": "token.txt",
+      "status": 403
+    },
+    {
+      "token": "edited-token.txt",
+      "status": 200
+    }
+  ],
+  "caveat": "Synthetic clue-rich tasks and simulated reviewers; descriptive ratings, not population estimates or real human speed measurements."
+}

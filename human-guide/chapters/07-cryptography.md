@@ -1,5 +1,7 @@
 # Cryptography: recover the structure before the secret
 
+**Quick route:** [Short commands](../QUICKSTART.md#rsa) · [Tool strengths and weaknesses](../TOOL-CHOOSER.md#cryptography). Use this chapter for deeper explanations.
+
 A crypto challenge usually supplies an algorithm, parameters, ciphertext, or a query service. Your first task is to translate those into an exact mathematical statement. A recognizable number size or file extension is a clue; it is not an attack.
 
 This chapter gives runnable local examples for common cases. [Advanced cryptography](14-advanced-crypto.md) preserves the repository's lattice, elliptic-curve, polynomial, proof-system, post-quantum, and unusual algebra topics with diagnostics and constraints.
@@ -8,7 +10,7 @@ This chapter gives runnable local examples for common cases. [Advanced cryptogra
 
 **Windows:** open WSL and use the listed Python 3, OpenSSL, and RsaCtfTool installations. Native Windows Python is not assumed. **Kali:** Python is used throughout; the sheet lists crypto-attacks at `/opt/tools/crypto-attacks`, hlextend, hashcat, John, and other tools. Check the actual interpreter and tool before relying on them.
 
-SageMath is approved on Kali, but the workbook records no installation information. Treat it as optional: try `sage --version`, and keep the standard-library examples below as fallbacks for basic arithmetic. Do not use a blanket installer. The Windows sheet permits adding non-AI Python libraries; it does not authorize rejected standalone tools or online services, or establish the same installation permission on Kali. On Kali, check provisioned dependencies.
+SageMath is approved on Kali, but its installation details are blank. Try `sage --version`; use the standard-library routes for basic arithmetic if absent. PDF p.5 permits non-AI dependencies in both environments; [package setup](00-tool-rules.md#non-ai-python-package-checks) explains the limits. Named rejected tools and online services remain excluded.
 
 Factordb-python is listed on Kali. That is not authorization to send challenge moduli to the FactorDB website. Keep factoring local. Do not use online hash-cracking, online mathematical solvers, AI tools, or public challenge uploads.
 
