@@ -1,5 +1,7 @@
 # 80,443 http
 
+**Editor correction:** directory fuzzing varies the URL path. The copied Host-header example and fixed response-size filter were corrected below; compare candidates with a missing-path response. The original vault snapshot is unchanged.
+
 
 - Check URL address for clues such as .html .php
 - Ctrl-U and check source for further clues like comments or file extensions
@@ -19,7 +21,9 @@ sudo nmap -p80 --script=http-enum 192.168.50.20
 ```bash
 gobuster dir -u http://10.10.10.121/ -w /usr/share/seclists/Discovery/Web-Content/common.txt
 
-ffuf -u http://siteisup.htb -H "Host: siteisup.htb/FUZZ" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+URL='http://challenge.example'  # replace with the challenge URL
+printf '%s\n' admin api backup export > words.txt
+ffuf -u "$URL/FUZZ" -w words.txt -mc all -ac -t 1 -rate 1 -maxtime 30
 ```
 
 #### SubDomain Enumeration

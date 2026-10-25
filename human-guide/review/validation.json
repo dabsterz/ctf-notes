@@ -2,8 +2,8 @@
   "chapters": 125,
   "tool_rows": 282,
   "original_files": 286,
-  "code_blocks": 287,
-  "python_blocks_compiled": 106,
+  "code_blocks": 422,
+  "python_blocks_compiled": 108,
   "errors": [],
   "warnings": [],
   "browser_check": "Automated local-file Chrome rendering and interaction passed; see ui-validation.json and ui-research.md for scope and screenshot review."

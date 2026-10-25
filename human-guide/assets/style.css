@@ -135,6 +135,9 @@ mark{background:#67551d;color:#fff3c8;padding:0 2px;border-radius:2px}[data-them
   pre{padding:14px 12px}th,td{padding:10px;min-width:125px}.tool-controls label,.tool-controls input{width:100%}
 }
 .cpts-folder{margin:3px 0 3px 10px;border-left:1px solid var(--line);padding-left:7px}
+.deep-reference{border:1px solid var(--line);border-radius:7px;padding:14px 18px;margin:20px 0}
+.deep-reference>summary{cursor:pointer;font-weight:600;color:var(--accent);padding:3px 0}
+.deep-reference[open]>summary{margin-bottom:24px}
 .cpts-folder>summary{cursor:pointer;padding:7px 3px;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
 .cpts-folder .nav-link{font-size:12px;overflow-wrap:anywhere;padding:6px}
 article .cpts-provenance{font-size:12px;color:var(--muted);overflow-wrap:anywhere;margin-top:-10px}

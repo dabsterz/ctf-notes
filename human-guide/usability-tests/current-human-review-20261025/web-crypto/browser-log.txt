@@ -1,0 +1,200 @@
+﻿NOTE URL file:///C:/Users/verno/Downloads/ctf-skills-main/ctf-skills-main/human-guide/index.html#cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--80443-http
+NOTE TOP Vernon's CPTS notes
+/
+
+80,443 http
+
+Aa
+Reading text size
+16 px
+18 px
+20 px
+Focus
+Export
+80,443 http
+
+Enumeration/Service Enumeration/80,443 http · Personal reference · Event tool rules
+
+Check URL address for clues such as .html .php
+Ctrl-U and check source for further clues like comments or file extensions
+
+Inspect element as well just to be sure
+
+Inspect the network tab for when requests are being sent (request headers and body)
+
+lookout for sitemap.xml and robots.txt
+Nmap
+shell / 2 lines
+Copy
+sudo nmap -p80 -sC -sV 192.168.50.20
+sudo nmap -p80 --script=http-enum 192.168.50.20
+
+Directory/File Enumeration
+bash / 3 lines
+Copy
+gobuster dir -u http://10.10.10.121/ -w /usr/share/seclists/Discovery/Web-Content/common.txt
+
+ffuf -u http://siteisup.htb -H "Host: siteisup.htb/FUZZ" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+
+SubDomain Enumeration
+bash / 3 lines
+Copy
+gobuster dns -d inlanefreight.com -w /usr/share/SecLists/Discovery/DNS/namelist.txt
+
+ffuf -u http://siteisup.htb -H "Host: FUZZ.siteisup.htb" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+
+Banner Grabbing/Web Server Headers
+bash / 3 lines
+Copy
+curl -IL https://www.inlanefreight.com
+whatweb 10.10.10.121
+whatweb --no-errors 10.10.10.0/24
+
+Firefox (Browse to IP)
+
+Don't forget to do this and hit CTRL-U
+
+CURL
+bash / 1 line
+Copy
+curl http://10.129.42.190
+
+Nikto
+shell / 1 line
+Copy
+nikto -h <ip>
+
+CEWL
+
+https://github.com/digininja/CeWL
+
+Additional Steps - View SSL/TLS Certi
+NOTE BUTTONS [
+  { text: 'Light', label: 'Switch to light theme' },
+  { text: 'Search tool inventory', label: null },
+  { text: 'Focus', label: null },
+  { text: 'Copy', label: 'Copy shell block' },
+  { text: 'Copy', label: 'Copy bash block' },
+  { text: 'Copy', label: 'Copy bash block' },
+  { text: 'Copy', label: 'Copy bash block' },
+  { text: 'Copy', label: 'Copy bash block' },
+  { text: 'Copy', label: 'Copy shell block' },
+  { text: 'Copy', label: 'Copy shell block' },
+  { text: 'Copy', label: 'Copy shell block' },
+  { text: 'Copy', label: 'Copy shell block' }
+]
+NOTE IMAGES []
+COPY BUTTON 1
+CLIPBOARD sudo nmap -p80 -sC -sV 192.168.50.20
+sudo nmap -p80 --script=http-enum 192.168.50.20
+
+SIDEBAR NOTE URL file:///C:/Users/verno/Downloads/ctf-skills-main/ctf-skills-main/human-guide/index.html#cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8
+RULES TOP Vernon's CPTS notes
+/
+
+80,443 http
+
+Aa
+Reading text size
+16 px
+18 px
+20 px
+Focus
+Export
+80,443 http
+
+Enumeration/Service Enumeration/80,443 http · Personal reference · Event tool rules
+
+Check URL address for clues such as .html .php
+Ctrl-U and check source for further clues like comments or file extensions
+
+Inspect element as well just to be sure
+
+Inspect the network tab for when requests are being sent (request headers and body)
+
+lookout for sitemap.xml and robots.txt
+Nmap
+shell / 2 lines
+Copy
+sudo nmap -p80 -sC -sV 192.168.50.20
+sudo nmap -p80 --script=http-enum 192.168.50.20
+
+Directory/File Enumeration
+bash / 3 lines
+Copy
+gobuster dir -u http://10.10.10.121/ -w /usr/share/seclists/Discovery/Web-Content/common.txt
+
+ffuf -u http://siteisup.htb -H "Host: siteisup.htb/FUZZ" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+
+SubDomain Enumeration
+bash / 3 lines
+Copy
+gobuster dns -d inlanefreight.com -w /usr/share/SecLists/Discovery/DNS/namelist.txt
+
+ffuf -u http://siteisup.htb -H "Host: FUZZ.siteisup.htb" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+
+Banner Grabbing/Web Server Headers
+bash / 3 lines
+Copy
+curl -IL https://www.inlanefreight.com
+whatweb 10.10.10.121
+whatweb --no-errors 10.10.10.0/24
+
+Firefox (Browse to IP)
+
+Don't forget to do this and hit CTRL-U
+
+CURL
+bash / 1 line
+Copy
+curl http://10.129.42.190
+
+Nikto
+shell / 1 line
+Copy
+nikto -h <ip>
+
+CEWL
+
+https://github.com/digininja/CeWL
+
+Additional Steps - View SSL/TLS Certificate - Robots.txt - View Source Code - Add discovered domain into /etc/hosts
+
+Burp
+to bypass client side validation
+Use repeater to keep repeating the sent request by manually changing
+Use intruder to automate the attack
+rmb to toggle foxyproxy
+API Enumeration
+Often has /api_name/v1 naming convention
+
+Create the pattern first
+
+shell / 2 lines
+Copy
+{GOBUSTER}/v1
+{GOBUSTER}/v2
+
+
+Launch gobuster
+
+shell / 1 line
+Copy
+gobuster dir -u http://192.168.50.16:5002 -w /usr/share/wordlists/dirb/big.txt -p pattern
+
+
+We can then proceed to curl the found api endpoints to enumerate it further
+
+shell / 8 lines
+Copy
+curl -i http://192.168.50.16:5002/users/v1
+
+#adding payload and changing to PUT
+curl -X 'PUT' \
+  'http://192.168.50.16:5002/users/v1/admin/password' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: OAuth eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDkyNzE3OTQsImlhdCI6MTY0OTI3MTQ5NCwic3ViIjoib2Zmc2VjIn0.OeZH1rEcrZ5F0QqLb8IHbJI7f9KaRAkrywoaRUAsgA4' \
+  -d '{"password": "pwned"}'
+
+Prepared from the supplied ctf-skills repository · Independent study guide, not an official AJCCBC publication.
+Original ctf-skills material © 2026 Lukasz Jagiello · MIT license included in Markdown. Personal CPTS notes supplied by Vernon.

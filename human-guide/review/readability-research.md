@@ -1,0 +1,18 @@
+# Research applied to command-first CTF notes
+
+The user's task is fast retrieval and execution during a CTF. Readability therefore means finding the right action, adapting its inputs correctly, and recognizing the result with little surrounding reading. It is not a claim that fewer words make every technique easy.
+
+| Primary source | Finding used | Change in this guide |
+| --- | --- | --- |
+| [NN/g: How users read on the web](https://www.nngroup.com/articles/how-users-read-on-the-web/) | Readers often scan; meaningful headings, concise writing and one idea per paragraph help. This is general web research, not a CTF performance study. | Task headings, short result/recovery lines, longer explanation in an optional disclosure. |
+| [Google: Procedures](https://developers.google.com/style/procedures) | Give the context needed for an action; avoid redundant introductions and favor straightforward procedures. | Put the platform and necessary inputs next to commands; use exact GUI steps when the tool is graphical. |
+| [Google: Code samples](https://developers.google.com/style/code-samples) | Preserve code formatting, keep lines manageable, and do not present omitted code as ready to copy. | Complete command blocks without prompts or ellipses; wrap long commands with valid shell continuations. |
+| [Google: Placeholders](https://developers.google.com/style/placeholders) | Use descriptive replacement names and explain what they stand for. | Explicit example URLs/files; quoted variables and per-task settings instead of unexplained angle-bracket fragments. |
+
+The implemented task-card pattern is our application of these sources: **task → environment → commands → expected observation → recovery**. It is not a published standard or a measured usability score.
+
+The previous long category text is retained verbatim in `reference/chapters/` and available under Full reference in each composed chapter. One displayed reference command receives an explicit syntax correction: PowerShell's TShark `-E separator=,` becomes `-E 'separator=,'` because unquoted commas are dropped from native arguments. Default-view prose is counted separately from code and optional reference; those measurements should not be described as deletion of the complete material. Personal Obsidian originals remain byte-identical snapshots.
+
+Verification includes 113 Bash blocks checked with `bash -n`, 13 PowerShell blocks parsed with the native parser, actual native argument verification for the TShark separator, and 14 curl requests from selected published blocks against a disposable loopback request recorder. The latter checks quoting, cookies, forms, JSON and multipart bytes; it does not simulate successful exploitation. Local ffuf, Gobuster and sqlmap executables were unavailable, so their flags were checked against primary documentation rather than claimed as executed. Agents also exercised the new inline Python examples on small local fixtures. Automated offline Chrome checks cover all 125 pages at desktop, tablet and narrow-phone widths, old deep links, search, copying and disclosure behavior. These checks do not constitute a new human-usability rating.
+
+Web command syntax references: [curl manual](https://curl.se/docs/manpage.html), [ffuf's own usage documentation](https://github.com/ffuf/ffuf), [Gobuster documentation](https://github.com/OJ/gobuster), [sqlmap usage wiki](https://github.com/sqlmapproject/sqlmap/wiki/Usage), [Burp message editor](https://portswigger.net/burp/documentation/desktop/tools/message-editor). Browser/request examples are challenge-dependent templates, not claims that arbitrary targets are vulnerable.

@@ -10,6 +10,8 @@ Double-click `index.html` and open it in Chrome. No server, installation, accoun
 
 The website opens as a dark technical workspace with collapsible chapter groups, an outline, task shortcuts and readable command panels. Use **Focus** to hide the side panels, **Aa** to choose 16/18/20 px text, and **Light** to switch themes. Long scripts have an **Expand** control; copying always preserves the original command text.
 
+The twelve category pages now open with short command cards: **task → environment → commands → Look for → If not**. Choose **Full reference** for detailed explanations, advanced cases and sources. Search and old section links open the relevant reference automatically. Web's default view has 18 code blocks and 85.8% fewer prose words than its previous full chapter; that comparison excludes code/tables and does not mean the reference was deleted. [Readability research](review/readability-research.md).
+
 `/` focuses full-text search; Escape clears an active search or closes mobile navigation. Search finds sections containing all your words. **Export** offers Markdown download and printing of the current page. On a narrow screen, **Chapters** opens navigation and **On this page** expands the section outline. Theme and text size are saved locally when the browser permits it. The website needs no external fonts, account or runtime downloads.
 
 The **Tool lookup** button filters all 282 workbook entries by environment and approval status. Windows-sheet entries may be installed in WSL; read the installation location before using a command. The complete table is also in [TOOL-MATRIX.md](TOOL-MATRIX.md).
@@ -18,7 +20,7 @@ The **Tool lookup** button filters all 282 workbook entries by environment and a
 
 **[Vernon's CPTS notes](CPTS.md)** is a separate sidebar section with 102 notes in their original folders and 33 screenshots available offline. Search includes these notes; screenshots offer **Full size** and **Fit width**. [CPTS-NOTES.md](CPTS-NOTES.md) combines them into one Markdown file. Keep `cpts/assets/` beside it for images, or use the self-contained website.
 
-This is a snapshot, not live synchronization. The Obsidian vault was not modified; byte-identical originals are in `cpts/original/`. Two unreadable notes were omitted at your request: `Exploits/Web Exploits.md` and `Exploits/Web Shells-DESKTOP-0GERI6L.md`. These personal notes retain their original commands and have not been filtered against competition tool restrictions; use the event tool rules and lookup before running them.
+This is a snapshot, not live synchronization. The Obsidian vault was not modified; byte-identical originals are in `cpts/original/`. Two unreadable notes were omitted at your request: `Exploits/Web Exploits.md` and `Exploits/Web Shells-DESKTOP-0GERI6L.md`. The displayed HTTP note includes a labeled correction to its directory-fuzzing command; the original remains preserved. These personal notes have not been comprehensively filtered against competition tool restrictions; use the event tool rules and lookup before running them.
 
 The competition PDF lists seven categories: Digital Forensics, Malware Analysis, Web Security, Reverse Engineering, OSINT, Cryptography and Miscellaneous. The website groups these together. Network, steganography and pwn remain supporting reference material.
 

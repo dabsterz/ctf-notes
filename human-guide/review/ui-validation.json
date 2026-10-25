@@ -1,12 +1,13 @@
 {
   "browser": "Chrome 155.0.8059.85",
-  "html_sha256": "8b488a98006fe241defaf21a0d9019fc09854685f64266fb945a28f03f0aad33",
-  "passed": 12,
+  "html_sha256": "b516f650c3b4e0aaebc44c71930ec0562ef4d9ada4d297626e2cefe262b8fc43",
+  "passed": 13,
   "checks": [
-    "27 baseline guide/helper files unchanged; combined HANDBOOK extended with CPTS notes",
+    "27 baseline guide/helper files preserved in place or verbatim optional reference; HANDBOOK intentionally recomposed",
     "desktop dark rendering, readable body and direct task navigation",
     "focus hides panels and text-size setting changes rendered type",
     "long script expands and collapses in Chrome",
+    "command-first web view hides full reference; old deep link reveals its target",
     "both themes pass 4.5:1 for eight primary text/background combinations",
     "all 125 pages reflow at 1440, 768 and 320px; all code text preserved",
     "CPTS folder ancestors reveal active note; screenshot loads offline and full-size view stays within reader",

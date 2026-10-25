@@ -11,8 +11,11 @@ function contrast(a,b){const values=[luminance(a),luminance(b)].sort((a,b)=>b-a)
 (async()=>{
   fs.mkdirSync(out,{recursive:true});
   const baseline=JSON.parse(fs.readFileSync(path.join(out,'content-before.json'),'utf8'));
-  for(const [name,hash] of Object.entries(baseline).filter(([name])=>name!=='HANDBOOK.md'))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex'),hash,'Reader content changed: '+name);
-  checks.push('27 baseline guide/helper files unchanged; combined HANDBOOK extended with CPTS notes');
+  for(const [name,hash] of Object.entries(baseline).filter(([name])=>name!=='HANDBOOK.md')){
+    const source=name.startsWith('chapters/')&&fs.existsSync(path.join(root,'quick',path.basename(name)))?path.join(root,'reference',name):path.join(root,name);
+    assert.equal(crypto.createHash('sha256').update(fs.readFileSync(source)).digest('hex'),hash,'Preserved guide content changed: '+name);
+  }
+  checks.push('27 baseline guide/helper files preserved in place or verbatim optional reference; HANDBOOK intentionally recomposed');
   const browser=await chromium.launch({executablePath:process.argv[3]||'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
   try{
     const context=await browser.newContext({viewport:{width:1440,height:1000},offline:true,reducedMotion:'reduce'});
@@ -41,10 +44,20 @@ function contrast(a,b){const values=[luminance(a),luminance(b)].sort((a,b)=>b-a)
     await page.locator('#text-size').selectOption('16');
     checks.push('focus hides panels and text-size setting changes rendered type');
     await route('06-reverse-engineering');
+    assert.equal(await page.locator('.deep-reference').evaluate(d=>d.open),false);
+    await page.locator('.deep-reference>summary').click();
     const expand=page.locator('.expand-code').first();
     await expand.click();assert.equal(await expand.getAttribute('aria-expanded'),'true');
     await expand.click();assert.equal(await expand.getAttribute('aria-expanded'),'false');
     checks.push('long script expands and collapses in Chrome');
+    await route('02-web-exploitation');
+    assert.equal(await page.locator('.deep-reference').evaluate(d=>d.open),false);
+    assert.ok(await page.locator('#content> .command-block').count()>10);
+    await page.screenshot({path:path.join(out,'web-command-first.png')});
+    await page.evaluate(()=>location.hash='02-web-exploitation--1-establish-a-baseline-you-can-reproduce');
+    await page.waitForFunction(()=>document.querySelector('.deep-reference')?.open);
+    assert.ok(await page.locator('[id="02-web-exploitation--1-establish-a-baseline-you-can-reproduce"]').isVisible());
+    checks.push('command-first web view hides full reference; old deep link reveals its target');
     const paletteResults={};
     for(const mode of ['dark','light']){
       if(await page.locator('html').getAttribute('data-theme')!==mode)await page.locator('#theme-button').click();
@@ -90,7 +103,9 @@ function contrast(a,b){const values=[luminance(a),luminance(b)].sort((a,b)=>b-a)
     await page.locator('.cpts-figure>button').first().click();
     await page.screenshot({path:path.join(out,'cpts-note.png')});
     checks.push('CPTS folder ancestors reveal active note; screenshot loads offline and full-size view stays within reader');
-    await page.setViewportSize({width:390,height:844});await route('quickstart');
+    await page.setViewportSize({width:390,height:844});await route('02-web-exploitation');
+    await page.screenshot({path:path.join(out,'web-command-mobile.png')});
+    await route('quickstart');
     await page.screenshot({path:path.join(out,'mobile-dark.png')});
     await page.locator('#menu-button').click();
     assert.equal(await page.locator('#sidebar').isVisible(),true);

@@ -56,6 +56,7 @@ const blobText=blob=>new Promise((resolve,reject)=>{const reader=new w.FileReade
   textSize.value='16';textSize.dispatchEvent(new w.Event('change',{bubbles:true}));
   checks.push('dark workspace, task routes, focus, text size and hidden-group deep link');
   await go('06-reverse-engineering');
+  assert.equal(d.querySelector('.deep-reference').open,false);
   const expand=d.querySelector('.expand-code');
   assert.ok(expand);expand.click();
   assert.equal(expand.getAttribute('aria-expanded'),'true');
@@ -66,6 +67,16 @@ const blobText=blob=>new Promise((resolve,reject)=>{const reader=new w.FileReade
   w.dispatchEvent(new w.Event('beforeprint'));assert.equal(setup.open,true);
   w.dispatchEvent(new w.Event('afterprint'));assert.equal(setup.open,false);
   checks.push('long script expansion and print restores collapsed setup content');
+  await go('02-web-exploitation--1-establish-a-baseline-you-can-reproduce');
+  assert.equal(d.querySelector('.deep-reference').open,true);
+  assert.ok(d.getElementById('02-web-exploitation--1-establish-a-baseline-you-can-reproduce'));
+  await go('02-web-exploitation');
+  assert.equal(d.querySelector('.deep-reference').open,false);
+  assert.ok([...d.querySelectorAll('#toc a')].every(a=>!a.hash.includes('--1-establish')));
+  d.getElementById('search').value='Establish a baseline';
+  d.getElementById('search').dispatchEvent(new w.Event('input',{bubbles:true}));await delay(160);
+  assert.ok(d.querySelector('a.result[href="#02-web-exploitation--1-establish-a-baseline-you-can-reproduce"]'));
+  checks.push('full reference hidden by default, searchable and opened by old deep links');
   const currentData=JSON.parse(d.getElementById('guide-data').textContent);
   assert.deepEqual(currentData.chapters.filter(c=>c.group==='COMPETITION CATEGORIES').map(c=>c.id),
     ['03-forensics','09-malware','02-web-exploitation','06-reverse-engineering','10-osint','07-cryptography','11-miscellaneous']);

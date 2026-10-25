@@ -1,0 +1,17 @@
+{
+  "scores": {"findability": 9, "commands": 8, "clarity": 8, "economy": 9, "recovery": 9},
+  "overall": 8.6,
+  "tasks": [
+    {"id": "1", "status": "solved", "evidence": "Actual Ubuntu WSL: python3 recipes/rsa.py numbers.json; re-encryption OK; plaintext CSG_OK; rsa-plain.bin."},
+    {"id": "2", "status": "solved", "evidence": "Actual Ubuntu WSL: python3 recipes/layers.py note.txt --out decoded-note; layer2 CSG_FLAG{unwrap_then_check}."},
+    {"id": "3", "status": "solved_after_documented_recovery", "evidence": "labeled.txt caused Excess data after padding; manually saved VALUE per Quickstart, preserving padding; labeled-value.txt produced CSG_FLAG{labels_need_a_step}."},
+    {"id": "4", "status": "navigation_only_complete", "evidence": "Quickstart Web paths and linked Web chapter provided fake-path baseline, bounded ffuf commands, candidate curl check, and retry without -ac; missing live URL/Kali/service explicitly recorded; no network command executed."}
+  ],
+  "top3_findings": [
+    {"reference": "human-guide/cpts/pages/cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8.md:22", "action": "Annotate directory example: FUZZ appears in a slash-containing Host header instead of URL path; derive filter size rather than retaining 1131."},
+    {"reference": "human-guide/QUICKSTART.md:30; human-guide/chapters/02-web-exploitation.md:103", "action": "Name useful baseline comparisons for soft-200 responses: body/error template, length, and redirects/auth state."},
+    {"reference": "human-guide/CPTS.md:5 and individual CPTS note Personal reference banner", "action": "Repeat explicit unvetted-for-event policy on note pages reached directly through search."}
+  ],
+  "browser_evidence": "browser-review.cjs, browser-log.txt, browser-search-ffuf.png, browser-cpts-http.png; offline Chrome search/sidebar navigation and real clipboard verified; chosen CPTS note has no images, so fullsize image behavior untested.",
+  "limitations": "Bounded simulated human reading; no invented human timings; no remote targets or installs; no live web exploitation; no whole-guide audit."
+}

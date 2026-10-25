@@ -1,9 +1,10 @@
 {
-  "passed": 12,
+  "passed": 13,
   "checks": [
     "default route is short guide",
     "dark workspace, task routes, focus, text size and hidden-group deep link",
     "long script expansion and print restores collapsed setup content",
+    "full reference hidden by default, searchable and opened by old deep links",
     "seven PDF categories and competition setup route with offline source link",
     "all category tables and literal pipe command render",
     "search result, section route and clipboard text",

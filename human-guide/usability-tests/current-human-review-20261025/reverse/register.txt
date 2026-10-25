@@ -1,0 +1,2 @@
+Four bytes in memory order: 61 61 68 62
+Input used the guide pattern helper with length 512.

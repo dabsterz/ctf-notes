@@ -51,6 +51,20 @@ def convert_note(source: str, images: dict[str, str]) -> str:
     return '\n'.join(lines) + '\n'
 
 
+def editorial_note(path: str, body: str) -> str:
+    """Correct the known copied example while keeping the raw snapshot intact."""
+    if path != 'Enumeration/Service Enumeration/80,443 http.md':
+        return body
+    old = 'ffuf -u http://siteisup.htb -H "Host: siteisup.htb/FUZZ" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131'
+    corrected = ('URL=\'http://challenge.example\'  # replace with the challenge URL\n'
+                 "printf '%s\\n' admin api backup export > words.txt\n"
+                 'ffuf -u "$URL/FUZZ" -w words.txt -mc all -ac -t 1 -rate 1 -maxtime 30')
+    if old not in body:
+        raise ValueError('Expected personal HTTP example changed; review editorial correction')
+    body = body.replace(old, corrected, 1)
+    return ('**Editor correction:** directory fuzzing varies the URL path. The copied Host-header example and fixed response-size filter were corrected below; compare candidates with a missing-path response. The original vault snapshot is unchanged.\n\n' + body)
+
+
 def import_vault(source: Path, root: Path, excluded: set[str]) -> dict:
     source = source.resolve()
     paths = sorted(source.rglob('*.md'), key=lambda p: p.relative_to(source).as_posix().casefold())
@@ -119,7 +133,7 @@ def build_cpts(root, render, merge):
         overview.append(f'- [{path.stem}](cpts/pages/{record["id"]}.md)')
         raw = (root / record['file']).read_bytes()
         assert hashlib.sha256(raw).hexdigest() == record['sha256']
-        body = convert_note(raw.decode('utf-8-sig'), image_paths)
+        body = editorial_note(record['path'], convert_note(raw.decode('utf-8-sig'), image_paths))
         source = '# ' + path.stem + '\n\n' + body
         target = root / 'cpts/pages' / (record['id'] + '.md')
         target.parent.mkdir(parents=True, exist_ok=True); target.write_bytes(source.encode('utf-8'))

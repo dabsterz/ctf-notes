@@ -1,0 +1,16 @@
+﻿{
+  "scores": {"findability": 9, "commands": 9, "clarity": 8, "economy": 9, "recovery": 9},
+  "overall": 8.8,
+  "tasks": [
+    {"id": 1, "status": "passed", "evidence": "Actual WSL png_tail.py: CRCs OK; 26 trailing bytes; CSG_FLAG{after_the_pixels}; png-trailer.bin retained."},
+    {"id": 2, "status": "passed", "evidence": "Actual WSL tar_keep.py preserved both memo.txt versions; strings returned CSG_FLAG{keep_the_old_copy}; tar-parts/manifest.jsonl retained; existing-directory recovery succeeded into tar-parts-retry."},
+    {"id": 3, "status": "passed", "evidence": "Actual PowerShell JSON formatting: 2026-10-25T06:12:34Z; C:\\Temp\\check.exe --read memo.txt; guide correctly limits 4688 to process creation, not successful file access."},
+    {"id": 4, "status": "navigation_passed_not_executed", "evidence": "Quick reference Network conversation -> Recover an HTTP download -> Network HTTP section. Windows TShark export-objects command identified. No PCAP fabricated or tool execution claimed."}
+  ],
+  "top3": [
+    {"reference": "QUICKSTART.md:133; chapters/04-network.md:50-59", "finding": "Deep-linked HTTP block depends on $tshark setup earlier in the chapter.", "action": "Repeat assignment or link prerequisite next to HTTP commands."},
+    {"reference": "CPTS.md:5; index.html#cpts-reconnaissance-ad-reconnaissance-cbb23af1--ad-reconnaissance", "finding": "Explicit unfiltered personal-note policy lives at the index, while individual note says only Personal reference.", "action": "Repeat a short tool-policy warning in individual note headers."},
+    {"reference": "QUICKSTART.md:90-120", "finding": "EVTX alternative separates JSON command from its meaning and limits.", "action": "Place interpretation before EVTX alternative."}
+  ],
+  "limitations": ["Simulated human beginner review, not a timed human study.", "CPTS note contained no screenshots; Full size/Fit width not applicable and not tested.", "Only navigation assessed for the packet-capture task.", "Automation locator and working-directory errors excluded from scores."]
+}

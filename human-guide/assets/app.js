@@ -8,13 +8,15 @@ Object.assign(shortNames, {'quickstart':'Quick reference', 'competition':'Compet
 data.chapters.forEach(chapter => {
   const doc = new DOMParser().parseFromString(chapter.html, 'text/html');
   let section = null;
-  Array.from(doc.body.children).forEach(node => {
+  function readNodes(parent){Array.from(parent.children).forEach(node => {
+    if(node.tagName==='DETAILS'){readNodes(node);return;}
+    if(node.tagName==='SUMMARY')return;
     if (/^H[123]$/.test(node.tagName)) {
       section = {chapter: chapter.id, chapterTitle:chapter.note_path ? 'CPTS / '+chapter.note_path.replace(/\.md$/,'') : chapter.title, id:node.id, title:node.textContent, body:''};
       sections.push(section);
     }
     if (section) section.body += ' ' + node.textContent;
-  });
+  });}readNodes(doc.body);
 });
 const groupNames={'CONTEST SHORTCUTS':'Pinned pages','GET ORIENTED':'Getting started','COMPETITION CATEGORIES':'Competition categories','SUPPORTING REFERENCE':'Supporting reference','CPTS NOTES':"Vernon's CPTS notes",'REFERENCE':'Appendices'};
 function cptsTree(chapters){
@@ -66,7 +68,7 @@ function prepareReading(chapter){
   $('content').dataset.chapter=chapter.id;
   if(chapter.note_path){
     const meta=document.createElement('p');meta.className='cpts-provenance';
-    meta.append(document.createTextNode(chapter.note_path.replace(/\.md$/,'')+' · Personal reference · '));
+    meta.append(document.createTextNode(chapter.note_path.replace(/\.md$/,'')+' · Personal notes; tools are not event-vetted · '));
     const rules=document.createElement('a');rules.href='#competition--what-is-allowed';rules.textContent='Event tool rules';meta.append(rules);
     $('content').querySelector('h1').after(meta);
     $('content').querySelectorAll('img.cpts-image').forEach(img=>{
@@ -101,7 +103,7 @@ let tocObserver;
 function markToc(id){$('toc').querySelectorAll('a').forEach(a=>{if(a.getAttribute('href')==='#'+id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
 function createToc(){
   if(tocObserver)tocObserver.disconnect();
-  const headings=Array.from($('content').querySelectorAll('h2'));
+  const headings=Array.from($('content').querySelectorAll('h2')).filter(h=>!h.closest('.deep-reference'));
   $('toc').innerHTML=headings.length ? `<details class="outline-disclosure" ${window.innerWidth>1200?'open':''}><summary>On this page <span>${headings.length}</span></summary><nav aria-label="Page sections">`+headings.map(h=>`<a href="#${esc(h.id)}">${esc(h.textContent)}</a>`).join('')+'</nav></details>' : '';
   if('IntersectionObserver' in window){tocObserver=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);if(visible.length)markToc(visible[0].target.id);},{rootMargin:'-120px 0px -55% 0px'});headings.forEach(h=>tocObserver.observe(h));}
 }
@@ -115,7 +117,7 @@ function showChapter(id,anchor){
   document.title=(shortNames[chapter.id]||chapter.title)+' · Fieldnotes';
   setActive(chapter.id);prepareReading(chapter);addCopyButtons();createToc();closeMenu();
   if(fromMobileNav)$('content').focus({preventScroll:true});
-  if(anchor){markToc(anchor);requestAnimationFrame(()=>document.getElementById(anchor)?.scrollIntoView());}
+  if(anchor){const target=document.getElementById(anchor);for(let p=target?.parentElement;p;p=p.parentElement){if(p.tagName==='DETAILS')p.open=true;}markToc(anchor);requestAnimationFrame(()=>target?.scrollIntoView());}
   else window.scrollTo({top:0,behavior:'instant'});
 }
 function route(){

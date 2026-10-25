@@ -1,0 +1,18 @@
+﻿{
+  "persona": "Intermediate Linux user new to reversing",
+  "scores": {"findability": 8, "commands": 9, "clarity": 7, "economy": 8, "recovery": 6},
+  "overall": 7.6,
+  "tasks": [
+    {"id":"1", "status":"passed", "evidence":"commands.log: transform.py compare.json returned CSG_FLAG{byte_order_counts}; forward check OK"},
+    {"id":"2", "status":"passed", "evidence":"commands.log: vm_byte.py machine.json returned 72 / 0x48 / H; all comparisons OK; count 1"},
+    {"id":"3", "status":"passed", "evidence":"commands.log: pattern.py --find 61616862 --sent pattern.bin returned 197, verified against 512 sent bytes"},
+    {"id":"4", "status":"navigation_assessed_partial_bridge", "evidence":"REPORT.md: QUICKSTART static card, chooser, reverse chapter sections 3-6 and 8; no supplied ELF or actual binary solving; startup and extraction steps still assumed"}
+  ],
+  "top3": [
+    {"reference":"chapters/06-reverse-engineering.md:188,206,309", "finding":"Add an annotated stripped-binary-to-constants walkthrough; source-visible toy does not teach unfamiliar extraction."},
+    {"reference":"QUICKSTART.md:171; TOOL-CHOOSER.md:87", "finding":"Link Static reversing directly to reverse chapter sections 4-6 and a no-main path."},
+    {"reference":"QUICKSTART.md:201-210", "finding":"Clarify sent-pattern membership does not verify byte-order interpretation; reversed supplied bytes returned another verified offset."}
+  ],
+  "evidence_files": ["commands.log", "browser.log", "website-cpts-note.png", "website-cpts-fullsize.png"],
+  "limits": "Local WSL Python helper execution and Chrome UI only; task4 navigation-only; no installs, remote targets, original binary validation, or Kali/Ghidra execution."
+}

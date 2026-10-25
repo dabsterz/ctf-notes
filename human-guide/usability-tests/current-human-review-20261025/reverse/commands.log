@@ -1,0 +1,27 @@
++ python3 --version
+Python 3.12.3
++ python3 recipes/transform.py compare.json
+forward check: OK
+candidate bytes: b'CSG_FLAG{byte_order_counts}'
+saved: checker-plain.bin
++ python3 recipes/vm_byte.py machine.json
+candidate: 72 / 0x48 / b'H'
+LOAD_INPUT: 0x48 -> XOR: 0x63 -> ADD: 0x74 -> CMP: 0x74 all comparisons: OK
+candidate count: 1
++ python3 recipes/pattern.py --length 512
+wrote 512 bytes
++ python3 recipes/pattern.py --find 61616862 --sent pattern.bin
+197
+verified against sent file: pattern.bin ; length: 512
++ python3 recipes/pattern.py --find 62686161 --sent pattern.bin
+55
+verified against sent file: pattern.bin ; length: 512
++ python3 recipes/pattern.py --find 61616862 --sent pattern.bin
+197
+verified against sent file: pattern.bin ; length: 512
++ python3 recipes/pattern.py --find ffffffff --sent pattern.bin
+-1
+not verified: wrong generator or crash bytes outside sent pattern
++ python3 recipes/pattern.py --find 61616862 --sent pattern.bin
+197
+verified against sent file: pattern.bin ; length: 512

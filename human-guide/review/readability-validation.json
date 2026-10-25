@@ -1,0 +1,98 @@
+{
+  "categories": 12,
+  "default_code_blocks": 135,
+  "metrics": {
+    "02-web-exploitation.md": {
+      "previous_prose_words": 4430,
+      "default_prose_words": 627,
+      "prose_reduction_percent": 85.8,
+      "default_code_blocks": 18,
+      "retained_reference_code_blocks": 25
+    },
+    "03-forensics.md": {
+      "previous_prose_words": 2459,
+      "default_prose_words": 355,
+      "prose_reduction_percent": 85.6,
+      "default_code_blocks": 12,
+      "retained_reference_code_blocks": 28
+    },
+    "04-network.md": {
+      "previous_prose_words": 2394,
+      "default_prose_words": 374,
+      "prose_reduction_percent": 84.4,
+      "default_code_blocks": 9,
+      "retained_reference_code_blocks": 23
+    },
+    "05-steganography.md": {
+      "previous_prose_words": 3084,
+      "default_prose_words": 349,
+      "prose_reduction_percent": 88.7,
+      "default_code_blocks": 13,
+      "retained_reference_code_blocks": 24
+    },
+    "06-reverse-engineering.md": {
+      "previous_prose_words": 2810,
+      "default_prose_words": 428,
+      "prose_reduction_percent": 84.8,
+      "default_code_blocks": 11,
+      "retained_reference_code_blocks": 28
+    },
+    "07-cryptography.md": {
+      "previous_prose_words": 2182,
+      "default_prose_words": 418,
+      "prose_reduction_percent": 80.8,
+      "default_code_blocks": 11,
+      "retained_reference_code_blocks": 19
+    },
+    "08-binary-exploitation.md": {
+      "previous_prose_words": 3226,
+      "default_prose_words": 387,
+      "prose_reduction_percent": 88.0,
+      "default_code_blocks": 12,
+      "retained_reference_code_blocks": 26
+    },
+    "09-malware.md": {
+      "previous_prose_words": 1474,
+      "default_prose_words": 445,
+      "prose_reduction_percent": 69.8,
+      "default_code_blocks": 13,
+      "retained_reference_code_blocks": 17
+    },
+    "10-osint.md": {
+      "previous_prose_words": 1518,
+      "default_prose_words": 440,
+      "prose_reduction_percent": 71.0,
+      "default_code_blocks": 8,
+      "retained_reference_code_blocks": 10
+    },
+    "11-miscellaneous.md": {
+      "previous_prose_words": 2838,
+      "default_prose_words": 438,
+      "prose_reduction_percent": 84.6,
+      "default_code_blocks": 9,
+      "retained_reference_code_blocks": 21
+    },
+    "13-pwn-practice-atlas.md": {
+      "previous_prose_words": 4688,
+      "default_prose_words": 348,
+      "prose_reduction_percent": 92.6,
+      "default_code_blocks": 11,
+      "retained_reference_code_blocks": 1
+    },
+    "14-advanced-crypto.md": {
+      "previous_prose_words": 2172,
+      "default_prose_words": 459,
+      "prose_reduction_percent": 78.9,
+      "default_code_blocks": 8,
+      "retained_reference_code_blocks": 10
+    }
+  },
+  "checks": [
+    "Archive hashes unchanged",
+    "Original code blocks and anchors retained with explicit TShark comma-quoting correction",
+    "Collapsed reference rendered correctly",
+    "Personal raw notes and images unchanged",
+    "Personal HTTP example corrected in presentation"
+  ],
+  "scope": "Prose counts exclude fenced code and tables. Measures the default reading path; full reference remains available. No new human-usability score is claimed."
+}

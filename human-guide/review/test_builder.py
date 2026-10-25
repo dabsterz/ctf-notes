@@ -60,6 +60,26 @@ class BuilderContract(unittest.TestCase):
         self.assertIn("tool --only 'pop|ret'", result)
         self.assertNotIn('pop\\|ret', result)
 
+    def test_full_reference_renders_commands_and_keeps_original_anchors(self):
+        from bs4 import BeautifulSoup
+        module = self.builder()
+        quick = '# Topic\n\n## Quick: inspect\n\n```bash\nprintf hello\n```\n'
+        original = '# Topic\n\n## Original section\n\n```bash\nprintf "a|b"\n```\n'
+        combined = module.compose_chapter(quick, original)
+        doc = BeautifulSoup(module.render_markdown(combined, 'topic'), 'html.parser')
+        details = doc.select_one('details.deep-reference')
+        self.assertIsNotNone(details)
+        self.assertFalse(details.has_attr('open'))
+        self.assertEqual(details.select_one('pre code').get_text(), 'printf "a|b"\n')
+        self.assertIsNotNone(details.select_one('#topic--original-section'))
+        self.assertIn('id="topic--original-section"', module.merge_markdown(combined, 'topic'))
+
+    def test_reference_power_shell_separator_is_quoted(self):
+        module = self.builder()
+        result = module.compose_chapter('# Topic\n', '# Topic\n\n```powershell\n& $tshark -E separator=,\n```\n')
+        self.assertIn("-E 'separator=,'", result)
+        self.assertNotIn('-E separator=,', result)
+
 
 if __name__ == "__main__":
     unittest.main()

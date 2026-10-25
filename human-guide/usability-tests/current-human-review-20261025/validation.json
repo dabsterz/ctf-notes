@@ -1,0 +1,51 @@
+{
+  "commit": "b550a6f30d97bf9212d38f04b6f037c18a199b98",
+  "frozen_files": 276,
+  "changed_guide_files": [],
+  "artifact_checks": {
+    "PNG trailer matches bytes after IEND": true,
+    "tar-parts: both versions retained in order": true,
+    "tar-parts-retry: both versions retained in order": true,
+    "Recovered checker input forward-verifies": true,
+    "Decoded VM has unique accepted byte 72": true,
+    "Crash bytes unique within 512-byte sent input": true,
+    "RSA output matches independent modular arithmetic": true,
+    "Layered output matches independent Base64/zlib decoding": true,
+    "Labeled Base64 output matches independent decoding": true
+  },
+  "crash_offset": 197,
+  "scores": {
+    "forensics": {
+      "dimensions": {
+        "findability": 9,
+        "commands": 9,
+        "clarity": 8,
+        "economy": 9,
+        "recovery": 9
+      },
+      "mean": 8.8
+    },
+    "reverse": {
+      "dimensions": {
+        "findability": 8,
+        "commands": 9,
+        "clarity": 7,
+        "economy": 8,
+        "recovery": 6
+      },
+      "mean": 7.6
+    },
+    "web-crypto": {
+      "dimensions": {
+        "findability": 9,
+        "commands": 8,
+        "clarity": 8,
+        "economy": 9,
+        "recovery": 9
+      },
+      "mean": 8.6
+    }
+  },
+  "overall_mean": 8.333333333333334,
+  "scope": "Parent verifies outputs, hashes and score arithmetic; qualitative judgments remain those of the independent reviewers. VM byte and event interpretation additionally cross-checked in written reports."
+}

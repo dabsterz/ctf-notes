@@ -1,0 +1,1 @@
+{"Provider": "Microsoft-Windows-Security-Auditing", "EventID": 4688, "TimeCreated": "2026-10-25T06:12:34Z", "NewProcessName": "C:\\Temp\\check.exe", "CommandLine": "C:\\Temp\\check.exe --read memo.txt"}

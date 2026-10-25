@@ -40,7 +40,7 @@ def load_tools() -> list[dict]:
 
 
 def render_markdown(source: str, chapter_id: str, images: dict | None = None) -> str:
-    result = markdown.markdown(source, extensions=['fenced_code', 'tables', 'toc', 'sane_lists'])
+    result = markdown.markdown(source, extensions=['fenced_code', 'tables', 'toc', 'sane_lists', 'md_in_html'])
     soup = BeautifulSoup(result, 'html.parser')
     for bad in soup.find_all(['script', 'style', 'iframe', 'object', 'embed', 'form', 'input', 'button', 'img', 'link', 'meta']):
         if bad.name == 'img' and images and bad.get('src') in images:
@@ -83,6 +83,19 @@ def render_markdown(source: str, chapter_id: str, images: dict | None = None) ->
         wrapper = soup.new_tag('div', attrs={'class': 'table-scroll', 'tabindex': '0'})
         table.wrap(wrapper)
     return str(soup)
+
+
+def compose_chapter(quick: str, original: str) -> str:
+    """Keep the old reference and anchors behind a reader-controlled disclosure."""
+    quick = re.sub(r'\]\(\.\./reference/chapters/[^)]+\.md\)', '](#full-reference)', quick)
+    # A shorter display title must not discard the old title's deep link.
+    body = original if quick.split('\n', 1)[0] != original.split('\n', 1)[0] else original.split('\n', 1)[1].lstrip('\n')
+    # Native PowerShell otherwise drops the unquoted comma. Archive stays intact.
+    body = body.replace('-E separator=,', "-E 'separator=,'")
+    return (quick.rstrip() + '\n\n## Full reference\n\n'
+            '<details class="deep-reference" markdown="1">\n'
+            '<summary>Explanations, advanced cases and sources</summary>\n\n'
+            + body.rstrip() + '\n\n</details>\n')
 
 
 def table_cell(value: str) -> str:
@@ -243,6 +256,11 @@ def main():
     assert {p for p, _ in paths if p.parent.name == 'chapters'} == set((ROOT / 'chapters').glob('*.md'))
     chapters = []
     for path, group in paths:
+        quick = ROOT / 'quick' / path.name
+        archived = ROOT / 'reference/chapters' / path.name
+        if path.parent.name == 'chapters' and quick.exists():
+            source = compose_chapter(quick.read_text(encoding='utf-8'), archived.read_text(encoding='utf-8'))
+            path.write_bytes(source.encode('utf-8'))
         source = path.read_text(encoding='utf-8')
         title = re.search(r'^# (.+)$', source, re.M).group(1)
         chapters.append({'id': path.stem.lower(), 'title': title, 'group': group, 'path': path.relative_to(ROOT).as_posix(), 'markdown': source,
