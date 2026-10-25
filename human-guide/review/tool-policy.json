@@ -1,0 +1,2389 @@
+[
+  {
+    "name": "Approved Tool List for Windows",
+    "rows": [
+      {
+        "B2": "Approved Tool List (Windows)",
+        "C2": "",
+        "D2": "",
+        "E2": "",
+        "F2": "",
+        "G2": "",
+        "H2": "",
+        "I2": ""
+      },
+      {
+        "B3": "Tools listed below are pre-approved and will already be available on the competition PCs. ",
+        "C3": "",
+        "D3": "",
+        "E3": "",
+        "F3": "",
+        "G3": "",
+        "H3": "",
+        "I3": ""
+      },
+      {
+        "B4": "The 'List' column shows the origin of each tool: 1 = proposed by TrendMicro, 2 = added at the request of participants.",
+        "C4": "",
+        "D4": "",
+        "E4": "",
+        "F4": "",
+        "G4": "",
+        "H4": "",
+        "I4": ""
+      },
+      {
+        "B5": "Installation of AI-related libraries or tools is not permitted for any tool that supports adding additional libraries or sub-tools (e.g. Python).",
+        "C5": "",
+        "D5": "",
+        "E5": "",
+        "F5": "",
+        "G5": "",
+        "H5": "",
+        "I5": ""
+      },
+      {
+        "B7": "No.",
+        "C7": "Tool Name",
+        "D7": "List",
+        "E7": "Version",
+        "F7": "Official URL",
+        "G7": "Category",
+        "H7": "Remarks",
+        "I7": "Installation location"
+      },
+      {
+        "B8": "1",
+        "C8": "CyberChef",
+        "D8": "1. Approved List from TrendMicro",
+        "E8": "Latest (browser-based, no install)",
+        "F8": "https://gchq.github.io/CyberChef/",
+        "G8": "Forensic, Network, Crypto, Web",
+        "H8": "",
+        "I8": "Bookmark"
+      },
+      {
+        "B9": "2",
+        "C9": "Wireshark",
+        "D9": "1. Approved List from TrendMicro",
+        "E9": "Latest",
+        "F9": "https://www.wireshark.org/download.html",
+        "G9": "Network, Forensic",
+        "H9": "",
+        "I9": "installed in Windows"
+      },
+      {
+        "B10": "3",
+        "C10": "PDF Viewer",
+        "D10": "1. Approved List from TrendMicro",
+        "E10": "Any current version",
+        "F10": "https://get.adobe.com/reader/ (or any standard PDF viewer)",
+        "G10": "Stegano",
+        "H10": "",
+        "I10": "installed in Windows"
+      },
+      {
+        "B11": "4",
+        "C11": "OpenVPN Client",
+        "D11": "1. Approved List from TrendMicro",
+        "E11": "Latest",
+        "F11": "https://openvpn.net/client/",
+        "G11": "MISC",
+        "H11": "",
+        "I11": "installed in Windows"
+      },
+      {
+        "B12": "5",
+        "C12": "Google Chrome",
+        "D12": "1. Approved List from TrendMicro",
+        "E12": "Latest",
+        "F12": "https://www.google.com/intl/en/chrome/dr/download/",
+        "G12": "All",
+        "H12": "",
+        "I12": "installed in Windows"
+      },
+      {
+        "B13": "6",
+        "C13": "Windows Subsystem for Linux (WSL)",
+        "D13": "1. Approved List from TrendMicro",
+        "E13": "Latest",
+        "F13": "https://learn.microsoft.com/en-us/windows/wsl/install",
+        "G13": "All",
+        "H13": "",
+        "I13": "installed in Windows"
+      },
+      {
+        "B14": "7",
+        "C14": "Python 3",
+        "D14": "1. Approved List from TrendMicro",
+        "E14": "Latest 3.x — confirm exact version before install",
+        "F14": "https://www.python.org/downloads/",
+        "G14": "OSINT, Stegano, Crypto, Reversing, Web, Forensic, MISC",
+        "H14": "Libraries may be added freely EXCEPT any AI/ML-related library (e.g. no LLM, machine-learning, or generative-AI frameworks). ",
+        "I14": "installed in WSL"
+      },
+      {
+        "B15": "8",
+        "C15": "uv",
+        "D15": "1. Approved List from TrendMicro",
+        "E15": "Latest",
+        "F15": "https://github.com/astral-sh/uv",
+        "G15": "MISC (Python package/env manager)",
+        "H15": "Same rule as Python 3 — any library OK except AI/ML-related packages",
+        "I15": "installed in WSL"
+      },
+      {
+        "B16": "9",
+        "C16": "gdb",
+        "D16": "1. Approved List from TrendMicro",
+        "E16": "Latest (distro package)",
+        "F16": "https://www.gnu.org/software/gdb/",
+        "G16": "MISC, Reversing",
+        "H16": "",
+        "I16": "installed in WSL"
+      },
+      {
+        "B17": "10",
+        "C17": "objdump",
+        "D17": "1. Approved List from TrendMicro",
+        "E17": "Bundled with GNU Binutils",
+        "F17": "https://www.gnu.org/software/binutils/",
+        "G17": "MISC, Reversing",
+        "H17": "",
+        "I17": "installed in WSL"
+      },
+      {
+        "B18": "11",
+        "C18": "strings",
+        "D18": "1. Approved List from TrendMicro",
+        "E18": "Bundled with GNU Binutils",
+        "F18": "https://www.gnu.org/software/binutils/",
+        "G18": "Stegano",
+        "H18": "",
+        "I18": "installed in WSL"
+      },
+      {
+        "B19": "12",
+        "C19": "zsteg",
+        "D19": "1. Approved List from TrendMicro",
+        "E19": "Latest (Ruby gem)",
+        "F19": "https://github.com/zed-0xff/zsteg",
+        "G19": "Stegano, Crypto",
+        "H19": "",
+        "I19": "installed in WSL"
+      },
+      {
+        "B20": "13",
+        "C20": "binwalk",
+        "D20": "1. Approved List from TrendMicro",
+        "E20": "Latest",
+        "F20": "https://github.com/ReFirmLabs/binwalk",
+        "G20": "Stegano",
+        "H20": "",
+        "I20": "installed in WSL"
+      },
+      {
+        "B21": "14",
+        "C21": "ExifTool",
+        "D21": "1. Approved List from TrendMicro",
+        "E21": "Latest",
+        "F21": "https://exiftool.org/",
+        "G21": "OSINT",
+        "H21": "",
+        "I21": "installed in WSL"
+      },
+      {
+        "B22": "15",
+        "C22": "pdftotext (Poppler utils)",
+        "D22": "1. Approved List from TrendMicro",
+        "E22": "Latest",
+        "F22": "https://poppler.freedesktop.org/",
+        "G22": "OSINT",
+        "H22": "",
+        "I22": "installed in WSL"
+      },
+      {
+        "B23": "16",
+        "C23": "can-utils",
+        "D23": "1. Approved List from TrendMicro",
+        "E23": "Latest",
+        "F23": "https://github.com/linux-can/can-utils",
+        "G23": "Network",
+        "H23": "",
+        "I23": "installed in WSL"
+      },
+      {
+        "B24": "17",
+        "C24": "cannelloni",
+        "D24": "1. Approved List from TrendMicro",
+        "E24": "Latest",
+        "F24": "https://github.com/mkschreder/cannelloni",
+        "G24": "Network",
+        "H24": "",
+        "I24": "installed in WSL"
+      },
+      {
+        "B25": "18",
+        "C25": "zeek",
+        "D25": "1. Approved List from TrendMicro",
+        "E25": "Latest",
+        "F25": "https://zeek.org/get-zeek/",
+        "G25": "Network",
+        "H25": "",
+        "I25": "installed in WSL"
+      },
+      {
+        "B26": "19",
+        "C26": "ZBar",
+        "D26": "1. Approved List from TrendMicro",
+        "E26": "Latest",
+        "F26": "https://github.com/mchehab/zbar",
+        "G26": "Stegano",
+        "H26": "",
+        "I26": "installed in WSL"
+      },
+      {
+        "B27": "20",
+        "C27": "Burp Suite Community Edition",
+        "D27": "1. Approved List from TrendMicro",
+        "E27": "2026.4.x (confirm latest at install time)",
+        "F27": "https://portswigger.net/burp/communitydownload",
+        "G27": "Web",
+        "H27": "",
+        "I27": "installed in WSL"
+      },
+      {
+        "B28": "21",
+        "C28": "jq",
+        "D28": "1. Approved List from TrendMicro",
+        "E28": "Latest",
+        "F28": "https://jqlang.org/download/",
+        "G28": "MISC, Web",
+        "H28": "",
+        "I28": "installed in WSL"
+      },
+      {
+        "B29": "22",
+        "C29": "Ghidra",
+        "D29": "1. Approved List from TrendMicro",
+        "E29": "12.1.4",
+        "F29": "https://ghidra-sre.org/",
+        "G29": "Reversing",
+        "H29": "",
+        "I29": "installed in WSL"
+      },
+      {
+        "B30": "23",
+        "C30": "The Sleuth Kit",
+        "D30": "1. Approved List from TrendMicro",
+        "E30": "Latest",
+        "F30": "https://www.sleuthkit.org/sleuthkit/download.php",
+        "G30": "Forensic, Reversing",
+        "H30": "",
+        "I30": "installed in WSL"
+      },
+      {
+        "B31": "24",
+        "C31": "OpenSSL",
+        "D31": "1. Approved List from TrendMicro",
+        "E31": "Latest 3.x",
+        "F31": "https://www.openssl.org/source/",
+        "G31": "Forensic, Network, OSINT, Crypto",
+        "H31": "",
+        "I31": "installed in WSL"
+      },
+      {
+        "B32": "25",
+        "C32": "xz",
+        "D32": "1. Approved List from TrendMicro",
+        "E32": "Latest",
+        "F32": "https://tukaani.org/xz/",
+        "G32": "Forensic",
+        "H32": "",
+        "I32": "installed in WSL"
+      },
+      {
+        "B33": "26",
+        "C33": "qpdf",
+        "D33": "1. Approved List from TrendMicro",
+        "E33": "Latest",
+        "F33": "https://github.com/qpdf/qpdf",
+        "G33": "Stegano",
+        "H33": "",
+        "I33": "installed in WSL"
+      },
+      {
+        "B34": "27",
+        "C34": "llvm-mc (LLVM tools)",
+        "D34": "1. Approved List from TrendMicro",
+        "E34": "Latest",
+        "F34": "https://releases.llvm.org/",
+        "G34": "Reversing",
+        "H34": "",
+        "I34": "installed in WSL"
+      },
+      {
+        "B35": "28",
+        "C35": "xxd",
+        "D35": "1. Approved List from TrendMicro",
+        "E35": "Bundled with Vim",
+        "F35": "https://www.vim.org/",
+        "G35": "Reversing",
+        "H35": "",
+        "I35": "installed in WSL"
+      },
+      {
+        "B36": "29",
+        "C36": "fsck.fat (dosfstools)",
+        "D36": "1. Approved List from TrendMicro",
+        "E36": "Latest",
+        "F36": "https://github.com/dosfstools/dosfstools",
+        "G36": "Reversing",
+        "H36": "",
+        "I36": "installed in WSL"
+      },
+      {
+        "B37": "30",
+        "C37": "RsaCtfTool",
+        "D37": "1. Approved List from TrendMicro",
+        "E37": "Latest (GitHub script, run via Python 3)",
+        "F37": "https://github.com/RsaCtfTool/RsaCtfTool",
+        "G37": "Crypto",
+        "H37": "",
+        "I37": "installed in WSL"
+      },
+      {
+        "B38": "31",
+        "C38": "volatility3",
+        "D38": "1. Approved List from TrendMicro",
+        "E38": "Latest",
+        "F38": "https://github.com/volatilityfoundation/volatility3",
+        "G38": "Forensic",
+        "H38": "",
+        "I38": "installed in WSL"
+      },
+      {
+        "B39": "32",
+        "C39": "OpenSSH-Session-Key-Recovery",
+        "D39": "1. Approved List from TrendMicro",
+        "E39": "",
+        "F39": "",
+        "G39": "",
+        "H39": "Plugin for Volatility3",
+        "I39": "installed in volatility3"
+      },
+      {
+        "B40": "33",
+        "C40": "x64dbg",
+        "D40": "2. Approved Tools from Participants Request",
+        "E40": "Latest",
+        "F40": "https://github.com/x64dbg/x64dbg/releases/tag/snapshot",
+        "G40": "Reversing",
+        "H40": "Portable zip (snapshot_*.zip). Extract and run; no installer.",
+        "I40": "installed in Windows"
+      },
+      {
+        "B41": "34",
+        "C41": "Autopsy",
+        "D41": "2. Approved Tools from Participants Request",
+        "E41": "Latest",
+        "F41": "https://github.com/sleuthkit/autopsy/releases/latest",
+        "G41": "Forensic",
+        "H41": "MSI installer (bundles Java and The Sleuth Kit). Administrator rights required.",
+        "I41": "installed in Windows"
+      },
+      {
+        "B42": "35",
+        "C42": "HxD",
+        "D42": "2. Approved Tools from Participants Request",
+        "E42": "Latest",
+        "F42": "https://mh-nexus.de/en/downloads.php?product=HxD20",
+        "G42": "Forensic, Reversing, Stegano",
+        "H42": "Installer or portable edition.",
+        "I42": "installed in Windows"
+      },
+      {
+        "B43": "36",
+        "C43": "tshark",
+        "D43": "2. Approved Tools from Participants Request",
+        "E43": "Latest",
+        "F43": "https://www.wireshark.org/download/win64/Wireshark-latest-x64.exe",
+        "G43": "Network, Forensic",
+        "H43": "Included in the Wireshark installer (TShark component).",
+        "I43": "installed in Windows"
+      },
+      {
+        "B44": "37",
+        "C44": "Notepad++",
+        "D44": "2. Approved Tools from Participants Request",
+        "E44": "Latest",
+        "F44": "https://notepad-plus-plus.org/downloads/",
+        "G44": "Reversing",
+        "H44": "Installer (x64). A portable edition is also available.",
+        "I44": "installed in Windows"
+      },
+      {
+        "B45": "38",
+        "C45": "dnSpyEx (dnSpy)",
+        "D45": "2. Approved Tools from Participants Request",
+        "E45": "Latest",
+        "F45": "https://github.com/dnSpyEx/dnSpy/releases/latest",
+        "G45": "Reversing",
+        "H45": "Portable zip. Use dnSpy-net-win64.zip (self-contained; no .NET installation needed).",
+        "I45": "installed in Windows"
+      },
+      {
+        "B46": "39",
+        "C46": "Eric Zimmerman's Tools",
+        "D46": "2. Approved Tools from Participants Request",
+        "E46": "Latest",
+        "F46": "https://download.ericzimmermanstools.com/Get-ZimmermanTools.zip",
+        "G46": "Forensic",
+        "H46": "Run Get-ZimmermanTools.ps1 to download the tools. Internet access and the .NET Desktop Runtime are required.",
+        "I46": "installed in Windows"
+      },
+      {
+        "B48": "Note: Several exercises require only a web browser — no additional tool installation needed for those."
+      }
+    ]
+  },
+  {
+    "name": "Approved Tool List for Kali",
+    "rows": [
+      {
+        "B2": "Approved Tool List (Kali Linux)",
+        "C2": "",
+        "D2": "",
+        "E2": "",
+        "F2": "",
+        "G2": "",
+        "H2": ""
+      },
+      {
+        "B3": "Tools installed on the Kali Linux (AWS) environment provided to all teams. All tools on this list were added at the request of participants.",
+        "C3": "",
+        "D3": "",
+        "E3": "",
+        "F3": "",
+        "G3": "",
+        "H3": ""
+      },
+      {
+        "B4": "Installation of AI-related libraries or tools is not permitted for any tool that supports adding additional libraries or sub-tools (e.g. Python).",
+        "C4": "",
+        "D4": "",
+        "E4": "",
+        "F4": "",
+        "G4": "",
+        "H4": "",
+        "I4": ""
+      },
+      {
+        "B5": ""
+      },
+      {
+        "B6": "Tools were installed on a best-effort basis. Operation of each tool is not guaranteed.",
+        "C6": "",
+        "D6": "",
+        "E6": "",
+        "F6": "",
+        "G6": "",
+        "H6": ""
+      },
+      {
+        "B7": "No.",
+        "C7": "Tool Name",
+        "D7": "List",
+        "E7": "Version",
+        "F7": "Install method / location",
+        "G7": "Notes",
+        "H7": "Original text (raw)"
+      },
+      {
+        "B8": "1",
+        "C8": ".NET SDK",
+        "D8": "2. Approved Tools from Participants Request",
+        "E8": "6.0.400",
+        "F8": "",
+        "G8": "",
+        "H8": "6.0.400"
+      },
+      {
+        "B9": "2",
+        "C9": "7-Zip (7z)",
+        "D9": "2. Approved Tools from Participants Request",
+        "E9": "26.02",
+        "F9": "",
+        "G9": "",
+        "H9": "26.02"
+      },
+      {
+        "B10": "3",
+        "C10": "aircrack-ng",
+        "D10": "2. Approved Tools from Participants Request",
+        "E10": "1.7",
+        "F10": "",
+        "G10": "",
+        "H10": "1.7"
+      },
+      {
+        "B11": "4",
+        "C11": "ALEAPP (Android Logs Events And Protobuf Parser)",
+        "D11": "2. Approved Tools from Participants Request",
+        "E11": "-",
+        "F11": "",
+        "G11": "No installation information recorded",
+        "H11": ""
+      },
+      {
+        "B12": "5",
+        "C12": "Android Studio",
+        "D12": "2. Approved Tools from Participants Request",
+        "E12": "-",
+        "F12": "",
+        "G12": "No installation information recorded",
+        "H12": ""
+      },
+      {
+        "B13": "6",
+        "C13": "angr",
+        "D13": "2. Approved Tools from Participants Request",
+        "E13": "(not captured)",
+        "F13": "pipx (angr)",
+        "G13": "",
+        "H13": "pipx: angr"
+      },
+      {
+        "B14": "7",
+        "C14": "AperiSolve",
+        "D14": "2. Approved Tools from Participants Request",
+        "E14": "(not captured)",
+        "F14": "git (/opt/tools/AperiSolve)",
+        "G14": "",
+        "H14": "git: /opt/tools/AperiSolve"
+      },
+      {
+        "B15": "8",
+        "C15": "Apktool",
+        "D15": "2. Approved Tools from Participants Request",
+        "E15": "2.7.0-dirty",
+        "F15": "",
+        "G15": "",
+        "H15": "2.7.0-dirty"
+      },
+      {
+        "B16": "9",
+        "C16": "asar (@electron/asar)",
+        "D16": "2. Approved Tools from Participants Request",
+        "E16": "4.3.1",
+        "F16": "",
+        "G16": "",
+        "H16": "v4.3.1"
+      },
+      {
+        "B17": "10",
+        "C17": "Audacity",
+        "D17": "2. Approved Tools from Participants Request",
+        "E17": "(not captured)",
+        "F17": "/usr/bin/audacity",
+        "G17": "",
+        "H17": "/usr/bin/audacity"
+      },
+      {
+        "B18": "11",
+        "C18": "AutoIt-Ripper",
+        "D18": "2. Approved Tools from Participants Request",
+        "E18": "(not captured)",
+        "F18": "pipx (autoit-ripper)",
+        "G18": "",
+        "H18": "pipx: autoit-ripper"
+      },
+      {
+        "B19": "12",
+        "C19": "BinDiff",
+        "D19": "2. Approved Tools from Participants Request",
+        "E19": "8",
+        "F19": "",
+        "G19": "Build @568181968 (Sep 25 2023)",
+        "H19": "BinDiff 8 (@568181968, Sep 25 2023)"
+      },
+      {
+        "B20": "13",
+        "C20": "bkcrack",
+        "D20": "2. Approved Tools from Participants Request",
+        "E20": "1.8.1 (2025-10-25)",
+        "F20": "",
+        "G20": "",
+        "H20": "bkcrack 1.8.1 - 2025-10-25"
+      },
+      {
+        "B21": "14",
+        "C21": "bulk_extractor",
+        "D21": "2. Approved Tools from Participants Request",
+        "E21": "2.1.1",
+        "F21": "",
+        "G21": "",
+        "H21": "bulk_extractor 2.1.1"
+      },
+      {
+        "B22": "15",
+        "C22": "bvi",
+        "D22": "2. Approved Tools from Participants Request",
+        "E22": "(not captured)",
+        "F22": "",
+        "G22": "Interactive tool; the version check returned 'Input is not from a terminal'",
+        "H22": "Input is not from a terminal"
+      },
+      {
+        "B23": "16",
+        "C23": "Bytecode Viewer",
+        "D23": "2. Approved Tools from Participants Request",
+        "E23": "2.13.2",
+        "F23": "Fat Jar",
+        "G23": "",
+        "H23": "Bytecode Viewer 2.13.2 [Fat Jar] - https://bytecodeviewer.com"
+      },
+      {
+        "B24": "17",
+        "C24": "bzip2",
+        "D24": "2. Approved Tools from Participants Request",
+        "E24": "1.0.8",
+        "F24": "",
+        "G24": "",
+        "H24": "bzip2, a block-sorting file compressor.  Version 1.0.8, 13-Jul-2019."
+      },
+      {
+        "B25": "18",
+        "C25": "cabextract",
+        "D25": "2. Approved Tools from Participants Request",
+        "E25": "1.11",
+        "F25": "",
+        "G25": "",
+        "H25": "cabextract version 1.11"
+      },
+      {
+        "B26": "19",
+        "C26": "capa",
+        "D26": "2. Approved Tools from Participants Request",
+        "E26": "9.4.0",
+        "F26": "",
+        "G26": "",
+        "H26": "capa 9.4.0"
+      },
+      {
+        "B27": "20",
+        "C27": "Chainsaw",
+        "D27": "2. Approved Tools from Participants Request",
+        "E27": "2.16.5",
+        "F27": "",
+        "G27": "",
+        "H27": "chainsaw 2.16.5"
+      },
+      {
+        "B28": "21",
+        "C28": "checksec",
+        "D28": "2. Approved Tools from Participants Request",
+        "E28": "2.6.0",
+        "F28": "",
+        "G28": "",
+        "H28": "checksec v2.6.0, Brian Davis, github.com/slimm609/checksec.sh, Dec 2015"
+      },
+      {
+        "B29": "22",
+        "C29": "crypto-attacks",
+        "D29": "2. Approved Tools from Participants Request",
+        "E29": "(not captured)",
+        "F29": "git (/opt/tools/crypto-attacks)",
+        "G29": "",
+        "H29": "git: /opt/tools/crypto-attacks"
+      },
+      {
+        "B30": "23",
+        "C30": "curl",
+        "D30": "2. Approved Tools from Participants Request",
+        "E30": "8.21.0",
+        "F30": "",
+        "G30": "",
+        "H30": "curl 8.21.0 (x86_64-pc-linux-gnu) libcurl/8.21.0 OpenSSL/3.6.4 zlib/1.3.2 brotli/1.2.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0"
+      },
+      {
+        "B31": "24",
+        "C31": "Cutter",
+        "D31": "2. Approved Tools from Participants Request",
+        "E31": "(not captured)",
+        "F31": "AppImage (/opt/tools/cutter.AppImage)",
+        "G31": "The GUI needs FUSE",
+        "H31": "/opt/tools/cutter.AppImage (AppImage; needs FUSE for GUI)"
+      },
+      {
+        "B32": "25",
+        "C32": "DB Browser for SQLite",
+        "D32": "2. Approved Tools from Participants Request",
+        "E32": "3.13.1",
+        "F32": "",
+        "G32": "",
+        "H32": "3.13.1"
+      },
+      {
+        "B33": "26",
+        "C33": "DBeaver Community Edition",
+        "D33": "2. Approved Tools from Participants Request",
+        "E33": "26.1.3",
+        "F33": "",
+        "G33": "",
+        "H33": "26.1.3"
+      },
+      {
+        "B34": "27",
+        "C34": "Detect It Easy (DIE)",
+        "D34": "2. Approved Tools from Participants Request",
+        "E34": "3.21",
+        "F34": "",
+        "G34": "",
+        "H34": "die 3.21"
+      },
+      {
+        "B35": "28",
+        "C35": "dex2jar",
+        "D35": "2. Approved Tools from Participants Request",
+        "E35": "2.1-nightly-28",
+        "F35": "",
+        "G35": "",
+        "H35": "2.1-nightly-28"
+      },
+      {
+        "B36": "29",
+        "C36": "Didier Stevens Beta tools (onedump.py)",
+        "D36": "2. Approved Tools from Participants Request",
+        "E36": "(not captured)",
+        "F36": "git (/opt/tools/Beta)",
+        "G36": "",
+        "H36": "git: /opt/tools/Beta"
+      },
+      {
+        "B37": "30",
+        "C37": "Didier Stevens Suite (pdfid.py, pdf-parser.py, oledump.py and others)",
+        "D37": "2. Approved Tools from Participants Request",
+        "E37": "(not captured)",
+        "F37": "git (/opt/tools/DidierStevensSuite)",
+        "G37": "",
+        "H37": "git: /opt/tools/DidierStevensSuite"
+      },
+      {
+        "B38": "31",
+        "C38": "Docker Engine and Compose plugin",
+        "D38": "2. Approved Tools from Participants Request",
+        "E38": "28.5.2+dfsg4",
+        "F38": "",
+        "G38": "",
+        "H38": "Docker version 28.5.2+dfsg4, build 9cc6dea35e9a963f281434761c656fba4ac43aed"
+      },
+      {
+        "B39": "32",
+        "C39": "dwarf2json",
+        "D39": "2. Approved Tools from Participants Request",
+        "E39": "0.9.0",
+        "F39": "",
+        "G39": "",
+        "H39": "dwarf2json 0.9.0"
+      },
+      {
+        "B40": "33",
+        "C40": "Eclipse Temurin JDK (OpenJDK)",
+        "D40": "2. Approved Tools from Participants Request",
+        "E40": "25.0.4 (2026-07-21)",
+        "F40": "",
+        "G40": "Reported as 'openjdk'",
+        "H40": "openjdk 25.0.4 2026-07-21"
+      },
+      {
+        "B41": "34",
+        "C41": "ewf-tools (libewf)",
+        "D41": "2. Approved Tools from Participants Request",
+        "E41": "20140816",
+        "F41": "",
+        "G41": "",
+        "H41": "20140816"
+      },
+      {
+        "B42": "35",
+        "C42": "Exploit-DB / searchsploit (offline archive)",
+        "D42": "2. Approved Tools from Participants Request",
+        "E42": "2026-08-19",
+        "F42": "",
+        "G42": "Version is the archive date",
+        "H42": "20260819"
+      },
+      {
+        "B43": "36",
+        "C43": "factordb-python",
+        "D43": "2. Approved Tools from Participants Request",
+        "E43": "(not captured)",
+        "F43": "pip (factordb-python)",
+        "G43": "",
+        "H43": "pip: factordb-python"
+      },
+      {
+        "B44": "37",
+        "C44": "FakeNet-NG",
+        "D44": "2. Approved Tools from Participants Request",
+        "E44": "(not captured)",
+        "F44": "/opt/tools/flare-fakenet-ng (fakenet in PATH)",
+        "G44": "",
+        "H44": "/opt/tools/flare-fakenet-ng (fakenet in PATH)"
+      },
+      {
+        "B45": "38",
+        "C45": "Fernflower",
+        "D45": "2. Approved Tools from Participants Request",
+        "E45": "(not captured)",
+        "F45": "/opt/tools/fernflower/build/libs/fernflower.jar (/usr/local/bin/fernflower)",
+        "G45": "",
+        "H45": "/opt/tools/fernflower/build/libs/fernflower.jar (/usr/local/bin/fernflower)"
+      },
+      {
+        "B46": "39",
+        "C46": "Feroxbuster",
+        "D46": "2. Approved Tools from Participants Request",
+        "E46": "2.13.1",
+        "F46": "",
+        "G46": "",
+        "H46": "feroxbuster 2.13.1"
+      },
+      {
+        "B47": "40",
+        "C47": "FFmpeg",
+        "D47": "2. Approved Tools from Participants Request",
+        "E47": "(not captured)",
+        "F47": "apt (ffmpeg)",
+        "G47": "",
+        "H47": "apt: ffmpeg"
+      },
+      {
+        "B48": "41",
+        "C48": "ffuf",
+        "D48": "2. Approved Tools from Participants Request",
+        "E48": "2.1.0-dev",
+        "F48": "",
+        "G48": "",
+        "H48": "2.1.0-dev"
+      },
+      {
+        "B49": "42",
+        "C49": "file (libmagic)",
+        "D49": "2. Approved Tools from Participants Request",
+        "E49": "5.47",
+        "F49": "",
+        "G49": "",
+        "H49": "file-5.47"
+      },
+      {
+        "B50": "43",
+        "C50": "FLOSS (FLARE Obfuscated String Solver)",
+        "D50": "2. Approved Tools from Participants Request",
+        "E50": "(not captured)",
+        "F50": "pipx (flare-floss)",
+        "G50": "",
+        "H50": "pipx: flare-floss"
+      },
+      {
+        "B51": "44",
+        "C51": "foremost",
+        "D51": "2. Approved Tools from Participants Request",
+        "E51": "(not captured)",
+        "F51": "",
+        "G51": "Installed; version not captured",
+        "H51": "(installed; version not captured)"
+      },
+      {
+        "B52": "45",
+        "C52": "FQLite",
+        "D52": "2. Approved Tools from Participants Request",
+        "E52": "(not captured)",
+        "F52": "/opt/fqlite/bin/fqlite (symlinked to /usr/local/bin)",
+        "G52": "",
+        "H52": "/opt/fqlite/bin/fqlite (symlinked to /usr/local/bin)"
+      },
+      {
+        "B53": "46",
+        "C53": "Frida",
+        "D53": "2. Approved Tools from Participants Request",
+        "E53": "17.23.3",
+        "F53": "",
+        "G53": "",
+        "H53": "17.23.3"
+      },
+      {
+        "B54": "47",
+        "C54": "GCC, G++ and build tools (build-essential, make, CMake, pkg-config)",
+        "D54": "2. Approved Tools from Participants Request",
+        "E54": "15.3.0",
+        "F54": "",
+        "G54": "Debian gcc 15.3.0-2",
+        "H54": "gcc (Debian 15.3.0-2) 15.3.0"
+      },
+      {
+        "B55": "48",
+        "C55": "GEF (GDB Enhanced Features)",
+        "D55": "2. Approved Tools from Participants Request",
+        "E55": "(not captured)",
+        "F55": "/opt/tools/gef.py",
+        "G55": "Load with: gdb -x /opt/tools/gef.py. Not auto-sourced, to avoid a clash with peda",
+        "H55": "/opt/tools/gef.py (load: gdb -x /opt/tools/gef.py; not auto-sourced to avoid peda clash)"
+      },
+      {
+        "B56": "49",
+        "C56": "Git",
+        "D56": "2. Approved Tools from Participants Request",
+        "E56": "2.53.0",
+        "F56": "",
+        "G56": "",
+        "H56": "git version 2.53.0"
+      },
+      {
+        "B57": "50",
+        "C57": "Gitleaks",
+        "D57": "2. Approved Tools from Participants Request",
+        "E57": "(not captured)",
+        "F57": "",
+        "G57": "The tool does not report a version (set at build time)",
+        "H57": "gitleaks version version is set by build process"
+      },
+      {
+        "B58": "51",
+        "C58": "G'MIC (gmic)",
+        "D58": "2. Approved Tools from Participants Request",
+        "E58": "(not captured)",
+        "F58": "",
+        "G58": "Version not captured (the command started the G'MIC interpreter)",
+        "H58": "[gmic]-0./ Start G'MIC interpreter."
+      },
+      {
+        "B59": "52",
+        "C59": "GNU Wget",
+        "D59": "2. Approved Tools from Participants Request",
+        "E59": "1.25.0",
+        "F59": "",
+        "G59": "",
+        "H59": "GNU Wget 1.25.0 built on linux-gnu."
+      },
+      {
+        "B60": "53",
+        "C60": "Go",
+        "D60": "2. Approved Tools from Participants Request",
+        "E60": "1.26.5",
+        "F60": "",
+        "G60": "",
+        "H60": "go1.26.5"
+      },
+      {
+        "B61": "54",
+        "C61": "Gobuster",
+        "D61": "2. Approved Tools from Participants Request",
+        "E61": "3.8.2",
+        "F61": "",
+        "G61": "",
+        "H61": "gobuster version 3.8.2"
+      },
+      {
+        "B62": "55",
+        "C62": "GoReSym",
+        "D62": "2. Approved Tools from Participants Request",
+        "E62": "(not captured)",
+        "F62": "go install (github.com/mandiant/GoReSym@latest)",
+        "G62": "",
+        "H62": "go install github.com/mandiant/GoReSym@latest"
+      },
+      {
+        "B63": "56",
+        "C63": "GTFOBins (offline copy)",
+        "D63": "2. Approved Tools from Participants Request",
+        "E63": "(not captured)",
+        "F63": "git (/opt/tools/GTFOBins.github.io)",
+        "G63": "",
+        "H63": "git: /opt/tools/GTFOBins.github.io"
+      },
+      {
+        "B64": "57",
+        "C64": "gzip",
+        "D64": "2. Approved Tools from Participants Request",
+        "E64": "1.13",
+        "F64": "",
+        "G64": "",
+        "H64": "gzip 1.13"
+      },
+      {
+        "B65": "58",
+        "C65": "HackTricks (offline copy)",
+        "D65": "2. Approved Tools from Participants Request",
+        "E65": "(not captured)",
+        "F65": "git (/opt/tools/hacktricks)",
+        "G65": "",
+        "H65": "git: /opt/tools/hacktricks"
+      },
+      {
+        "B66": "59",
+        "C66": "hashcat",
+        "D66": "2. Approved Tools from Participants Request",
+        "E66": "7.1.2",
+        "F66": "",
+        "G66": "",
+        "H66": "v7.1.2"
+      },
+      {
+        "B67": "60",
+        "C67": "hashid",
+        "D67": "2. Approved Tools from Participants Request",
+        "E67": "3.1.4",
+        "F67": "",
+        "G67": "",
+        "H67": "hashID v3.1.4 by c0re (https://github.com/psypanda/hashID)"
+      },
+      {
+        "B68": "61",
+        "C68": "Hayabusa",
+        "D68": "2. Approved Tools from Participants Request",
+        "E68": "(not captured)",
+        "F68": "",
+        "G68": "Version not captured (the --version option is not supported)",
+        "H68": "error: unexpected argument '--version' found"
+      },
+      {
+        "B69": "62",
+        "C69": "hcxtools",
+        "D69": "2. Approved Tools from Participants Request",
+        "E69": "7.1.2",
+        "F69": "",
+        "G69": "Version of hcxpcapngtool",
+        "H69": "hcxpcapngtool 7.1.2 (C) 2026 ZeroBeat"
+      },
+      {
+        "B70": "63",
+        "C70": "Hindsight (pyhindsight)",
+        "D70": "2. Approved Tools from Participants Request",
+        "E70": "(not captured)",
+        "F70": "pipx (pyhindsight)",
+        "G70": "",
+        "H70": "pipx: pyhindsight"
+      },
+      {
+        "B71": "64",
+        "C71": "hlextend",
+        "D71": "2. Approved Tools from Participants Request",
+        "E71": "(not captured)",
+        "F71": "Python module (/usr/local/lib/python3.14/dist-packages/hlextend.py)",
+        "G71": "",
+        "H71": "module -> /usr/local/lib/python3.14/dist-packages/hlextend.py"
+      },
+      {
+        "B72": "65",
+        "C72": "Hydra",
+        "D72": "2. Approved Tools from Participants Request",
+        "E72": "(not captured)",
+        "F72": "",
+        "G72": "Installed; version not captured",
+        "H72": "(installed; version not captured)"
+      },
+      {
+        "B73": "66",
+        "C73": "iLEAPP (iOS Logs, Events, And Plists Parser)",
+        "D73": "2. Approved Tools from Participants Request",
+        "E73": "-",
+        "F73": "",
+        "G73": "No installation information recorded",
+        "H73": ""
+      },
+      {
+        "B74": "67",
+        "C74": "ImageMagick",
+        "D74": "2. Approved Tools from Participants Request",
+        "E74": "7.1.2-27",
+        "F74": "",
+        "G74": "",
+        "H74": "Version: ImageMagick 7.1.2-27 Q16 x86_64 20260705 https://imagemagick.org"
+      },
+      {
+        "B75": "68",
+        "C75": "Impacket",
+        "D75": "2. Approved Tools from Participants Request",
+        "E75": "0.14.0",
+        "F75": "",
+        "G75": "",
+        "H75": "0.14.0"
+      },
+      {
+        "B76": "69",
+        "C76": "innoextract",
+        "D76": "2. Approved Tools from Participants Request",
+        "E76": "dev build",
+        "F76": "",
+        "G76": "",
+        "H76": "innoextract dev"
+      },
+      {
+        "B77": "70",
+        "C77": "internet_detector",
+        "D77": "2. Approved Tools from Participants Request",
+        "E77": "(not captured)",
+        "F77": "apt (inetsim)",
+        "G77": "Provided by the apt package 'inetsim'",
+        "H77": "apt: inetsim"
+      },
+      {
+        "B78": "71",
+        "C78": "IPython",
+        "D78": "2. Approved Tools from Participants Request",
+        "E78": "9.17.1",
+        "F78": "",
+        "G78": "",
+        "H78": "9.17.1"
+      },
+      {
+        "B79": "72",
+        "C79": "jadx (jadx-gui)",
+        "D79": "2. Approved Tools from Participants Request",
+        "E79": "1.5.6",
+        "F79": "",
+        "G79": "",
+        "H79": "1.5.6"
+      },
+      {
+        "B80": "73",
+        "C80": "John the Ripper (jumbo)",
+        "D80": "2. Approved Tools from Participants Request",
+        "E80": "1.9.0-Jumbo-1",
+        "F80": "",
+        "G80": "",
+        "H80": "1.9.0-Jumbo-1"
+      },
+      {
+        "B81": "74",
+        "C81": "Jpeginfo",
+        "D81": "2. Approved Tools from Participants Request",
+        "E81": "1.7.1",
+        "F81": "",
+        "G81": "",
+        "H81": "jpeginfo v1.7.1  x86_64-pc-linux-gnu (Feb 26 2024)"
+      },
+      {
+        "B82": "75",
+        "C82": "js-beautify",
+        "D82": "2. Approved Tools from Participants Request",
+        "E82": "2.0.3",
+        "F82": "",
+        "G82": "",
+        "H82": "2.0.3"
+      },
+      {
+        "B83": "76",
+        "C83": "js-deobfuscator",
+        "D83": "2. Approved Tools from Participants Request",
+        "E83": "(not captured)",
+        "F83": "npm (js-deobfuscator)",
+        "G83": "",
+        "H83": "npm: js-deobfuscator"
+      },
+      {
+        "B84": "77",
+        "C84": "jwt_tool",
+        "D84": "2. Approved Tools from Participants Request",
+        "E84": "(not captured)",
+        "F84": "/opt/tools/jwt_tool (/usr/local/bin/jwt_tool)",
+        "G84": "",
+        "H84": "/opt/tools/jwt_tool (/usr/local/bin/jwt_tool)"
+      },
+      {
+        "B85": "78",
+        "C85": "Katana",
+        "D85": "2. Approved Tools from Participants Request",
+        "E85": "(not captured)",
+        "F85": "go install (github.com/projectdiscovery/katana/cmd/katana@latest)",
+        "G85": "",
+        "H85": "go install github.com/projectdiscovery/katana/cmd/katana@latest"
+      },
+      {
+        "B86": "79",
+        "C86": "legion",
+        "D86": "2. Approved Tools from Participants Request",
+        "E86": "0.7.0",
+        "F86": "",
+        "G86": "",
+        "H86": "0.7.0"
+      },
+      {
+        "B87": "80",
+        "C87": "libesedb tools",
+        "D87": "2. Approved Tools from Participants Request",
+        "E87": "20240420",
+        "F87": "",
+        "G87": "Version of esedbexport",
+        "H87": "esedbexport 20240420"
+      },
+      {
+        "B88": "81",
+        "C88": "LibreOffice",
+        "D88": "2. Approved Tools from Participants Request",
+        "E88": "26.8.0.3",
+        "F88": "",
+        "G88": "",
+        "H88": "LibreOffice 26.8.0.3 680(Build:3)"
+      },
+      {
+        "B89": "82",
+        "C89": "lrzip",
+        "D89": "2. Approved Tools from Participants Request",
+        "E89": "0.660",
+        "F89": "",
+        "G89": "",
+        "H89": "lrzip version 0.660"
+      },
+      {
+        "B90": "83",
+        "C90": "ltrace",
+        "D90": "2. Approved Tools from Participants Request",
+        "E90": "0.7.91",
+        "F90": "",
+        "G90": "",
+        "H90": "ltrace 0.7.91"
+      },
+      {
+        "B91": "84",
+        "C91": "lz4",
+        "D91": "2. Approved Tools from Participants Request",
+        "E91": "1.10.0",
+        "F91": "",
+        "G91": "",
+        "H91": "*** lz4 v1.10.0 64-bit multithread, by Yann Collet ***"
+      },
+      {
+        "B92": "85",
+        "C92": "lzip",
+        "D92": "2. Approved Tools from Participants Request",
+        "E92": "1.26",
+        "F92": "",
+        "G92": "",
+        "H92": "lzip 1.26"
+      },
+      {
+        "B93": "86",
+        "C93": "mac_apt",
+        "D93": "2. Approved Tools from Participants Request",
+        "E93": "(not captured)",
+        "F93": "git (/opt/tools/mac_apt)",
+        "G93": "",
+        "H93": "git: /opt/tools/mac_apt"
+      },
+      {
+        "B94": "87",
+        "C94": "MediaInfo",
+        "D94": "2. Approved Tools from Participants Request",
+        "E94": "(not captured)",
+        "F94": "",
+        "G94": "Version not captured",
+        "H94": "MediaInfo Command line,"
+      },
+      {
+        "B95": "88",
+        "C95": "Metasploit Framework",
+        "D95": "2. Approved Tools from Participants Request",
+        "E95": "6.5.2-dev",
+        "F95": "",
+        "G95": "",
+        "H95": "6.5.2-dev"
+      },
+      {
+        "B96": "89",
+        "C96": "mimikatz",
+        "D96": "2. Approved Tools from Participants Request",
+        "E96": "2.2.0",
+        "F96": "Wine (Windows binary)",
+        "G96": "",
+        "H96": "2.2.0 (Wine)"
+      },
+      {
+        "B97": "90",
+        "C97": "Miniforge3 (conda)",
+        "D97": "2. Approved Tools from Participants Request",
+        "E97": "(not captured)",
+        "F97": "/home/kali/miniforge3",
+        "G97": "",
+        "H97": "/home/kali/miniforge3"
+      },
+      {
+        "B98": "91",
+        "C98": "multimon-ng",
+        "D98": "2. Approved Tools from Participants Request",
+        "E98": "(not captured)",
+        "F98": "apt (multimon-ng)",
+        "G98": "",
+        "H98": "apt: multimon-ng"
+      },
+      {
+        "B99": "92",
+        "C99": "mupdf-tools (mutool)",
+        "D99": "2. Approved Tools from Participants Request",
+        "E99": "1.27.0",
+        "F99": "",
+        "G99": "",
+        "H99": "mutool version 1.27.0"
+      },
+      {
+        "B100": "93",
+        "C100": "NASM (Netwide Assembler)",
+        "D100": "2. Approved Tools from Participants Request",
+        "E100": "3.01",
+        "F100": "",
+        "G100": "",
+        "H100": "NASM version 3.01"
+      },
+      {
+        "B101": "94",
+        "C101": "Nmap (with Ncat / Nping)",
+        "D101": "2. Approved Tools from Participants Request",
+        "E101": "7.99",
+        "F101": "",
+        "G101": "",
+        "H101": "Nmap version 7.99 ( https://nmap.org )"
+      },
+      {
+        "B102": "95",
+        "C102": "Node.js (with npm)",
+        "D102": "2. Approved Tools from Participants Request",
+        "E102": "24.21.0",
+        "F102": "",
+        "G102": "",
+        "H102": "v24.21.0"
+      },
+      {
+        "B103": "96",
+        "C103": "obfuscator-io-deobfuscator",
+        "D103": "2. Approved Tools from Participants Request",
+        "E103": "1.0.6",
+        "F103": "",
+        "G103": "",
+        "H103": "1.0.6"
+      },
+      {
+        "B104": "97",
+        "C104": "Obsidian",
+        "D104": "2. Approved Tools from Participants Request",
+        "E104": "(not captured)",
+        "F104": "",
+        "G104": "Version not captured; startup reported that ~/.config/obsidian/obsidian.json does not exist",
+        "H104": "Ignored: Error: ENOENT: no such file or directory, open '/home/kali/.config/obsidian/obsidian.json'"
+      },
+      {
+        "B105": "98",
+        "C105": "oletools (full suite: olevba, oleid, oleobj, rtfobj, mraptor, msodde, olemeta, oletimes, pyxswf)",
+        "D105": "2. Approved Tools from Participants Request",
+        "E105": "(not captured)",
+        "F105": "pipx (oletools)",
+        "G105": "",
+        "H105": "pipx: oletools"
+      },
+      {
+        "B106": "99",
+        "C106": "OllyDbg",
+        "D106": "2. Approved Tools from Participants Request",
+        "E106": "1.10-1kali5",
+        "F106": "Wine (Windows binary)",
+        "G106": "",
+        "H106": "1.10-1kali5 (Wine)"
+      },
+      {
+        "B107": "100",
+        "C107": "OpenStego",
+        "D107": "2. Approved Tools from Participants Request",
+        "E107": "(not captured)",
+        "F107": "GitHub .deb package",
+        "G107": "",
+        "H107": "github .deb"
+      },
+      {
+        "B108": "101",
+        "C108": "padding-oracle-attacker",
+        "D108": "2. Approved Tools from Participants Request",
+        "E108": "(not captured)",
+        "F108": "",
+        "G108": "Version not captured (the command printed a banner only)",
+        "H108": "__   ___                               __           __  __           __"
+      },
+      {
+        "B109": "102",
+        "C109": "PARI/GP",
+        "D109": "2. Approved Tools from Participants Request",
+        "E109": "2.17.4",
+        "F109": "",
+        "G109": "",
+        "H109": "GP/PARI CALCULATOR Version 2.17.4 (released)"
+      },
+      {
+        "B110": "103",
+        "C110": "PayloadsAllTheThings (offline copy)",
+        "D110": "2. Approved Tools from Participants Request",
+        "E110": "(not captured)",
+        "F110": "git (/opt/tools/PayloadsAllTheThings)",
+        "G110": "",
+        "H110": "git: /opt/tools/PayloadsAllTheThings"
+      },
+      {
+        "B111": "104",
+        "C111": "peda",
+        "D111": "2. Approved Tools from Participants Request",
+        "E111": "(not captured)",
+        "F111": "/opt/tools/peda (sourced in ~/.gdbinit)",
+        "G111": "",
+        "H111": "/opt/tools/peda (sourced in ~/.gdbinit)"
+      },
+      {
+        "B112": "105",
+        "C112": "peepdf-3",
+        "D112": "2. Approved Tools from Participants Request",
+        "E112": "(not captured)",
+        "F112": "pipx (peepdf-3)",
+        "G112": "",
+        "H112": "pipx: peepdf-3"
+      },
+      {
+        "B113": "106",
+        "C113": "pff-tools (libpff)",
+        "D113": "2. Approved Tools from Participants Request",
+        "E113": "20231205",
+        "F113": "",
+        "G113": "Version of pffexport",
+        "H113": "pffexport 20231205"
+      },
+      {
+        "B114": "107",
+        "C114": "Plaso (log2timeline, psort, pinfo)",
+        "D114": "2. Approved Tools from Participants Request",
+        "E114": "20260119-1kali1",
+        "F114": "",
+        "G114": "",
+        "H114": "20260119-1kali1"
+      },
+      {
+        "B115": "108",
+        "C115": "pngcheck",
+        "D115": "2. Approved Tools from Participants Request",
+        "E115": "(not captured)",
+        "F115": "apt (pngcheck)",
+        "G115": "",
+        "H115": "apt: pngcheck"
+      },
+      {
+        "B116": "109",
+        "C116": "pwndbg",
+        "D116": "2. Approved Tools from Participants Request",
+        "E116": "(not captured)",
+        "F116": "/opt/tools/pwndbg",
+        "G116": "setup.sh completed",
+        "H116": "/opt/tools/pwndbg (setup.sh ok)"
+      },
+      {
+        "B117": "110",
+        "C117": "pycdc (Decompyle++)",
+        "D117": "2. Approved Tools from Participants Request",
+        "E117": "(not captured)",
+        "F117": "",
+        "G117": "Version not captured (no --version option)",
+        "H117": "Error opening file --version"
+      },
+      {
+        "B118": "111",
+        "C118": "pyinstxtractor-ng",
+        "D118": "2. Approved Tools from Participants Request",
+        "E118": "(not captured)",
+        "F118": "pipx (pyinstxtractor-ng)",
+        "G118": "",
+        "H118": "pipx: pyinstxtractor-ng"
+      },
+      {
+        "B119": "112",
+        "C119": "pypykatz",
+        "D119": "2. Approved Tools from Participants Request",
+        "E119": "0.6.13",
+        "F119": "",
+        "G119": "",
+        "H119": "0.6.13"
+      },
+      {
+        "B120": "113",
+        "C120": "Python 2.7",
+        "D120": "2. Approved Tools from Participants Request",
+        "E120": "2.7.18",
+        "F120": "",
+        "G120": "",
+        "H120": "2.7.18"
+      },
+      {
+        "B121": "114",
+        "C121": "Python 3.11 (via uv)",
+        "D121": "2. Approved Tools from Participants Request",
+        "E121": "-",
+        "F121": "",
+        "G121": "No installation information recorded",
+        "H121": ""
+      },
+      {
+        "B122": "115",
+        "C122": "qemu-img (qemu-utils)",
+        "D122": "2. Approved Tools from Participants Request",
+        "E122": "11.0.3",
+        "F122": "",
+        "G122": "",
+        "H122": "qemu-img version 11.0.3 (Debian 1:11.0.3+ds-2)"
+      },
+      {
+        "B123": "116",
+        "C123": "radare2",
+        "D123": "2. Approved Tools from Participants Request",
+        "E123": "6.0.5",
+        "F123": "",
+        "G123": "",
+        "H123": "6.0.5"
+      },
+      {
+        "B124": "117",
+        "C124": "rat-king-parser",
+        "D124": "2. Approved Tools from Participants Request",
+        "E124": "4.2.4",
+        "F124": "",
+        "G124": "",
+        "H124": "rat-king-parser 4.2.4"
+      },
+      {
+        "B125": "118",
+        "C125": "RegRipper",
+        "D125": "2. Approved Tools from Participants Request",
+        "E125": "3.0",
+        "F125": "",
+        "G125": "",
+        "H125": "3.0"
+      },
+      {
+        "B126": "119",
+        "C126": "ripgrep (rg)",
+        "D126": "2. Approved Tools from Participants Request",
+        "E126": "15.2.0",
+        "F126": "",
+        "G126": "",
+        "H126": "ripgrep 15.2.0"
+      },
+      {
+        "B127": "120",
+        "C127": "rockyou.txt (Kali 'wordlists' package)",
+        "D127": "2. Approved Tools from Participants Request",
+        "E127": "(not captured)",
+        "F127": "/usr/share/wordlists/rockyou.txt",
+        "G127": "",
+        "H127": "/usr/share/wordlists/rockyou.txt"
+      },
+      {
+        "B128": "121",
+        "C128": "ROPgadget",
+        "D128": "2. Approved Tools from Participants Request",
+        "E128": "7.7",
+        "F128": "",
+        "G128": "",
+        "H128": "Version:        ROPgadget v7.7"
+      },
+      {
+        "B129": "122",
+        "C129": "rtptools (rtpdump, rtpplay and others)",
+        "D129": "2. Approved Tools from Participants Request",
+        "E129": "(not captured)",
+        "F129": "/opt/tools/rtptools",
+        "G129": "Built from source",
+        "H129": "/opt/tools/rtptools (built)"
+      },
+      {
+        "B130": "123",
+        "C130": "Rust (rustup, rustc, cargo)",
+        "D130": "2. Approved Tools from Participants Request",
+        "E130": "1.95.0 (2026-04-14)",
+        "F130": "",
+        "G130": "Built from a source tarball",
+        "H130": "rustc 1.95.0 (59807616e 2026-04-14) (built from a source tarball)"
+      },
+      {
+        "B131": "124",
+        "C131": "rustscan",
+        "D131": "2. Approved Tools from Participants Request",
+        "E131": "2.4.1",
+        "F131": "",
+        "G131": "",
+        "H131": "rustscan 2.4.1"
+      },
+      {
+        "B132": "125",
+        "C132": "SageMath",
+        "D132": "2. Approved Tools from Participants Request",
+        "E132": "-",
+        "F132": "",
+        "G132": "No installation information recorded",
+        "H132": ""
+      },
+      {
+        "B133": "126",
+        "C133": "SecLists",
+        "D133": "2. Approved Tools from Participants Request",
+        "E133": "(not captured)",
+        "F133": "/usr/bin/seclists",
+        "G133": "",
+        "H133": "/usr/bin/seclists"
+      },
+      {
+        "B134": "127",
+        "C134": "socat",
+        "D134": "2. Approved Tools from Participants Request",
+        "E134": "1.8.1.3",
+        "F134": "",
+        "G134": "",
+        "H134": "1.8.1.3"
+      },
+      {
+        "B135": "128",
+        "C135": "Sonic Visualiser",
+        "D135": "2. Approved Tools from Participants Request",
+        "E135": "5.2.1",
+        "F135": "",
+        "G135": "",
+        "H135": "5.2.1"
+      },
+      {
+        "B136": "129",
+        "C136": "SoX (Sound eXchange)",
+        "D136": "2. Approved Tools from Participants Request",
+        "E136": "14.7.1.2",
+        "F136": "",
+        "G136": "SoX_ng build",
+        "H136": "sox:      SoX_ng v14.7.1.2"
+      },
+      {
+        "B137": "130",
+        "C137": "SQLCipher Community Edition — CLI",
+        "D137": "2. Approved Tools from Participants Request",
+        "E137": "SQLite 3.53.4 / SQLCipher 4.18.0",
+        "F137": "",
+        "G137": "",
+        "H137": "3.53.4 2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e0945alt1 (64-bit) (SQLCipher 4.18.0 c"
+      },
+      {
+        "B138": "131",
+        "C138": "sqlite3",
+        "D138": "2. Approved Tools from Participants Request",
+        "E138": "3.53.4",
+        "F138": "",
+        "G138": "",
+        "H138": "3.53.4 2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e0945alt1 (64-bit)"
+      },
+      {
+        "B139": "132",
+        "C139": "sqlmap",
+        "D139": "2. Approved Tools from Participants Request",
+        "E139": "1.10.8 (stable)",
+        "F139": "",
+        "G139": "",
+        "H139": "1.10.8#stable"
+      },
+      {
+        "B140": "133",
+        "C140": "sstv (command-line SSTV decoder)",
+        "D140": "2. Approved Tools from Participants Request",
+        "E140": "(not captured)",
+        "F140": "pip (PySSTV)",
+        "G140": "",
+        "H140": "pip: PySSTV"
+      },
+      {
+        "B141": "134",
+        "C141": "steghide",
+        "D141": "2. Approved Tools from Participants Request",
+        "E141": "0.6.0",
+        "F141": "",
+        "G141": "",
+        "H141": "steghide version 0.6.0"
+      },
+      {
+        "B142": "135",
+        "C142": "stegseek",
+        "D142": "2. Approved Tools from Participants Request",
+        "E142": "0.6",
+        "F142": "",
+        "G142": "",
+        "H142": "StegSeek 0.6 - https://github.com/RickdeJager/StegSeek"
+      },
+      {
+        "B143": "136",
+        "C143": "stegsnow (SNOW)",
+        "D143": "2. Approved Tools from Participants Request",
+        "E143": "(not captured)",
+        "F143": "apt (stegsnow)",
+        "G143": "",
+        "H143": "apt: stegsnow"
+      },
+      {
+        "B144": "137",
+        "C144": "StegSolve",
+        "D144": "2. Approved Tools from Participants Request",
+        "E144": "(not captured)",
+        "F144": "",
+        "G144": "Version not captured (GUI tool; it was started without a display)",
+        "H144": "Exception in thread \"AWT-EventQueue-0\" java.awt.HeadlessException:"
+      },
+      {
+        "B145": "138",
+        "C145": "strace",
+        "D145": "2. Approved Tools from Participants Request",
+        "E145": "7.0",
+        "F145": "",
+        "G145": "",
+        "H145": "strace -- version 7.0"
+      },
+      {
+        "B146": "139",
+        "C146": "Subfinder",
+        "D146": "2. Approved Tools from Participants Request",
+        "E146": "2.16.0",
+        "F146": "",
+        "G146": "",
+        "H146": "[INF] Current Version: v2.16.0"
+      },
+      {
+        "B147": "140",
+        "C147": "Sublime Text",
+        "D147": "2. Approved Tools from Participants Request",
+        "E147": "Build 4215",
+        "F147": "",
+        "G147": "",
+        "H147": "Sublime Text Build 4215"
+      },
+      {
+        "B148": "141",
+        "C148": "tar",
+        "D148": "2. Approved Tools from Participants Request",
+        "E148": "1.35",
+        "F148": "",
+        "G148": "",
+        "H148": "tar (GNU tar) 1.35"
+      },
+      {
+        "B149": "142",
+        "C149": "tcpdump",
+        "D149": "2. Approved Tools from Participants Request",
+        "E149": "4.99.6",
+        "F149": "",
+        "G149": "",
+        "H149": "tcpdump version 4.99.6"
+      },
+      {
+        "B150": "143",
+        "C150": "TestDisk and PhotoRec",
+        "D150": "2. Approved Tools from Participants Request",
+        "E150": "7.2",
+        "F150": "",
+        "G150": "",
+        "H150": "7.2"
+      },
+      {
+        "B151": "144",
+        "C151": "unar",
+        "D151": "2. Approved Tools from Participants Request",
+        "E151": "1.10.8",
+        "F151": "",
+        "G151": "",
+        "H151": "v1.10.8"
+      },
+      {
+        "B152": "145",
+        "C152": "uncompyle6",
+        "D152": "2. Approved Tools from Participants Request",
+        "E152": "3.9.3",
+        "F152": "",
+        "G152": "",
+        "H152": "uncompyle6, version 3.9.3"
+      },
+      {
+        "B153": "146",
+        "C153": "unpyc3 (unpyc37-3.10)",
+        "D153": "2. Approved Tools from Participants Request",
+        "E153": "(not captured)",
+        "F153": "git (/opt/tools/unpyc3)",
+        "G153": "",
+        "H153": "git: /opt/tools/unpyc3"
+      },
+      {
+        "B154": "147",
+        "C154": "unrar",
+        "D154": "2. Approved Tools from Participants Request",
+        "E154": "(not captured)",
+        "F154": "/usr/bin/unrar",
+        "G154": "",
+        "H154": "/usr/bin/unrar"
+      },
+      {
+        "B155": "148",
+        "C155": "unzip",
+        "D155": "2. Approved Tools from Participants Request",
+        "E155": "6.0-30",
+        "F155": "",
+        "G155": "",
+        "H155": "6.0-30"
+      },
+      {
+        "B156": "149",
+        "C156": "UPX",
+        "D156": "2. Approved Tools from Participants Request",
+        "E156": "4.2.4",
+        "F156": "",
+        "G156": "",
+        "H156": "upx 4.2.4"
+      },
+      {
+        "B157": "150",
+        "C157": "Visual Studio Code",
+        "D157": "2. Approved Tools from Participants Request",
+        "E157": "1.141.2",
+        "F157": "",
+        "G157": "",
+        "H157": "1.141.2"
+      },
+      {
+        "B158": "151",
+        "C158": "Volatility 2",
+        "D158": "2. Approved Tools from Participants Request",
+        "E158": "(not captured)",
+        "F158": "git (/opt/tools/volatility)",
+        "G158": "",
+        "H158": "git: /opt/tools/volatility"
+      },
+      {
+        "B159": "152",
+        "C159": "Volatility 2 community plugins",
+        "D159": "2. Approved Tools from Participants Request",
+        "E159": "(not captured)",
+        "F159": "git (/opt/tools/community)",
+        "G159": "",
+        "H159": "git: /opt/tools/community"
+      },
+      {
+        "B160": "153",
+        "C160": "Volatility 2 profiles (Linux and macOS)",
+        "D160": "2. Approved Tools from Participants Request",
+        "E160": "(not captured)",
+        "F160": "git (/opt/tools/profiles)",
+        "G160": "",
+        "H160": "git: /opt/tools/profiles"
+      },
+      {
+        "B161": "154",
+        "C161": "Volatility 3 community plugins (community3)",
+        "D161": "2. Approved Tools from Participants Request",
+        "E161": "(not captured)",
+        "F161": "git (/opt/tools/community3)",
+        "G161": "",
+        "H161": "git: /opt/tools/community3"
+      },
+      {
+        "B162": "155",
+        "C162": "VS Code extension: C/C++ (ms-vscode.cpptools)",
+        "D162": "2. Approved Tools from Participants Request",
+        "E162": "(not captured)",
+        "F162": "VS Code extension (ms-vscode.cpptools)",
+        "G162": "",
+        "H162": "ms-vscode.cpptools"
+      },
+      {
+        "B163": "156",
+        "C163": "VS Code extension: Python (ms-python.python)",
+        "D163": "2. Approved Tools from Participants Request",
+        "E163": "(not captured)",
+        "F163": "VS Code extension (ms-python.python)",
+        "G163": "",
+        "H163": "ms-python.python"
+      },
+      {
+        "B164": "157",
+        "C164": "YARA",
+        "D164": "2. Approved Tools from Participants Request",
+        "E164": "4.5.8",
+        "F164": "",
+        "G164": "",
+        "H164": "4.5.8"
+      },
+      {
+        "B165": "158",
+        "C165": "yara-python (and YARA on Linux)",
+        "D165": "2. Approved Tools from Participants Request",
+        "E165": "(not captured)",
+        "F165": "pip (yara-python)",
+        "G165": "",
+        "H165": "pip: yara-python"
+      },
+      {
+        "B166": "159",
+        "C166": "zip",
+        "D166": "2. Approved Tools from Participants Request",
+        "E166": "(not captured)",
+        "F166": "",
+        "G166": "Installed; version not captured",
+        "H166": "(installed; version not captured)"
+      },
+      {
+        "B167": "160",
+        "C167": "zstd",
+        "D167": "2. Approved Tools from Participants Request",
+        "E167": "1.5.7",
+        "F167": "",
+        "G167": "",
+        "H167": "*** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***"
+      },
+      {
+        "B168": "161",
+        "C168": "Zui (formerly Brim)",
+        "D168": "2. Approved Tools from Participants Request",
+        "E168": "(not captured)",
+        "F168": "",
+        "G168": "Version not captured (the command only printed a startup message)",
+        "H168": "Checking for beta autoupdate feature for deb/rpm distributions"
+      }
+    ]
+  },
+  {
+    "name": "Unapproved List",
+    "rows": [
+      {
+        "A1": "Unapproved Tool List ",
+        "H1": ""
+      },
+      {
+        "A2": "The tools listed below could not be installed for this event. We appreciate your understanding.",
+        "B2": "",
+        "C2": "",
+        "D2": "",
+        "E2": "",
+        "F2": "",
+        "H2": ""
+      },
+      {
+        "A4": ""
+      },
+      {
+        "A5": "No.",
+        "B5": "Tool Name",
+        "C5": "Reason"
+      },
+      {
+        "A6": "1",
+        "B6": "API Monitor",
+        "C6": "The challenges can be solved without it."
+      },
+      {
+        "A7": "2",
+        "B7": "Arsenal Image Mounter (Free Mode)",
+        "C7": "Alternative tools are available."
+      },
+      {
+        "A8": "3",
+        "B8": "Binary Ninja (Free)",
+        "C8": "Cannot be supported in the provided environment."
+      },
+      {
+        "A9": "4",
+        "B9": "BlobRunner (32-bit and 64-bit)",
+        "C9": "The challenges can be solved without it."
+      },
+      {
+        "A10": "5",
+        "B10": "Build Tools for Visual Studio 2026 (C++ workload)",
+        "C10": "Alternative tools are available."
+      },
+      {
+        "A11": "6",
+        "B11": "capa Explorer Web",
+        "C11": "The challenges can be solved without it."
+      },
+      {
+        "A12": "7",
+        "B12": "Cmder",
+        "C12": "Alternative tools are available."
+      },
+      {
+        "A13": "8",
+        "B13": "CodeTrack",
+        "C13": "The challenges can be solved without it."
+      },
+      {
+        "A14": "9",
+        "B14": "Copy As Python-Requests (Burp Suite extension)",
+        "C14": "Cannot be supported in the provided environment."
+      },
+      {
+        "A15": "10",
+        "B15": "CryptoTester",
+        "C15": "License or source cannot be verified."
+      },
+      {
+        "A16": "11",
+        "B16": "Cygwin",
+        "C16": "Alternative tools are available."
+      },
+      {
+        "A17": "12",
+        "B17": "DCT-Image-Steganography",
+        "C17": "Not permitted under the competition rules."
+      },
+      {
+        "A18": "13",
+        "B18": "de4dot (de4dot-cex build)",
+        "C18": "Cannot be supported in the provided environment."
+      },
+      {
+        "A19": "14",
+        "B19": "Decompiler.com",
+        "C19": "Not permitted under the competition rules."
+      },
+      {
+        "A20": "15",
+        "B20": "Dirsearch",
+        "C20": "Cannot be supported in the provided environment."
+      },
+      {
+        "A21": "16",
+        "B21": "Dissect (Fox-IT DFIR framework)",
+        "C21": "Cannot be supported in the provided environment."
+      },
+      {
+        "A22": "17",
+        "B22": "dll_to_exe",
+        "C22": "The challenges can be solved without it."
+      },
+      {
+        "A23": "18",
+        "B23": "dnlib",
+        "C23": "The challenges can be solved without it."
+      },
+      {
+        "A24": "19",
+        "B24": "DotDumper",
+        "C24": "The challenges can be solved without it."
+      },
+      {
+        "A25": "20",
+        "B25": "Exeinfo PE",
+        "C25": "The challenges can be solved without it."
+      },
+      {
+        "A26": "21",
+        "B26": "FdSig",
+        "C26": "License or source cannot be verified."
+      },
+      {
+        "A27": "22",
+        "B27": "Fiddler Classic",
+        "C27": "Requires a commercial license."
+      },
+      {
+        "A28": "23",
+        "B28": "GarbageMan and psnotify",
+        "C28": "The challenges can be solved without it."
+      },
+      {
+        "A29": "24",
+        "B29": "GoStringUngarbler",
+        "C29": "The challenges can be solved without it."
+      },
+      {
+        "A30": "25",
+        "B30": "GraphQL Raider (Burp Suite extension)",
+        "C30": "Cannot be supported in the provided environment."
+      },
+      {
+        "A31": "26",
+        "B31": "Hackvertor (Burp Suite extension)",
+        "C31": "Cannot be supported in the provided environment."
+      },
+      {
+        "A32": "27",
+        "B32": "HashMyFiles",
+        "C32": "The challenges can be solved without it."
+      },
+      {
+        "A33": "28",
+        "B33": "HollowsHunter",
+        "C33": "The challenges can be solved without it."
+      },
+      {
+        "A34": "29",
+        "B34": "IDA Free",
+        "C34": "Cannot be supported in the provided environment."
+      },
+      {
+        "A35": "30",
+        "B35": "IDR (Interactive Delphi Reconstructor)",
+        "C35": "The challenges can be solved without it."
+      },
+      {
+        "A36": "31",
+        "B36": "IFPSTools.NET (ifpsdasm)",
+        "C36": "The challenges can be solved without it."
+      },
+      {
+        "A37": "32",
+        "B37": "ImHex",
+        "C37": "Cannot be supported in the provided environment."
+      },
+      {
+        "A38": "33",
+        "B38": "Inno Setup Decompiler",
+        "C38": "License or source cannot be verified."
+      },
+      {
+        "A39": "34",
+        "B39": "innounp",
+        "C39": "The challenges can be solved without it."
+      },
+      {
+        "A40": "35",
+        "B40": "JWT Editor (Burp Suite extension)",
+        "C40": "Cannot be supported in the provided environment."
+      },
+      {
+        "A41": "36",
+        "B41": "Kernel OST Viewer (free)",
+        "C41": "The challenges can be solved without it."
+      },
+      {
+        "A42": "37",
+        "B42": "magiceye-solver",
+        "C42": "Cannot be supported in the provided environment."
+      },
+      {
+        "A43": "38",
+        "B43": "Malcode Analyst Pack (MAP)",
+        "C43": "The challenges can be solved without it."
+      },
+      {
+        "A44": "39",
+        "B44": "malware-jail",
+        "C44": "The challenges can be solved without it."
+      },
+      {
+        "A45": "40",
+        "B45": "MemProcFS",
+        "C45": "Cannot be supported in the provided environment."
+      },
+      {
+        "A46": "41",
+        "B46": "MMSSTV",
+        "C46": "Cannot be supported in the provided environment."
+      },
+      {
+        "A47": "42",
+        "B47": "MobSF",
+        "C47": "Cannot be supported in the provided environment."
+      },
+      {
+        "A48": "43",
+        "B48": "NETReactorSlayer",
+        "C48": "The challenges can be solved without it."
+      },
+      {
+        "A49": "44",
+        "B49": "OffVis",
+        "C49": "The challenges can be solved without it."
+      },
+      {
+        "A50": "45",
+        "B50": "OneNoteAnalyzer",
+        "C50": "The challenges can be solved without it."
+      },
+      {
+        "A51": "46",
+        "B51": "Online analysis services (VirusTotal, CrackStation, etc.)",
+        "C51": "Not permitted under the competition rules."
+      },
+      {
+        "A52": "47",
+        "B52": "Online decompilers and compilers (websites - nothing to install)",
+        "C52": "Not permitted under the competition rules."
+      },
+      {
+        "A53": "48",
+        "B53": "PDBReSym",
+        "C53": "The challenges can be solved without it."
+      },
+      {
+        "A54": "49",
+        "B54": "PDFStreamDumper",
+        "C54": "Alternative tools are available."
+      },
+      {
+        "A55": "50",
+        "B55": "PE-sieve",
+        "C55": "The challenges can be solved without it."
+      },
+      {
+        "A56": "51",
+        "B56": "pe_unmapper",
+        "C56": "The challenges can be solved without it."
+      },
+      {
+        "A57": "52",
+        "B57": "PEiD",
+        "C57": "License or source cannot be verified."
+      },
+      {
+        "A58": "53",
+        "B58": "Photocraft",
+        "C58": "License or source cannot be verified."
+      },
+      {
+        "A59": "54",
+        "B59": "pkg-unpacker",
+        "C59": "The challenges can be solved without it."
+      },
+      {
+        "A60": "55",
+        "B60": "ProcDOT",
+        "C60": "The challenges can be solved without it."
+      },
+      {
+        "A61": "56",
+        "B61": "Process Dump (pd32 / pd64)",
+        "C61": "The challenges can be solved without it."
+      },
+      {
+        "A62": "57",
+        "B62": "Process Monitor",
+        "C62": "Alternative tools are available."
+      },
+      {
+        "A63": "58",
+        "B63": "PST Walker",
+        "C63": "Requires a commercial license."
+      },
+      {
+        "A64": "59",
+        "B64": "pylingual",
+        "C64": "Cannot be supported in the provided environment."
+      },
+      {
+        "A65": "60",
+        "B65": "Recaf",
+        "C65": "Cannot be supported in the provided environment."
+      },
+      {
+        "A66": "61",
+        "B66": "reg_export",
+        "C66": "The challenges can be solved without it."
+      },
+      {
+        "A67": "62",
+        "B67": "Regshot",
+        "C67": "The challenges can be solved without it."
+      },
+      {
+        "A68": "63",
+        "B68": "RunDotNetDll",
+        "C68": "The challenges can be solved without it."
+      },
+      {
+        "A69": "64",
+        "B69": "RX-SSTV",
+        "C69": "Cannot be supported in the provided environment."
+      },
+      {
+        "A70": "65",
+        "B70": "scdbg (with GUI)",
+        "C70": "The challenges can be solved without it."
+      },
+      {
+        "A71": "66",
+        "B71": "SCLauncher (32-bit and 64-bit)",
+        "C71": "The challenges can be solved without it."
+      },
+      {
+        "A72": "67",
+        "B72": "Scylla / x64dbg plugins",
+        "C72": "Alternative tools are available."
+      },
+      {
+        "A73": "68",
+        "B73": "sfextract (SingleFileExtractor)",
+        "C73": "The challenges can be solved without it."
+      },
+      {
+        "A74": "69",
+        "B74": "shellcode_launcher",
+        "C74": "The challenges can be solved without it."
+      },
+      {
+        "A75": "70",
+        "B75": "sigBits",
+        "C75": "Cannot be supported in the provided environment."
+      },
+      {
+        "A76": "71",
+        "B76": "stegdetect",
+        "C76": "Cannot be supported in the provided environment."
+      },
+      {
+        "A77": "72",
+        "B77": "SysTools SQLite Viewer (free edition)",
+        "C77": "Requires a commercial license."
+      },
+      {
+        "A78": "73",
+        "B78": "Time Travel Debugging (TTD)",
+        "C78": "The challenges can be solved without it."
+      },
+      {
+        "A79": "74",
+        "B79": "TweakPNG",
+        "C79": "Cannot be supported in the provided environment."
+      },
+      {
+        "A80": "75",
+        "B80": "Universal Extractor 2 (UniExtract2)",
+        "C80": "The challenges can be solved without it."
+      },
+      {
+        "A81": "76",
+        "B81": "VBDec",
+        "C81": "The challenges can be solved without it."
+      },
+      {
+        "A82": "77",
+        "B82": "Volatility 3 symbol tables (windows/linux/mac zip)",
+        "C82": "Cannot be supported in the provided environment."
+      },
+      {
+        "A83": "78",
+        "B83": "VS Code extension: WSL (ms-vscode-remote.remote-wsl)",
+        "C83": "The challenges can be solved without it."
+      },
+      {
+        "A84": "79",
+        "B84": "WinDbg",
+        "C84": "Alternative tools are available."
+      },
+      {
+        "A85": "80",
+        "B85": "Windows Terminal",
+        "C85": "Alternative tools are available."
+      },
+      {
+        "A86": "81",
+        "B86": "WinDump (for Npcap)",
+        "C86": "Alternative tools are available."
+      },
+      {
+        "A87": "82",
+        "B87": "YAFU (Yet Another Factoring Utility)",
+        "C87": "Cannot be supported in the provided environment."
+      }
+    ]
+  }
+]

@@ -1,0 +1,566 @@
+[
+  {
+    "source": "ctf-pwn/advanced-exploits-2.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged validator/execution differential, GC lifetime, truncation, FILE/TLS and pointer-mangling prerequisites into sections 9-12. Full exploit chains not reproduced."
+  },
+  {
+    "source": "ctf-pwn/advanced-exploits-3.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged stack/state overlap, parser/stride/sign issues, inherited descriptors and read-only-primitive reasoning into sections 7 and 12. Named challenges and exact payloads remain reference material."
+  },
+  {
+    "source": "ctf-pwn/advanced-exploits-4.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged Windows ABI/SEH/CFG limitations, ARM conventions, bit/byte filters, object lifetime and dispatch-index reasoning into sections 6, 11-13. AI/ML training example excluded; escalation procedures reference-only."
+  },
+  {
+    "source": "ctf-pwn/advanced-exploits-5.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged emulator OOB, floating-point sorting and abs(INT_MIN) data-interpretation pitfalls into section 12. No exact exploit claimed."
+  },
+  {
+    "source": "ctf-pwn/advanced-exploits.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged parser lengths, VM/JIT, type confusion, integer widths, state/canary and ORW prerequisites into sections 11-12. Historical architecture-specific and ASAN details remain reference-only."
+  },
+  {
+    "source": "ctf-pwn/advanced.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged UAF/JIT, data interpretation, missing register control and linker-resolution prerequisites into sections 7 and 12. Exact timing/Windows/static-address tricks reference-only."
+  },
+  {
+    "source": "ctf-pwn/attack-playbook.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Adapted primitive-first reconnaissance, leak selection and target choice into sections 2, 7 and 9-10. Runtime conditions are explicit."
+  },
+  {
+    "source": "ctf-pwn/field-notes.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Deduplicated heap/ROP/FILE/kernel quick-reference material across sections 7-13; original case payloads remain historical reference."
+  },
+  {
+    "source": "ctf-pwn/format-string.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Adapted sink confirmation, pointer leaks, count arithmetic, transformed input and write-target prerequisites into section 8. Historical positional offsets and format-string payloads remain reference material."
+  },
+  {
+    "source": "ctf-pwn/heap-fsop.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged stdin/stdout fields, vtable validation, zero-size realloc and lifetime counters into sections 9-10. No universal FILE layout or successful modern bypass asserted."
+  },
+  {
+    "source": "ctf-pwn/heap-techniques-2.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged stale residue, pointer fields, cross-bin/partial corruption, custom allocators and size bookkeeping into sections 9-10 and case atlas. Individual historical allocation sequences reference-only."
+  },
+  {
+    "source": "ctf-pwn/heap-techniques.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged allocator/version prerequisites and named heap families into sections 9-10, with safe-linking toy and hook-removal correction. Exact modern/old allocator chains not validated."
+  },
+  {
+    "source": "ctf-pwn/kernel-bypass.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged mitigation distinctions and exact-build requirements into section 13. Source generic CET signal-frame bypass claim not certified; no QEMU installation or host-kernel exploit prescribed."
+  },
+  {
+    "source": "ctf-pwn/kernel-techniques.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged SLUB/cache/race/PTE and error-path prerequisites into section 13. Exact sprays, structure sizes, race success and historic addr_limit behavior not asserted portable."
+  },
+  {
+    "source": "ctf-pwn/kernel.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged supplied-artifact prerequisites, driver handler review, object lifetime and kernel target assumptions into section 13. Exact kernel/CVE/hypervisor exploit code retained as unvalidated source reference."
+  },
+  {
+    "source": "ctf-pwn/overflow-basics.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Adapted offset measurement, pointer packing, canary/field constraints and parser/index errors into sections 4-6 and 12. Added working stdlib pattern/builder; historical exploit offsets unverified."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/3x17.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/alive_note.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/applestore.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/babyallocator.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/babystack.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/bash.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/bash_revenge.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/bookwriter.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/bounty_program_a.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/bounty_program_b.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/break_out.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/calc.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/caov.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/criticalheap.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/criticalheap_pp.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Distinguishes measured realpath output overflow from index broad C++ lifetime explanation."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/de_aslr.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Directory-index writable-GOT/resolver shorthand conflicts with protection constraints; detailed pointer-manipulation route prioritized."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/death_note.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/digimon.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Prioritizes parser index corruption and explicit negative findings over index race-UAF narrative."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/dubblesort.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/food_store.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Index generic heap-overflow summary differs from detailed uninitialized-next-pointer mechanism."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/ghost_party.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/hacknote.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/heap_paradise.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/hitcon_ftp.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Distinguishes detailed option type confusion and stack formatting overflow from index heap-corruption wording."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/kidding.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/mno2.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/omegago.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Prioritizes history-array overflow and board representation over index coordinate-to-GOT narrative."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/orw.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/printable.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/re_alloc.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Source overview and NULL-pointer subsection contradict; atlas requires binary confirmation before accepting UAF."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/re_alloc_revenge.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/README.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "reference-only",
+    "notes": "Full-file structural catalog review with semantic comparison of conflicting summaries to individual cases. Historical index retained as provenance; atlas replaces it with 43 human case lessons and flags contradictions. No historical exploit verified."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/seccomptools.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Prioritizes detailed BPF emulator/kernel differential over index generic hook narrative."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/secret_garden.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/secret_of_my_heart.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/seethefile.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/silver_bullet.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/spirited_away.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/starbound.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/start.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/stupid_boss.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Prioritizes concrete language-object layout confusion over index employee-UAF narrative."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/tcache_tear.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated. Unsupported small-malloc/read overflow assertion explicitly rejected; core dangling-pointer route retained as hypothesis."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/unexploitable.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/pwnable-tw/wannaheap.md",
+    "chapter": "chapters/13-pwn-practice-atlas.md",
+    "disposition": "adapted",
+    "notes": "Individual case has prerequisites, concrete mechanism, investigation sequence, checkpoint and source path in atlas. Semantic review of vulnerability/primitive sections; full exploit payloads and original binaries not validated."
+  },
+  {
+    "source": "ctf-pwn/rop-advanced.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged SROP, partial pointer redirection, vDSO, finalizers and dynamic resolution into section 7 and seccomp distinctions into section 11. Exact chains/reference payloads not reproduced."
+  },
+  {
+    "source": "ctf-pwn/rop-and-shellcode.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged two-stage leaks, ABI, gadget clobbers, stack pivots and constrained staging into sections 6-7 and 11. Removed claims of universal csu gadgets and fixed post-call register values."
+  },
+  {
+    "source": "ctf-pwn/sandbox-escape.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "merged",
+    "notes": "Merged guest/host boundaries, interpreter errors and descriptor state into section 12; shell-specific cases preserved in atlas. FUSE/CUSE and unapproved host escape setup not provided."
+  },
+  {
+    "source": "ctf-pwn/scripts/fmtstr_payload_suite.py",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Fully read source template; reference-only with section 14 defect review: offset/protocol assumptions, fallback address, adjacent GOT destination and write-width semantics require target proof."
+  },
+  {
+    "source": "ctf-pwn/scripts/ret2libc_two_stage.py",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Fully read source template; reference-only with section 14 defect review: fixed gadgets/offsets, binary leak strip, failed-process reuse, prompt and reentry assumptions. Replaced concepts with stdlib builders."
+  },
+  {
+    "source": "ctf-pwn/scripts/seccomp_orw_generator.py",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Fully read source template; reference-only with section 14 defect review: misleading x32 label, hardcoded scratch memory/counts and invalid seccomp safety assertion. No execution."
+  },
+  {
+    "source": "ctf-pwn/scripts/shellcraft_asm.py",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Fully read source template; reference-only with section 14 defect review: literal wildcard path, unproven control transfer, read stub lacking transfer and fixed descriptors. No execution."
+  },
+  {
+    "source": "ctf-pwn/scripts/srop_execve.py",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Fully read source template; reference-only with section 14 defect review: arb_read_gen actually emits execve frames, string placement unproven, frame/trigger/address assumptions. No execution."
+  },
+  {
+    "source": "ctf-pwn/SKILL.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Rebuilt agent exploit recipes as evidence-first human workflow, approved tool routes and lower-priority advanced material. No universal offsets, remote defaults, blanket installers or AI tools retained."
+  },
+  {
+    "source": "ctf-pwn/static-signals.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Adapted evidence-versus-proof mitigation table into section 2; absence of symbols is not treated as absence of protection."
+  },
+  {
+    "source": "ctf-pwn/tools-mcp.md",
+    "chapter": "chapters/08-binary-exploitation.md",
+    "disposition": "excluded",
+    "notes": "Agent/MCP integration, AI workflows and unapproved tools excluded under event rules. Structural/section review only; generic local debugging/decompilation concepts rewritten using approved tools elsewhere. Original retained as provenance."
+  },
+  {
+    "source": "ctf-reverse/anti-analysis-ctf.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged signal handlers, parent/child patching, instruction inversion and runtime module reasoning into sections 8-9 and language routes. Specialized historical code remains reference material; de4dot instructions excluded."
+  },
+  {
+    "source": "ctf-reverse/anti-analysis.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged debugger checks, signals, TLS, integrity and hidden flow into section 9; hardware-breakpoint invisibility and universal bypass claims not retained. Section-level semantic review, no bypass executed."
+  },
+  {
+    "source": "ctf-reverse/field-notes.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Deduplicated format/platform/pattern index into sections 12-13. Selected semantic lessons retained, historical commands and payloads not individually reproduced."
+  },
+  {
+    "source": "ctf-reverse/languages-compiled.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged Go/Rust/Swift/Kotlin/C++ runtime and layout clues into sections 5, 12 and 13. C2 enumeration and unsupported runtimes retained only as source provenance; no external contact."
+  },
+  {
+    "source": "ctf-reverse/languages-platforms.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged APK/JNI, Electron, game resources, state machines, EBCDIC and bytecode routes into sections 12-13. Platform-specific injection, cloud and device workflows are not event procedures."
+  },
+  {
+    "source": "ctf-reverse/languages.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged bytecode versioning, DOS stubs, managed/native formats and esolang state recovery into sections 2, 12-13. Specialized unpackers and unavailable engines are conditional/reference-only."
+  },
+  {
+    "source": "ctf-reverse/mba-simplification.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "adapted",
+    "notes": "Adapted width-aware MBA reasoning and equivalence checking into a complete exhaustive 8-bit stdlib example. msynth/Miasm setup and synthesis internals remain specialized reference material."
+  },
+  {
+    "source": "ctf-reverse/patterns-ctf-2.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged staged decryptors, ZIP/license layers, prefix hashes, decision trees, lattices, GF(2^8), and ROPfuscation into section 13. Exact challenge constants and exploit snippets not validated."
+  },
+  {
+    "source": "ctf-reverse/patterns-ctf-3.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged popcount, hardware output, hidden handlers, BWT, shader/VM state, counters, date keys, CRT and unusual ROM representations into section 13. ML inversion excluded under event policy; case payloads reference-only."
+  },
+  {
+    "source": "ctf-reverse/patterns-ctf.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged SPN/image/loader/VM/game/maze/embedded-format/library-diff patterns into sections 10 and 13. Historical examples guide recognition only; arbitrary service enumeration excluded."
+  },
+  {
+    "source": "ctf-reverse/patterns-runtime.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged timing, signal-mediated mutation, staged loaders, decoys and quadtree decoding into sections 8-10 and 13. Full original oracle implementations not validated."
+  },
+  {
+    "source": "ctf-reverse/patterns.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged VM, transform direction, width, nanomite/signal and self-modification reasoning into sections 8-10. Replaced undefined example constants with complete toy exercises."
+  },
+  {
+    "source": "ctf-reverse/platforms-hardware.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged architecture modes, GPIO/LCD, peripheral crypto, bootloaders and guest-dispatch observations into sections 10 and 13. Real-device/QEMU workflows are reference-only without an approved supplied lab."
+  },
+  {
+    "source": "ctf-reverse/platforms.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged firmware, drivers, engines, certificate-derived keys and foreign-platform limitations into sections 12-13. macOS/iOS and emulator dependencies not asserted present."
+  },
+  {
+    "source": "ctf-reverse/radare2-r2pipe.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "adapted",
+    "notes": "Adapted static session, xrefs, function disassembly, batch JSON and plugin boundaries into section 4. ESIL/r2pipe retained as conditional follow-up, with no plugin installation."
+  },
+  {
+    "source": "ctf-reverse/SKILL.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "adapted",
+    "notes": "Rebuilt agent triage as a human workflow; blanket installation, agent routing, online analysis and unsupported tool assumptions removed. Core text reviewed; individual historical payloads are not validated."
+  },
+  {
+    "source": "ctf-reverse/tools-advanced-2.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged watchpoints, measured-address breakpoints, extraction, patch/dump and constraint reasoning into sections 5-9. Binary Ninja and unlisted tooling excluded; exact historical scripts reference-only."
+  },
+  {
+    "source": "ctf-reverse/tools-advanced.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged deobfuscation, diffing, VM lifting/model choice into sections 5, 10 and 13. Unapproved or unlisted standalone tools are not a competition workflow."
+  },
+  {
+    "source": "ctf-reverse/tools-dynamic.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "adapted",
+    "notes": "Adapted GDB/x64dbg and observation-only current Frida API into sections 6-7; bounded angr toy in section 11. LLDB/device requirements not asserted available."
+  },
+  {
+    "source": "ctf-reverse/tools-emulation.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged emulator-state, runtime-model and side-channel prerequisites into sections 8-10. Qiling/Triton/Pin setup and historical oracle payloads remain conditional source reference."
+  },
+  {
+    "source": "ctf-reverse/tools-mcp.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "excluded",
+    "notes": "Agent/MCP integration, AI workflows and unapproved tools excluded under event rules. Structural/section review only; generic local debugging/decompilation concepts rewritten using approved tools elsewhere. Original retained as provenance."
+  },
+  {
+    "source": "ctf-reverse/tools.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "adapted",
+    "notes": "Adapted approved platform-specific static/debug routes, triage and language/tool selection across sections 1-7 and 12. IDA/Binary Ninja/online comparison instructions excluded."
+  },
+  {
+    "source": "ctf-reverse/unicorn-emulation.md",
+    "chapter": "chapters/06-reverse-engineering.md",
+    "disposition": "merged",
+    "notes": "Merged CPU versus OS modeling, MMIO, mode/endianness, snapshots, dirty-memory reset, budgets and fault diagnosis into section 10. Detailed hardware harnesses remain reference-only; no emulator availability or successful execution claimed."
+  }
+]

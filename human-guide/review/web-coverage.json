@@ -1,0 +1,398 @@
+[
+  {
+    "source": "ctf-web/auth-and-access-2.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Normalization, delimiter/collection validation, SRP arithmetic, and query-merge cases folded into source-driven auth checks; collision flooding not a default workflow."
+  },
+  {
+    "source": "ctf-web/auth-and-access.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Ownership, cookies, normalization, access control, OTP hypotheses, stale WebSocket/SSE auth; AI/chatbot subsections excluded; external account takeover not carried forward."
+  },
+  {
+    "source": "ctf-web/auth-infra.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "OAuth/SAML/CORS, local Git history, signature parsing and length-extension distinctions retained; external credential harvesting and unrelated CI takeover omitted."
+  },
+  {
+    "source": "ctf-web/auth-jwt.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "JWT/JWE segmentation, claim verification, key-source trust, replay, encryption-versus-authentication, and complete broken-verifier toy; no rejected JWT Editor extension."
+  },
+  {
+    "source": "ctf-web/client-side-advanced.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Origin/opener/null-origin, MIME/base/nonce, CSS information leakage, Unicode normalization, React state and timing prerequisites merged; public-cloud exfiltration excluded."
+  },
+  {
+    "source": "ctf-web/client-side.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Reflection context, DOM sources/sinks, path construction, CSP, bot reproduction, cache and timing controls; public callback/tunnel workflows excluded."
+  },
+  {
+    "source": "ctf-web/cves.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Version-specific CVE material retained as evidence-led recognition and offline-advisory workflow; historical CVE labels/payloads are not asserted universally current."
+  },
+  {
+    "source": "ctf-web/field-notes.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Duplicate quick references merged into injection/auth/browser/chain chapters; AI and public callback portions excluded."
+  },
+  {
+    "source": "ctf-web/node-and-prototype.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Pollution requires controllable merge plus gadget; tested-style local JSON/prototype distinction and version-specific VM caveats."
+  },
+  {
+    "source": "ctf-web/pat-reference.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Approved Kali offline PayloadsAllTheThings searches replace lazy cloning and indiscriminate payload loading; exact listed path included."
+  },
+  {
+    "source": "ctf-web/python-requests.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Sessions, CSRF, redirects, framing, encoding, timeouts and controls translated into manual Repeater and single-request standard-library workflow; high concurrency and external callbacks removed."
+  },
+  {
+    "source": "ctf-web/scripts/async_fuzz.py",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Reference-only: concurrency, disabled TLS verification, response heuristics and processing/regex correctness concerns; replaced with bounded evidence-backed ffuf/Repeater."
+  },
+  {
+    "source": "ctf-web/server-side-2.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "XXE, XML, command/argument injection and GraphQL manual requests; entity expansion differentiated from external access."
+  },
+  {
+    "source": "ctf-web/server-side-advanced-2.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Internal fetch/protocol capability boundaries, parser discrepancies, source context, query shifts and renderer execution merged; only assigned challenge services."
+  },
+  {
+    "source": "ctf-web/server-side-advanced-3.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Polyglots, repeated slashes, RNG hints, SOAP/header parsing and outbound URL credential boundaries merged into fetch/serialization diagnostics."
+  },
+  {
+    "source": "ctf-web/server-side-advanced-4.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Renderer attachments, NoSQL/Go templates, archives, protocol and RSC version recognition merged; unapproved interception/repository utilities not assumed available."
+  },
+  {
+    "source": "ctf-web/server-side-advanced.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Archive symlinks, path normalization, renderers/debug/version prerequisites retained; ZIP inspection before extraction."
+  },
+  {
+    "source": "ctf-web/server-side-deser.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Safe pickle disassembly, object hooks, STOP handling, serialized length and race conditions; generic unapproved gadget-tool invocation not reproduced."
+  },
+  {
+    "source": "ctf-web/server-side-exec-2.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "SQL/context filters, execution/serialization, metadata/options and historical runtime behavior merged; obsolete language features explicitly require matching versions."
+  },
+  {
+    "source": "ctf-web/server-side-exec.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Language-specific evaluators, uploads, argument boundaries, variable overwrite, XPath and format fields; use minimal same-challenge recovery."
+  },
+  {
+    "source": "ctf-web/server-side.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "SQL, PHP wrappers/types, SSTI, format traversal, SSRF and parser disagreements; confirmed challenge file recovery shown."
+  },
+  {
+    "source": "ctf-web/SKILL.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "adapted",
+    "notes": "Human first-pass request workflow; agent invocation, AI assistance, public callbacks, blanket installation, and brute-force defaults removed."
+  },
+  {
+    "source": "ctf-web/sql-injection.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "merged",
+    "notes": "Context-first boolean/UNION/blind/second-order/metadata/format/charset checks, bounded sqlmap discovery and one-column recovery; DBMS-specific legacy tricks contextualized."
+  },
+  {
+    "source": "ctf-web/tools-mcp.md",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded AI/agent MCP execution, approval bypass guidance, Professional assumptions and public callbacks; replaced by manual Chrome/Burp Community."
+  },
+  {
+    "source": "ctf-web/web3.md",
+    "chapter": "chapters/02-web-exploitation.md",
+    "disposition": "reference-only",
+    "notes": "Static source/ABI/storage/authorization diagnostics for delegatecall, reentrancy, calldata, replay and compiler-specific storage; no unlisted or online Solidity toolchain assumed."
+  },
+  {
+    "source": "ctf-crypto/advanced-math.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "Small roots, GF(2) equations, DLP, Hensel/polynomial CRT, group mappings and unusual totients; tested local linear algebra/BSGS and optional Sage environment toy."
+  },
+  {
+    "source": "ctf-crypto/classic-ciphers.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Substitution/Vigenere/book/symbol recognition, aligned known-plaintext XOR and reused streams; image/grid/error-correcting variants cross-referenced."
+  },
+  {
+    "source": "ctf-crypto/dh-attacks.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Trivial generators, group-order smoothness, persistent-key subgroup conditions and exact shared-secret toy."
+  },
+  {
+    "source": "ctf-crypto/ecc-attacks.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "Curve/order/validation map, singular/anomalous/MOV/twist/invalid-point/fault families, Ed25519/X25519 constraints and verified nonce-reuse arithmetic."
+  },
+  {
+    "source": "ctf-crypto/exotic-crypto-2.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "ElGamal/matrix, homomorphic predicates, noise, mnemonic checksum, CRT sharing and Rabin four-root demonstration; no public wallet services."
+  },
+  {
+    "source": "ctf-crypto/exotic-crypto.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "Operation-preserving reduction diagnostics for Paillier, tropical, braid, permutation, monotone and reduced-round designs; historical media/error-correction context."
+  },
+  {
+    "source": "ctf-crypto/historical.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "Lorenz wheel/alphabet/stepping and exact-edition book-cipher prerequisites retained in advanced section 17 and core classic section."
+  },
+  {
+    "source": "ctf-crypto/lattice-and-lwe.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "HNP/truncated-LCG/LWE/approximate-GCD/subset-sum/GGH/NTRU/orthogonal/BDD model table, bounds and extraction verification; optional local dependencies."
+  },
+  {
+    "source": "ctf-crypto/modern-ciphers-2.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Length-extension versus HMAC, compression/stream/ECB/CBC concepts, weak key derivation and old collision claims contextualized."
+  },
+  {
+    "source": "ctf-crypto/modern-ciphers-3.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Error/timing predicates, custom linear/aggregate hashes, CRC and SPN modelling; chosen-input and noise constraints retained."
+  },
+  {
+    "source": "ctf-crypto/modern-ciphers-4.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "GCM/Poly1305 field distinctions, partitioning/key-commitment requirements, sponge parameters and reduced-round eSTREAM limitations."
+  },
+  {
+    "source": "ctf-crypto/modern-ciphers.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Mode identification, CBC bit flips and oracle simulation, ECB suffix toy, hashes/MACs, GCM, reduced-round and RSA-oracle prerequisites."
+  },
+  {
+    "source": "ctf-crypto/post-quantum.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "ML-KEM/ML-DSA parameter recognition, exact implementation weakness, flattening/estimator limitations; no promise to solve secure parameters."
+  },
+  {
+    "source": "ctf-crypto/prng-attacks.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Partial/modulo output constraints, hidden draws, backward stepping, state/correlation/oracle distinctions; no generic seed-tool assumption."
+  },
+  {
+    "source": "ctf-crypto/prng.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Exact runtime/output modelling; LCG recovery and backward stepping toy, MT float limitations, time seeds, PCG/xoshiro/chaotic map recognition."
+  },
+  {
+    "source": "ctf-crypto/rsa-attacks-2.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Shared/biased/repeated factors, nonunique roots, faults, hidden modulus, homomorphism, CRT and oracle details merged; candidate verification emphasized."
+  },
+  {
+    "source": "ctf-crypto/rsa-attacks.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Low exponent, common modulus, Wiener, factoring, broadcast, partial roots and oracle distinctions; core and advanced tested local arithmetic."
+  },
+  {
+    "source": "ctf-crypto/SKILL.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "adapted",
+    "notes": "Overview and duplicate recipes merged into exact arithmetic, byte handling, hypothesis map and verifiable toy solvers; online factoring/installers excluded."
+  },
+  {
+    "source": "ctf-crypto/stream-ciphers.md",
+    "chapter": "chapters/07-cryptography.md",
+    "disposition": "merged",
+    "notes": "Reused streams, tested LFSR Berlekamp-Massey, filtered/combined register caveats and RC4/eSTREAM recognition."
+  },
+  {
+    "source": "ctf-crypto/zkp-and-advanced.md",
+    "chapter": "chapters/14-advanced-crypto.md",
+    "disposition": "merged",
+    "notes": "Transcripts/public inputs, Groth16/nullifier/KZG/DV-SNARG/free-XOR/FROST constraints and tested Shamir interpolation; corrected misleading FROST lattice classification."
+  },
+  {
+    "source": "ctf-misc/audio.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Channel/format-first workflow, Kali spectrogram commands, WAV metadata and tested RMS Morse-run extractor; SSTV package capability caveat."
+  },
+  {
+    "source": "ctf-misc/bashjails.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Input/eval/shell distinction, octal quoting and built-in challenge file read; startup/environment changes confined to explicit challenge."
+  },
+  {
+    "source": "ctf-misc/ctfd-navigation.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "adapted",
+    "notes": "Manual organizer portal workflow; documented competitor API only, tokens kept private and point-cost hints respected; no hidden challenge enumeration."
+  },
+  {
+    "source": "ctf-misc/dns.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Assigned-resolver/capture-only DNS, NSEC/IXFR/ECS/round-robin/rebinding/tunnel reconstruction diagnostics; no public exfiltration."
+  },
+  {
+    "source": "ctf-misc/encodings-advanced.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Gray/BCD/grid/polyglot/RTF/SMS/HDL/visual alphabet diagnostics; original unsafe execution and unsupported decoder assumptions removed."
+  },
+  {
+    "source": "ctf-misc/encodings.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Strict layered decoding, UTF-16/BCD/float/code-point distinctions, QR rendering and esolang constraints; runnable local examples."
+  },
+  {
+    "source": "ctf-misc/games-and-vms-2.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Cookies/WebSocket/time-only server validation and WASM authority, De Bruijn cyclic convention and instrumented interpreter prerequisites."
+  },
+  {
+    "source": "ctf-misc/games-and-vms-3.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Stateful protocol phases, emulator/reverse routing, constraint/maze/puzzle models and explicit container scope; unportable seccomp/editor variants contextualized."
+  },
+  {
+    "source": "ctf-misc/games-and-vms-4.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Local recurrence modelling, precision demo and esolang/QR structure; online sequence lookup excluded and unlisted OCR/browser automation not assumed."
+  },
+  {
+    "source": "ctf-misc/games-and-vms.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Authoritative state, bytecode/container routing, constraints and floating-point semantics; BFS and enumeration toys; explicit challenge scope."
+  },
+  {
+    "source": "ctf-misc/linux-privesc.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Challenge-only identity/sudo/service/path/permissions checks and version-specific primitives; no organizer host takeover/persistence workflows."
+  },
+  {
+    "source": "ctf-misc/pyjails.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "Evaluator/filter/AST/version checks, complete object-reference escape toy and advanced syntax limits; invalid eval assignment and nonportable runtime offsets corrected."
+  },
+  {
+    "source": "ctf-misc/rf-sdr.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "merged",
+    "notes": "IQ format/sample-rate/bandwidth/symbol/framing model, float32 fixture reader, carrier/timing caveats; no unapproved SDR suite assumed."
+  },
+  {
+    "source": "ctf-misc/SKILL.md",
+    "chapter": "chapters/11-miscellaneous.md",
+    "disposition": "adapted",
+    "notes": "Overview and duplicate encoding/media/jail/service recipes merged into category-aware bounded manual workflow."
+  },
+  {
+    "source": "ctf-ai-ml/adversarial-ml.md",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded gradient attacks, patches, evasion, poisoning/backdoor and Keras/foolbox workflows under AI-tool restriction; no runnable framework recipes."
+  },
+  {
+    "source": "ctf-ai-ml/llm-attacks.md",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded prompt injection, jailbreaks, context/token manipulation and AI tool-use exploitation; conventional web/auth analysis remains manual."
+  },
+  {
+    "source": "ctf-ai-ml/model-attacks.md",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded model/weight inversion, LoRA, extraction and membership inference; ordinary embedded artifacts may be inspected without loading a model."
+  },
+  {
+    "source": "ctf-ai-ml/SKILL.md",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded AI/ML framework installation, model inference and AI-service interaction; approved local metadata/ordinary parser alternatives explained."
+  },
+  {
+    "source": "ctf-similar-search/search.py",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded API client transmits queries/URLs and requests include_answer; code reviewed as provenance, not executed."
+  },
+  {
+    "source": "ctf-similar-search/search.sh",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded shell launcher for Tavily Python client; no runnable online search wrapper retained."
+  },
+  {
+    "source": "ctf-similar-search/SKILL.md",
+    "chapter": "chapters/12-excluded-and-advanced.md",
+    "disposition": "excluded",
+    "notes": "Excluded agent/Tavily search and AI-answer workflow; replaced with offline approved reference search."
+  }
+]

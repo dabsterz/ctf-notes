@@ -1,0 +1,198 @@
+# OSINT from supplied evidence
+
+Build an evidence trail from a clue to an answer. Preserve exact identifiers, original text, dates, and uncertainty. A matching username, reused photograph, or hosting IP is a lead; it does not independently establish identity or location.
+
+This chapter emphasizes local files and organizer-provided material. Use the handbook's competition rules before consulting external sites. Do not upload challenge images to reverse-image services, use face recognition, contact people or bots, or treat a recovered token as permission to access an account.
+
+## Environment and local inventory
+
+**Windows native:** Chrome and a PDF viewer, Windows workbook rows 12 and 10. **WSL:** Python 3, ExifTool, pdftotext, strings (Windows rows 14, 21, 22, 18). **Kali:** Git, ripgrep, ImageMagick, SQLite, MediaInfo (Kali rows 56, 126, 74, 138, 94). Keep those environments distinct; a Kali tool is not automatically installed in WSL.
+
+Use a notebook or CSV with these columns:
+
+```text
+clue_id,source_file,source_offset_or_page,observation,hypothesis,confidence,next_check
+```
+
+Example observation: “profile-export.json contains account ID 123 and display name Harbor.” Hypothesis: “Harbor is the account's current alias.” The number is more stable than a display name, but exported metadata can still be fabricated.
+
+**Kali**, search a supplied evidence directory without contacting its links:
+
+```bash
+rg -n -i 'username|handle|author|identifier|location|latitude|longitude' evidence
+rg -n -i 'https?://|mailto:|t\.me/|github\.com/' evidence
+```
+
+**WSL**, inspect media metadata and PDF text:
+
+```bash
+exiftool -a -u -g1 evidence/photo.jpg
+exiftool -GPSLatitude -GPSLongitude -GPSLatitudeRef -GPSLongitudeRef -n evidence/photo.jpg
+pdftotext -layout evidence/document.pdf document.txt
+strings -a -n 6 evidence/blob.bin > blob-strings.txt
+```
+
+Expected result: concrete coordinates, timestamps, embedded names, document titles, or linked identifiers. Metadata can be edited or stripped; absence is not proof of deception. Do not assume every social platform always removes every metadata field.
+
+## Parse saved pages and JSON
+
+Saved HTML may include richer JSON-LD or application state than the visible page. In Chrome, open a **copy** only if its active-content behavior is understood; otherwise read as text. Search for `application/ld+json`, `author`, `identifier`, `content`, and media URLs. Keep archived fetch date separate from the page's claimed publication date.
+
+This **WSL standard-library** script extracts link targets and script blocks from a local saved page. It does not fetch them. Save as `page_extract.py`:
+
+```python
+from html.parser import HTMLParser
+from pathlib import Path
+
+class Page(HTMLParser):
+    def __init__(self):
+        super().__init__(); self.links=[]; self.blocks=[]; self.current=None
+    def handle_starttag(self, tag, attrs):
+        attrs=dict(attrs)
+        for key in ('href','src'):
+            if key in attrs: self.links.append((tag,key,attrs[key]))
+        if tag=='script': self.current=[attrs.get('type',''),[]]
+    def handle_data(self,data):
+        if self.current is not None: self.current[1].append(data)
+    def handle_endtag(self,tag):
+        if tag=='script' and self.current is not None:
+            self.blocks.append(self.current); self.current=None
+
+p=Page(); p.feed(Path('page.html').read_text(encoding='utf-8',errors='replace'))
+for item in p.links: print(item)
+out=Path('page-scripts'); out.mkdir(exist_ok=True)
+for i,(kind,chunks) in enumerate(p.blocks):
+    (out/f'{i:03d}.txt').write_text(''.join(chunks),encoding='utf-8')
+    print(i,kind)
+```
+
+Read extracted JSON with `python3 -m json.tool page-scripts/000.txt` when that block is actual JSON. JavaScript assignments are not JSON; extract the value deliberately rather than executing the block. An HTTP 200 status can be a login wall or generic “not found” page; compare body content and stable identifiers.
+
+## Aliases, social exports, and timestamps
+
+In supplied profile exports, correlate numeric IDs, explicit cross-links, avatar history, post IDs, and dates. Same handles on different platforms are not identity proof. Numeric suffixes could be postal codes, years, random numbers, or deliberate misdirection; test alternatives against independent evidence.
+
+For a Twitter-style Snowflake **known to use that scheme**, decode its creation timestamp locally:
+
+```python
+from datetime import datetime,timezone
+snowflake=1234567890123456789  # replace with the observed numeric ID
+milliseconds=(snowflake>>22)+1288834974657
+print(datetime.fromtimestamp(milliseconds/1000,timezone.utc).isoformat())
+```
+
+Discord uses a different epoch; other services use entirely different ID schemes. A calculated timestamp does not prove an account belongs to a person. Retain the original identifier alongside the derived time.
+
+For saved social-media datasets, inspect all supplied posts/replies, bios, playlist descriptions, role names, emoji frames, and image variants. Short-duration GIF frames can hide text; use the steganography chapter's animation workflow. Preserve playlist/album order when testing acrostics. For gaming data, include realm/server and character IDs; a character name without server context is ambiguous.
+
+A supplied fitness route can identify a **challenge location** from its path and landmarks. Do not infer or expose a real person's home from privacy-zone boundaries. Use the exact endpoint/waypoint requested by the challenge, and distinguish a route from the camera position.
+
+## Unicode and encoded clues
+
+Before normalizing text, list its codepoints. Homoglyph encodings often mix Latin and Cyrillic lookalikes, but emoji, accents, and smart punctuation are not automatically secret bits. **WSL:**
+
+```python
+from pathlib import Path
+import unicodedata
+text=Path('post.txt').read_text(encoding='utf-8')
+for i,c in enumerate(text):
+    print(i,repr(c),f'U+{ord(c):04X}',unicodedata.name(c,'CONTROL'))
+pairs={'a':'\u0430','e':'\u0435','o':'\u043e','p':'\u0440','c':'\u0441','x':'\u0445'}
+zeros=set(pairs); ones=set(pairs.values())
+bits=''.join('0' if c in zeros else '1' for c in text if c in zeros|ones)
+for shift in range(8):
+    b=bits[shift:]
+    data=bytes(int(b[i:i+8],2) for i in range(0,len(b)-7,8))
+    print(shift,repr(data))
+```
+
+The explicit alphabet is a hypothesis; change it only with evidence. Whole-text ASCII/non-ASCII encoding is a different scheme and includes spaces/punctuation differently. Record the choice so someone else can reproduce it.
+
+For a Base58 clue, preserve leading `1` characters as leading zero bytes:
+
+```python
+from pathlib import Path
+alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+s=Path('base58.txt').read_text().strip()
+number=0
+for ch in s: number=number*58+alphabet.index(ch)
+zeroes=len(s)-len(s.lstrip('1'))
+decoded=b'\0'*zeroes+number.to_bytes((number.bit_length()+7)//8,'big')
+print(repr(decoded))
+```
+
+Validate a Base58Check checksum when the format requires one. Strings of 32/40/64 hexadecimal characters can be MD5/SHA-1/SHA-256, but may also be random IDs, Tor fingerprints, keys, or data. Length is a classification clue, not a definitive algorithm detector.
+
+## Geolocation without image uploads
+
+Make an observation sheet before choosing a country: readable sign fragments, writing systems, road numbers, driving side, rail crossings, building layout, terrain, coastline, shadows, and unique small objects. Generic architecture and vegetation should carry low confidence. A Cyrillic sign does not uniquely identify Russia, and motorway sign colors vary by road class; the source's one-feature country table was too strong.
+
+**Kali ImageMagick**, row 74, makes local inspection copies:
+
+```bash
+magick photo.jpg -crop 600x300+120+80 +repage -resize 200% sign.png
+magick sign.png -flop mirrored-sign.png
+magick sign.png -colorspace Gray -auto-level contrast-sign.png
+```
+
+The crop is `width×height+x+y`; measure it on the image. `-flop` mirrors horizontally. Use nearest-neighbor scaling for pixel grids; ordinary photo inspection can use other interpolation. Preserve the original and record transformations. Do not invent illegible letters; keep alternate readings in the notes.
+
+Compare candidate photographs/maps already supplied by the organizer. Verify at least two independent scene constraints: building alignment plus road geometry, or sign plus coastline. For exact viewpoint tasks, match camera position using foreground poles, paths, bollards, and the relative alignment of distant buildings. The subject's coordinate can differ substantially from the camera's.
+
+For newspaper or product clues, use supplied catalogs/archives: record publication date, page number, headline, model number, voltage/capacity, and dimensions. A matching brand without the exact model is insufficient. For a series of music landmarks, solve locations first, then assemble the per-image key numbers in the specified order; do not adjust uncertain locations merely to force readable ASCII.
+
+## Coordinates and local spatial checks
+
+Latitude/longitude order and hemisphere signs are frequent errors. Decimal degrees are not degrees-minutes-seconds. An MGRS string includes zone, latitude band, grid square, and equally precise easting/northing digits; do not treat it as a decimal coordinate. A short Plus Code needs a reference locality; a full Open Location Code does not. What3Words is a distinct system and cannot be converted using a guessed word grid.
+
+When non-AI Python libraries are needed in **WSL**, Windows row 14 permits them except explicit exclusions; use a documented coordinate conversion library only after checking its input/output convention. Do not assume public conversion websites are an approved analysis route. If the required proprietary lookup is unavailable, preserve the verified coordinates and state the conversion dependency.
+
+For a supplied `places.csv` with `name,lat,lon`, this **WSL** script ranks locations near a clue coordinate using a spherical distance:
+
+```python
+import csv,math
+latitude,longitude=13.7563,100.5018  # replace with clue coordinates
+def distance(lat,lon):
+    a,b=map(math.radians,(latitude,lat))
+    dlat=b-a; dlon=math.radians(lon-longitude)
+    h=math.sin(dlat/2)**2+math.cos(a)*math.cos(b)*math.sin(dlon/2)**2
+    return 6371000*2*math.asin(min(1,math.sqrt(h)))
+rows=[]
+with open('places.csv',newline='',encoding='utf-8') as f:
+    for row in csv.DictReader(f):
+        rows.append((distance(float(row['lat']),float(row['lon'])),row['name']))
+for metres,name in sorted(rows)[:20]: print(round(metres,1),name)
+```
+
+Expected result: a candidate list, not a final match. Ten metres may be smaller than the map's coordinate error. For a supplied OSM JSON export, filter `elements[].tags` for `shop`, `amenity`, `railway`, and `tourism`, then compare proximity locally. Ways may need geometry/centroids; a node-only export can omit the desired business entirely.
+
+## DNS, registration, archives, and infrastructure
+
+Start with supplied DNS captures, zone files, WHOIS/RDAP exports, certificate records, or archive indexes. Extract TXT/CNAME/MX records and preserve answer timestamps/TTL. TXT records can consist of multiple strings within one record: join those in order, but do not merge independent answers arbitrarily.
+
+A stored archive index can reveal old URLs and date ranges; an archived snapshot's timestamp is the crawl time, not the original publication time. Compare saved old/new pages for changed aliases and links. For saved Google Docs/Sheets exports, preserve document IDs and sheet IDs; a private-access response is not a puzzle to bypass.
+
+Registrars, shared name servers, shared IPs, and ASNs are infrastructure correlations, not ownership proof. IP geolocation may point to a provider, VPN, or coarse regional estimate. A reused SSH host key or certificate can indicate a reused image/configuration rather than one physical server. Tor relay fingerprint/family data in a supplied export can support chronology, but does not identify a user.
+
+Active DNS queries, zone transfers, service fingerprinting, and scanning belong only to a challenge-designated target and the permitted tools for that machine. This offline chapter does not turn a public hostname found in evidence into an attack target. Do not copy the historical cross-challenge infrastructure-pivot advice into event practice.
+
+## Repository and file-metadata pivots
+
+**Kali Git**, row 56, on a supplied local repository:
+
+```bash
+git -C repo log --all --format='%H %aI %an <%ae> %cn <%ce>'
+git -C repo log --all --diff-filter=D --name-status
+git -C repo log --all -p -- '*.private' '*.key' '*.txt'
+git -C repo show COMMIT:path/to/file
+```
+
+Replace `COMMIT` with an observed ID. Examine `.mailmap`, README links, contributors, commit messages, and supplied issue/review exports. Author/committer fields are user-controlled; most Git history is not cryptographically signed. Even a valid signature needs a trusted key-to-identity link.
+
+For a supplied `.DS_Store`, inspect filenames with a permitted local non-AI parser in WSL; Finder metadata indicates names seen in a directory, not contents or necessarily current files. Do not recursively fetch discovered paths from unrelated sites. For TTF remapping clues, a non-AI `fontTools` script can inspect cmap and glyph contours locally; contour matching works best against the exact reference font and normalization, not any arbitrary standard font.
+
+## Finish the chain
+
+For each answer component, record the source, exact observation, transformation, and independent confirmation. Keep rejected hypotheses too when they explain ambiguity. A final location should state whether it is a building, camera point, route waypoint, or coordinate grid cell, with the requested precision.
+
+Source material adapted: all five files in `ctf-osint/`. Agent automation, paid/API-key services, public image uploads, face recognition, credentialed Discord enumeration, live bot interaction, invasive location inference, and cross-challenge pivots were excluded. Their underlying local evidence-reading methods are retained where useful.
